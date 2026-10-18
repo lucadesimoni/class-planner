@@ -1,0 +1,132 @@
+# Beispiel: Kindergarten und Primarschule Malters (LU)
+#
+# Standorte nach öffentlichen Angaben (Schuljahr 2025/26): Primarschulhäuser
+# Bündtmättli und Eischachen (je 4 Kindergärten), Wald-Kindergarten "Im Feld".
+# Koordinaten, Raumzahlen, Lehrpersonen und Stundentafel sind ANNAHMEN für das
+# Beispiel – bitte mit den echten Daten der Schule ersetzen.
+
+name: Schule Malters – Kindergarten & Primar (Beispiel)
+jahrgaenge: [KG1, KG2, "1", "2", "3", "4", "5", "6"]
+
+schulhaeuser:
+  - name: Bündtmättli
+    kuerzel: BM
+    lat: 47.0338
+    lon: 8.1862
+    raeume:
+      - {name: BM-Zi, typ: Klassenzimmer, anzahl: 13, plaetze: 25}
+      - {name: BM-KG, typ: Kindergarten, anzahl: 4, plaetze: 22}
+      - {name: BM-Halle, typ: Turnhalle, anzahl: 2, plaetze: 30}
+      - {name: BM-Werkraum, typ: Werkraum, anzahl: 2, plaetze: 24}
+  - name: Eischachen
+    kuerzel: EI
+    lat: 47.0402
+    lon: 8.1765
+    raeume:
+      - {name: EI-Zi, typ: Klassenzimmer, anzahl: 10, plaetze: 25}
+      - {name: EI-KG, typ: Kindergarten, anzahl: 4, plaetze: 22}
+      - {name: EI-Halle, typ: Turnhalle, anzahl: 2, plaetze: 30}
+      - {name: EI-Werkraum, typ: Werkraum, plaetze: 24}
+  - name: Im Feld
+    kuerzel: IF
+    lat: 47.0445
+    lon: 8.1880
+    raeume:
+      - {name: Waldplatz, typ: Wald, plaetze: 20}
+
+klassenbildung:
+  umweg_faktor: 1.3          # Luftlinie x 1.3 ≈ Fussweg
+  max_schulweg_m: {KG1: 4000, KG2: 4000, default: 6000}
+  vorlagen:                  # erlaubte Klassentypen
+    - {jahrgaenge: [KG1, KG2], bezeichnung: KG, raumtyp: Kindergarten, min: 14, max: 22, ideal: 19}
+    - {jahrgaenge: [KG1, KG2], bezeichnung: Wald-KG, raumtyp: Wald, min: 12, max: 20, ideal: 18}
+    - {jahrgaenge: ["1"], min: 16, max: 24, ideal: 21}
+    - {jahrgaenge: ["2"], min: 16, max: 24, ideal: 21}
+    - {jahrgaenge: ["3"], min: 16, max: 24, ideal: 21}
+    - {jahrgaenge: ["4"], min: 16, max: 24, ideal: 21}
+    - {jahrgaenge: ["5"], min: 16, max: 24, ideal: 21}
+    - {jahrgaenge: ["6"], min: 16, max: 24, ideal: 21}
+    - {jahrgaenge: ["1", "2"], min: 16, max: 22, ideal: 20, strafe: 150}   # Mischklassen
+    - {jahrgaenge: ["3", "4"], min: 16, max: 22, ideal: 20, strafe: 150}
+    - {jahrgaenge: ["5", "6"], min: 16, max: 22, ideal: 20, strafe: 150}
+
+zeitraster:
+  tage: [Mo, Di, Mi, Do, Fr]
+  halbtage:
+    VM: ["08:00", "08:50", "09:55", "10:45"]
+    NM: ["13:30", "14:20"]
+  frei: [Mi-NM]
+  blockzeiten: true          # Vormittage lückenlos (Blockzeiten Kanton Luzern)
+
+faecher:
+  Deutsch: {max_pro_tag: 2}
+  Mathematik: {max_pro_tag: 2}
+  NMG: {max_pro_tag: 2}
+  Englisch: {max_pro_tag: 1}
+  Französisch: {max_pro_tag: 1}
+  BG: {max_pro_tag: 2}
+  Musik: {max_pro_tag: 1}
+  TTG: {raumtyp: Werkraum, dauer: 2}
+  Sport: {raumtyp: Turnhalle, max_pro_tag: 1}
+  Kindergarten: {raumtyp: Klassenzimmer, max_pro_tag: 6}
+  Wald: {raumtyp: Klassenzimmer, max_pro_tag: 6}
+
+# Lektionen pro Woche (vereinfachte Annahme in Anlehnung an LP21 Luzern)
+stundentafel:
+  KG:      {Kindergarten: 20, Sport: 2}
+  Wald-KG: {Wald: 22}
+  "1": {Deutsch: 6, Mathematik: 5, NMG: 3, BG: 2, TTG: 2, Musik: 2, Sport: 3}
+  "2": {Deutsch: 6, Mathematik: 5, NMG: 4, BG: 2, TTG: 2, Musik: 2, Sport: 3}
+  "3": {Deutsch: 6, Mathematik: 5, NMG: 4, Englisch: 2, BG: 2, TTG: 2, Musik: 2, Sport: 3}
+  "4": {Deutsch: 5, Mathematik: 5, NMG: 5, Englisch: 2, BG: 2, TTG: 2, Musik: 2, Sport: 3}
+  "5": {Deutsch: 5, Mathematik: 5, NMG: 5, Englisch: 2, Französisch: 3, BG: 2, TTG: 2, Musik: 1, Sport: 3}
+  "6": {Deutsch: 5, Mathematik: 5, NMG: 5, Englisch: 2, Französisch: 3, BG: 2, TTG: 2, Musik: 1, Sport: 3}
+
+# Fiktive Lehrpersonen. Pensum = [min, max] Lektionen pro Woche.
+# nicht_verfuegbar: "Mi" (ganzer Tag), "Fr-NM" (Halbtag), "Mo-VM-1" (einzelne Lektion)
+lehrpersonen:
+  # --- Bündtmättli: Klassenlehrpersonen
+  - {name: BM Lehrperson 01, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
+  - {name: BM Lehrperson 02, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
+  - {name: BM Lehrperson 03, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
+  - {name: BM Lehrperson 04, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
+  - {name: BM Lehrperson 05, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
+  - {name: BM Lehrperson 06, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
+  - {name: BM Lehrperson 07, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
+  - {name: BM Lehrperson 08, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
+  - {name: BM Lehrperson 09, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
+  - {name: BM Lehrperson 10, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
+  - {name: BM Lehrperson 11, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
+  - {name: BM Lehrperson 12, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
+  - {name: BM Lehrperson 13, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [12, 16], nicht_verfuegbar: [Mo, Di]}
+  - {name: BM Lehrperson 14, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [10, 14], nicht_verfuegbar: [Do, Fr]}
+  - {name: BM Unterstufe Teilzeit, faecher: [Deutsch, Mathematik, NMG, Musik], jahrgaenge: ["1", "2", "3"], schulhaeuser: Bündtmättli, pensum: [8, 12], nicht_verfuegbar: [Mi, Fr]}
+  # --- Eischachen: Klassenlehrpersonen
+  - {name: EI Lehrperson 01, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28]}
+  - {name: EI Lehrperson 02, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28]}
+  - {name: EI Lehrperson 03, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28]}
+  - {name: EI Lehrperson 04, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28]}
+  - {name: EI Lehrperson 05, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28]}
+  - {name: EI Lehrperson 06, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28]}
+  - {name: EI Lehrperson 07, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28]}
+  - {name: EI Lehrperson 08, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28]}
+  - {name: EI Lehrperson 09, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28]}
+  - {name: EI Lehrperson 10, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [14, 20], nicht_verfuegbar: [Mi]}
+  - {name: EI Lehrperson 11, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [10, 14], nicht_verfuegbar: [Mo]}
+  # --- Fachlehrpersonen (teils an beiden Schulhäusern)
+  - {name: Englisch BM, faecher: [Englisch], schulhaeuser: Bündtmättli, pensum: [10, 24]}
+  - {name: Französisch BM, faecher: [Französisch, Englisch], schulhaeuser: Bündtmättli, pensum: [8, 24]}
+  - {name: Englisch/Französisch EI, faecher: [Englisch, Französisch], schulhaeuser: Eischachen, pensum: [10, 28]}
+  - {name: TTG 1, faecher: [TTG], schulhaeuser: [Bündtmättli, Eischachen], pensum: [14, 26]}
+  - {name: TTG 2, faecher: [TTG], schulhaeuser: [Bündtmättli, Eischachen], pensum: [14, 26], nicht_verfuegbar: [Mi]}
+  - {name: Sport Fachlehrperson, faecher: [Sport], schulhaeuser: [Bündtmättli, Eischachen], pensum: [0, 20]}
+  # --- Kindergarten
+  - {name: KG BM 1, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Bündtmättli, pensum: [22, 24]}
+  - {name: KG BM 2, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Bündtmättli, pensum: [22, 24]}
+  - {name: KG BM 3, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Bündtmättli, pensum: [22, 24]}
+  - {name: KG BM 4, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Bündtmättli, pensum: [22, 24]}
+  - {name: KG EI 1, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
+  - {name: KG EI 2, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
+  - {name: KG EI 3, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
+  - {name: KG EI 4, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
+  - {name: Wald-KG Im Feld, faecher: [Wald], schulhaeuser: Im Feld, pensum: [22, 24]}
