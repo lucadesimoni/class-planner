@@ -2,19 +2,23 @@
 
 Exaktes Optimierungsmodell: jede Lektionengruppe bekommt genau eine qualifizierte
 Lehrperson. Pensum (max hart, min weich), Verfügbarkeit und Schulhäuser werden
-eingehalten; möglichst wenige Lehrpersonen pro Klasse (Klassenlehrprinzip) und
-möglichst wenige Schulhäuser pro Lehrperson.
+eingehalten; möglichst wenige Lehrpersonen pro Klasse (Klassenlehrprinzip),
+möglichst wenige Schulhäuser pro Lehrperson und Kontinuität (eine Lehrperson
+führt ihre bisherige Klasse weiter).
+
+Förderangebote (IF, DaZ, …) werden als eigene Lektionengruppen pro Klasse gebildet
+und an dafür qualifizierte Lehrpersonen (Fach = Name des Angebots) vergeben.
 """
 from __future__ import annotations
 
 from collections import defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from ortools.sat.python import cp_model
 
-from .daten import Lehrperson, Schule
+from .daten import Kind, Lehrperson, Schule
 from .klassen import Klasse
-from .solver import KeineLoesung, Loesungsinfo, loese
+from .solver import KeineLoesung, Loesungsinfo, Regeln, loese_mit_regeln
 
 
 @dataclass
@@ -24,6 +28,74 @@ class Block:
     fach: str
     lektionen: int
     lehrperson: str = ""
+    art: str = "unterricht"          # "unterricht" oder "foerder" (parallel zum Unterricht)
+    parallel_zu: list[str] = field(default_factory=list)
+    gruppe: int = 0                  # Anzahl Kinder einer Fördergruppe (0 = ganze Klasse)
+    klassen: list[str] = field(default_factory=list)  # beteiligte Klassen (Fördergruppen über Klassen)
+
+    def __post_init__(self):
+        if not self.klassen:
+            self.klassen = [self.klasse]
+
+
+def foerderbloecke(schule: Schule, klassen: list[Klasse], kinder: dict[str, Kind]) -> list[Block]:
+    """Förderlektionen gemäss den konfigurierten Förderangeboten.
+
+    gruppierung "klasse":    eine Gruppe pro Klasse (z.B. IF im Klassenverband)
+    gruppierung "schulhaus": Gruppen pro Schulhaus und Stufe über Klassen hinweg (z.B. DaZ),
+                             bei mehr als max_gruppe Kindern geteilt
+    """
+    bloecke = []
+    tafeln = {c.name: stundentafel(schule, c) for c in klassen}
+
+    def parallel_faecher(a, namen: list[str]) -> list[str]:
+        gemeinsam = [f for f in (a.parallel_zu or tafeln[namen[0]]) if all(tafeln[n].get(f) for n in namen)]
+        return gemeinsam or [f for f in tafeln[namen[0]] if all(tafeln[n].get(f) for n in namen)]
+
+    for a in schule.foerderangebote:
+        gruppen: list[tuple[list[Klasse], int, list[str]]] = []  # (Klassen, Anzahl Kinder, Jahrgänge)
+        if a.gruppierung == "schulhaus":
+            stufen = a.stufen or [schule.jahrgaenge]
+            for sh in schule.schulhaeuser:
+                for stufe in stufen:
+                    pro_klasse = []
+                    for c in klassen:
+                        if c.schulhaus != sh.name:
+                            continue
+                        n = sum(1 for i in c.kinder if kinder[i].hat(a.merkmal) and kinder[i].jahrgang in stufe)
+                        if n:
+                            pro_klasse.append((c, n))
+                    total = sum(n for _, n in pro_klasse)
+                    if not total:
+                        continue
+                    teile = -(-total // a.max_gruppe)
+                    ziel = -(-total // teile)
+                    aktuell: list[Klasse] = []
+                    anzahl = 0
+                    for c, n in pro_klasse:  # Klassen der Reihe nach auf Teilgruppen verteilen
+                        if aktuell and anzahl + n > ziel:
+                            gruppen.append((aktuell, anzahl, stufe))
+                            aktuell, anzahl = [], 0
+                        aktuell.append(c)
+                        anzahl += n
+                    gruppen.append((aktuell, anzahl, stufe))
+        else:
+            for c in klassen:
+                n = sum(kinder[i].hat(a.merkmal) for i in c.kinder if i in kinder)
+                gruppen.append(([c], n if a.merkmal != "alle" else len(c.kinder), c.jahrgaenge))
+        for ks, anzahl, jg in gruppen:
+            lekt = a.lektionen([j for j in jg if any(j in c.jahrgaenge for c in ks)] or jg, anzahl)
+            if lekt <= 0:
+                continue
+            namen = [c.name for c in ks]
+            parallel = parallel_faecher(a, namen)
+            verfuegbar = min(sum(tafeln[n][f] for f in parallel) for n in namen) if parallel else 0
+            if lekt > verfuegbar:
+                raise KeineLoesung(f"{'/'.join(namen)}: {lekt} Lektionen {a.name}, aber nur {verfuegbar} Lektionen "
+                                   f"{'/'.join(parallel) or '–'} gleichzeitig parallel möglich")
+            bloecke.append(Block(namen[0], ks[0].schulhaus, a.name, lekt, art="foerder", parallel_zu=parallel,
+                                 gruppe=0 if a.merkmal == "alle" else anzahl, klassen=namen))
+    return bloecke
 
 
 def stundentafel(schule: Schule, klasse: Klasse) -> dict[str, int]:
@@ -51,6 +123,8 @@ def gesperrte_slots(schule: Schule, klasse: Klasse, fach: str, lp: Lehrperson) -
     sh = schule.schulhaus(klasse.schulhaus)
     gesperrt = set(lp.nicht_verfuegbar) | sh.nicht_verfuegbar
     typ = schule.faecher[fach].raumtyp
+    if typ == "":
+        return gesperrt
     if typ == "Klassenzimmer":
         return gesperrt | klasse.raum.nicht_verfuegbar
     ort = schule.schulhaus(sh.nutzt.get(typ, klasse.schulhaus))
@@ -64,17 +138,21 @@ def gesperrte_slots(schule: Schule, klasse: Klasse, fach: str, lp: Lehrperson) -
     return gesperrt
 
 
-def verteile_lehrauftraege(schule: Schule, klassen: list[Klasse],
-                           zeitlimit: float = 30) -> tuple[list[Block], Loesungsinfo]:
+def verteile_lehrauftraege(schule: Schule, klassen: list[Klasse], zeitlimit: float = 30,
+                           kinder: list[Kind] | None = None) -> tuple[list[Block], Loesungsinfo]:
     w = schule.gewichte
+    nach_id = {k.id: k for k in kinder or []}
     bloecke = []
     for c in klassen:
         tafel = stundentafel(schule, c)
         if sum(tafel.values()) > len(schule.slots):
             raise KeineLoesung(f"{c.name}: {sum(tafel.values())} Lektionen, aber nur {len(schule.slots)} Zeitfenster")
         bloecke += [Block(c.name, c.schulhaus, f, l) for f, l in tafel.items() if l > 0]
+    if nach_id:
+        bloecke += foerderbloecke(schule, klassen, nach_id)
 
     m = cp_model.CpModel()
+    regeln = Regeln(m)
     a = {}
     for bi, b in enumerate(bloecke):
         klasse = next(c for c in klassen if c.name == b.klasse)
@@ -95,7 +173,9 @@ def verteile_lehrauftraege(schule: Schule, klassen: list[Klasse],
         lp = schule.lehrpersonen[ti]
         verfuegbar = len(schule.slots) - len(lp.nicht_verfuegbar)
         last = sum(bloecke[bi].lektionen * av for bi, av in eintraege)
-        m.add(last <= min(lp.pensum_max, verfuegbar))
+        if verfuegbar < lp.pensum_max:
+            regeln.nur_wenn(m.add(last <= verfuegbar), f"Verfügbarkeit {lp.name} ({verfuegbar} Zeitfenster)")
+        regeln.nur_wenn(m.add(last <= lp.pensum_max), f"Maximalpensum {lp.name} ({lp.pensum_max} L)")
         if lp.pensum_min:
             unter = m.new_int_var(0, lp.pensum_min, f"unter_{ti}")
             m.add(unter >= lp.pensum_min - last)
@@ -122,17 +202,17 @@ def verteile_lehrauftraege(schule: Schule, klassen: list[Klasse],
         vm = schule.slots[0].halbtag
         anz_vm = sum(s.halbtag == vm for s in schule.slots)
         voll = {c.name for c in klassen
-                if sum(b.lektionen for b in bloecke if b.klasse == c.name) >= anz_vm}
+                if sum(b.lektionen for b in bloecke if b.klasse == c.name and b.art == "unterricht") >= anz_vm}
         klasse_von = {c.name: c for c in klassen}
         gesperrt = {(bi, ti): gesperrte_slots(schule, klasse_von[bloecke[bi].klasse], bloecke[bi].fach,
                                               schule.lehrpersonen[ti])
-                    for (bi, ti) in a if bloecke[bi].klasse in voll}
+                    for (bi, ti) in a if bloecke[bi].klasse in voll and bloecke[bi].art == "unterricht"}
         for tag in dict.fromkeys(s.tag for s in schule.slots):
             vm_alle = [s.index for s in schule.slots if s.tag == tag and s.halbtag == vm]
             angebot = defaultdict(list)  # (lehrperson, klasse) -> Ausdrücke
             for (bi, ti), av in a.items():
                 b = bloecke[bi]
-                if b.klasse not in voll:
+                if b.klasse not in voll or b.art != "unterricht":
                     continue
                 frei = sum(1 for i in vm_alle if i not in gesperrt[bi, ti])
                 fach = schule.faecher[b.fach]
@@ -151,11 +231,12 @@ def verteile_lehrauftraege(schule: Schule, klassen: list[Klasse],
                 m.add(sum(fs) <= frei)
             for kl in voll:
                 pflicht = [i for i in vm_alle if i not in schule.schulhaus(klasse_von[kl].schulhaus).nicht_verfuegbar]
-                m.add(sum(deckung[kl]) >= len(pflicht))
+                regeln.nur_wenn(m.add(sum(deckung[kl]) >= len(pflicht)), f"Blockzeiten {kl} am {tag}")
 
     pro_klasse = defaultdict(lambda: defaultdict(list))
     for (bi, ti), av in a.items():
-        pro_klasse[bloecke[bi].klasse][ti].append(av)
+        if bloecke[bi].art == "unterricht":
+            pro_klasse[bloecke[bi].klasse][ti].append(av)
     for kl, lps in pro_klasse.items():
         u = []
         for ti, avs in lps.items():
@@ -165,13 +246,25 @@ def verteile_lehrauftraege(schule: Schule, klassen: list[Klasse],
             u.append(uv)
         kosten.append(w["lehrperson_pro_klasse"] * sum(u))
 
+    # Kontinuität: Lehrperson führt ihre bisherige Klasse weiter (Bonus nach Anteil der Kinder)
+    if nach_id:
+        klasse_von = {c.name: c for c in klassen}
+        total = defaultdict(int)
+        for b in bloecke:
+            if b.art == "unterricht":
+                total[b.klasse] += b.lektionen
+        for (bi, ti), av in a.items():
+            b, lp = bloecke[bi], schule.lehrpersonen[ti]
+            if b.art != "unterricht" or not lp.bisherige_klasse:
+                continue
+            ks = klasse_von[b.klasse].kinder
+            anteil = sum(nach_id[i].bisherige_klasse == lp.bisherige_klasse for i in ks) / max(1, len(ks))
+            bonus = round(w["lehrperson_kontinuitaet"] * anteil * b.lektionen / total[b.klasse])
+            if bonus:
+                kosten.append(-bonus * av)
+
     m.minimize(sum(kosten))
-    try:
-        sol, info = loese(m, "Lehraufträge", zeitlimit)
-    except KeineLoesung as fehler:
-        raise KeineLoesung(f"{fehler} Häufige Ursachen: zu kleine Pensen, fehlende Qualifikationen oder "
-                           "Blockzeiten, die an einem Tag wegen gesperrter Lehrpersonen/Räume/Schulhäuser "
-                           "nicht abgedeckt werden können.") from None
+    sol, info = loese_mit_regeln(m, regeln, "Lehraufträge", zeitlimit)
     for (bi, ti), av in a.items():
         if sol.value(av):
             bloecke[bi].lehrperson = schule.lehrpersonen[ti].name

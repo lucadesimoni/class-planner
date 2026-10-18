@@ -1,11 +1,13 @@
 """Datenmodell: lädt die Schul-Konfiguration (YAML) und die Kinderliste (CSV).
 
 Alles ist bewusst flach gehalten: ein YAML für die Schule, ein CSV für die Kinder.
-Fehlende Angaben werden mit sinnvollen Standardwerten ergänzt.
+Fehlende Angaben werden mit sinnvollen Standardwerten ergänzt. Ein Kantonsprofil
+(z.B. ``basis_profil: luzern``) liefert rechtliche Vorgaben samt Quellen; die
+Schul-Konfiguration überschreibt das Profil.
 """
 from __future__ import annotations
 
-import csv
+import math
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -18,12 +20,15 @@ STANDARD_GEWICHTE = {
     "groessen_abweichung": 20,    # pro Kind Abweichung von der Idealgrösse
     "geschwister_getrennt": 300,  # Geschwister in verschiedenen Schulhäusern
     "geschlecht_ungleich": 30,    # pro Kind Ungleichgewicht Mädchen/Knaben
-    "foerderbedarf_ungleich": 40, # pro Kind ungleiche Verteilung Förderbedarf
+    "foerderbedarf_ungleich": 40, # pro Kind ungleiche Verteilung Förderbedarf/IF/DaZ/IS
     "nicht_zusammen": 1000,       # Wunsch "nicht in dieselbe Klasse" verletzt
+    "schulhaus_gewechselt": 150,  # Kind wechselt gegenüber Vorjahr das Schulhaus
+    "klasse_getrennt": 60,        # bisherige Klasse wird auf mehrere Klassen verteilt
     # Lehraufträge
     "lehrperson_pro_klasse": 200, # jede Lehrperson in einer Klasse (Klassenlehrprinzip)
     "pensum_unterschritten": 20,  # pro fehlende Lektion unter Mindestpensum
     "lehrperson_mehrere_schulhaeuser": 200,
+    "lehrperson_kontinuitaet": 300, # Lehrperson führt ihre bisherige Klasse weiter (Bonus)
     # Stundenplan
     "praesenz_halbtag": 10,       # pro Halbtag, an dem eine Lehrperson anwesend ist
     "schulhauswechsel": 100,      # Lehrperson an 2 Schulhäusern im selben Halbtag
@@ -81,6 +86,11 @@ class Lehrperson:
     jahrgaenge: list[str] | None = None
     schulhaeuser: list[str] | None = None
     nicht_verfuegbar: set[int] = field(default_factory=set)  # Slot-Indizes
+    bisherige_klasse: str = ""   # Klasse aus dem Vorjahr, die weitergeführt werden soll
+    kuerzel: str = ""
+
+
+MERKMALE = ("if", "daz", "is", "foerderbedarf")
 
 
 @dataclass
@@ -96,6 +106,50 @@ class Kind:
     foerderbedarf: bool = False
     schulhaus_fix: str = ""
     nicht_mit: list[str] = field(default_factory=list)
+    if_: bool = False             # Integrative Förderung
+    daz: str = ""                 # Deutsch als Zweitsprache: "" | "anfang" | "aufbau"
+    is_: bool = False             # Integrative Sonderschulung
+    bisheriges_schulhaus: str = ""
+    bisherige_klasse: str = ""
+    vorname: str = ""
+    nachname: str = ""
+    zusatz: dict[str, str] = field(default_factory=dict)  # weitere Spalten (unverändert exportiert)
+
+    def hat(self, merkmal: str) -> bool:
+        """Merkmal wie "if", "is", "daz", "daz=anfang", "foerderbedarf" oder "alle"."""
+        name, _, wert = merkmal.partition("=")
+        if name == "alle":
+            return True
+        if name == "daz":
+            return self.daz == wert if wert else bool(self.daz)
+        return bool({"if": self.if_, "is": self.is_, "foerderbedarf": self.foerderbedarf}.get(name))
+
+
+@dataclass
+class Foerderangebot:
+    """Förderlektionen pro Klasse, parallel zum Klassenunterricht (Teamteaching oder Gruppe).
+
+    Lektionen = basis (sobald mind. 1 Kind das Merkmal hat; bei "alle" immer)
+                + pro_kind x max(0, Anzahl - frei_bis), aufgerundet, höchstens max.
+    """
+    name: str                       # zugleich Fach, für das Lehrpersonen qualifiziert sein müssen
+    merkmal: str = "alle"
+    basis: dict[str, float] = field(default_factory=dict)   # Jahrgang/default -> Lektionen
+    pro_kind: float = 0.0
+    frei_bis: int = 0
+    max: int = 99
+    parallel_zu: list[str] = field(default_factory=list)    # leer = zu jedem Unterricht
+    raumtyp: str = "Klassenzimmer"  # "" = Raum wird nicht geplant
+    quelle: str = ""                # Schlüssel einer Quelle im Kantonsprofil
+    gruppierung: str = "klasse"     # "klasse" oder "schulhaus" (Gruppen über Klassen hinweg)
+    stufen: list[list[str]] = field(default_factory=list)   # Jahrgangsgruppen bei "schulhaus"
+    max_gruppe: int = 99            # grössere Gruppen werden geteilt
+
+    def lektionen(self, jahrgaenge: list[str], anzahl: int) -> int:
+        if anzahl == 0 and self.merkmal != "alle":
+            return 0
+        basis = max((self.basis.get(j, self.basis.get("default", 0)) for j in jahrgaenge), default=0)
+        return min(self.max, math.ceil(basis + self.pro_kind * max(0, anzahl - self.frei_bis) - 1e-9))
 
 
 @dataclass
@@ -127,6 +181,16 @@ class Schule:
     gewichte: dict[str, int]
     max_klassen: int | None = None
     szenario: str = "Basis"
+    geschwister: str = "weich"            # "weich" | "hart" | "aus"
+    is_zaehlt_als: float = 1.0            # Gewicht eines IS-Kindes bei der Klassengrösse
+    max_is_pro_klasse: int | None = None
+    ausgleich: tuple[str, ...] = MERKMALE  # gleichmässig auf Parallelklassen verteilen
+    foerderangebote: list["Foerderangebot"] = field(default_factory=list)
+    profil: dict = field(default_factory=dict)   # Kantonsprofil inkl. Quellen und Regeln
+    schuljahr: str = ""
+
+    def quelle(self, schluessel: str) -> dict:
+        return self.profil.get("quellen", {}).get(schluessel, {})
 
     def schulhaus(self, name: str) -> Schulhaus:
         for s in self.schulhaeuser:
@@ -217,10 +281,26 @@ def szenarien(pfad: str | Path) -> list[str]:
     return ["Basis"] + list((cfg.get("szenarien") or {}).keys())
 
 
-def lade_schule(pfad: str | Path, szenario: str = "Basis",
-                gewichte: dict[str, int] | None = None) -> Schule:
-    """Lädt die Konfiguration, wendet optional ein Szenario und Gewichte an."""
+PROFIL_ORDNER = Path(__file__).parent / "profile"
+
+
+def profile() -> list[str]:
+    return sorted(p.stem for p in PROFIL_ORDNER.glob("*.yaml"))
+
+
+def lade_profil(name: str) -> dict:
+    pfad = PROFIL_ORDNER / f"{name}.yaml"
+    if not pfad.exists():
+        raise ValueError(f"Unbekanntes Kantonsprofil '{name}'. Vorhanden: {', '.join(profile())}")
+    return yaml.safe_load(pfad.read_text(encoding="utf-8"))
+
+
+def lese_konfiguration(pfad: str | Path, szenario: str = "Basis",
+                       gewichte: dict[str, int] | None = None) -> dict:
+    """Rohdaten der Konfiguration (Profil + Schule + Szenario + Gewichte) als dict."""
     cfg = yaml.safe_load(Path(pfad).read_text(encoding="utf-8"))
+    if cfg.get("basis_profil"):
+        cfg = _mische(lade_profil(cfg["basis_profil"]), cfg)
     alle = cfg.pop("szenarien", None) or {}
     if szenario != "Basis":
         if szenario not in alle:
@@ -232,6 +312,18 @@ def lade_schule(pfad: str | Path, szenario: str = "Basis",
     if unbekannt:
         raise ValueError(f"Unbekannte Gewichte: {', '.join(sorted(unbekannt))}. "
                          f"Erlaubt: {', '.join(STANDARD_GEWICHTE)}")
+    cfg["_szenario"] = szenario
+    return cfg
+
+
+def lade_schule(pfad: str | Path, szenario: str = "Basis",
+                gewichte: dict[str, int] | None = None) -> Schule:
+    """Lädt die Konfiguration, wendet Kantonsprofil, Szenario und Gewichte an."""
+    return baue_schule(lese_konfiguration(pfad, szenario, gewichte))
+
+
+def baue_schule(cfg: dict) -> Schule:
+    szenario = cfg.get("_szenario", "Basis")
     slots = _parse_slots(cfg["zeitraster"])
 
     schulhaeuser = []
@@ -252,17 +344,38 @@ def lade_schule(pfad: str | Path, szenario: str = "Basis",
             nicht_verfuegbar=_slot_set(sh.get("nicht_verfuegbar", []), slots)))
 
     kb = cfg.get("klassenbildung", {})
+    profil = cfg.get("profil", {}) or {}
+    groessen = (profil.get("regeln", {}) or {}).get("klassengroessen", {}) or {}
     vorlagen = []
     for v in kb["vorlagen"]:
         jg = _liste(v["jahrgaenge"])
+        lo, hi = int(v["min"]), int(v["max"])
+        if profil.get("verbindlich"):
+            # verbindliches Profil: Klassengrössen auf den gesetzlichen Rahmen begrenzen
+            for regel in groessen.values():
+                if set(jg) & set(_liste(regel["jahrgaenge"])):
+                    lo, hi = max(lo, int(regel["min"])), min(hi, int(regel["max"]))
         vorlagen.append(Vorlage(
-            jahrgaenge=jg, min=int(v["min"]), max=int(v["max"]),
-            ideal=int(v.get("ideal", (v["min"] + v["max"]) // 2)),
+            jahrgaenge=jg, min=lo, max=hi,
+            ideal=min(hi, max(lo, int(v.get("ideal", (lo + hi) // 2)))),
             raumtyp=v.get("raumtyp", "Klassenzimmer"), strafe=int(v.get("strafe", 0)),
             min_pro_jahrgang=int(v.get("min_pro_jahrgang", 4 if len(jg) > 1 else 0)),
             schulhaeuser=_liste(v.get("schulhaeuser")), bezeichnung=v.get("bezeichnung", "")))
 
     faecher = {name: Fach(name, **(f or {})) for name, f in cfg["faecher"].items()}
+    sp = cfg.get("sonderpaedagogik", {}) or {}
+    angebote = []
+    for a in sp.get("foerderangebote", []) or []:
+        basis = a.get("basis", 0)
+        basis = {str(k): float(v) for k, v in basis.items()} if isinstance(basis, dict) else {"default": float(basis)}
+        angebote.append(Foerderangebot(
+            name=a["name"], merkmal=a.get("merkmal", "alle"), basis=basis,
+            pro_kind=float(a.get("pro_kind", 0)), frei_bis=int(a.get("frei_bis", 0)), max=int(a.get("max", 99)),
+            parallel_zu=_liste(a.get("parallel_zu")) or [], raumtyp=a.get("raumtyp", "Klassenzimmer") or "",
+            quelle=a.get("quelle", ""), gruppierung=a.get("gruppierung", "klasse"),
+            stufen=[_liste(x) for x in a.get("stufen", [])], max_gruppe=int(a.get("max_gruppe", 99))))
+        faecher.setdefault(a["name"], Fach(a["name"], raumtyp=a.get("raumtyp", "Klassenzimmer") or "",
+                                           max_pro_tag=int(a.get("max_pro_tag", 2))))
     stundentafel = {str(k): v for k, v in cfg["stundentafel"].items()}
     for jg, tafel in stundentafel.items():
         for f in tafel:
@@ -279,7 +392,8 @@ def lade_schule(pfad: str | Path, szenario: str = "Basis",
             pensum_min=int(pensum[0]), pensum_max=int(pensum[1]),
             jahrgaenge=_liste(lp.get("jahrgaenge")),
             schulhaeuser=_liste(lp.get("schulhaeuser")),
-            nicht_verfuegbar=_slot_set(lp.get("nicht_verfuegbar", []), slots)))
+            nicht_verfuegbar=_slot_set(lp.get("nicht_verfuegbar", []), slots),
+            bisherige_klasse=str(lp.get("bisherige_klasse", "")), kuerzel=str(lp.get("kuerzel", ""))))
 
     gewichte = dict(STANDARD_GEWICHTE)
     gewichte.update(cfg.get("gewichte", {}))
@@ -292,24 +406,18 @@ def lade_schule(pfad: str | Path, szenario: str = "Basis",
         umweg_faktor=float(kb.get("umweg_faktor", 1.3)),
         faecher=faecher, stundentafel=stundentafel, lehrpersonen=lehrpersonen,
         slots=slots, blockzeiten=bool(cfg["zeitraster"].get("blockzeiten", True)),
-        gewichte=gewichte, max_klassen=kb.get("max_klassen"), szenario=szenario)
+        gewichte=gewichte, max_klassen=kb.get("max_klassen"), szenario=szenario,
+        geschwister=str(kb.get("geschwister", "weich")),
+        is_zaehlt_als=float(sp.get("is_zaehlt_als", 1)), max_is_pro_klasse=sp.get("max_is_pro_klasse"),
+        ausgleich=tuple(sp.get("ausgleich", MERKMALE)), foerderangebote=angebote, profil=profil,
+        schuljahr=str(cfg.get("schuljahr", "")))
 
 
-def lade_kinder(pfad: str | Path) -> list[Kind]:
-    kinder = []
-    with open(pfad, encoding="utf-8", newline="") as f:
-        for row in csv.DictReader(f):
-            def num(key):
-                v = (row.get(key) or "").strip()
-                return float(v) if v else None
-            kinder.append(Kind(
-                id=row["id"].strip(), name=row.get("name", "").strip(),
-                jahrgang=row["jahrgang"].strip(),
-                geschlecht=(row.get("geschlecht") or "").strip().lower()[:1],
-                adresse=(row.get("adresse") or "").strip(),
-                lat=num("lat"), lon=num("lon"),
-                familie=(row.get("familie") or "").strip(),
-                foerderbedarf=(row.get("foerderbedarf") or "").strip().lower() in ("1", "ja", "true", "x"),
-                schulhaus_fix=(row.get("schulhaus_fix") or "").strip(),
-                nicht_mit=[x.strip() for x in (row.get("nicht_mit") or "").split(";") if x.strip()]))
-    return kinder
+def lade_kinder(pfad: str | Path, spalten: dict[str, str] | None = None) -> list[Kind]:
+    """Kinderliste aus CSV (Komma/Semikolon, UTF-8/Windows-1252) oder Excel laden.
+
+    Spaltennamen werden tolerant erkannt (z.B. Vorname/Nachname, Strasse/PLZ/Ort,
+    LV95-Koordinaten), siehe skf.austausch.
+    """
+    from .austausch import lese_kinder
+    return lese_kinder(pfad, spalten)

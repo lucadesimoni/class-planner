@@ -71,7 +71,7 @@ td.num, th.num { text-align:right; font-variant-numeric:tabular-nums }
 .plan td.zu, .heat td.zu { background:repeating-linear-gradient(45deg, transparent 0 5px, var(--grid) 5px 7px); color:var(--muted) }
 .plan td.mark-f { box-shadow:inset 0 0 0 2px var(--crit) } .plan td.mark-w { box-shadow:inset 0 0 0 2px var(--warn) }
 .plan td.mark-h { box-shadow:inset 0 0 0 2px var(--base) }
-.plan .spring { color:var(--muted); font-style:italic }
+.plan .spring { color:var(--muted); font-style:italic } .plan .foerder { color:var(--fg2); font-style:italic }
 .heat { font-size:11px } .heat td, .heat th { padding:2px 3px; border-right:1px solid var(--grid); text-align:center;
   white-space:nowrap } .heat th.raum { text-align:left }
 .heat td.b { background:var(--belegt); color:var(--belegt-fg) } .heat .tag { border-left:2px solid var(--base) }
@@ -110,10 +110,12 @@ def schreibe_csv(ordner: Path, r: Ergebnis) -> None:
     schule, e = r.schule, r.einteilung
     with open(ordner / "meldungen.csv", "w", newline="", encoding="utf-8") as f:
         wr = csv.writer(f)
-        wr.writerow(["schweregrad", "bereich", "text", "bezug", "zeit"])
+        wr.writerow(["schweregrad", "bereich", "text", "bezug", "zeit", "quelle", "quelle_titel", "quelle_url"])
         for m in sorted(r.meldungen, key=lambda m: SCHWEREGRADE.index(m.schwere)):
+            q = schule.quelle(m.quelle) if m.quelle else {}
             wr.writerow([m.schwere, m.bereich, m.text, m.bezug,
-                         schule.slots[m.slot].label if m.slot is not None else ""])
+                         schule.slots[m.slot].label if m.slot is not None else "", m.quelle,
+                         q.get("titel", ""), q.get("url", "")])
     if not e:
         return
     nach_id = {k.id: k for k in r.kinder}
@@ -125,11 +127,13 @@ def schreibe_csv(ordner: Path, r: Ergebnis) -> None:
                          round(e.schulweg_m[k.id])])
     with open(ordner / "klassen.csv", "w", newline="", encoding="utf-8") as f:
         wr = csv.writer(f)
-        wr.writerow(["klasse", "schulhaus", "raum", "jahrgaenge", "kinder", "maedchen", "knaben", "foerderbedarf"])
+        wr.writerow(["klasse", "schulhaus", "raum", "jahrgaenge", "kinder", "maedchen", "knaben", "if", "daz", "is",
+                     "foerderbedarf"])
         for c in e.klassen:
             ks = [nach_id[i] for i in c.kinder]
             wr.writerow([c.name, c.schulhaus, c.raum.name, "/".join(c.jahrgaenge), len(ks),
                          sum(k.geschlecht == "w" for k in ks), sum(k.geschlecht == "m" for k in ks),
+                         sum(k.if_ for k in ks), sum(bool(k.daz) for k in ks), sum(k.is_ for k in ks),
                          sum(k.foerderbedarf for k in ks)])
     if not r.lektionen:
         return
@@ -288,6 +292,35 @@ def _raumbelegung(r: Ergebnis) -> str:
             "nicht verfügbar</span><span>Zelle überfahren für Details</span></div>" + "".join(out))
 
 
+def _quelle_link(schule, schluessel: str) -> str:
+    if not schluessel:
+        return ""
+    q = schule.quelle(schluessel)
+    if not q:
+        return esc(schluessel)
+    titel = esc(f"{q.get('titel', '')} {q.get('erlass', '')}".strip())
+    return f"<a href='{esc(q.get('url', '#'))}' title='{titel}' target='_blank' rel='noopener'>{esc(schluessel)}</a>"
+
+
+def _rechtsgrundlagen(r: Ergebnis) -> str:
+    profil = r.schule.profil or {}
+    quellen = profil.get("quellen") or {}
+    if not quellen:
+        return ""
+    genutzt = Counter(m.quelle for m in r.meldungen if m.quelle)
+    zeilen = "".join(
+        f"<tr><td><b>{esc(k)}</b></td><td>{esc(q.get('titel', ''))}"
+        f"{'<br><span class=muted>' + esc(q['hinweis']) + '</span>' if q.get('hinweis') else ''}</td>"
+        f"<td>{esc(q.get('erlass', ''))}</td><td class='num'>{genutzt[k] or ''}</td>"
+        f"<td><a href='{esc(q.get('url', '#'))}' target='_blank' rel='noopener'>Link</a></td></tr>"
+        for k, q in quellen.items())
+    return (f"<h2>Rechtsgrundlagen und Richtlinien</h2><p class='fg2'>{esc(profil.get('name', ''))} · "
+            f"{esc(profil.get('stand', ''))} · Klassengrössen "
+            f"{'verbindlich angewendet' if profil.get('verbindlich') else 'geprüft (nicht erzwungen)'}</p>"
+            "<div class='scroll'><table><tr><th>Kürzel</th><th>Inhalt</th><th>Erlass</th><th class='num'>Meldungen</th>"
+            f"<th></th></tr>{zeilen}</table></div>")
+
+
 def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
     schule, e = r.schule, r.einteilung
     nach_id = {k.id: k for k in r.kinder}
@@ -325,14 +358,16 @@ def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
     if r.meldungen:
         zeilen = "".join(
             f"<tr data-sev='{m.schwere}'><td><span class='badge {KLASSE[m.schwere]}'>{ICON[m.schwere]} {m.schwere}"
-            f"</span></td><td class='fg2'>{esc(m.bereich)}</td><td>{esc(m.text)}</td></tr>"
+            f"</span></td><td class='fg2'>{esc(m.bereich)}</td><td>{esc(m.text)}</td><td>{_quelle_link(schule, m.quelle)}"
+            "</td></tr>"
             for m in sorted(r.meldungen, key=lambda m: (SCHWEREGRADE.index(m.schwere), m.bereich)))
-        teile.append(f"<div class='meldungen panel'><table><tr><th>Schweregrad</th><th>Bereich</th><th>Meldung</th>"
+        teile.append(f"<div class='meldungen panel'><table><tr><th>Schweregrad</th><th>Bereich</th><th>Meldung</th><th>Quelle</th>"
                      f"</tr>{zeilen}</table></div>")
     else:
         teile.append("<p class='muted'>Keine Meldungen.</p>")
 
     teile.append("<h2>Solver</h2><ul>" + "".join(f"<li>{esc(str(i))}</li>" for i in r.infos) + "</ul>")
+    teile.append(_rechtsgrundlagen(r))
     if not e:
         teile.append(f"<script>{JS}</script></body></html>")
         pfad.write_text("".join(teile), encoding="utf-8")
@@ -345,7 +380,8 @@ def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
         lp_pro_klasse[b.klasse][b.lehrperson] += b.lektionen
     groesst = max((c.groesse for c in e.klassen), default=1)
     teile.append("<h2>Klassen</h2><div class='scroll'><table><tr><th>Klasse</th><th>Schulhaus</th><th>Raum</th>"
-                 "<th>Kinder</th><th class='num'>♀/♂</th><th class='num'>Förder&shy;bedarf</th><th class='num'>Ø Weg</th>"
+                 "<th>Kinder</th><th class='num'>♀/♂</th><th class='num' title='Integrative Förderung / Deutsch als Zweitsprache / "
+                 "Integrative Sonderschulung'>IF/DaZ/IS</th><th class='num'>Ø Weg</th>"
                  "<th>Lehrpersonen (Lektionen)</th><th>Meldungen</th></tr>")
     for c in e.klassen:
         ks = [nach_id[i] for i in c.kinder]
@@ -356,7 +392,8 @@ def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
             f"<td title='{len(ks)} von max. {min(c.vorlage.max, c.raum.plaetze)}'><span class='groesse' "
             f"style='width:{60 * len(ks) / groesst:.0f}px'></span>{len(ks)}</td>"
             f"<td class='num'>{sum(k.geschlecht == 'w' for k in ks)}/{sum(k.geschlecht == 'm' for k in ks)}</td>"
-            f"<td class='num'>{sum(k.foerderbedarf for k in ks)}</td><td class='num'>{weg:.2f} km</td>"
+            f"<td class='num'>{sum(k.if_ for k in ks)}/{sum(bool(k.daz) for k in ks)}/{sum(k.is_ for k in ks)}</td>"
+            f"<td class='num'>{weg:.2f} km</td>"
             f"<td>{lps}</td><td>{_badges(meldungen_von.get(c.name, []))}</td></tr>")
     teile.append("</table></div>")
 
@@ -366,8 +403,13 @@ def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
 
         teile.append("<h2>Stundenpläne der Klassen</h2>")
         for c in e.klassen:
-            eintr = {l.slot: f"<b>{esc(l.fach)}</b><br>{esc(l.lehrperson)}<br><span class='muted'>{esc(l.raum_label)}</span>"
-                     for l in r.lektionen if l.klasse == c.name}
+            eintr = defaultdict(str)
+            for l in sorted(r.lektionen, key=lambda l: l.art != "unterricht"):
+                if c.name in l.klassen:
+                    eintr[l.slot] += (f"<b>{esc(l.fach)}</b><br>{esc(l.lehrperson)}<br><span class='muted'>"
+                                      f"{esc(l.raum_label)}</span>" if l.art == "unterricht" else
+                                      f"<br><span class='foerder'>+ {esc(l.fach)}: {esc(l.lehrperson)}</span>")
+            eintr = dict(eintr)
             zu = schule.schulhaus(c.schulhaus).nicht_verfuegbar | c.raum.nicht_verfuegbar
             marken = defaultdict(list)
             for m in meldungen_von.get(c.name, []):
@@ -388,7 +430,7 @@ def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
                 teile.append(f"<p class='muted'>{esc(lp.name)}: nicht eingesetzt "
                              f"{_badges(meldungen_von.get(lp.name, []))}</p>")
                 continue
-            eintr = {l.slot: f"<b>{esc(l.klasse)}</b><br>{esc(l.fach)}<br><span class='muted'>{esc(l.raum_label)}</span>"
+            eintr = {l.slot: f"<b>{esc('/'.join(l.klassen))}</b><br>{esc(l.fach)}<br><span class='muted'>{esc(l.raum_label)}</span>"
                      for l in r.lektionen if l.lehrperson == lp.name}
             marken = defaultdict(list)
             for m in meldungen_von.get(lp.name, []):

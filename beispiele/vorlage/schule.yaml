@@ -1,0 +1,79 @@
+# Vorlage: eigene Schule erfassen. Alle Felder sind im README beschrieben.
+# Prüfen:   python -m skf pruefen schule.yaml kinder.csv
+# Rechnen:  python -m skf rechnen schule.yaml kinder.csv -o ausgabe
+
+name: Meine Schule
+schuljahr: 2027/28
+basis_profil: luzern            # Kantonsprofil: rechtliche Vorgaben + Quellen (python -m skf profile)
+jahrgaenge: [KG1, KG2, "1", "2"]
+
+schulhaeuser:
+  - name: Schulhaus A
+    kuerzel: A
+    lat: 47.0500
+    lon: 8.3000
+    raeume:
+      - {name: A-Zi, typ: Klassenzimmer, anzahl: 3, plaetze: 24}
+      - {name: A-KG, typ: Kindergarten, anzahl: 1, plaetze: 22}
+      - {name: A-Halle, typ: Turnhalle, plaetze: 30, nicht_verfuegbar: [Fr-NM]}
+  - name: Schulhaus B
+    kuerzel: B
+    lat: 47.0400
+    lon: 8.3100
+    nutzt: {Turnhalle: Schulhaus A}   # B hat keine Halle und nutzt jene von A
+    raeume:
+      - {name: B-Zi, typ: Klassenzimmer, anzahl: 2, plaetze: 24}
+      - {name: B-KG, typ: Kindergarten, plaetze: 22}
+
+klassenbildung:
+  geschwister: weich             # weich | hart | aus
+  max_schulweg_m: {KG1: 2500, KG2: 2500, default: 4000}
+  vorlagen:
+    - {jahrgaenge: [KG1, KG2], bezeichnung: KG, raumtyp: Kindergarten, min: 16, max: 22, ideal: 19}
+    - {jahrgaenge: ["1"], min: 16, max: 22, ideal: 20}
+    - {jahrgaenge: ["2"], min: 16, max: 22, ideal: 20}
+    - {jahrgaenge: ["1", "2"], min: 16, max: 22, ideal: 20, strafe: 150}
+
+sonderpaedagogik:
+  is_zaehlt_als: 2               # schulinterne Festlegung: IS-Kind zählt doppelt
+  max_is_pro_klasse: 2
+
+zeitraster:
+  tage: [Mo, Di, Mi, Do, Fr]
+  halbtage:
+    VM: ["08:00", "08:50", "09:55", "10:45"]
+    NM: ["13:30", "14:20"]
+  frei: [Mi-NM]
+
+faecher:
+  Deutsch: {max_pro_tag: 2}
+  Mathematik: {max_pro_tag: 2}
+  NMG: {max_pro_tag: 2}
+  BG: {max_pro_tag: 2}
+  Musik: {max_pro_tag: 1}
+  TTG: {raumtyp: Klassenzimmer, dauer: 2}
+  Sport: {raumtyp: Turnhalle, max_pro_tag: 1}
+  Kindergarten: {max_pro_tag: 6}
+
+stundentafel:                   # Werte mit der kantonalen Stundentafel (WOST) abgleichen
+  KG: {Kindergarten: 20, Sport: 2}
+  "1": {Deutsch: 6, Mathematik: 5, NMG: 3, BG: 2, TTG: 2, Musik: 2, Sport: 3}
+  "2": {Deutsch: 6, Mathematik: 5, NMG: 4, BG: 2, TTG: 2, Musik: 2, Sport: 3}
+
+lehrpersonen:
+  - {name: Lehrperson 1, faecher: [Deutsch, Mathematik, NMG, BG, Musik, TTG, Sport], schulhaeuser: Schulhaus A, pensum: [20, 28]}
+  - {name: Lehrperson 2, faecher: [Deutsch, Mathematik, NMG, BG, Musik, TTG, Sport], schulhaeuser: Schulhaus A, pensum: [20, 28], bisherige_klasse: A 1a}
+  - {name: Lehrperson 3, faecher: [Deutsch, Mathematik, NMG, BG, Musik, TTG, Sport], schulhaeuser: Schulhaus B, pensum: [20, 28]}
+  - {name: Lehrperson 4, faecher: [Deutsch, Mathematik, NMG, BG, Musik, TTG, Sport], schulhaeuser: Schulhaus B, pensum: [10, 28], nicht_verfuegbar: [Fr-NM]}
+  - {name: KG A, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Schulhaus A, pensum: [20, 24]}
+  - {name: KG B, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Schulhaus B, pensum: [20, 24]}
+  - {name: SHP (IF), faecher: [IF], pensum: [0, 28]}
+  - {name: DaZ-Lehrperson, faecher: [DaZ Anfang, DaZ Aufbau], pensum: [0, 28]}
+  - {name: Sportlehrperson, faecher: [Sport], pensum: [0, 20]}
+
+gewichte:
+  schulweg_pro_km: 100
+
+szenarien:
+  Geschwister zwingend:
+    klassenbildung: {geschwister: hart}

@@ -27,14 +27,94 @@ class Meldung:
     text: str
     bezug: str = ""       # Klasse, Lehrperson, Kind oder Raum – für die Hervorhebung
     slot: int | None = None
+    quelle: str = ""      # Schlüssel einer Rechtsquelle/Richtlinie im Kantonsprofil
 
     def __str__(self) -> str:
         return f"[{self.schwere}] {self.bereich}: {self.text}"
 
 
+def _doppelte(werte) -> list[str]:
+    return sorted(w for w, n in Counter(werte).items() if n > 1)
+
+
+def referenzen(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
+    """Saubere Referenzen: eindeutige Schlüssel und Verweise, die auf Vorhandenes zeigen."""
+    m: list[Meldung] = []
+
+    def fehler(text, bezug=""):
+        m.append(Meldung("Fehler", "Daten", text, bezug))
+
+    schulhaeuser = {s.name for s in schule.schulhaeuser}
+    for d in _doppelte(s.name for s in schule.schulhaeuser):
+        fehler(f"Schulhaus '{d}' ist mehrfach definiert")
+    for d in _doppelte(s.kuerzel for s in schule.schulhaeuser):
+        fehler(f"Schulhaus-Kürzel '{d}' ist mehrfach vergeben")
+    for s in schule.schulhaeuser:
+        for d in _doppelte(r.name for r in s.raeume):
+            fehler(f"{s.name}: Raum '{d}' ist mehrfach definiert", s.name)
+        for typ, ziel in s.nutzt.items():
+            if ziel not in schulhaeuser:
+                fehler(f"{s.name}: 'nutzt' verweist auf unbekanntes Schulhaus '{ziel}'", s.name)
+            elif not any(r.typ == typ for r in schule.schulhaus(ziel).raeume):
+                fehler(f"{s.name}: 'nutzt {typ}' – {ziel} hat keinen Raum vom Typ '{typ}'", s.name)
+    for v in schule.vorlagen:
+        for j in v.jahrgaenge:
+            if j not in schule.jahrgaenge:
+                fehler(f"Klassentyp {'/'.join(v.jahrgaenge)}: unbekannter Jahrgang '{j}'")
+        for sh in v.schulhaeuser or []:
+            if sh not in schulhaeuser:
+                fehler(f"Klassentyp {'/'.join(v.jahrgaenge)}: unbekanntes Schulhaus '{sh}'")
+        if v.min > v.max:
+            fehler(f"Klassentyp {'/'.join(v.jahrgaenge)}: min {v.min} > max {v.max}")
+    for stufe in schule.stundentafel:
+        if stufe not in schule.jahrgaenge and not any(v.bezeichnung == stufe for v in schule.vorlagen):
+            fehler(f"Stundentafel '{stufe}' gehört zu keinem Jahrgang und keinem Klassentyp")
+    lp_namen = [lp.name for lp in schule.lehrpersonen]
+    for d in _doppelte(lp_namen):
+        fehler(f"Lehrperson '{d}' ist mehrfach definiert", d)
+    faecher = set(schule.faecher)
+    for lp in schule.lehrpersonen:
+        for f in lp.faecher:
+            if f not in faecher:
+                fehler(f"{lp.name}: unbekanntes Fach '{f}'", lp.name)
+        for sh in lp.schulhaeuser or []:
+            if sh not in schulhaeuser:
+                fehler(f"{lp.name}: unbekanntes Schulhaus '{sh}'", lp.name)
+        for j in lp.jahrgaenge or []:
+            if j not in schule.jahrgaenge:
+                fehler(f"{lp.name}: unbekannter Jahrgang '{j}'", lp.name)
+        if lp.pensum_min > lp.pensum_max:
+            fehler(f"{lp.name}: Mindestpensum {lp.pensum_min} > Maximalpensum {lp.pensum_max}", lp.name)
+    for a in schule.foerderangebote:
+        if a.quelle and a.quelle not in schule.profil.get("quellen", {}):
+            m.append(Meldung("Warnung", "Daten", f"Förderangebot {a.name}: unbekannte Quelle '{a.quelle}'"))
+        if not any(a.name in lp.faecher for lp in schule.lehrpersonen) and any(k.hat(a.merkmal) for k in kinder):
+            fehler(f"Keine Lehrperson für das Förderangebot '{a.name}' (Fach '{a.name}' bei Lehrpersonen ergänzen)")
+
+    ids = [k.id for k in kinder]
+    for d in _doppelte(ids):
+        fehler(f"Kind-ID '{d}' ist mehrfach vergeben", d)
+    ids_set = set(ids)
+    for k in kinder:
+        if not k.id:
+            fehler("Kind ohne ID")
+        for anderer in k.nicht_mit:
+            if anderer not in ids_set:
+                fehler(f"{k.id}: 'nicht_mit' verweist auf unbekanntes Kind '{anderer}'", k.id)
+            elif anderer == k.id:
+                fehler(f"{k.id}: 'nicht_mit' verweist auf sich selbst", k.id)
+        if k.bisheriges_schulhaus and k.bisheriges_schulhaus not in schulhaeuser:
+            m.append(Meldung("Hinweis", "Daten", f"{k.id}: bisheriges Schulhaus '{k.bisheriges_schulhaus}' "
+                             "existiert nicht mehr – Kontinuität wird ignoriert", k.id))
+        if k.daz and k.daz not in ("anfang", "aufbau"):
+            m.append(Meldung("Warnung", "Daten", f"{k.id}: DaZ-Wert '{k.daz}' – erwartet 'anfang' oder 'aufbau'",
+                             k.id))
+    return m
+
+
 def vorpruefung(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
     """Plausibilitätsprüfung vor dem Rechnen – findet die häufigsten Ursachen für 'keine Lösung'."""
-    m: list[Meldung] = []
+    m: list[Meldung] = referenzen(schule, kinder)
     namen = {s.name for s in schule.schulhaeuser}
     ohne_koord = [k.id for k in kinder if k.lat is None or k.lon is None]
     if ohne_koord:
@@ -45,10 +125,6 @@ def vorpruefung(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
             m.append(Meldung("Fehler", "Daten", f"{k.id}: unbekannter Jahrgang '{k.jahrgang}'", k.id))
         if k.schulhaus_fix and k.schulhaus_fix not in namen:
             m.append(Meldung("Fehler", "Daten", f"{k.id}: unbekanntes Schulhaus '{k.schulhaus_fix}'", k.id))
-    for s in schule.schulhaeuser:
-        for typ in s.nutzt.values():
-            if typ not in namen:
-                m.append(Meldung("Fehler", "Daten", f"{s.name}: 'nutzt' verweist auf unbekanntes Schulhaus '{typ}'"))
 
     # Platz: Kinder pro Jahrgangsgruppe vs. maximal mögliche Plätze
     anzahl = Counter(k.jahrgang for k in kinder)
@@ -157,6 +233,23 @@ def pruefe(schule: Schule, kinder: list[Kind], e: Einteilung,
         g, hoechst = len(c.kinder), min(c.vorlage.max, c.raum.plaetze)
         if not c.vorlage.min <= g <= hoechst:
             f.append(Meldung("Fehler", "Klassen", f"{c.name}: Grösse {g} ausserhalb {c.vorlage.min}–{hoechst}", c.name))
+    nach_id = {k.id: k for k in kinder}
+    for c in e.klassen:
+        anz_is = sum(nach_id[i].is_ for i in c.kinder)
+        if schule.max_is_pro_klasse is not None and anz_is > schule.max_is_pro_klasse:
+            f.append(Meldung("Fehler", "Klassen", f"{c.name}: {anz_is} IS-Kinder (max. {schule.max_is_pro_klasse})",
+                             c.name))
+        gewichtet = gewichtete_groesse(schule, c, nach_id)
+        if gewichtet > min(c.vorlage.max, c.raum.plaetze) + 1e-9:
+            f.append(Meldung("Fehler", "Klassen", f"{c.name}: gewichtete Grösse {gewichtet:g} (IS zählt "
+                             f"{schule.is_zaehlt_als:g}-fach) über {min(c.vorlage.max, c.raum.plaetze)}", c.name))
+    if schule.geschwister == "hart":
+        familien = defaultdict(set)
+        for k in kinder:
+            if k.familie:
+                familien[k.familie].add(e.schulhaus_von[k.id])
+        f += [Meldung("Fehler", "Klassen", f"Familie {fam}: Geschwister in {', '.join(sorted(sh))}")
+              for fam, sh in familien.items() if len(sh) > 1]
     if bloecke is None or lektionen is None:
         return f
 
@@ -174,15 +267,23 @@ def pruefe(schule: Schule, kinder: list[Kind], e: Einteilung,
     for c in e.klassen:
         for fach, n in stundentafel(schule, c).items():
             soll[c.name, fach] += n
+    for b in bloecke:
+        if b.art == "foerder":
+            soll[b.klasse, b.fach] += b.lektionen
     ist = Counter((l.klasse, l.fach) for l in lektionen)
     f += [Meldung("Fehler", "Stundenplan", f"{k} {fach}: {ist[k, fach]} statt {n} Lektionen", k)
           for (k, fach), n in soll.items() if ist[k, fach] != n]
 
-    for art, schluessel, bezug in (("Klasse", lambda l: l.klasse, lambda l: l.klasse),
-                                   ("Lehrperson", lambda l: l.lehrperson, lambda l: l.lehrperson),
-                                   ("Raum", lambda l: (l.raum_ort, l.raum), lambda l: l.klasse)):
+    unterricht = [l for l in lektionen if l.art == "unterricht"]
+    teamteaching = {(l.klasse, l.slot) for l in lektionen
+                    if l.art == "foerder" and schule.faecher[l.fach].raumtyp == "Klassenzimmer"}
+    for art, schluessel, bezug, menge in (
+            ("Klasse", lambda l: l.klasse, lambda l: l.klasse, unterricht),
+            ("Lehrperson", lambda l: l.lehrperson, lambda l: l.lehrperson, lektionen),
+            ("Raum", lambda l: (l.raum_ort, l.raum), lambda l: l.klasse,
+             [l for l in lektionen if l.raum and (l.art == "unterricht" or (l.klasse, l.slot) not in teamteaching)])):
         gruppen = defaultdict(list)
-        for l in lektionen:
+        for l in menge:
             gruppen[schluessel(l), l.slot].append(l)
         for (x, s), ls in gruppen.items():
             if len(ls) > 1:
@@ -196,8 +297,8 @@ def pruefe(schule: Schule, kinder: list[Kind], e: Einteilung,
             f.append(Meldung("Fehler", "Stundenplan", f"{l.lehrperson} nicht verfügbar: {wann}", l.lehrperson, l.slot))
         if l.slot in schule.schulhaus(l.schulhaus).nicht_verfuegbar:
             f.append(Meldung("Fehler", "Stundenplan", f"Schulhaus {l.schulhaus} geschlossen: {wann}", l.klasse, l.slot))
-        raum = next(r for r in schule.schulhaus(l.raum_ort).raeume if r.name == l.raum)
-        if l.slot in raum.nicht_verfuegbar:
+        raum = next((r for r in schule.schulhaus(l.raum_ort).raeume if r.name == l.raum), None)
+        if raum and l.slot in raum.nicht_verfuegbar:
             f.append(Meldung("Fehler", "Stundenplan", f"Raum {l.raum_label} nicht verfügbar: {wann}", l.klasse, l.slot))
 
     pro_tag = Counter((l.klasse, l.fach, schule.slots[l.slot].tag) for l in lektionen)
@@ -206,8 +307,19 @@ def pruefe(schule: Schule, kinder: list[Kind], e: Einteilung,
         if n > max(fa.max_pro_tag, fa.dauer):
             f.append(Meldung("Fehler", "Stundenplan", f"{k} {fach}: {n} Lektionen am {tag}", k))
 
-    belegt = defaultdict(set)
+    parallel = {(tuple(b.klassen), b.fach): b.parallel_zu for b in bloecke if b.art == "foerder"}
+    fach_in = {(l.klasse, l.slot): l.fach for l in unterricht}
     for l in lektionen:
+        if l.art != "foerder":
+            continue
+        erlaubt = parallel.get((tuple(l.klassen), l.fach), [])
+        for kl in l.klassen:
+            if fach_in.get((kl, l.slot)) not in erlaubt:
+                f.append(Meldung("Fehler", "Stundenplan", f"{kl}: {l.fach} {schule.slots[l.slot].label} nicht "
+                                 f"parallel zu {'/'.join(erlaubt)}", kl, l.slot))
+
+    belegt = defaultdict(set)
+    for l in unterricht:
         belegt[l.klasse].add(l.slot)
     for name, slots in belegt.items():
         sh = klassen[name].schulhaus
@@ -220,6 +332,11 @@ def pruefe(schule: Schule, kinder: list[Kind], e: Einteilung,
             f += [Meldung("Fehler", "Stundenplan", f"{name}: Blockzeit {schule.slots[i].label} nicht besetzt", name, i)
                   for i in pflicht if i not in slots]
     return f
+
+
+def gewichtete_groesse(schule: Schule, klasse, nach_id: dict[str, Kind]) -> float:
+    """Klassengrösse, bei der IS-Kinder mit is_zaehlt_als gezählt werden."""
+    return len(klasse.kinder) + (schule.is_zaehlt_als - 1) * sum(nach_id[i].is_ for i in klasse.kinder)
 
 
 def springstunden(schule: Schule, lektionen: list[Lektion], lehrperson: str) -> list[int]:
@@ -253,7 +370,8 @@ def qualitaet(schule: Schule, kinder: list[Kind], e: Einteilung,
     lps_pro_klasse = defaultdict(set)
     last = Counter()
     for b in bloecke:
-        lps_pro_klasse[b.klasse].add(b.lehrperson)
+        if b.art == "unterricht":
+            lps_pro_klasse[b.klasse].add(b.lehrperson)
         last[b.lehrperson] += b.lektionen
     for kl, lps in lps_pro_klasse.items():
         if len(lps) > 4:
@@ -267,4 +385,60 @@ def qualitaet(schule: Schule, kinder: list[Kind], e: Einteilung,
                              lp.name))
         for i in springstunden(schule, lektionen, lp.name):
             m.append(Meldung("Hinweis", "Stundenplan", f"{lp.name}: Springstunde {schule.slots[i].label}", lp.name, i))
+    return m
+
+
+def rechtspruefung(schule: Schule, kinder: list[Kind], e: Einteilung, bloecke: list[Block]) -> list[Meldung]:
+    """Prüft das Ergebnis gegen die Regeln des Kantonsprofils – jede Meldung nennt ihre Quelle."""
+    regeln = (schule.profil or {}).get("regeln", {}) or {}
+    m: list[Meldung] = []
+    verbindlich = bool(schule.profil.get("verbindlich"))
+    nach_id = {k.id: k for k in kinder}
+
+    for name, regel in (regeln.get("klassengroessen") or {}).items():
+        jg = set(regel["jahrgaenge"])
+        for c in e.klassen:
+            if not set(c.jahrgaenge) & jg:
+                continue
+            n = len(c.kinder)
+            if n > regel["max"]:
+                m.append(Meldung("Fehler" if verbindlich else "Warnung", "Recht",
+                                 f"{c.name}: {n} Lernende über der Höchstzahl {regel['max']} ({name})",
+                                 c.name, quelle=regel.get("quelle", "")))
+            elif n < regel["min"]:
+                m.append(Meldung("Fehler" if verbindlich else "Warnung", "Recht",
+                                 f"{c.name}: {n} Lernende unter der Mindestzahl {regel['min']} ({name})",
+                                 c.name, quelle=regel.get("quelle", "")))
+            if n > regel["max"] and any(nach_id[i].is_ for i in c.kinder):
+                q = (regeln.get("sonderschulung") or {}).get("quelle", "")
+                m.append(Meldung("Warnung", "Recht", f"{c.name}: Klasse mit integrativer Sonderschulung über der "
+                                 "maximalen Klassengrösse", c.name, quelle=q))
+
+    bz = regeln.get("blockzeiten") or {}
+    if bz.get("pflicht") and not schule.blockzeiten:
+        m.append(Meldung("Warnung", "Recht", "Blockzeiten sind ausgeschaltet, aber vorgeschrieben",
+                         quelle=bz.get("quelle", "")))
+
+    sw = regeln.get("schulweg") or {}
+    if sw.get("zumutbar_minuten"):
+        tempo = sw.get("gehtempo_kmh", {}) or {}
+        pro_klasse = defaultdict(list)
+        for k in kinder:
+            kmh = float(tempo.get(k.jahrgang, tempo.get("default", 4.0)))
+            minuten = e.schulweg_m[k.id] / 1000 / kmh * 60
+            if minuten > sw["zumutbar_minuten"]:
+                pro_klasse[e.klasse_von[k.id]].append(f"{k.id} ({minuten:.0f} min)")
+        for kl, ks in pro_klasse.items():
+            m.append(Meldung("Hinweis", "Recht", f"{kl}: {len(ks)} Kind(er) mit Fussweg über "
+                             f"{sw['zumutbar_minuten']} min – Zumutbarkeit prüfen, ggf. Schultransport: "
+                             f"{', '.join(ks)}", kl, quelle=sw.get("quelle", "")))
+
+    ifr = regeln.get("integrative_foerderung") or {}
+    if ifr and bloecke:
+        soll = len(kinder) / ifr["lernende_pro_vollpensum"] * ifr["vollpensum_lektionen"]
+        ist = sum(b.lektionen for b in bloecke if b.art == "foerder" and b.fach == "IF")
+        if ist + 0.5 < soll:
+            m.append(Meldung("Hinweis", "Recht", f"IF-Lektionen {ist} unter dem Richtwert von ca. {soll:.0f} "
+                             f"({len(kinder)} Lernende, 1 Vollpensum pro {ifr['lernende_pro_vollpensum']})",
+                             quelle=ifr.get("quelle", "")))
     return m

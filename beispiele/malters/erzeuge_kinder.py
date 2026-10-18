@@ -42,6 +42,27 @@ def ort():
     return ort()
 
 
+SCHULHAEUSER = {"Bündtmättli": ("BM", 47.0338, 8.1862), "Eischachen": ("EI", 47.0402, 8.1765)}
+
+
+def vorjahres_schulhaus(lat, lon):
+    """Bisheriges Schulhaus: meist das nächstgelegene, manchmal das andere."""
+    nah = min(SCHULHAEUSER, key=lambda s: (SCHULHAEUSER[s][1] - lat) ** 2 + ((SCHULHAEUSER[s][2] - lon) * 0.68) ** 2)
+    return nah if random.random() < 0.85 else next(s for s in SCHULHAEUSER if s != nah)
+
+
+def bisherige_klasse(schulhaus, jg):
+    """Klasse im Vorjahr, z.B. 3. Klasse → "BM 2a"; KG2 → "BM KGb"."""
+    kuerzel = SCHULHAEUSER[schulhaus][0]
+    if jg == "KG1":
+        return ""
+    if jg == "KG2":
+        return f"{kuerzel} KG{random.choice('abcd')}"
+    if jg == "1":
+        return ""
+    return f"{kuerzel} {int(jg) - 1}{random.choice('ab')}"
+
+
 def main():
     kinder = []
     reihenfolge = list(JAHRGAENGE)
@@ -62,19 +83,25 @@ def main():
             jg = reihenfolge[i]
             offen[jg] -= 1
             w = random.random() < 0.49
+            vorjahr = vorjahres_schulhaus(lat, lon)
             kinder.append({
                 "id": f"K{len(kinder) + 1:04d}",
-                "name": f"{random.choice(VORNAMEN_W if w else VORNAMEN_M)} {nachname}",
+                "vorname": random.choice(VORNAMEN_W if w else VORNAMEN_M), "nachname": nachname,
                 "jahrgang": jg, "geschlecht": "w" if w else "m",
                 "adresse": adresse, "lat": lat, "lon": lon, "familie": f"F{fam:03d}",
-                "foerderbedarf": "ja" if random.random() < 0.12 else "",
-                "schulhaus_fix": "", "nicht_mit": "",
+                "if": "ja" if random.random() < 0.10 else "",
+                "daz": random.choices(["", "anfang", "aufbau"], [0.90, 0.03, 0.07])[0],
+                "is": "ja" if random.random() < 0.015 else "",
+                "schulhaus_fix": "",
+                "bisheriges_schulhaus": vorjahr if jg != "KG1" else "",
+                "bisherige_klasse": bisherige_klasse(vorjahr, jg),
+                "nicht_mit": "",
             })
     # einige Wünsche "nicht in dieselbe Klasse"
     for _ in range(12):
         jg = random.choice(reihenfolge[2:])
         a, b = random.sample([k for k in kinder if k["jahrgang"] == jg], 2)
-        a["nicht_mit"] = b["id"]
+        a["nicht_mit"] = b["id"]  # Wunsch: nicht in dieselbe Klasse
 
     wr = csv.DictWriter(sys.stdout, fieldnames=list(kinder[0]))
     wr.writeheader()

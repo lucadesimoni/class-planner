@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from .daten import Kind, Schule
 from .klassen import Einteilung, teile_ein
 from .lehrauftrag import Block, verteile_lehrauftraege
-from .pruefung import Meldung, pruefe, qualitaet, vorpruefung
+from .pruefung import Meldung, pruefe, qualitaet, rechtspruefung, vorpruefung
 from .solver import KeineLoesung, Loesungsinfo
 from .stundenplan import Lektion, erstelle_stundenplan
 
@@ -41,6 +41,8 @@ class Ergebnis:
             "Mischklassen": str(sum(len(c.jahrgaenge) > 1 and c.vorlage.bezeichnung == "" for c in e.klassen))
             if e else "–",
             "Lehrpersonen im Einsatz": str(len({b.lehrperson for b in self.bloecke})) if self.bloecke else "–",
+            "Förderlektionen": str(sum(b.lektionen for b in self.bloecke if b.art == "foerder"))
+            if self.bloecke else "–",
             "Springstunden": str(sum("Springstunde" in m.text for m in self.meldungen)) if self.lektionen else "–",
             "Fehler": str(self.anzahl("Fehler")),
             "Warnungen": str(self.anzahl("Warnung")),
@@ -64,7 +66,8 @@ def rechne(schule: Schule, kinder: list[Kind], zeitlimit: float = 120, nur_klass
         for i in r.einteilung.infos:
             protokoll(f"  {i}")
         if not nur_klassen:
-            r.bloecke, info = verteile_lehrauftraege(schule, r.einteilung.klassen, zeitlimit=zeitlimit * 0.15)
+            r.bloecke, info = verteile_lehrauftraege(schule, r.einteilung.klassen, zeitlimit=zeitlimit * 0.15,
+                                                     kinder=kinder)
             r.infos.append(info)
             protokoll(f"  {info}")
             r.lektionen, infos, warnungen = erstelle_stundenplan(schule, r.einteilung.klassen, r.bloecke,
@@ -79,6 +82,7 @@ def rechne(schule: Schule, kinder: list[Kind], zeitlimit: float = 120, nur_klass
         teil = (r.bloecke, r.lektionen) if r.lektionen else ()
         r.meldungen += pruefe(schule, kinder, r.einteilung, *teil)
         r.meldungen += qualitaet(schule, kinder, r.einteilung, r.bloecke, r.lektionen)
+        r.meldungen += rechtspruefung(schule, kinder, r.einteilung, r.bloecke)
     for i in r.infos:
         if not i.optimal and i.zielwert and (i.zielwert - i.schranke) / abs(i.zielwert) > 0.05:
             r.meldungen.append(Meldung("Hinweis", "Solver", f"{i.schritt}: Lösung ist bis zu "

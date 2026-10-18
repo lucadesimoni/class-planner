@@ -19,7 +19,7 @@ from ortools.sat.python import cp_model
 
 from .daten import Kind, Raum, Schule, Vorlage
 from .geo import luftlinie_m
-from .solver import Loesungsinfo, loese
+from .solver import Loesungsinfo, Regeln, loese_mit_regeln
 
 
 @dataclass
@@ -30,6 +30,7 @@ class Klasse:
     vorlage: Vorlage
     anzahl_pro_jahrgang: dict[str, int]
     kinder: list[str] = field(default_factory=list)
+    is_pro_jahrgang: dict[str, int] = field(default_factory=dict)  # IS-Kinder je Jahrgang (aus Schritt A)
 
     @property
     def jahrgaenge(self) -> list[str]:
@@ -78,22 +79,27 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
 
     # ---------------- Schritt A ----------------
     m = cp_model.CpModel()
+    regeln = Regeln(m)
     x = {}  # (kind, schulhaus) -> bool
     for k in kinder:
         if k.jahrgang not in schule.jahrgaenge:
             raise ValueError(f"Kind {k.id}: unbekannter Jahrgang '{k.jahrgang}'")
-        if k.schulhaus_fix:
-            erlaubt = [schule.schulhaus(k.schulhaus_fix).name]
-        else:
-            erlaubt = [s.name for s in schule.schulhaeuser
-                       if dist[k.id, s.name] <= schule.max_schulweg(k.jahrgang)]
-        if not erlaubt:
-            naechstes = min(schule.schulhaeuser, key=lambda s: dist[k.id, s.name]).name
+        moegliche = [s.name for s in schule.schulhaeuser
+                     if any(k.jahrgang in v.jahrgaenge and (not v.schulhaeuser or s.name in v.schulhaeuser)
+                            for v in schule.vorlagen)]
+        nah = [s for s in moegliche if dist[k.id, s] <= schule.max_schulweg(k.jahrgang)]
+        if not nah and moegliche:
+            naechstes = min(moegliche, key=lambda s: dist[k.id, s])
             warnungen.append(f"{k.id}: kein Schulhaus innerhalb max. Schulweg – nächstes ({naechstes}) zugelassen")
-            erlaubt = [naechstes]
-        for s in erlaubt:
+            nah = [naechstes]
+        for s in moegliche:
             x[k.id, s] = m.new_bool_var(f"x_{k.id}_{s}")
-        m.add_exactly_one(x[k.id, s] for s in erlaubt)
+            if s not in nah:
+                regeln.nur_wenn(m.add(x[k.id, s] == 0), f"Max. Schulweg Jahrgang {k.jahrgang} "
+                                                         f"({schule.max_schulweg(k.jahrgang)} m)")
+            if k.schulhaus_fix and s != k.schulhaus_fix:
+                regeln.nur_wenn(m.add(x[k.id, s] == 0), "Fixe Schulhaus-Zuteilungen")
+        m.add_exactly_one(x[k.id, s] for s in moegliche)
 
     y = {}   # (schulhaus, raumindex, vorlagenindex) -> bool
     n = {}   # (schulhaus, raumindex, vorlagenindex, jahrgang) -> int
@@ -108,17 +114,22 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
                 cap = min(v.max, raum.plaetze)
                 if cap < v.min:
                     continue
+                name_v = v.bezeichnung or "/".join(v.jahrgaenge)
                 yv = m.new_bool_var(f"y_{s.name}_{ri}_{vi}")
                 y[s.name, ri, vi] = yv
                 optionen.append(yv)
+                gross = max(v.max, raum.plaetze) * 2
                 for j in v.jahrgaenge:
-                    nv = m.new_int_var(0, cap, f"n_{s.name}_{ri}_{vi}_{j}")
+                    nv = m.new_int_var(0, gross, f"n_{s.name}_{ri}_{vi}_{j}")
                     n[s.name, ri, vi, j] = nv
-                    m.add(nv >= v.min_pro_jahrgang * yv)
+                    if v.min_pro_jahrgang:
+                        regeln.nur_wenn(m.add(nv >= v.min_pro_jahrgang * yv),
+                                        f"Mischklassen {name_v}: mind. {v.min_pro_jahrgang} Kinder pro Jahrgang")
                 groesse = sum(n[s.name, ri, vi, j] for j in v.jahrgaenge)
-                m.add(groesse >= v.min * yv)
-                m.add(groesse <= cap * yv)
-                abw = m.new_int_var(0, cap, f"abw_{s.name}_{ri}_{vi}")
+                m.add(groesse <= gross * yv)
+                regeln.nur_wenn(m.add(groesse >= v.min * yv), f"Mindestgrösse Klassen {name_v} ({v.min})")
+                regeln.nur_wenn(m.add(groesse <= cap * yv), f"Höchstgrösse Klassen {name_v} ({v.max}) bzw. Raumgrösse")
+                abw = m.new_int_var(0, gross, f"abw_{s.name}_{ri}_{vi}")
                 m.add(abw >= groesse - v.ideal * yv)
                 m.add(abw >= v.ideal * yv - groesse)
                 kosten += [(w["klasse"] + v.strafe) * yv, w["groessen_abweichung"] * abw]
@@ -151,20 +162,53 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
         sh = schule.schulhaus(ort)
         kapazitaet = sum(1 for r in sh.raeume if r.typ == typ for sl in schule.slots
                          if sl.index not in r.nicht_verfuegbar and sl.index not in sh.nicht_verfuegbar)
-        m.add(sum(terme) <= kapazitaet)
+        regeln.nur_wenn(m.add(sum(terme) <= kapazitaet),
+                        f"Kapazität {typ} in {ort} ({kapazitaet} Lektionen/Woche)")
 
     if schule.max_klassen:
-        m.add(sum(y.values()) <= schule.max_klassen)
+        regeln.nur_wenn(m.add(sum(y.values()) <= schule.max_klassen), f"Max. {schule.max_klassen} Klassen")
 
+    nach_id = {k.id: k for k in kinder}
     for (kid, s), xv in x.items():
         kosten.append(round(dist[kid, s] * w["schulweg_pro_km"] / 1000) * xv)
+        bisher = nach_id[kid].bisheriges_schulhaus
+        if bisher and bisher != s and any(sh.name == bisher for sh in schule.schulhaeuser):
+            kosten.append(w["schulhaus_gewechselt"] * xv)  # Kontinuität: Schulhaus aus dem Vorjahr
+
+    # Integrative Sonderschulung: IS-Kinder zählen bei der Klassengrösse ggf. mehrfach
+    # und es gibt höchstens max_is_pro_klasse IS-Kinder pro Klasse (Feinverteilung in Schritt B).
+    # Integrative Sonderschulung: pro Klasse wird festgelegt, wie viele IS-Kinder je Jahrgang
+    # hineinkommen; sie zählen bei der Klassengrösse is_zaehlt_als-fach.
+    is_n = {}  # (schulhaus, raumindex, vorlagenindex, jahrgang) -> int
+    if any(k.is_ for k in kinder):
+        zusatz = round((schule.is_zaehlt_als - 1) * 10)
+        for (sn, ri, vi), yv in y.items():
+            v = schule.vorlagen[vi]
+            cap = min(v.max, schule.schulhaus(sn).raeume[ri].plaetze)
+            for j in v.jahrgaenge:
+                is_n[sn, ri, vi, j] = m.new_int_var(0, cap, f"is_{sn}_{ri}_{vi}_{j}")
+                m.add(is_n[sn, ri, vi, j] <= n[sn, ri, vi, j])
+            summe_is = sum(is_n[sn, ri, vi, j] for j in v.jahrgaenge)
+            if zusatz > 0:
+                groesse = sum(n[sn, ri, vi, j] for j in v.jahrgaenge)
+                regeln.nur_wenn(m.add(10 * groesse + zusatz * summe_is <= 10 * cap * yv),
+                                f"IS zählt {schule.is_zaehlt_als:g}-fach bei der Klassengrösse")
+            if schule.max_is_pro_klasse is not None:
+                regeln.nur_wenn(m.add(summe_is <= schule.max_is_pro_klasse * yv),
+                                f"Max. {schule.max_is_pro_klasse} IS-Kinder pro Klasse")
+        for sh in schule.schulhaeuser:
+            for j in schule.jahrgaenge:
+                is_sj = [xv for (kid, sn), xv in x.items()
+                         if sn == sh.name and nach_id[kid].is_ and nach_id[kid].jahrgang == j]
+                plaetze = [iv for (sn, _, _, jj), iv in is_n.items() if sn == sh.name and jj == j]
+                m.add(sum(is_sj) == sum(plaetze))
 
     familien = defaultdict(list)
     for k in kinder:
         if k.familie:
             familien[k.familie].append(k.id)
     for fam, ids in familien.items():
-        if len(ids) < 2:
+        if len(ids) < 2 or schule.geschwister == "aus":
             continue
         e = {}
         for s in schule.schulhaeuser:
@@ -174,10 +218,20 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
             e[s.name] = m.new_bool_var(f"fam_{fam}_{s.name}")
             for v in vars_s:
                 m.add_implication(v, e[s.name])
-        kosten.append(w["geschwister_getrennt"] * (sum(e.values()) - 1))
+            if schule.geschwister == "hart":
+                # alle Geschwister im selben Schulhaus: wer dort nicht hin kann, sperrt es
+                for i in ids:
+                    if (i, s.name) in x:
+                        regeln.nur_wenn(m.add(x[i, s.name] == e[s.name]), "Geschwister im selben Schulhaus")
+                    else:
+                        regeln.nur_wenn(m.add(e[s.name] == 0), "Geschwister im selben Schulhaus")
+        if schule.geschwister == "hart":
+            regeln.nur_wenn(m.add(sum(e.values()) <= 1), "Geschwister im selben Schulhaus")
+        else:
+            kosten.append(w["geschwister_getrennt"] * (sum(e.values()) - 1))
 
     m.minimize(sum(kosten))
-    sol, info_a = loese(m, "Klasseneinteilung A (Schulhaus/Klassen)", zeitlimit * 0.6)
+    sol, info_a = loese_mit_regeln(m, regeln, "Klasseneinteilung A (Schulhaus/Klassen)", zeitlimit * 0.6)
 
     schulhaus_von = {kid: s for (kid, s), xv in x.items() if sol.value(xv)}
     klassen: list[Klasse] = []
@@ -191,7 +245,9 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
         stufe = v.bezeichnung or "/".join(j for j in v.jahrgaenge if anz[j] > 0)
         zaehler[sn, stufe] += 1
         name = f"{sh.kuerzel} {stufe}{chr(ord('a') + zaehler[sn, stufe] - 1)}"
-        klassen.append(Klasse(name, sn, sh.raeume[ri], v, anz))
+        klassen.append(Klasse(name, sn, sh.raeume[ri], v, anz,
+                              is_pro_jahrgang={j: sol.value(is_n[sn, ri, vi, j]) for j in v.jahrgaenge
+                                               if (sn, ri, vi, j) in is_n}))
 
     # ---------------- Schritt B ----------------
     klasse_von: dict[str, str] = {}
@@ -216,6 +272,7 @@ def _verteile_kinder(schule: Schule, ks: list[Kind], kl: list[Klasse],
                      nach_kind: dict[str, Kind], zeitlimit: float) -> Loesungsinfo:
     w = schule.gewichte
     m = cp_model.CpModel()
+    regeln = Regeln(m)
     z = {}
     for k in ks:
         moegliche = [ci for ci, c in enumerate(kl) if c.anzahl_pro_jahrgang.get(k.jahrgang, 0) > 0]
@@ -224,14 +281,19 @@ def _verteile_kinder(schule: Schule, ks: list[Kind], kl: list[Klasse],
         m.add_exactly_one(z[k.id, ci] for ci in moegliche)
 
     kosten = []
+    ausgleich = [(lambda k: k.geschlecht == "w", w["geschlecht_ungleich"])] + [
+        (lambda k, mm=mm: k.hat(mm), w["foerderbedarf_ungleich"]) for mm in schule.ausgleich]
     for ci, c in enumerate(kl):
+        # IS: höchstens max_is_pro_klasse, und gewichtete Grösse innerhalb der Raum-/Klassengrenze
+        for j, anzahl_is in c.is_pro_jahrgang.items():  # Anzahl IS-Kinder je Jahrgang aus Schritt A
+            is_cj = [z[k.id, ci] for k in ks if k.is_ and k.jahrgang == j and (k.id, ci) in z]
+            regeln.nur_wenn(m.add(sum(is_cj) == anzahl_is), "IS-Verteilung aus Schritt A")
         for j, anzahl in c.anzahl_pro_jahrgang.items():
             if anzahl == 0:
                 continue
             kj = [k for k in ks if k.jahrgang == j]
             m.add(sum(z[k.id, ci] for k in kj) == anzahl)
-            for merkmal, gewicht in ((lambda k: k.geschlecht == "w", w["geschlecht_ungleich"]),
-                                     (lambda k: k.foerderbedarf, w["foerderbedarf_ungleich"])):
+            for merkmal, gewicht in ausgleich:
                 gruppe = [k for k in kj if merkmal(k)]
                 if not gruppe:
                     continue
@@ -253,8 +315,26 @@ def _verteile_kinder(schule: Schule, ks: list[Kind], kl: list[Klasse],
                     m.add(z[k.id, ci] + z[anderer, ci] <= 1 + verletzt)
                     kosten.append(w["nicht_zusammen"] * verletzt)
 
+    # Kontinuität: Kinder einer bisherigen Klasse möglichst zusammen lassen
+    bisher = defaultdict(list)
+    for k in ks:
+        if k.bisherige_klasse:
+            bisher[k.bisherige_klasse].append(k)
+    for name, gruppe in bisher.items():
+        if len(gruppe) < 2:
+            continue
+        genutzt = []
+        for ci in range(len(kl)):
+            vars_c = [z[k.id, ci] for k in gruppe if (k.id, ci) in z]
+            if vars_c:
+                u = m.new_bool_var("bk")
+                for v in vars_c:
+                    m.add_implication(v, u)
+                genutzt.append(u)
+        kosten.append(w["klasse_getrennt"] * (sum(genutzt) - 1))
+
     m.minimize(sum(kosten))
-    sol, info = loese(m, f"Klasseneinteilung B ({kl[0].schulhaus})", max(zeitlimit, 2))
+    sol, info = loese_mit_regeln(m, regeln, f"Klasseneinteilung B ({kl[0].schulhaus})", max(zeitlimit, 2))
     for (kid, ci), zv in z.items():
         if sol.value(zv):
             kl[ci].kinder.append(kid)

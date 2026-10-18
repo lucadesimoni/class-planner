@@ -9,13 +9,16 @@ description = "Klasseneinteilung und Stundenplan für Schulen mit mehreren Schul
 readme = "README.md"
 license = {text = "GPL-3.0-or-later"}
 requires-python = ">=3.10"
-dependencies = ["ortools>=9.10", "pyyaml>=6"]
+dependencies = ["ortools>=9.10", "pyyaml>=6", "openpyxl>=3.1"]
 
 [project.optional-dependencies]
-test = ["pytest>=8"]
+test = ["pytest>=8", "jsonschema>=4"]
 
 [project.scripts]
 skf = "skf.cli:main"
 
 [tool.setuptools]
 packages = ["skf"]
+
+[tool.setuptools.package-data]
+skf = ["profile/*.yaml"]

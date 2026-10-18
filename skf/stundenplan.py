@@ -12,14 +12,14 @@ schneller) gelöst – das Ergebnis bleibt exakt.
 from __future__ import annotations
 
 from collections import defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from ortools.sat.python import cp_model
 
 from .daten import Schule
 from .klassen import Klasse
 from .lehrauftrag import Block, gesperrte_slots
-from .solver import KeineLoesung, Loesungsinfo, loese
+from .solver import KeineLoesung, Loesungsinfo, Regeln, loese_mit_regeln
 
 
 @dataclass
@@ -31,6 +31,13 @@ class Lektion:
     raum: str
     schulhaus: str      # Schulhaus der Klasse
     raum_ort: str = ""  # Schulhaus des Raums (bei "nutzt" ein anderes)
+    art: str = "unterricht"
+    gruppe: int = 0
+    klassen: list[str] = field(default_factory=list)  # alle beteiligten Klassen (Fördergruppen)
+
+    def __post_init__(self):
+        if not self.klassen:
+            self.klassen = [self.klasse]
 
     @property
     def raum_label(self) -> str:
@@ -85,12 +92,15 @@ def _loese_komponente(schule: Schule, klassen: list[Klasse], bloecke: list[Block
     klasse_nach_name = {c.name: c for c in klassen}
     warnungen: list[str] = []
     m = cp_model.CpModel()
+    regeln = Regeln(m)
 
     # Ereignisse: (Block, Dauer) mit je einer Startvariable pro möglichem Slot
     ereignisse = []  # (block, dauer, anzahl, {start_slot: var})
     for b in bloecke:
         fach = schule.faecher[b.fach]
-        gesperrt = gesperrte_slots(schule, klasse_nach_name[b.klasse], b.fach, lp_nach_name[b.lehrperson])
+        lp = lp_nach_name[b.lehrperson]
+        # nur durch die Lehrperson gesperrte Slots bleiben als Variable (für die Konfliktanalyse)
+        gesperrt = gesperrte_slots(schule, klasse_nach_name[b.klasse], b.fach, lp) - lp.nicht_verfuegbar
         teile = [(fach.dauer, b.lektionen // fach.dauer)]
         if b.lektionen % fach.dauer:
             teile.append((1, b.lektionen % fach.dauer))
@@ -103,42 +113,60 @@ def _loese_komponente(schule: Schule, klassen: list[Klasse], bloecke: list[Block
                 if (len(folge) == dauer and all(f.tag == s.tag and f.halbtag == s.halbtag for f in folge)
                         and not any(f.index in gesperrt for f in folge)):
                     starts[s.index] = m.new_bool_var(f"s_{b.klasse}_{b.fach}_{dauer}_{s.index}")
+                    if any(f.index in lp.nicht_verfuegbar for f in folge):
+                        regeln.nur_wenn(m.add(starts[s.index] == 0), f"Verfügbarkeit {lp.name}")
             if len(starts) < anzahl:
-                raise KeineLoesung(f"{b.klasse} {b.fach}: zu wenige mögliche Zeitfenster für {b.lehrperson}")
+                raise KeineLoesung(f"{b.klasse} {b.fach}: zu wenige mögliche Zeitfenster (Räume/Schulhaus gesperrt)")
             m.add(sum(starts.values()) == anzahl)
             ereignisse.append((b, dauer, anzahl, starts))
 
     # Belegung je (Block-Ereignis, Slot) als lineare 0/1-Ausdrücke
     belegt = defaultdict(list)  # (art, schlüssel, slot) -> Liste von Variablen
     fach_tag = defaultdict(list)
+    groesse = {}  # Raumnutzer -> Anzahl Kinder (Klasse oder Fördergruppe)
     for b, dauer, _, starts in ereignisse:
         fach = schule.faecher[b.fach]
+        nutzer = b.klasse if b.art == "unterricht" else f"{'+'.join(b.klassen)}|{b.fach}"
+        groesse[nutzer] = b.gruppe or klasse_nach_name[b.klasse].groesse
         for st, var in starts.items():
             for i in range(st, st + dauer):
-                belegt["klasse", b.klasse, i].append(var)
+                if b.art == "unterricht":
+                    belegt["klasse", b.klasse, i].append(var)
+                    belegt["fach", (b.klasse, b.fach), i].append(var)
+                else:
+                    belegt["foerder", (tuple(b.klassen), b.fach, tuple(b.parallel_zu)), i].append(var)
                 belegt["lp", b.lehrperson, i].append(var)
                 fach_tag[b.klasse, b.fach, slots[i].tag].append(var)
-                if fach.raumtyp != "Klassenzimmer":
+                if fach.raumtyp not in ("Klassenzimmer", ""):
                     ort = schule.schulhaus(b.schulhaus).nutzt.get(fach.raumtyp, b.schulhaus)
-                    belegt["raum", (ort, fach.raumtyp, b.klasse), i].append(var)
+                    belegt["raum", (ort, fach.raumtyp, nutzer), i].append(var)
+
+    # Förderlektionen finden parallel zu bestimmten Fächern der Klasse statt
+    for (art, key, i), vars_ in list(belegt.items()):
+        if art == "foerder":
+            klassen_f, _, parallel = key
+            for kl in klassen_f:  # alle beteiligten Klassen haben gleichzeitig ein passendes Fach
+                regeln.nur_wenn(m.add(sum(vars_) <= sum(v for f in parallel for v in belegt.get(("fach", (kl, f), i), []))),
+                                f"{key[1]} parallel zu {'/'.join(parallel)}")
 
     for (kl, fach, _), vars_ in fach_tag.items():
-        m.add(sum(vars_) <= max(schule.faecher[fach].max_pro_tag, schule.faecher[fach].dauer))
+        grenze = max(schule.faecher[fach].max_pro_tag, schule.faecher[fach].dauer)
+        regeln.nur_wenn(m.add(sum(vars_) <= grenze), f"Max. {grenze} L {fach} pro Tag")
 
     # Klassen: max. 1 Lektion pro Slot, Blockzeiten, keine Lücken im Halbtag
     for c in klassen:
-        total = sum(b.lektionen for b in bloecke if b.klasse == c.name)
+        total = sum(b.lektionen for b in bloecke if b.klasse == c.name and b.art == "unterricht")
         co = {s.index: sum(belegt["klasse", c.name, s.index]) for s in slots}
         offen = schule.offene_slots(c.schulhaus)
         pflicht = blockzeit_slots(schule, c.schulhaus) if total >= len(blockzeit_slots(schule, c.schulhaus)) else []
         vorher = None
         for s in offen:
-            m.add(co[s.index] <= 1)
+            regeln.nur_wenn(m.add(co[s.index] <= 1), f"{c.name}: eine Lektion pro Zeitfenster")
             if vorher is not None and vorher.tag == s.tag and vorher.halbtag == s.halbtag:
-                m.add(co[s.index] <= co[vorher.index])  # keine Lücken für Kinder
+                regeln.nur_wenn(m.add(co[s.index] <= co[vorher.index]), f"{c.name}: keine Lücken im Halbtag")
             vorher = s
         for i in pflicht:
-            m.add(co[i] == 1)
+            regeln.nur_wenn(m.add(co[i] == 1), f"Blockzeiten {c.name}")
 
     # Spezialräume: Hall-Bedingung über Klassengrössen (exakt für "Raum gross genug")
     raumbedarf = defaultdict(lambda: defaultdict(list))  # (ort, typ, slot) -> klasse -> vars
@@ -151,15 +179,16 @@ def _loese_komponente(schule: Schule, klassen: list[Klasse], bloecke: list[Block
                          if r.typ == typ and i not in r.nicht_verfuegbar)
         if not plaetze:  # durch _gesperrt bereits ausgeschlossen
             continue
-        groessen = {kl: klasse_nach_name[kl].groesse for kl in pro_klasse}
+        groessen = {kl: groesse[kl] for kl in pro_klasse}
         for kl, g in groessen.items():
             warnung = f"{kl} ({g} Kinder) ist grösser als jeder Raum '{typ}' in {ort}"
             if g > plaetze[-1] and warnung not in warnungen:
                 warnungen.append(warnung)
         for schwelle in sorted(set(min(g, plaetze[-1]) for g in groessen.values())):
             passende = sum(1 for p in plaetze if p >= schwelle)
-            m.add(sum(v for kl, vs in pro_klasse.items()
-                      if min(groessen[kl], plaetze[-1]) >= schwelle for v in vs) <= passende)
+            regeln.nur_wenn(m.add(sum(v for kl, vs in pro_klasse.items()
+                                      if min(groessen[kl], plaetze[-1]) >= schwelle for v in vs) <= passende),
+                            f"Anzahl Räume {typ} in {ort}")
 
     # Lehrpersonen: keine Doppelbelegung, weiche Ziele
     kosten = []
@@ -171,7 +200,7 @@ def _loese_komponente(schule: Schule, klassen: list[Klasse], bloecke: list[Block
             if not vars_:
                 continue
             busy[s.index] = m.new_bool_var(f"busy_{name}_{s.index}")
-            m.add(sum(vars_) == busy[s.index])
+            regeln.nur_wenn(m.add(sum(vars_) == busy[s.index]), f"{name}: eine Lektion pro Zeitfenster")
         orte = {b.schulhaus for b in bloecke if b.lehrperson == name}
         for tag, ht in halbtage:
             idx = [s.index for s in slots if s.tag == tag and s.halbtag == ht and s.index in busy]
@@ -203,14 +232,15 @@ def _loese_komponente(schule: Schule, klassen: list[Klasse], bloecke: list[Block
                     kosten.append(w["schulhauswechsel"] * wechsel)
 
     m.minimize(sum(kosten))
-    sol, info = loese(m, f"Stundenplan {titel}", zeitlimit)
+    sol, info = loese_mit_regeln(m, regeln, f"Stundenplan {titel}", zeitlimit)
 
     lektionen = []
     for b, dauer, _, starts in ereignisse:
         for st, var in starts.items():
             if sol.value(var):
                 for i in range(st, st + dauer):
-                    lektionen.append(Lektion(b.klasse, b.fach, b.lehrperson, i, "", b.schulhaus))
+                    lektionen.append(Lektion(b.klasse, b.fach, b.lehrperson, i, "", b.schulhaus, art=b.art,
+                                             gruppe=b.gruppe, klassen=list(b.klassen)))
     _raeume_zuweisen(schule, klasse_nach_name, lektionen)
     return lektionen, info, warnungen
 
@@ -228,7 +258,9 @@ def _raeume_zuweisen(schule: Schule, klassen: dict[str, Klasse], lektionen: list
     gruppen = defaultdict(list)
     for l in lektionen:
         typ = schule.faecher[l.fach].raumtyp
-        if typ == "Klassenzimmer":
+        if typ == "":
+            l.raum, l.raum_ort = "", l.schulhaus  # Raum wird nicht geplant
+        elif typ == "Klassenzimmer":
             l.raum, l.raum_ort = klassen[l.klasse].raum.name, l.schulhaus
         else:
             ort = schule.schulhaus(l.schulhaus).nutzt.get(typ, l.schulhaus)
@@ -236,7 +268,9 @@ def _raeume_zuweisen(schule: Schule, klassen: dict[str, Klasse], lektionen: list
     for (ort, typ, slot), ls in gruppen.items():
         frei = sorted((r for r in schule.schulhaus(ort).raeume if r.typ == typ and slot not in r.nicht_verfuegbar),
                       key=lambda r: r.plaetze)
-        for l in sorted(ls, key=lambda l: -klassen[l.klasse].groesse):
-            raum = next((r for r in frei if r.plaetze >= klassen[l.klasse].groesse), frei[-1])
+        def g(l):
+            return l.gruppe or klassen[l.klasse].groesse
+        for l in sorted(ls, key=lambda l: -g(l)):
+            raum = next((r for r in frei if r.plaetze >= g(l)), frei[-1])
             frei.remove(raum)
             l.raum, l.raum_ort = raum.name, ort

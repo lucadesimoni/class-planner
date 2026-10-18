@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lucadesimoni/stunden-klassen-fitter/schema/skf-stammdaten.schema.json",
+  "title": "skf-stammdaten",
+  "description": "Austauschformat für Schul-Konfiguration und Kinderliste (stunden-klassen-fitter). Erzeugen mit `skf export … -o daten.json`, einlesen mit `skf import daten.json -o ordner`.",
+  "type": "object",
+  "required": ["format", "version", "schule", "kinder"],
+  "properties": {
+    "format": {"const": "skf-stammdaten"},
+    "version": {"const": 1},
+    "exportiert": {"type": "string", "format": "date"},
+    "schule": {"$ref": "#/$defs/schule"},
+    "kinder": {"type": "array", "items": {"$ref": "#/$defs/kind"}}
+  },
+  "$defs": {
+    "liste": {"oneOf": [{"type": "string"}, {"type": "array", "items": {"type": "string"}}]},
+    "verfuegbarkeit": {
+      "description": "Gesperrte Zeitfenster: 'Mi' (Tag), 'Fr-NM' (Halbtag), 'Mo-VM-1' (Lektion)",
+      "type": "array", "items": {"type": "string", "pattern": "^[A-Za-z]+(-[A-Za-z]+(-[0-9]+)?)?$"}
+    },
+    "schule": {
+      "type": "object",
+      "required": ["jahrgaenge", "schulhaeuser", "klassenbildung", "zeitraster", "faecher", "stundentafel"],
+      "properties": {
+        "name": {"type": "string"},
+        "schuljahr": {"type": "string"},
+        "basis_profil": {"type": "string", "description": "Kantonsprofil, z.B. 'luzern'"},
+        "profil": {"type": "object", "properties": {"verbindlich": {"type": "boolean"}}},
+        "jahrgaenge": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "schulhaeuser": {"type": "array", "items": {"$ref": "#/$defs/schulhaus"}, "minItems": 1},
+        "klassenbildung": {
+          "type": "object", "required": ["vorlagen"],
+          "properties": {
+            "geschwister": {"enum": ["weich", "hart", "aus"]},
+            "umweg_faktor": {"type": "number", "minimum": 1},
+            "max_schulweg_m": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+            "max_klassen": {"type": "integer", "minimum": 1},
+            "vorlagen": {"type": "array", "items": {"$ref": "#/$defs/vorlage"}, "minItems": 1}
+          }
+        },
+        "sonderpaedagogik": {
+          "type": "object",
+          "properties": {
+            "is_zaehlt_als": {"type": "number", "minimum": 1},
+            "max_is_pro_klasse": {"type": "integer", "minimum": 0},
+            "ausgleich": {"type": "array", "items": {"type": "string"}},
+            "foerderangebote": {"type": "array", "items": {"$ref": "#/$defs/foerderangebot"}}
+          }
+        },
+        "zeitraster": {
+          "type": "object", "required": ["halbtage"],
+          "properties": {
+            "tage": {"type": "array", "items": {"type": "string"}},
+            "halbtage": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}},
+            "frei": {"type": "array", "items": {"type": "string"}},
+            "blockzeiten": {"type": "boolean"}
+          }
+        },
+        "faecher": {"type": "object", "additionalProperties": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/fach"}]}},
+        "stundentafel": {"type": "object", "additionalProperties": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}},
+        "lehrpersonen": {"type": "array", "items": {"$ref": "#/$defs/lehrperson"}},
+        "gewichte": {"type": "object", "additionalProperties": {"type": "integer"}},
+        "szenarien": {"type": "object", "additionalProperties": {"type": "object"}}
+      }
+    },
+    "schulhaus": {
+      "type": "object", "required": ["name", "lat", "lon"],
+      "properties": {
+        "name": {"type": "string"}, "kuerzel": {"type": "string"},
+        "lat": {"type": "number", "minimum": -90, "maximum": 90},
+        "lon": {"type": "number", "minimum": -180, "maximum": 180},
+        "nicht_verfuegbar": {"$ref": "#/$defs/verfuegbarkeit"},
+        "nutzt": {"type": "object", "additionalProperties": {"type": "string"}},
+        "raeume": {"type": "array", "items": {
+          "type": "object", "required": ["typ"],
+          "properties": {
+            "name": {"type": "string"}, "typ": {"type": "string"},
+            "anzahl": {"type": "integer", "minimum": 1}, "plaetze": {"type": "integer", "minimum": 1},
+            "nicht_verfuegbar": {"$ref": "#/$defs/verfuegbarkeit"}
+          }}}
+      }
+    },
+    "vorlage": {
+      "type": "object", "required": ["jahrgaenge", "min", "max"],
+      "properties": {
+        "jahrgaenge": {"$ref": "#/$defs/liste"}, "bezeichnung": {"type": "string"}, "raumtyp": {"type": "string"},
+        "min": {"type": "integer", "minimum": 1}, "max": {"type": "integer", "minimum": 1},
+        "ideal": {"type": "integer"}, "strafe": {"type": "integer"}, "min_pro_jahrgang": {"type": "integer"},
+        "schulhaeuser": {"$ref": "#/$defs/liste"}
+      }
+    },
+    "fach": {
+      "type": "object",
+      "properties": {
+        "raumtyp": {"type": "string"}, "dauer": {"type": "integer", "minimum": 1},
+        "max_pro_tag": {"type": "integer", "minimum": 1}
+      }
+    },
+    "lehrperson": {
+      "type": "object", "required": ["name", "faecher"],
+      "properties": {
+        "name": {"type": "string"}, "kuerzel": {"type": "string"}, "faecher": {"$ref": "#/$defs/liste"},
+        "jahrgaenge": {"$ref": "#/$defs/liste"}, "schulhaeuser": {"$ref": "#/$defs/liste"},
+        "pensum": {"oneOf": [{"type": "integer"}, {"type": "array", "items": {"type": "integer"}, "minItems": 2, "maxItems": 2}]},
+        "nicht_verfuegbar": {"$ref": "#/$defs/verfuegbarkeit"},
+        "bisherige_klasse": {"type": "string"}
+      }
+    },
+    "foerderangebot": {
+      "type": "object", "required": ["name"],
+      "properties": {
+        "name": {"type": "string"}, "merkmal": {"type": "string", "description": "alle | if | is | daz | daz=anfang | daz=aufbau | foerderbedarf"},
+        "basis": {"oneOf": [{"type": "number"}, {"type": "object", "additionalProperties": {"type": "number"}}]},
+        "pro_kind": {"type": "number"}, "frei_bis": {"type": "integer"}, "max": {"type": "integer"},
+        "parallel_zu": {"$ref": "#/$defs/liste"}, "raumtyp": {"type": "string"}, "quelle": {"type": "string"},
+        "gruppierung": {"enum": ["klasse", "schulhaus"]},
+        "stufen": {"type": "array", "items": {"type": "array", "items": {"type": "string"}}},
+        "max_gruppe": {"type": "integer", "minimum": 1}
+      }
+    },
+    "kind": {
+      "type": "object", "required": ["id", "jahrgang"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1}, "vorname": {"type": "string"}, "nachname": {"type": "string"},
+        "name": {"type": "string"}, "jahrgang": {"type": "string"}, "geschlecht": {"enum": ["w", "m", "d", ""]},
+        "adresse": {"type": "string"}, "lat": {"type": "string"}, "lon": {"type": "string"},
+        "familie": {"type": "string"}, "if": {"type": "string"}, "daz": {"enum": ["", "anfang", "aufbau"]},
+        "is": {"type": "string"}, "foerderbedarf": {"type": "string"}, "schulhaus_fix": {"type": "string"},
+        "bisheriges_schulhaus": {"type": "string"}, "bisherige_klasse": {"type": "string"},
+        "nicht_mit": {"type": "string", "description": "IDs, mit ; getrennt"}
+      },
+      "additionalProperties": {"type": "string"}
+    }
+  }
+}
