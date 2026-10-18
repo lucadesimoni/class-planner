@@ -119,8 +119,9 @@ def test_zu_wenig_platz_meldet_fehler(daten):
 def test_cli(daten, capsys):
     _, _, tmp = daten
     main([str(tmp / "schule.yaml"), str(tmp / "kinder.csv"), "-o", str(tmp / "out"), "-t", "40"])
-    assert "alle harten Regeln erfüllt" in capsys.readouterr().out
-    for datei in ("einteilung.csv", "klassen.csv", "lehrauftraege.csv", "stundenplan.csv", "bericht.html"):
+    assert "0 Fehler" in capsys.readouterr().out
+    for datei in ("einteilung.csv", "klassen.csv", "lehrauftraege.csv", "stundenplan.csv", "meldungen.csv",
+                  "bericht.html"):
         assert (tmp / "out" / datei).stat().st_size > 0
 
 

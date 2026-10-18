@@ -36,10 +36,12 @@ def loese(model: cp_model.CpModel, schritt: str, zeitlimit: float,
     solver.parameters.num_workers = threads
     status = solver.solve(model)
     name = solver.status_name(status)
+    if status == cp_model.INFEASIBLE:
+        raise KeineLoesung(f"{schritt}: nachweislich keine Lösung möglich. "
+                           "Randbedingungen lockern (Räume, Pensen, Verfügbarkeiten, Klassengrössen).")
     if status not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        raise KeineLoesung(
-            f"{schritt}: keine Lösung gefunden ({name}). "
-            "Bitte Randbedingungen lockern (Raumkapazität, Pensen, Verfügbarkeiten, Zeitlimit).")
+        raise KeineLoesung(f"{schritt}: innerhalb von {zeitlimit:.0f}s keine Lösung gefunden ({name}) – "
+                           "Zeitlimit erhöhen (-t) oder Randbedingungen lockern.")
     info = Loesungsinfo(schritt, name, solver.objective_value, solver.best_objective_bound,
                         solver.wall_time)
     return solver, info

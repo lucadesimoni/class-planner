@@ -18,7 +18,7 @@ from ortools.sat.python import cp_model
 
 from .daten import Schule
 from .klassen import Klasse
-from .lehrauftrag import Block
+from .lehrauftrag import Block, gesperrte_slots
 from .solver import KeineLoesung, Loesungsinfo, loese
 
 
@@ -90,7 +90,7 @@ def _loese_komponente(schule: Schule, klassen: list[Klasse], bloecke: list[Block
     ereignisse = []  # (block, dauer, anzahl, {start_slot: var})
     for b in bloecke:
         fach = schule.faecher[b.fach]
-        gesperrt = lp_nach_name[b.lehrperson].nicht_verfuegbar
+        gesperrt = gesperrte_slots(schule, klasse_nach_name[b.klasse], b.fach, lp_nach_name[b.lehrperson])
         teile = [(fach.dauer, b.lektionen // fach.dauer)]
         if b.lektionen % fach.dauer:
             teile.append((1, b.lektionen % fach.dauer))
@@ -126,17 +126,19 @@ def _loese_komponente(schule: Schule, klassen: list[Klasse], bloecke: list[Block
         m.add(sum(vars_) <= max(schule.faecher[fach].max_pro_tag, schule.faecher[fach].dauer))
 
     # Klassen: max. 1 Lektion pro Slot, Blockzeiten, keine Lücken im Halbtag
-    erster_halbtag = slots[0].halbtag
-    vm_slots = sum(1 for s in slots if s.halbtag == erster_halbtag)
     for c in klassen:
         total = sum(b.lektionen for b in bloecke if b.klasse == c.name)
         co = {s.index: sum(belegt["klasse", c.name, s.index]) for s in slots}
-        for s in slots:
+        offen = schule.offene_slots(c.schulhaus)
+        pflicht = blockzeit_slots(schule, c.schulhaus) if total >= len(blockzeit_slots(schule, c.schulhaus)) else []
+        vorher = None
+        for s in offen:
             m.add(co[s.index] <= 1)
-            if s.nr > 0:
-                m.add(co[s.index] <= co[s.index - 1])
-            if schule.blockzeiten and s.halbtag == erster_halbtag and total >= vm_slots:
-                m.add(co[s.index] == 1)
+            if vorher is not None and vorher.tag == s.tag and vorher.halbtag == s.halbtag:
+                m.add(co[s.index] <= co[vorher.index])  # keine Lücken für Kinder
+            vorher = s
+        for i in pflicht:
+            m.add(co[i] == 1)
 
     # Spezialräume: Hall-Bedingung über Klassengrössen (exakt für "Raum gross genug")
     raumbedarf = defaultdict(lambda: defaultdict(list))  # (ort, typ, slot) -> klasse -> vars
@@ -145,9 +147,10 @@ def _loese_komponente(schule: Schule, klassen: list[Klasse], bloecke: list[Block
             ort, typ, kl = key
             raumbedarf[ort, typ, i][kl] += vars_
     for (ort, typ, i), pro_klasse in raumbedarf.items():
-        plaetze = sorted(r.plaetze for r in schule.schulhaus(ort).raeume if r.typ == typ)
-        if not plaetze:
-            raise KeineLoesung(f"Schulhaus {ort} hat keinen Raum vom Typ '{typ}' (ggf. 'nutzt' setzen)")
+        plaetze = sorted(r.plaetze for r in schule.schulhaus(ort).raeume
+                         if r.typ == typ and i not in r.nicht_verfuegbar)
+        if not plaetze:  # durch _gesperrt bereits ausgeschlossen
+            continue
         groessen = {kl: klasse_nach_name[kl].groesse for kl in pro_klasse}
         for kl, g in groessen.items():
             warnung = f"{kl} ({g} Kinder) ist grösser als jeder Raum '{typ}' in {ort}"
@@ -212,6 +215,14 @@ def _loese_komponente(schule: Schule, klassen: list[Klasse], bloecke: list[Block
     return lektionen, info, warnungen
 
 
+def blockzeit_slots(schule: Schule, schulhaus: str) -> list[int]:
+    """Slots, die bei Blockzeiten besetzt sein müssen (offene Vormittagslektionen)."""
+    if not schule.blockzeiten:
+        return []
+    vm = schule.slots[0].halbtag
+    return [s.index for s in schule.offene_slots(schulhaus) if s.halbtag == vm]
+
+
 def _raeume_zuweisen(schule: Schule, klassen: dict[str, Klasse], lektionen: list[Lektion]) -> None:
     """Konkrete Räume: grösste Klasse zuerst, jeweils der kleinste passende freie Raum."""
     gruppen = defaultdict(list)
@@ -222,8 +233,9 @@ def _raeume_zuweisen(schule: Schule, klassen: dict[str, Klasse], lektionen: list
         else:
             ort = schule.schulhaus(l.schulhaus).nutzt.get(typ, l.schulhaus)
             gruppen[ort, typ, l.slot].append(l)
-    for (ort, typ, _), ls in gruppen.items():
-        frei = sorted((r for r in schule.schulhaus(ort).raeume if r.typ == typ), key=lambda r: r.plaetze)
+    for (ort, typ, slot), ls in gruppen.items():
+        frei = sorted((r for r in schule.schulhaus(ort).raeume if r.typ == typ and slot not in r.nicht_verfuegbar),
+                      key=lambda r: r.plaetze)
         for l in sorted(ls, key=lambda l: -klassen[l.klasse].groesse):
             raum = next((r for r in frei if r.plaetze >= klassen[l.klasse].groesse), frei[-1])
             frei.remove(raum)

@@ -36,6 +36,7 @@ class Raum:
     name: str
     typ: str
     plaetze: int
+    nicht_verfuegbar: set[int] = field(default_factory=set)  # Slot-Indizes
 
 
 @dataclass
@@ -46,6 +47,7 @@ class Schulhaus:
     lon: float
     raeume: list[Raum]
     nutzt: dict[str, str] = field(default_factory=dict)  # Raumtyp -> anderes Schulhaus
+    nicht_verfuegbar: set[int] = field(default_factory=set)  # Schulhaus geschlossen
 
 
 @dataclass
@@ -124,12 +126,17 @@ class Schule:
     blockzeiten: bool
     gewichte: dict[str, int]
     max_klassen: int | None = None
+    szenario: str = "Basis"
 
     def schulhaus(self, name: str) -> Schulhaus:
         for s in self.schulhaeuser:
             if s.name == name:
                 return s
         raise KeyError(f"Unbekanntes Schulhaus: {name}")
+
+    def offene_slots(self, schulhaus: str) -> list:
+        zu = self.schulhaus(schulhaus).nicht_verfuegbar
+        return [s for s in self.slots if s.index not in zu]
 
     def max_schulweg(self, jahrgang: str) -> int:
         return self.max_schulweg_m.get(jahrgang, self.max_schulweg_m.get("default", 10**9))
@@ -180,8 +187,52 @@ def _liste(wert) -> list[str] | None:
     return [str(v) for v in wert]
 
 
-def lade_schule(pfad: str | Path) -> Schule:
+def _mische(basis, patch):
+    """Szenario-Änderungen anwenden: Dicts werden rekursiv gemischt, Listen von
+    Einträgen mit 'name' werden pro Name gemischt (neu = anhängen,
+    'entfernen: true' = löschen), alle anderen Werte ersetzt."""
+    if isinstance(basis, dict) and isinstance(patch, dict):
+        out = dict(basis)
+        for k, v in patch.items():
+            out[k] = _mische(basis[k], v) if k in basis else v
+        return out
+    if (isinstance(basis, list) and isinstance(patch, list)
+            and all(isinstance(x, dict) and "name" in x for x in basis + patch)):
+        out = [dict(x) for x in basis]
+        for p in patch:
+            treffer = next((i for i, x in enumerate(out) if x["name"] == p["name"]), None)
+            if p.get("entfernen"):
+                if treffer is not None:
+                    out.pop(treffer)
+            elif treffer is None:
+                out.append(p)
+            else:
+                out[treffer] = _mische(out[treffer], p)
+        return out
+    return patch
+
+
+def szenarien(pfad: str | Path) -> list[str]:
     cfg = yaml.safe_load(Path(pfad).read_text(encoding="utf-8"))
+    return ["Basis"] + list((cfg.get("szenarien") or {}).keys())
+
+
+def lade_schule(pfad: str | Path, szenario: str = "Basis",
+                gewichte: dict[str, int] | None = None) -> Schule:
+    """Lädt die Konfiguration, wendet optional ein Szenario und Gewichte an."""
+    cfg = yaml.safe_load(Path(pfad).read_text(encoding="utf-8"))
+    alle = cfg.pop("szenarien", None) or {}
+    if szenario != "Basis":
+        if szenario not in alle:
+            raise ValueError(f"Unbekanntes Szenario '{szenario}'. Vorhanden: {', '.join(alle) or '-'}")
+        cfg = _mische(cfg, alle[szenario] or {})
+    if gewichte:
+        cfg["gewichte"] = {**cfg.get("gewichte", {}), **gewichte}
+    unbekannt = set(cfg.get("gewichte", {})) - set(STANDARD_GEWICHTE)
+    if unbekannt:
+        raise ValueError(f"Unbekannte Gewichte: {', '.join(sorted(unbekannt))}. "
+                         f"Erlaubt: {', '.join(STANDARD_GEWICHTE)}")
+    slots = _parse_slots(cfg["zeitraster"])
 
     schulhaeuser = []
     for sh in cfg["schulhaeuser"]:
@@ -192,11 +243,13 @@ def lade_schule(pfad: str | Path) -> Schule:
                 name = r.get("name") or f"{r['typ']} {i + 1}"
                 if anzahl > 1 and r.get("name"):
                     name = f"{r['name']} {i + 1}"
-                raeume.append(Raum(name, r["typ"], int(r.get("plaetze", 25))))
+                raeume.append(Raum(name, r["typ"], int(r.get("plaetze", 25)),
+                                   _slot_set(r.get("nicht_verfuegbar", []), slots)))
         schulhaeuser.append(Schulhaus(
             name=sh["name"], kuerzel=sh.get("kuerzel", sh["name"][:2].upper()),
             lat=float(sh["lat"]), lon=float(sh["lon"]), raeume=raeume,
-            nutzt=dict(sh.get("nutzt", {}))))
+            nutzt=dict(sh.get("nutzt", {})),
+            nicht_verfuegbar=_slot_set(sh.get("nicht_verfuegbar", []), slots)))
 
     kb = cfg.get("klassenbildung", {})
     vorlagen = []
@@ -208,8 +261,6 @@ def lade_schule(pfad: str | Path) -> Schule:
             raumtyp=v.get("raumtyp", "Klassenzimmer"), strafe=int(v.get("strafe", 0)),
             min_pro_jahrgang=int(v.get("min_pro_jahrgang", 4 if len(jg) > 1 else 0)),
             schulhaeuser=_liste(v.get("schulhaeuser")), bezeichnung=v.get("bezeichnung", "")))
-
-    slots = _parse_slots(cfg["zeitraster"])
 
     faecher = {name: Fach(name, **(f or {})) for name, f in cfg["faecher"].items()}
     stundentafel = {str(k): v for k, v in cfg["stundentafel"].items()}
@@ -241,7 +292,7 @@ def lade_schule(pfad: str | Path) -> Schule:
         umweg_faktor=float(kb.get("umweg_faktor", 1.3)),
         faecher=faecher, stundentafel=stundentafel, lehrpersonen=lehrpersonen,
         slots=slots, blockzeiten=bool(cfg["zeitraster"].get("blockzeiten", True)),
-        gewichte=gewichte, max_klassen=kb.get("max_klassen"))
+        gewichte=gewichte, max_klassen=kb.get("max_klassen"), szenario=szenario)
 
 
 def lade_kinder(pfad: str | Path) -> list[Kind]:

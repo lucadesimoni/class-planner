@@ -50,6 +50,17 @@ class Einteilung:
     warnungen: list[str]
 
 
+def tafel_fuer_vorlage(schule: Schule, v: Vorlage) -> dict[str, int]:
+    """Stundentafel eines Klassentyps (Mischklassen: pro Fach das Maximum)."""
+    if v.bezeichnung in schule.stundentafel:
+        return dict(schule.stundentafel[v.bezeichnung])
+    tafel: dict[str, int] = {}
+    for j in v.jahrgaenge:
+        for fach, lekt in schule.stundentafel.get(j, {}).items():
+            tafel[fach] = max(tafel.get(fach, 0), lekt)
+    return tafel
+
+
 def schulwege(schule: Schule, kinder: list[Kind]) -> dict[tuple[str, str], float]:
     d = {}
     for k in kinder:
@@ -125,6 +136,22 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
             kinder_sj = [x[k.id, s.name] for k in kinder if k.jahrgang == j and (k.id, s.name) in x]
             plaetze_sj = [nv for (sn, _, _, jj), nv in n.items() if sn == s.name and jj == j]
             m.add(sum(kinder_sj) == sum(plaetze_sj))
+
+    # Spezialräume (Turnhalle, Werkraum, …): Lektionen pro Woche dürfen die freien
+    # Raum-Zeitfenster am jeweiligen Ort nicht übersteigen.
+    bedarf = defaultdict(list)
+    for (sn, ri, vi), yv in y.items():
+        tafel = tafel_fuer_vorlage(schule, schule.vorlagen[vi])
+        for fach, lekt in tafel.items():
+            typ = schule.faecher[fach].raumtyp
+            if typ != "Klassenzimmer" and lekt:
+                ort = schule.schulhaus(sn).nutzt.get(typ, sn)
+                bedarf[ort, typ].append(lekt * yv)
+    for (ort, typ), terme in bedarf.items():
+        sh = schule.schulhaus(ort)
+        kapazitaet = sum(1 for r in sh.raeume if r.typ == typ for sl in schule.slots
+                         if sl.index not in r.nicht_verfuegbar and sl.index not in sh.nicht_verfuegbar)
+        m.add(sum(terme) <= kapazitaet)
 
     if schule.max_klassen:
         m.add(sum(y.values()) <= schule.max_klassen)

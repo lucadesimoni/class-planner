@@ -16,7 +16,7 @@ schulhaeuser:
     raeume:
       - {name: BM-Zi, typ: Klassenzimmer, anzahl: 13, plaetze: 25}
       - {name: BM-KG, typ: Kindergarten, anzahl: 4, plaetze: 22}
-      - {name: BM-Halle, typ: Turnhalle, anzahl: 2, plaetze: 30}
+      - {name: BM-Halle, typ: Turnhalle, anzahl: 2, plaetze: 30, nicht_verfuegbar: [Fr-NM]}  # Vereinssport
       - {name: BM-Werkraum, typ: Werkraum, anzahl: 2, plaetze: 24}
   - name: Eischachen
     kuerzel: EI
@@ -33,6 +33,7 @@ schulhaeuser:
     lon: 8.1880
     raeume:
       - {name: Waldplatz, typ: Wald, plaetze: 20}
+    nicht_verfuegbar: [Mo-NM, Di-NM, Do-NM, Fr-NM]   # Wald-KG nur vormittags
 
 klassenbildung:
   umweg_faktor: 1.3          # Luftlinie x 1.3 ≈ Fussweg
@@ -74,7 +75,7 @@ faecher:
 # Lektionen pro Woche (vereinfachte Annahme in Anlehnung an LP21 Luzern)
 stundentafel:
   KG:      {Kindergarten: 20, Sport: 2}
-  Wald-KG: {Wald: 22}
+  Wald-KG: {Wald: 20}
   "1": {Deutsch: 6, Mathematik: 5, NMG: 3, BG: 2, TTG: 2, Musik: 2, Sport: 3}
   "2": {Deutsch: 6, Mathematik: 5, NMG: 4, BG: 2, TTG: 2, Musik: 2, Sport: 3}
   "3": {Deutsch: 6, Mathematik: 5, NMG: 4, Englisch: 2, BG: 2, TTG: 2, Musik: 2, Sport: 3}
@@ -130,3 +131,27 @@ lehrpersonen:
   - {name: KG EI 3, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
   - {name: KG EI 4, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
   - {name: Wald-KG Im Feld, faecher: [Wald], schulhaeuser: Im Feld, pensum: [22, 24]}
+
+# Gewichte: was ist wie wichtig? (alle Gewichte: python -m skf --gewichte-anzeigen)
+gewichte:
+  schulweg_pro_km: 100
+  klasse: 400
+  lehrperson_pro_klasse: 200
+
+# Szenarien: kleine Änderungen gegenüber der Basis. Listen mit 'name' werden pro
+# Eintrag gemischt; 'entfernen: true' löscht einen Eintrag.
+# Rechnen: python -m skf schule.yaml kinder.csv -s alle
+szenarien:
+  Kurze Schulwege:
+    gewichte: {schulweg_pro_km: 400, klasse: 300}
+  Umbau Eischachen:          # 2 Schulzimmer und eine Turnhalle im Schuljahr nicht nutzbar
+    schulhaeuser:
+      - name: Eischachen
+        raeume:
+          - {name: EI-Zi, anzahl: 8}
+          - {name: EI-Halle, anzahl: 1}
+  Lehrpersonenmangel:        # zwei Stellen unbesetzt, eine Lehrperson nur Mo–Mi
+    lehrpersonen:
+      - {name: BM Lehrperson 12, entfernen: true}
+      - {name: EI Lehrperson 09, entfernen: true}
+      - {name: BM Lehrperson 11, nicht_verfuegbar: [Do, Fr]}
