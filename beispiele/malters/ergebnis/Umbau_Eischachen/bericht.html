@@ -1,0 +1,86 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schule Malters – Kindergarten &amp; Primar (Beispiel) – Umbau Eischachen</title><style>
+:root { color-scheme: light;
+  --bg:#f9f9f7; --surface:#fcfcfb; --fg:#0b0b0b; --fg2:#52514e; --muted:#898781; --grid:#e1e0d9; --base:#c3c2b7;
+  --ring:rgba(11,11,11,.10); --belegt:#b7d3f6; --belegt-fg:#0d366b; --bar:#2a78d6; --band:#e1e0d9;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --s6:#008300; --s7:#6250d6; --s8:#e34948;
+  --crit:#d03b3b; --warn:#fab219; --good:#0ca30c; --good-text:#006300; --info:#52514e; }
+@media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) { color-scheme: dark;
+  --bg:#0d0d0d; --surface:#1a1a19; --fg:#f0efec; --fg2:#c3c2b7; --muted:#898781; --grid:#2c2c2a; --base:#383835;
+  --ring:rgba(255,255,255,.10); --belegt:#184f95; --belegt-fg:#e6effb; --bar:#3987e5; --band:#383835;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
+  --good-text:#0ca30c; --info:#c3c2b7; } }
+:root[data-theme="dark"] { color-scheme: dark;
+  --bg:#0d0d0d; --surface:#1a1a19; --fg:#f0efec; --fg2:#c3c2b7; --muted:#898781; --grid:#2c2c2a; --base:#383835;
+  --ring:rgba(255,255,255,.10); --belegt:#184f95; --belegt-fg:#e6effb; --bar:#3987e5; --band:#383835;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
+  --good-text:#0ca30c; --info:#c3c2b7; }
+* { box-sizing:border-box }
+body { background:var(--bg); color:var(--fg); font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;
+  margin:0 auto; max-width:1180px; padding:16px; }
+a { color:var(--s1) } h1 { margin:.2em 0; font-size:1.6em } .sub { color:var(--fg2); margin:0 0 12px }
+h2 { margin:2em 0 .6em; font-size:1.2em; border-bottom:1px solid var(--grid); padding-bottom:.25em }
+.muted { color:var(--muted) } .fg2 { color:var(--fg2) }
+.karte-box, .kachel, table, .banner, .panel { background:var(--surface); border:1px solid var(--ring); border-radius:8px }
+.kacheln { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:8px }
+.kachel { padding:10px 12px } .kachel b { font-size:1.45em; display:block; font-weight:600 }
+.kachel span { color:var(--fg2); font-size:.9em }
+.banner { padding:10px 14px; margin:12px 0; display:flex; gap:10px; align-items:center; border-left:6px solid var(--good) }
+.banner.f { border-left-color:var(--crit) } .banner.w { border-left-color:var(--warn) }
+table { border-collapse:separate; border-spacing:0; width:100%; overflow:hidden }
+td, th { border-bottom:1px solid var(--grid); padding:5px 8px; text-align:left; vertical-align:top }
+th { color:var(--fg2); font-weight:600; font-size:.9em } tr:last-child td { border-bottom:0 }
+td.num, th.num { text-align:right; font-variant-numeric:tabular-nums }
+.scroll { overflow-x:auto } details { margin:.35em 0 } summary { cursor:pointer; font-weight:600; padding:4px 0 }
+.badge { display:inline-flex; gap:4px; align-items:center; border-radius:999px; padding:1px 8px; font-size:.82em;
+  font-weight:600; border:1px solid var(--ring); white-space:nowrap }
+.sev-f { color:#fff; background:var(--crit) } .sev-w { color:#0b0b0b; background:var(--warn) }
+.sev-h { color:var(--info); background:transparent }
+.filter { display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:6px 0 }
+.filter button { font:inherit; cursor:pointer; border-radius:999px; padding:3px 12px; border:1px solid var(--base);
+  background:var(--surface); color:var(--fg) }
+.filter button[aria-pressed="false"] { opacity:.45; text-decoration:line-through }
+.filter input { font:inherit; padding:3px 8px; border-radius:6px; border:1px solid var(--base); background:var(--surface);
+  color:var(--fg); min-width:200px; flex:1 }
+.meldungen { max-height:420px; overflow:auto }
+.plan td { font-size:12px; min-width:92px; height:46px; border-right:1px solid var(--grid) }
+.plan th { font-size:12px } .plan td:last-child { border-right:0 }
+.plan td.leer { background:transparent }
+.plan td.zu, .heat td.zu { background:repeating-linear-gradient(45deg, transparent 0 5px, var(--grid) 5px 7px); color:var(--muted) }
+.plan td.mark-f { box-shadow:inset 0 0 0 2px var(--crit) } .plan td.mark-w { box-shadow:inset 0 0 0 2px var(--warn) }
+.plan td.mark-h { box-shadow:inset 0 0 0 2px var(--base) }
+.plan .spring { color:var(--muted); font-style:italic } .plan .foerder { color:var(--fg2); font-style:italic }
+.heat { font-size:11px } .heat td, .heat th { padding:2px 3px; border-right:1px solid var(--grid); text-align:center;
+  white-space:nowrap } .heat th.raum { text-align:left }
+.heat td.b { background:var(--belegt); color:var(--belegt-fg) } .heat .tag { border-left:2px solid var(--base) }
+.bar-row { display:grid; grid-template-columns:minmax(120px,220px) 1fr 70px; gap:8px; align-items:center; padding:2px 0 }
+.bar-row .name { white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+.bar-track { position:relative; height:14px }
+.bar-band { position:absolute; top:3px; height:8px; background:var(--band); border-radius:4px }
+.bar { position:absolute; top:2px; height:10px; background:var(--bar); border-radius:0 4px 4px 0 }
+.bar-tick { position:absolute; top:-2px; width:2px; height:18px; background:var(--fg2) }
+.legende { display:flex; gap:14px; flex-wrap:wrap; font-size:.9em; color:var(--fg2); margin:6px 0 }
+.legende i { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:5px; vertical-align:-1px }
+.karte { width:100%; max-width:720px; display:block } .lbl { fill:var(--fg); font-size:12px; font-weight:600 }
+.groesse { display:inline-block; height:8px; background:var(--bar); border-radius:0 4px 4px 0; vertical-align:middle;
+  margin-right:6px }
+</style></head><body>
+<h1>Schule Malters – Kindergarten &amp; Primar (Beispiel)</h1>
+<p class="sub">Szenario <b>Umbau Eischachen</b> · 644 Kinder · 3 Schulhäuser ·
+50 Lehrpersonen · <a href="../vergleich.html">Szenarienvergleich</a></p>
+<div class='banner f'><span class='badge sev-f'>⛔ Fehler</span><span>1 Fehler – das Ergebnis ist so nicht verwendbar. Details unter <a href='#meldungen'>Meldungen</a>.</span></div><div class="kacheln"><div class='kachel'><b>–</b><span>Klassen</span></div><div class='kachel'><b>–</b><span>Ø Klassengrösse</span></div><div class='kachel'><b>–</b><span>Ø Schulweg</span></div><div class='kachel'><b>–</b><span>Max. Schulweg</span></div><div class='kachel'><b>–</b><span>Mischklassen</span></div><div class='kachel'><b>–</b><span>Lehrpersonen im Einsatz</span></div><div class='kachel'><b>–</b><span>Förderlektionen</span></div><div class='kachel'><b>–</b><span>Springstunden</span></div><div class='kachel'><b>1</b><span>Fehler</span></div><div class='kachel'><b>1</b><span>Warnungen</span></div><div class='kachel'><b>0</b><span>Hinweise</span></div><div class='kachel'><b>9 s</b><span>Rechenzeit</span></div></div><h2 id='meldungen'>Meldungen</h2><div class='filter'><button data-sev='Fehler' aria-pressed='true'><span class='badge sev-f'>⛔ Fehler</span> 1</button><button data-sev='Warnung' aria-pressed='true'><span class='badge sev-w'>⚠ Warnung</span> 1</button><button data-sev='Hinweis' aria-pressed='true'><span class='badge sev-h'>ℹ Hinweis</span> 0</button><input id='suche' type='search' placeholder='Meldungen durchsuchen …'></div><div class='meldungen panel'><table><tr><th>Schweregrad</th><th>Bereich</th><th>Meldung</th><th>Quelle</th></tr><tr data-sev='Fehler'><td><span class='badge sev-f'>⛔ Fehler</span></td><td class='fg2'>Solver</td><td>Klasseneinteilung A (Schulhaus/Klassen): nachweislich keine Lösung möglich. Diese Regeln widersprechen sich (zusammen mit festen Vorgaben wie Räumen und Stundentafel): Max. Schulweg Jahrgang KG2 (4000 m); Max. Schulweg Jahrgang KG1 (4000 m); IS zählt 2-fach bei der Klassengrösse; Max. 2 IS-Kinder pro Klasse; Kapazität Werkraum in Bündtmättli (56 Lektionen/Woche); Kapazität Turnhalle in Bündtmättli (52 Lektionen/Woche); Kapazität Werkraum in Eischachen (28 Lektionen/Woche); Kapazität Turnhalle in Eischachen (28 Lektionen/Woche); Höchstgrösse Klassen 1 (22) bzw. Raumgrösse; Höchstgrösse Klassen 2 (22) bzw. Raumgrösse; Höchstgrösse Klassen 3 (22) bzw. Raumgrösse; Höchstgrösse Klassen 4 (22) bzw. Raumgrösse; Höchstgrösse Klassen 5 (22) bzw. Raumgrösse; Höchstgrösse Klassen 6 (22) bzw. Raumgrösse; Höchstgrösse Klassen 1/2 (22) bzw. Raumgrösse; Höchstgrösse Klassen 3/4 (22) bzw. Raumgrösse; Höchstgrösse Klassen 5/6 (22) bzw. Raumgrösse; Höchstgrösse Klassen KG (22) bzw. Raumgrösse; Höchstgrösse Klassen Wald-KG (20) bzw. Raumgrösse; Mindestgrösse Klassen 3/4 (16); mind. 4 Kinder pro Jahrgang (3: Mischklassen 5/6, Mischklassen KG, Mischklassen Wald-KG); Mindestgrösse Klassen 5/6 (16); Mindestgrösse Klassen KG (16); Mindestgrösse Klassen Wald-KG (16). Mindestens eine davon lockern.</td><td></td></tr><tr data-sev='Warnung'><td><span class='badge sev-w'>⚠ Warnung</span></td><td class='fg2'>Daten</td><td>2 Kinder wohnen weiter als der max. Schulweg von jedem Schulhaus (z.B. K0058, K0606)</td><td></td></tr></table></div><h2>Solver</h2><ul></ul><h2>Rechtsgrundlagen und Richtlinien</h2><p class='fg2'>Kanton Luzern – Volksschule (KG/Primar) · Recherche Oktober 2026 – ohne Gewähr, aktuelle Fassungen prüfen · Klassengrössen verbindlich angewendet</p><div class='scroll'><table><tr><th>Kürzel</th><th>Inhalt</th><th>Erlass</th><th class='num'>Meldungen</th><th></th></tr><tr><td><b>BV-19</b></td><td>Bundesverfassung, Art. 19 – Anspruch auf ausreichenden und unentgeltlichen Grundschulunterricht</td><td>SR 101</td><td class='num'></td><td><a href='https://www.fedlex.admin.ch/eli/cc/1999/404/de#art_19' target='_blank' rel='noopener'>Link</a></td></tr><tr><td><b>BV-62</b></td><td>Bundesverfassung, Art. 62 – Schulwesen ist Sache der Kantone</td><td>SR 101</td><td class='num'></td><td><a href='https://www.fedlex.admin.ch/eli/cc/1999/404/de#art_62' target='_blank' rel='noopener'>Link</a></td></tr><tr><td><b>BehiG-20</b></td><td>Behindertengleichstellungsgesetz, Art. 20 – Integration behinderter Kinder in die Regelschule</td><td>SR 151.3</td><td class='num'></td><td><a href='https://www.fedlex.admin.ch/eli/cc/2003/667/de#art_20' target='_blank' rel='noopener'>Link</a></td></tr><tr><td><b>VBG-36a</b></td><td>Gesetz über die Volksschulbildung (VBG), § 36a – Schultransport bei unzumutbarem Schulweg</td><td>SRL Nr. 400a</td><td class='num'></td><td><a href='https://srl.lu.ch/app/de/texts_of_law/400a' target='_blank' rel='noopener'>Link</a></td></tr><tr><td><b>VBV-3</b></td><td>Verordnung zum Gesetz über die Volksschulbildung (VBV), § 3 Abs. 4 – Unterricht in Kindergarten und Primarschule am Vormittag in Blockzeiten</td><td>SRL Nr. 405</td><td class='num'></td><td><a href='https://srl.lu.ch/app/de/texts_of_law/405' target='_blank' rel='noopener'>Link</a></td></tr><tr><td><b>VBV-7</b></td><td>VBV, § 7 – Klassengrössen<br><span class=muted>DVS nennt für Kindergarten und Primarschule min. 16 / max. 22 Lernende; ältere Fassungen nennen als Minimum 12 (KG) bzw. 15 (Primar) – aktuelle Fassung prüfen</span></td><td>SRL Nr. 405</td><td class='num'></td><td><a href='https://srl.lu.ch/app/de/texts_of_law/405' target='_blank' rel='noopener'>Link</a></td></tr><tr><td><b>DVS-Klassen</b></td><td>Dienststelle Volksschulbildung – Klassen &amp; Pensen (Klassengrössen, Integration und Klassengrösse)</td><td></td><td class='num'></td><td><a href='https://volksschulbildung.lu.ch/unterricht_organisation/uo_planen_org_ilink/uo_po_klassen_pensen' target='_blank' rel='noopener'>Link</a></td></tr><tr><td><b>FV</b></td><td>Verordnung über die Förderangebote der Volksschule (Förderverordnung) vom 12. April 2011 – u.a. IF und DaZ</td><td>SRL Nr. 406</td><td class='num'></td><td><a href='https://srl.lu.ch/app/de/texts_of_law/406' target='_blank' rel='noopener'>Link</a></td></tr><tr><td><b>IF-RL</b></td><td>DVS-Richtlinie Integrative Förderung – IF im Klassenverband; IF-Pensen nach Anzahl Lernenden (mind. 1 Vollpensum pro 140 Lernende)</td><td></td><td class='num'></td><td><a href='https://umsetzungen-dvs.lu.ch/book/66fbee5ac211ca4898085826/66fbee772316f662c602c03d' target='_blank' rel='noopener'>Link</a></td></tr><tr><td><b>DaZ-UH</b></td><td>DVS, DaZ-Umsetzungshilfe – Anfangsunterricht KG–2. Kl. 3 L, ab 3. Kl. 4 L (1–3 Lernende), ab 4 Lernenden +0.5 L je weitere; Aufbauunterricht 2 L (1–3 Lernende); gestützt auf § 17 Förderverordnung<br><span class=muted>Aktuelle Fassung der DaZ-Umsetzungshilfe bei der DVS beziehen</span></td><td></td><td class='num'></td><td><a href='https://volksschulbildung.lu.ch' target='_blank' rel='noopener'>Link</a></td></tr><tr><td><b>SSV-30a</b></td><td>Verordnung über die Sonderschulung (Sonderschulverordnung), § 30a Abs. 2 – Zusatzbeitrag, wenn bei integrativer Sonderschulung die maximale Klassengrösse eingehalten wird</td><td>SRL Nr. 409</td><td class='num'></td><td><a href='https://srl.lu.ch/app/de/texts_of_law/409' target='_blank' rel='noopener'>Link</a></td></tr><tr><td><b>DVS-Schulweg</b></td><td>DVS – Schulweg (Zumutbarkeit nach Alter, Länge, Art, Beschaffenheit und Gefährlichkeit; Luzerner Rechtsprechung: rund 30 Minuten Fussweg ab Kindergarten grundsätzlich zumutbar)</td><td></td><td class='num'></td><td><a href='https://volksschulbildung.lu.ch/unterricht_organisation/uo_planen_org_ilink/uo_po_schulweg' target='_blank' rel='noopener'>Link</a></td></tr><tr><td><b>WOST</b></td><td>Wochenstundentafel für den 1. und 2. Zyklus (WOST 2017), Kanton Luzern</td><td></td><td class='num'></td><td><a href='https://volksschulbildung.lu.ch/-/media/Volksschulbildung/Dokumente/unterricht_organisation/faecher_wost_lehrmittel/wochenstundentafel/rrb_bkd_dvs_wost2017.pdf' target='_blank' rel='noopener'>Link</a></td></tr><tr><td><b>KDSG</b></td><td>Kantonales Datenschutzgesetz (KDSG), § 2 – besonders schützenswerte Personendaten (u.a. Gesundheit)</td><td>SRL Nr. 38</td><td class='num'></td><td><a href='https://srl.lu.ch/app/de/texts_of_law/38' target='_blank' rel='noopener'>Link</a></td></tr></table></div><script>
+const zustand = {Fehler: true, Warnung: true, Hinweis: true};
+function filtern() {
+  const q = (document.getElementById('suche')?.value || '').toLowerCase();
+  document.querySelectorAll('tr[data-sev]').forEach(tr => {
+    tr.hidden = !zustand[tr.dataset.sev] || (q && !tr.textContent.toLowerCase().includes(q));
+  });
+}
+document.querySelectorAll('button[data-sev]').forEach(b => b.addEventListener('click', () => {
+  zustand[b.dataset.sev] = !zustand[b.dataset.sev];
+  b.setAttribute('aria-pressed', zustand[b.dataset.sev]);
+  filtern();
+}));
+document.getElementById('suche')?.addEventListener('input', filtern);
+</script></body></html>

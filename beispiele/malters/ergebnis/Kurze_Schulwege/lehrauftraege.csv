@@ -1,0 +1,261 @@
+lehrperson,klasse,fach,lektionen
+BM Lehrperson 01,BM 2a,Deutsch,6
+BM Lehrperson 01,BM 2a,Mathematik,5
+BM Lehrperson 01,BM 2a,NMG,4
+BM Lehrperson 01,BM 2a,BG,2
+BM Lehrperson 01,BM 2a,Musik,2
+BM Lehrperson 01,BM 2a,Sport,3
+BM Lehrperson 02,BM 2b,Deutsch,6
+BM Lehrperson 02,BM 2b,Mathematik,5
+BM Lehrperson 02,BM 2b,NMG,4
+BM Lehrperson 02,BM 2b,BG,2
+BM Lehrperson 02,BM 2b,Musik,2
+BM Lehrperson 02,BM 2b,Sport,3
+BM Lehrperson 03,BM 3b,Deutsch,6
+BM Lehrperson 03,BM 3b,Mathematik,5
+BM Lehrperson 03,BM 3b,NMG,4
+BM Lehrperson 03,BM 3b,BG,2
+BM Lehrperson 03,BM 3b,Musik,2
+BM Lehrperson 03,BM 3b,Sport,3
+BM Lehrperson 04,BM 3a,Deutsch,6
+BM Lehrperson 04,BM 3a,Mathematik,5
+BM Lehrperson 04,BM 3a,NMG,4
+BM Lehrperson 04,BM 3a,BG,2
+BM Lehrperson 04,BM 3a,Musik,2
+BM Lehrperson 04,BM 3a,Sport,3
+BM Lehrperson 05,BM 4b,Deutsch,5
+BM Lehrperson 05,BM 4b,Mathematik,5
+BM Lehrperson 05,BM 4b,NMG,5
+BM Lehrperson 05,BM 4b,BG,2
+BM Lehrperson 05,BM 4b,Musik,2
+BM Lehrperson 05,BM 4b,Sport,3
+BM Lehrperson 06,BM 4a,Deutsch,5
+BM Lehrperson 06,BM 4a,Mathematik,5
+BM Lehrperson 06,BM 4a,NMG,5
+BM Lehrperson 06,BM 4a,BG,2
+BM Lehrperson 06,BM 4a,Musik,2
+BM Lehrperson 06,BM 4a,Sport,3
+BM Lehrperson 07,BM 5b,Deutsch,5
+BM Lehrperson 07,BM 5b,Mathematik,5
+BM Lehrperson 07,BM 5b,NMG,5
+BM Lehrperson 07,BM 5b,BG,2
+BM Lehrperson 07,BM 5b,Musik,1
+BM Lehrperson 07,BM 5b,Sport,3
+BM Lehrperson 08,BM 5a,Deutsch,5
+BM Lehrperson 08,BM 5a,Mathematik,5
+BM Lehrperson 08,BM 5a,NMG,5
+BM Lehrperson 08,BM 5a,BG,2
+BM Lehrperson 08,BM 5a,Musik,1
+BM Lehrperson 08,BM 5a,Sport,3
+BM Lehrperson 09,BM 6a,Deutsch,5
+BM Lehrperson 09,BM 6a,Mathematik,5
+BM Lehrperson 09,BM 6a,NMG,5
+BM Lehrperson 09,BM 6a,BG,2
+BM Lehrperson 09,BM 6a,Musik,1
+BM Lehrperson 09,BM 6a,Sport,3
+BM Lehrperson 10,BM 5/6a,Deutsch,5
+BM Lehrperson 10,BM 5/6a,Mathematik,5
+BM Lehrperson 10,BM 5/6a,NMG,5
+BM Lehrperson 10,BM 5/6a,BG,2
+BM Lehrperson 10,BM 5/6a,Musik,1
+BM Lehrperson 10,BM 5/6a,Sport,3
+BM Lehrperson 11,BM 6b,Deutsch,5
+BM Lehrperson 11,BM 6b,Mathematik,5
+BM Lehrperson 11,BM 6b,NMG,5
+BM Lehrperson 11,BM 6b,BG,2
+BM Lehrperson 11,BM 6b,Musik,1
+BM Lehrperson 11,BM 6b,Sport,3
+BM Lehrperson 12,BM 1b,Deutsch,6
+BM Lehrperson 12,BM 1b,BG,2
+BM Lehrperson 12,BM 1b,Musik,2
+BM Lehrperson 12,BM 1b,Sport,3
+BM Lehrperson 13,BM 1a,Deutsch,6
+BM Lehrperson 13,BM 1a,BG,2
+BM Lehrperson 13,BM 1a,Musik,2
+BM Lehrperson 13,BM 1a,Sport,3
+BM Lehrperson 14,BM 1b,Mathematik,5
+BM Lehrperson 14,BM 1b,NMG,3
+BM Unterstufe Teilzeit,BM 1a,Mathematik,5
+BM Unterstufe Teilzeit,BM 1a,NMG,3
+DaZ BM,BM 1b,DaZ Anfang,3
+DaZ BM,BM 3a,DaZ Aufbau,4
+DaZ BM,BM 5a,DaZ Aufbau,3
+DaZ BM,BM 6a,DaZ Anfang,4
+DaZ BM,BM 6a,DaZ Aufbau,3
+DaZ BM,BM KGa,DaZ Anfang,3
+DaZ BM,IF Wald-KGa,DaZ Anfang,3
+DaZ BM,IF Wald-KGa,DaZ Aufbau,2
+DaZ EI,EI 1a,DaZ Aufbau,3
+DaZ EI,EI 2a,DaZ Anfang,3
+DaZ EI,EI 2a,DaZ Aufbau,2
+DaZ EI,EI 2b,DaZ Aufbau,2
+DaZ EI,EI 3a,DaZ Anfang,4
+DaZ EI,EI 3a,DaZ Aufbau,4
+DaZ EI,EI 5/6a,DaZ Anfang,4
+DaZ EI,EI 6a,DaZ Aufbau,2
+DaZ EI,EI KGc,DaZ Anfang,3
+DaZ Teilzeit,BM 1a,DaZ Aufbau,3
+DaZ Teilzeit,BM 4a,DaZ Anfang,4
+DaZ Teilzeit,BM KGa,DaZ Aufbau,3
+DaZ Teilzeit,EI KGa,DaZ Aufbau,2
+EI Lehrperson 01,EI 2a,Deutsch,6
+EI Lehrperson 01,EI 2a,Mathematik,5
+EI Lehrperson 01,EI 2a,NMG,4
+EI Lehrperson 01,EI 2a,BG,2
+EI Lehrperson 01,EI 2a,Musik,2
+EI Lehrperson 01,EI 2a,Sport,3
+EI Lehrperson 02,EI 2b,Deutsch,6
+EI Lehrperson 02,EI 2b,Mathematik,5
+EI Lehrperson 02,EI 2b,NMG,4
+EI Lehrperson 02,EI 2b,BG,2
+EI Lehrperson 02,EI 2b,Musik,2
+EI Lehrperson 02,EI 2b,Sport,3
+EI Lehrperson 03,EI 3b,Deutsch,6
+EI Lehrperson 03,EI 3b,Mathematik,5
+EI Lehrperson 03,EI 3b,NMG,4
+EI Lehrperson 03,EI 3b,BG,2
+EI Lehrperson 03,EI 3b,Musik,2
+EI Lehrperson 03,EI 3b,Sport,3
+EI Lehrperson 04,EI 3a,Deutsch,6
+EI Lehrperson 04,EI 3a,Mathematik,5
+EI Lehrperson 04,EI 3a,NMG,4
+EI Lehrperson 04,EI 3a,BG,2
+EI Lehrperson 04,EI 3a,Musik,2
+EI Lehrperson 04,EI 3a,Sport,3
+EI Lehrperson 05,EI 1a,Musik,2
+EI Lehrperson 05,EI 1a,Sport,3
+EI Lehrperson 05,EI 5a,Deutsch,5
+EI Lehrperson 05,EI 5a,Mathematik,5
+EI Lehrperson 05,EI 5a,NMG,5
+EI Lehrperson 05,EI 5a,BG,2
+EI Lehrperson 05,EI 5a,Musik,1
+EI Lehrperson 05,EI 5a,Sport,3
+EI Lehrperson 06,EI 5/6a,Deutsch,5
+EI Lehrperson 06,EI 5/6a,Mathematik,5
+EI Lehrperson 06,EI 5/6a,NMG,5
+EI Lehrperson 06,EI 5/6a,BG,2
+EI Lehrperson 06,EI 5/6a,Musik,1
+EI Lehrperson 06,EI 5/6a,Sport,3
+EI Lehrperson 07,EI 4a,Mathematik,5
+EI Lehrperson 07,EI 4a,Musik,2
+EI Lehrperson 07,EI 6a,Deutsch,5
+EI Lehrperson 07,EI 6a,Mathematik,5
+EI Lehrperson 07,EI 6a,NMG,5
+EI Lehrperson 07,EI 6a,BG,2
+EI Lehrperson 07,EI 6a,Musik,1
+EI Lehrperson 07,EI 6a,Sport,3
+EI Lehrperson 08,EI 4b,Deutsch,5
+EI Lehrperson 08,EI 4b,Mathematik,5
+EI Lehrperson 08,EI 4b,NMG,5
+EI Lehrperson 08,EI 4b,BG,2
+EI Lehrperson 08,EI 4b,Musik,2
+EI Lehrperson 08,EI 4b,Sport,3
+EI Lehrperson 09,EI 1b,Deutsch,6
+EI Lehrperson 09,EI 1b,Mathematik,5
+EI Lehrperson 09,EI 1b,NMG,3
+EI Lehrperson 09,EI 1b,BG,2
+EI Lehrperson 09,EI 1b,Musik,2
+EI Lehrperson 09,EI 1b,Sport,3
+EI Lehrperson 09,EI 4a,Sport,3
+EI Lehrperson 10,EI 1a,Deutsch,6
+EI Lehrperson 10,EI 1a,Mathematik,5
+EI Lehrperson 10,EI 1a,NMG,3
+EI Lehrperson 11,EI 1a,BG,2
+EI Lehrperson 11,EI 4a,Deutsch,5
+EI Lehrperson 11,EI 4a,NMG,5
+EI Lehrperson 11,EI 4a,BG,2
+Englisch BM,BM 3a,Englisch,2
+Englisch BM,BM 3b,Englisch,2
+Englisch BM,BM 4a,Englisch,2
+Englisch BM,BM 4b,Englisch,2
+Englisch BM,BM 5/6a,Englisch,2
+Englisch/Französisch EI,EI 3a,Englisch,2
+Englisch/Französisch EI,EI 3b,Englisch,2
+Englisch/Französisch EI,EI 4a,Englisch,2
+Englisch/Französisch EI,EI 4b,Englisch,2
+Englisch/Französisch EI,EI 5/6a,Englisch,2
+Englisch/Französisch EI,EI 5/6a,Französisch,3
+Englisch/Französisch EI,EI 5a,Englisch,2
+Englisch/Französisch EI,EI 5a,Französisch,3
+Englisch/Französisch EI,EI 6a,Englisch,2
+Englisch/Französisch EI,EI 6a,Französisch,3
+Französisch BM,BM 5/6a,Französisch,3
+Französisch BM,BM 5a,Englisch,2
+Französisch BM,BM 5a,Französisch,3
+Französisch BM,BM 5b,Englisch,2
+Französisch BM,BM 5b,Französisch,3
+Französisch BM,BM 6a,Englisch,2
+Französisch BM,BM 6a,Französisch,3
+Französisch BM,BM 6b,Englisch,2
+Französisch BM,BM 6b,Französisch,3
+KG BM 1,BM KGa,Kindergarten,20
+KG BM 1,BM KGa,Sport,2
+KG BM 2,BM KGc,Kindergarten,20
+KG BM 2,BM KGc,Sport,2
+KG BM 3,BM KGb,Kindergarten,20
+KG BM 3,BM KGb,Sport,2
+KG EI 1,EI KGc,Kindergarten,20
+KG EI 1,EI KGc,Sport,2
+KG EI 2,EI KGa,Kindergarten,20
+KG EI 2,EI KGa,Sport,2
+KG EI 3,EI KGb,Kindergarten,20
+KG EI 3,EI KGb,Sport,2
+KG EI 4,EI KGd,Kindergarten,20
+KG EI 4,EI KGd,Sport,2
+SHP BM 1,BM 1b,IF,4
+SHP BM 1,BM 3b,IF,4
+SHP BM 1,BM 4a,IF,4
+SHP BM 1,BM 4b,IF,4
+SHP BM 1,BM 5b,IF,4
+SHP BM 1,BM 6b,IF,4
+SHP BM 1,IF Wald-KGa,IF,4
+SHP BM 2,BM 1a,IF,5
+SHP BM 2,BM 3a,IF,4
+SHP BM 2,BM KGa,IF,5
+SHP BM 2,BM KGb,IF,5
+SHP BM 2,BM KGc,IF,5
+SHP BM 3,BM 2a,IF,4
+SHP BM 3,BM 2b,IF,4
+SHP BM 3,BM 5/6a,IF,4
+SHP BM 3,BM 5a,IF,4
+SHP BM 3,BM 6a,IF,4
+SHP EI 1,EI 2a,IF,5
+SHP EI 1,EI 3b,IF,5
+SHP EI 1,EI 4b,IF,5
+SHP EI 1,EI 5/6a,IF,4
+SHP EI 1,EI 6a,IF,5
+SHP EI 1,EI KGc,IF,4
+SHP EI 2,EI 1a,IF,5
+SHP EI 2,EI 1b,IF,4
+SHP EI 2,EI 2b,IF,5
+SHP EI 2,EI 3a,IF,5
+SHP EI 2,EI 4a,IF,5
+SHP EI 2,EI KGa,IF,4
+SHP EI 3,EI 5a,IF,4
+SHP EI 3,EI KGb,IF,4
+SHP EI 3,EI KGd,IF,4
+TTG 1,BM 1a,TTG,2
+TTG 1,BM 1b,TTG,2
+TTG 1,BM 2a,TTG,2
+TTG 1,BM 2b,TTG,2
+TTG 1,BM 3a,TTG,2
+TTG 1,BM 3b,TTG,2
+TTG 1,BM 4a,TTG,2
+TTG 1,BM 4b,TTG,2
+TTG 1,BM 5/6a,TTG,2
+TTG 1,BM 5a,TTG,2
+TTG 1,BM 5b,TTG,2
+TTG 1,BM 6a,TTG,2
+TTG 1,BM 6b,TTG,2
+TTG 2,EI 1a,TTG,2
+TTG 2,EI 1b,TTG,2
+TTG 2,EI 2a,TTG,2
+TTG 2,EI 2b,TTG,2
+TTG 2,EI 3a,TTG,2
+TTG 2,EI 3b,TTG,2
+TTG 2,EI 4a,TTG,2
+TTG 2,EI 4b,TTG,2
+TTG 2,EI 5/6a,TTG,2
+TTG 2,EI 5a,TTG,2
+TTG 2,EI 6a,TTG,2
+Wald-KG Im Feld,IF Wald-KGa,Wald,20
