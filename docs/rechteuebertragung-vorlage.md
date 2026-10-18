@@ -1,6 +1,6 @@
 # Übertragung der Urheberrechte – Vorlage
 
-> **Vorlage, keine Rechtsberatung.** Nötig, damit die Outthinkx for Communities die Rechte
+> **Vorlage, keine Rechtsberatung.** Nötig, damit Outthinkx for Communities die Rechte
 > an der Software tatsächlich hält: Urheber ist zunächst die natürliche Person, die
 > den Code geschaffen bzw. die Entwicklung gesteuert hat (Art. 6 URG). Die Rechte gehen
 > nur durch Vertrag auf Outthinkx for Communities über (Art. 16 URG). Vorher von einer Fachperson

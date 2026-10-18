@@ -377,7 +377,7 @@ Kartendaten © [OpenStreetMap](https://www.openstreetmap.org/copyright)-Mitwirke
 Vertragsvorlage für Schulgemeinden liegt unter
 [`docs/lizenzvertrag-vorlage.md`](docs/lizenzvertrag-vorlage.md) (vor Verwendung
 juristisch prüfen lassen). Frühere Stände dieses Repositorys standen unter der GPL-3.0;
-sie bleiben unter jener Lizenz, alle neuen Stände nicht. Damit die Outthinkx for Communities
+sie bleiben unter jener Lizenz, alle neuen Stände nicht. Damit Outthinkx for Communities
 die Rechte hält, braucht es eine schriftliche Übertragung vom Urheber – Vorlage:
 [`docs/rechteuebertragung-vorlage.md`](docs/rechteuebertragung-vorlage.md).
 
