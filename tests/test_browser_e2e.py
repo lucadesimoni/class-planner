@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
+# Copyright (c) 2026 Outthinkx Community. Alle Rechte vorbehalten.
 """Browser-End-zu-End-Test: echte App im echten Browser (Chromium via Playwright).
 
 Startet `skf app`, klickt sich durch Daten → Prüfen → Berechnen → Ergebnis und legt

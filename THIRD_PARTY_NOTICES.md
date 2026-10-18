@@ -1,6 +1,6 @@
 # Drittkomponenten und Hinweise
 
-Diese Software (© 2026 Luca De Simoni, proprietär, siehe [LICENSE](LICENSE)) verwendet
+Diese Software (© 2026 Outthinkx Community, proprietär, siehe [LICENSE](LICENSE)) verwendet
 die folgenden Komponenten Dritter. Alle stehen unter **freizügigen Lizenzen**, die
 den Verkauf und die proprietäre Lizenzierung der eigenen Software erlauben; keine
 davon ist eine „Copyleft“-Lizenz (GPL/AGPL/LGPL), die den eigenen Code erfassen würde.
@@ -81,4 +81,4 @@ schreibt sie aus der installierten Umgebung nach `lizenzen/` (Python ≥ 3.11).
   Gemeinde oder Schule Malters, zum Kanton Luzern oder zur Dienststelle
   Volksschulbildung, und keine dieser Stellen hat die Software geprüft oder empfohlen.
 - **Gestaltung:** angelehnt an das eigene Projekt
-  [genealogy-store](https://github.com/lucadesimoni/genealogy-store) desselben Rechteinhabers.
+  [genealogy-store](https://github.com/lucadesimoni/genealogy-store) (Farben, Abstände, Kartenstil) – nur gestalterisch, kein Code übernommen.

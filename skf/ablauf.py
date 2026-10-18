@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
+# Copyright (c) 2026 Outthinkx Community. Alle Rechte vorbehalten.
 """Gesamtablauf: Vorprüfung → Klassen → Lehraufträge → Stundenplan → Prüfung."""
 from __future__ import annotations
 

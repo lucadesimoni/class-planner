@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
+# Copyright (c) 2026 Outthinkx Community. Alle Rechte vorbehalten.
 """stunden-klassen-fitter: Klassenbildung und Stundenplan als exakte Optimierung."""
 from .daten import lade_kinder, lade_schule
 from .klassen import teile_ein

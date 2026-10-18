@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Klassenbildung und Stundenplan für die Volksschule mit mehreren Schulhäusern (exakte Optimierung mit OR-Tools CP-SAT)"
 readme = "README.md"
 license = {text = "LicenseRef-Proprietary"}
-authors = [{name = "Luca De Simoni"}]
+authors = [{name = "Outthinkx Community"}]
 classifiers = ["License :: Other/Proprietary License", "Private :: Do Not Upload"]
 requires-python = ">=3.10"
 dependencies = ["ortools>=9.10", "pyyaml>=6", "openpyxl>=3.1", "streamlit>=1.40", "pandas>=2"]

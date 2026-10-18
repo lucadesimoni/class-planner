@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
+# Copyright (c) 2026 Outthinkx Community. Alle Rechte vorbehalten.
 """Verlauf, Vergleich zweier Stände, manuelles Verschieben, Kartendaten (Klassen/Geschwister)."""
 from pathlib import Path
 
