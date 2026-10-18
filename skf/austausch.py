@@ -108,12 +108,13 @@ def _ja(wert) -> bool:
     return t in JA or (_norm(t) in {_norm(j) for j in JA} - {""})
 
 
-def _zeilen(pfad: str | Path) -> list[dict[str, str]]:
+def _zeilen(pfad: str | Path, blaetter: tuple[str, ...] = ("Kinder",)) -> list[dict[str, str]]:
     pfad = Path(pfad)
     if pfad.suffix.lower() in (".xlsx", ".xlsm"):
         from openpyxl import load_workbook
         wb = load_workbook(pfad, read_only=True, data_only=True)
-        ws = wb["Kinder"] if "Kinder" in wb.sheetnames else wb.worksheets[0]
+        passend = [n for n in wb.sheetnames if _norm(n) in {_norm(b) for b in blaetter}]
+        ws = wb[passend[0]] if passend else wb.worksheets[0]
         zeilen = list(ws.iter_rows(values_only=True))
         kopf = [str(k or "").strip() for k in zeilen[0]]
         return [{kopf[i]: ("" if v is None else str(v)) for i, v in enumerate(z) if i < len(kopf)}
@@ -433,6 +434,214 @@ def importiere_stammdaten(pfad: str | Path) -> tuple[dict, list[Kind]]:
     return cfg, kinder
 
 
+# ------------------------------------------------------------ Raum- und Lehrpersonenlisten
+
+# Spaltennamen, wie sie in Raumverwaltungen, Hauswart- oder Personallisten üblich sind
+LISTEN_ALIASE = {
+    "Raeume": {
+        "schulhaus": ["schulhaus", "standort", "gebaeude", "schulanlage", "haus", "objekt"],
+        "name": ["name", "raum", "raumname", "raumbezeichnung", "bezeichnung", "zimmer", "raumnr", "raumnummer",
+                 "zimmernr", "nummer"],
+        "typ": ["typ", "raumtyp", "raumart", "art", "nutzung", "kategorie", "verwendung"],
+        "plaetze": ["plaetze", "platze", "sitzplaetze", "arbeitsplaetze", "kapazitaet", "kapazitat", "maxpersonen",
+                    "personen", "max", "groesse"],
+        "anzahl": ["anzahl", "stueck", "stuck", "menge"],
+        "nicht_verfuegbar": ["nichtverfuegbar", "nichtverfugbar", "gesperrt", "sperrzeiten", "fremdnutzung",
+                             "belegt", "blockiert"],
+    },
+    "Lehrpersonen": {
+        "name": ["name", "lehrperson", "lp", "person", "vollername"],
+        "vorname": ["vorname"],
+        "nachname": ["nachname", "familienname"],
+        "kuerzel": ["kuerzel", "kurzel", "kurzzeichen", "visum", "kz"],
+        "faecher": ["faecher", "facher", "fach", "unterrichtsfaecher", "lehrbefaehigung"],
+        "jahrgaenge": ["jahrgaenge", "jahrgange", "stufen", "stufe", "klassen"],
+        "schulhaeuser": ["schulhaeuser", "schulhauser", "schulhaus", "standort", "einsatzort"],
+        "pensum_min": ["pensummin", "minpensum", "minlektionen", "lektionenmin", "mindestpensum"],
+        "pensum_max": ["pensummax", "maxpensum", "maxlektionen", "lektionenmax", "hoechstpensum"],
+        "pensum": ["pensum", "lektionen", "wochenlektionen"],
+        "nicht_verfuegbar": ["nichtverfuegbar", "nichtverfugbar", "freietage", "abwesend", "nichtda",
+                             "sperrzeiten", "unverfuegbar"],
+        "bisherige_klasse": ["bisherigeklasse", "klassevorjahr", "aktuelleklasse", "klassenlehrperson"],
+    },
+}
+
+# Raumtypen: gängige Bezeichnungen → Begriffe der Konfiguration
+RAUMTYP_ALIASE = {
+    "Klassenzimmer": ["klassenzimmer", "schulzimmer", "zimmer", "klassenraum", "unterrichtsraum", "kz", "sz"],
+    "Turnhalle": ["turnhalle", "halle", "sporthalle", "mehrzweckhalle", "bewegungundsport", "sport"],
+    "TTG-Zimmer": ["ttgzimmer", "ttg", "werkraum", "handarbeit", "textilesgestalten", "technischesgestalten",
+                   "werken"],
+    "Kindergarten": ["kindergarten", "kg", "kiga", "kindergartenraum"],
+    "Gruppenraum": ["gruppenraum", "gruppenzimmer", "foerderraum", "ifraum", "dazraum"],
+}
+
+_TAGE = {"montag": "Mo", "mo": "Mo", "dienstag": "Di", "di": "Di", "mittwoch": "Mi", "mi": "Mi",
+         "donnerstag": "Do", "do": "Do", "freitag": "Fr", "fr": "Fr"}
+_HALBTAGE = {"vormittag": "VM", "vm": "VM", "morgen": "VM", "nachmittag": "NM", "nm": "NM"}
+
+
+def zeitangabe(text: str) -> str:
+    """'Freitag Nachmittag' → 'Fr-NM', 'mo vm 1' → 'Mo-VM-1', 'Mi' → 'Mi'."""
+    teile = [t for t in re.split(r"[\s\-_/.,]+", str(text).strip().lower()) if t]
+    if not teile or _norm(teile[0]) not in _TAGE:
+        raise ValueError(f"Zeitangabe '{text}' nicht verstanden (Beispiele: Mi, Fr-NM, Mo-VM-1, Freitag Nachmittag)")
+    aus = [_TAGE[_norm(teile[0])]]
+    for t in teile[1:]:
+        if _norm(t) in _HALBTAGE and len(aus) == 1:
+            aus.append(_HALBTAGE[_norm(t)])
+        elif t.isdigit() and len(aus) == 2:
+            aus.append(t)
+        elif t not in ("ganz", "ganzer", "tag", "lektion", "l"):
+            raise ValueError(f"Zeitangabe '{text}' nicht verstanden (Beispiele: Mi, Fr-NM, Mo-VM-1)")
+    return "-".join(aus)
+
+
+def _zeitliste(v: str) -> list[str] | None:
+    teile = [x for x in re.split(r"[;\n]+|,(?=\s*[A-Za-zÄÖÜäöü])", str(v or "")) if x.strip()]
+    return [zeitangabe(x) for x in teile] or None
+
+
+def raumtyp(text: str, bekannte: list[str] | tuple[str, ...] = ()) -> str:
+    """Raumtyp auf einen bekannten Begriff abbilden; Unbekanntes bleibt wörtlich."""
+    n = _norm(text)
+    for b in bekannte:
+        if _norm(b) == n:
+            return b
+    for typ, aliase in RAUMTYP_ALIASE.items():
+        if n in aliase:
+            return next((b for b in bekannte if _norm(b) == _norm(typ)), typ)
+    return str(text).strip()
+
+
+def lese_liste(pfad: str | Path, art: str, spalten: dict[str, str] | None = None,
+               raumtypen: list[str] | tuple[str, ...] = ()) -> list[dict]:
+    """Raum- oder Lehrpersonenliste (CSV oder Excel, beliebige gängige Spaltennamen) lesen.
+
+    ``art`` ist ``"Raeume"`` oder ``"Lehrpersonen"``. Liefert Zeilen im Format der
+    Stammdaten-Tabellen (BLAETTER), bereit für die Konfiguration."""
+    if art not in LISTEN_ALIASE:
+        raise ValueError(f"Unbekannte Liste '{art}' (möglich: {', '.join(LISTEN_ALIASE)})")
+    zeilen = _zeilen(pfad, (art, "Räume" if art == "Raeume" else art))
+    if not zeilen:
+        return []
+    kopf = list(zeilen[0].keys())
+    zuordnung: dict[str, str] = {}
+    for feld, quelle in (spalten or {}).items():
+        if quelle not in kopf:
+            raise ValueError(f"Spalte '{quelle}' (für {feld}) fehlt in {pfad}")
+        zuordnung[feld] = quelle
+    normiert = {_norm(k): k for k in kopf}
+    for feld, aliase in LISTEN_ALIASE[art].items():
+        if feld not in zuordnung:
+            treffer = next((normiert[a] for a in aliase if a in normiert and normiert[a] not in zuordnung.values()),
+                           None)
+            if treffer:
+                zuordnung[feld] = treffer
+    pflicht = ["schulhaus", "typ"] if art == "Raeume" else []
+    if art == "Lehrpersonen" and "name" not in zuordnung and "nachname" not in zuordnung:
+        pflicht.append("name")
+    fehlend = [f for f in pflicht if f not in zuordnung]
+    if fehlend:
+        raise ValueError(f"{Path(pfad).name}: Spalte(n) {', '.join(fehlend)} nicht gefunden "
+                         f"(vorhanden: {', '.join(kopf)}). Mit --spalte {fehlend[0]}=<Spaltenname> zuordnen.")
+    out = []
+    for nr, zeile in enumerate(zeilen, start=2):
+        def w(feld: str) -> str:
+            return str(zeile.get(zuordnung.get(feld, ""), "") or "").strip()
+
+        try:
+            e: dict = {}
+            if art == "Raeume":
+                if not w("schulhaus") and not w("typ"):
+                    continue
+                e = {"schulhaus": w("schulhaus"), "typ": raumtyp(w("typ"), raumtypen)}
+                if w("name"):
+                    e["name"] = w("name")
+                for feld in ("anzahl", "plaetze"):
+                    if w(feld):
+                        e[feld] = _zahl(w(feld).replace("'", "").replace(",", "."))
+            else:
+                name = w("name") or " ".join(x for x in (w("vorname"), w("nachname")) if x)
+                if not name:
+                    continue
+                e = {"name": name}
+                if w("kuerzel"):
+                    e["kuerzel"] = w("kuerzel")
+                for feld in ("faecher", "jahrgaenge", "schulhaeuser"):
+                    if w(feld):
+                        e[feld] = [x.strip() for x in re.split(r"[;,/]", w(feld)) if x.strip()]
+                if w("pensum") and "-" in w("pensum"):
+                    a, b = w("pensum").split("-", 1)
+                    e["pensum_min"], e["pensum_max"] = _zahl(a.strip()), _zahl(b.strip())
+                elif w("pensum"):
+                    e["pensum_min"] = e["pensum_max"] = _zahl(w("pensum"))
+                for feld in ("pensum_min", "pensum_max"):
+                    if w(feld):
+                        e[feld] = _zahl(w(feld))
+                if w("bisherige_klasse"):
+                    e["bisherige_klasse"] = w("bisherige_klasse")
+            if w("nicht_verfuegbar"):
+                e["nicht_verfuegbar"] = _zeitliste(w("nicht_verfuegbar"))
+        except ValueError as fehler:
+            raise ValueError(f"{Path(pfad).name}, Zeile {nr}: {fehler}") from None
+        out.append(e)
+    return out
+
+
+def uebernehme_liste(cfg: dict, art: str, zeilen: list[dict], ersetzen: bool = True) -> tuple[dict, list[str]]:
+    """Liste in die Konfiguration übernehmen. ``ersetzen``: bisherige Räume der betroffenen
+    Schulhäuser bzw. alle Lehrpersonen ersetzen; sonst ergänzen (gleicher Name überschreibt).
+    Liefert (neue Konfiguration, Hinweise)."""
+    t, extra = _tabellen_aus_cfg(cfg)
+    zeilen = json.loads(json.dumps(zeilen))
+    hinweise: list[str] = []
+    if art == "Raeume":
+        haeuser = {sh["name"] for sh in t["Schulhaeuser"]}
+        unbekannt = sorted({z["schulhaus"] for z in zeilen} - haeuser)
+        if unbekannt:
+            raise ValueError(f"Unbekannte Schulhäuser: {', '.join(unbekannt)} – zuerst unter Schulhäuser erfassen "
+                             f"(vorhanden: {', '.join(sorted(haeuser))}).")
+        betroffen = {z["schulhaus"] for z in zeilen}
+        alt = [r for r in t["Raeume"] if not (ersetzen and r["schulhaus"] in betroffen)]
+        schluessel = {(z["schulhaus"], z.get("name")) for z in zeilen if z.get("name")}
+        t["Raeume"] = [r for r in alt if (r["schulhaus"], r.get("name")) not in schluessel] + zeilen
+        benoetigt = {v.get("raumtyp", "Klassenzimmer") for v in t["Klassentypen"]} | \
+                    {f.get("raumtyp") for f in t["Faecher"] if f.get("raumtyp")}
+        neu = sorted({z["typ"] for z in zeilen} - benoetigt)
+        if neu:
+            hinweise.append(f"Raumtyp(en) {', '.join(neu)} werden von keinem Fach und keinem Klassentyp verlangt "
+                            "– sie werden nicht verplant.")
+        plaetze = sum(int(z.get("anzahl", 1)) for z in zeilen)
+        hinweise.insert(0, f"{plaetze} Räume in {len(betroffen)} {'Schulhaus' if len(betroffen) == 1 else 'Schulhäusern'} "
+                           "übernommen.")
+    elif art == "Lehrpersonen":
+        if ersetzen:
+            t["Lehrpersonen"] = []
+        namen = {z["name"] for z in zeilen}
+        t["Lehrpersonen"] = [lp for lp in t["Lehrpersonen"] if lp["name"] not in namen] + zeilen
+        faecher = {f["name"] for f in t["Faecher"]} | {"IF", "DaZ Anfang", "DaZ Aufbau", "IS"}
+        fremd = sorted({f for z in zeilen for f in z.get("faecher", [])} - faecher)
+        if fremd:
+            hinweise.append(f"Unbekannte Fächer: {', '.join(fremd)} – Schreibweise wie unter Fächer verwenden.")
+        ohne = [z["name"] for z in zeilen if not z.get("faecher")]
+        if ohne:
+            hinweise.append(f"{len(ohne)} Lehrpersonen ohne Fächer (werden nicht eingesetzt): {', '.join(ohne[:5])}"
+                            f"{' …' if len(ohne) > 5 else ''}")
+        hinweise.insert(0, f"{len(zeilen)} Lehrpersonen übernommen.")
+    else:
+        raise ValueError(f"Unbekannte Liste '{art}'")
+    return _cfg_aus_tabellen(t, extra["rest"], extra["stundentafel"]), hinweise
+
+
+def raumtypen(cfg: dict) -> list[str]:
+    """Alle in der Konfiguration verwendeten Raumtypen (für die Zuordnung beim Import)."""
+    t, _ = _tabellen_aus_cfg(cfg)
+    return sorted({r["typ"] for r in t["Raeume"]} | {v.get("raumtyp", "Klassenzimmer") for v in t["Klassentypen"]}
+                  | {f["raumtyp"] for f in t["Faecher"] if f.get("raumtyp")})
+
+
+
 def schreibe_vorlage(ordner: str | Path) -> list[Path]:
     """Leere, ausgefüllte Beispiel-Vorlagen zum Erfassen eigener Daten."""
     ordner = Path(ordner)
@@ -440,7 +649,7 @@ def schreibe_vorlage(ordner: str | Path) -> list[Path]:
     from .daten import beispiel_ordner
     beispiel = beispiel_ordner() / "vorlage"
     dateien = []
-    for name in ("schule.yaml", "kinder.csv"):
+    for name in ("schule.yaml", "kinder.csv", "raumliste.csv"):
         ziel = ordner / name
         ziel.write_text((beispiel / name).read_text(encoding="utf-8"), encoding="utf-8")
         dateien.append(ziel)

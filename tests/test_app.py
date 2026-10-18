@@ -32,6 +32,8 @@ def test_app_ablauf_mit_vorlage(verlauf_ordner):
 
     _vorlage(at)
     assert at.session_state["seite"] == "daten"
+    assert {"Raumliste aus Excel/CSV übernehmen", "Lehrpersonenliste aus Excel/CSV übernehmen"} <= \
+        {e.label for e in at.expander}
     assert any("110 Lernende" in c.value for c in at.caption)
 
     _seite(at, "pruefen")
@@ -49,6 +51,9 @@ def test_app_ablauf_mit_vorlage(verlauf_ordner):
     assert not at.exception
     assert any("Alle harten Regeln erfüllt" in s.value for s in at.success)
     assert [m.label for m in at.metric][:2] == ["Klassen", "Ø Klassengrösse"]
+    # Raumplanung: Auslastung und Wochenplan je Raum
+    assert "Räume" in [m.label for m in at.metric]
+    assert at.selectbox(key="raum_wahl").value.startswith("Schulhaus A · ")
     assert {b.label for b in at.get("download_button")} >= {
         "Klassenlisten (Excel, druckfertig)", "Alles als ZIP (inkl. CSV-Rohdaten)"}
 

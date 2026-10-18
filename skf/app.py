@@ -20,8 +20,9 @@ import yaml
 from skf import verlauf
 from skf.ablauf import Ergebnis, rechne, verschiebe
 from skf.austausch import (BLAETTER, KINDER_SPALTEN, LISTENFELDER, ZAHLFELDER, _cfg_aus_tabellen, _tabellen_aus_cfg,
-                           exportiere_stammdaten, importiere_stammdaten, kind_als_dict, lese_kinder)
-from skf.bericht import (CSS, _empfehlungen_html, _osm_karte, _plan, _wuensche_html, schreibe_csv,
+                           exportiere_stammdaten, importiere_stammdaten, kind_als_dict, lese_kinder, lese_liste,
+                           raumtypen, uebernehme_liste)
+from skf.bericht import (CSS, _empfehlungen_html, _osm_karte, _plan, _raumbelegung, _wuensche_html, schreibe_csv,
                          schreibe_html, transparenz_html)
 from skf.daten import STANDARD_GEWICHTE, beispiel_ordner, lade_schule
 from skf.export import exportiere_listen
@@ -60,8 +61,6 @@ div[data-testid="stVerticalBlockBorderWrapper"][class*="border"], [data-testid="
 .skf-kopf { display:flex; align-items:center; gap:12px; margin:0 0 14px; }
 .skf-logo { width:40px; height:40px; border-radius:10px; background:#2f5d50; color:#fff; display:grid;
   place-items:center; box-shadow:0 2px 6px rgba(20,23,31,.07); flex:none; }
-.skf-logo svg { width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round;
-  stroke-linejoin:round; }
 .skf-kopf h1 { font-size:21px; font-weight:700; margin:0; padding:0; line-height:1.2; }
 .skf-kopf p { margin:2px 0 0; color:#676e7d; font-size:13px; }
 .skf-schritt { color:#2f5d50; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
@@ -72,10 +71,9 @@ div[data-testid="stVerticalBlockBorderWrapper"][class*="border"], [data-testid="
 def _logo() -> str:
     """Logo als Bild (Streamlit filtert eingebettetes SVG aus st.html)."""
     import base64
-    svg = ("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' "
-           "stroke-linecap='round' stroke-linejoin='round'><path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/>"
-           "<path d='M9 22V12h6v10'/></svg>")
-    return (f"<div class='skf-logo'><img alt='' width='20' height='20' "
+    from skf.icons import PFADE
+    svg = f"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'><path d='{PFADE['school']}'/></svg>"
+    return (f"<div class='skf-logo'><img alt='' width='24' height='24' "
             f"src='data:image/svg+xml;base64,{base64.b64encode(svg.encode()).decode()}'></div>")
 
 
@@ -116,6 +114,19 @@ GEWICHT_TEXT = {
 
 
 # ------------------------------------------------------------------ Hilfen
+
+# Lesbare Spaltentitel der Stammdaten-Tabellen (die Daten behalten ihre Feldnamen)
+SPALTEN_TABELLEN = {
+    "schulhaus": "Schulhaus", "name": "Name", "typ": "Raumtyp", "anzahl": "Anzahl", "plaetze": "Plätze",
+    "nicht_verfuegbar": "Nicht verfügbar", "kuerzel": "Kürzel", "lat": "Breite (lat)", "lon": "Länge (lon)",
+    "nutzt": "Nutzt (Raumtyp=Schulhaus)", "faecher": "Fächer", "jahrgaenge": "Jahrgänge", "schulhaeuser": "Schulhäuser",
+    "pensum_min": "Pensum min.", "pensum_max": "Pensum max.", "bisherige_klasse": "Bisherige Klasse",
+    "bezeichnung": "Bezeichnung", "raumtyp": "Raumtyp", "min": "Min.", "max": "Max.", "ideal": "Ideal",
+    "strafe": "Strafe", "min_pro_jahrgang": "Min. pro Jahrgang", "dauer": "Dauer (Lektionen)",
+    "max_pro_tag": "Max. pro Tag", "merkmal": "Merkmal", "basis": "Basis", "pro_kind": "Pro Kind",
+    "frei_bis": "Frei bis", "parallel_zu": "Parallel zu", "quelle": "Quelle",
+}
+
 
 def _html(inhalt: str, hoehe: int = 500) -> None:
     components.html(f"<style>{CSS} body{{max-width:none;padding:4px}}</style>{inhalt}", height=hoehe, scrolling=True)
@@ -287,7 +298,7 @@ def seite_daten() -> None:
     st.caption(f"**{cfg.get('name', 'Schule')}** · Schuljahr {cfg.get('schuljahr', '–')} · "
                f"Kantonsprofil: {cfg.get('basis_profil', 'keines')} · "
                f"{len(st.session_state.bearbeitet['Kinder'])} Lernende")
-    tabs = st.tabs([":material/child_care: Lernende", ":material/school: Lehrpersonen", ":material/home: Schulhäuser",
+    tabs = st.tabs([":material/child_care: Lernende", ":material/co_present: Lehrpersonen", ":material/school: Schulhäuser",
                     ":material/meeting_room: Räume", ":material/category: Klassentypen", ":material/menu_book: Fächer",
                     ":material/volunteer_activism: Förderangebote", ":material/tune: Gewichtung"])
     with tabs[0]:
@@ -314,9 +325,12 @@ def seite_daten() -> None:
         with tabs[i]:
             if i in hinweise:
                 st.caption(hinweise[i])
+            if name in ("Raeume", "Lehrpersonen"):
+                _liste_hochladen(name)
             st.session_state.bearbeitet[name] = st.data_editor(
                 st.session_state.tabellen[name], num_rows="dynamic", width="stretch",
-                key=f"ed_{name}_{st.session_state.version}")
+                key=f"ed_{name}_{st.session_state.version}",
+                column_config={k: st.column_config.Column(v) for k, v in SPALTEN_TABELLEN.items()})
     with tabs[7]:
         rest = st.session_state.extra["rest"]
         kb = rest.setdefault("klassenbildung", {})
@@ -349,6 +363,85 @@ def seite_daten() -> None:
     a.download_button("Stammdaten als Excel speichern", inhalt, "stammdaten.xlsx", icon=":material/save:", width="stretch")
     with b:
         _weiter("pruefen")
+
+
+def _liste_hochladen(art: str) -> None:
+    """Raum- oder Lehrpersonenliste aus der Hauswartung/Personaladministration übernehmen."""
+    text = "Raumliste" if art == "Raeume" else "Lehrpersonenliste"
+    beispiel = ("Erkannte Spalten z.B. *Schulhaus/Standort, Raum/Zimmer, Typ/Raumart, Plätze/Kapazität, Anzahl, "
+                "gesperrt* – Raumarten wie *Schulzimmer*, *Sporthalle*, *Werkraum* werden zugeordnet, Zeiten wie "
+                "*Freitag Nachmittag* übersetzt." if art == "Raeume" else
+                "Erkannte Spalten z.B. *Name (oder Vorname + Nachname), Kürzel, Fächer, Stufen, Schulhaus, Pensum "
+                "(12-16), nicht verfügbar, bisherige Klasse*.")
+    with st.expander(f"{text} aus Excel/CSV übernehmen", icon=":material/upload_file:"):
+        st.caption(beispiel)
+        datei = st.file_uploader(text, type=["csv", "xlsx"], key=f"up_{art}_{st.session_state.version}",
+                                 label_visibility="collapsed")
+        ergaenzen = st.toggle("Bestehende Einträge behalten (nur ergänzen)", key=f"erg_{art}",
+                              help="Aus: Räume der Schulhäuser in der Liste bzw. alle Lehrpersonen werden ersetzt.")
+        if datei and st.button("Übernehmen", type="primary", key=f"ueb_{art}", icon=":material/check:"):
+            cfg, kinder = _aktuelle_daten()
+            try:
+                with tempfile.TemporaryDirectory() as tmp:
+                    pfad = Path(tmp) / datei.name
+                    pfad.write_bytes(datei.getvalue())
+                    zeilen = lese_liste(pfad, art, raumtypen=raumtypen(cfg))
+                neu, hinweise = uebernehme_liste(cfg, art, zeilen, ersetzen=not ergaenzen)
+            except Exception as fehler:  # noqa: BLE001 – verständlich melden statt abstürzen
+                st.error(f"Die Liste konnte nicht übernommen werden: {fehler}")
+                return
+            _laden(neu, kinder)
+            st.session_state[f"hinweise_{art}"] = hinweise
+            st.rerun()
+    for h in st.session_state.pop(f"hinweise_{art}", []):
+        (st.success if h.endswith("übernommen.") else st.warning)(h)
+
+
+def _raeume_tab(r: Ergebnis) -> None:
+    """Raumplanung: Auslastung aller Räume, Wochenplan je Raum, Belegungsübersicht."""
+    schule = r.schule
+    if not r.lektionen:
+        st.info("Kein Stundenplan berechnet – Räume werden mit dem Stundenplan verplant.")
+        return
+    st.caption("Jede Klasse erhält ihr Schulzimmer; Turnhallen, TTG-Zimmer, Gruppenräume usw. werden pro Lektion "
+               "verplant – mit Plätzen, Sperrzeiten (z.B. Vereinsnutzung) und Schulhaus-Öffnungszeiten.")
+    belegt: dict[tuple[str, str], list] = {}
+    for l in r.lektionen:
+        belegt.setdefault((l.raum_ort or l.schulhaus, l.raum), []).append(l)
+    zeilen = []
+    for sh in schule.schulhaeuser:
+        offen = len(schule.slots) - len(sh.nicht_verfuegbar)
+        for raum in sh.raeume:
+            ls = belegt.get((sh.name, raum.name), [])
+            slots = {l.slot for l in ls}
+            verfuegbar = offen - len(raum.nicht_verfuegbar - sh.nicht_verfuegbar)
+            zeilen.append({"Schulhaus": sh.name, "Raum": raum.name, "Typ": raum.typ, "Plätze": raum.plaetze,
+                           "Lektionen": len(slots), "verfügbar": verfuegbar,
+                           "Auslastung": round(100 * len(slots) / verfuegbar) if verfuegbar else 0,
+                           "genutzt von": ", ".join(sorted({k for l in ls for k in l.klassen}))[:80]})
+    df = pd.DataFrame(zeilen)
+    c = st.columns(4)
+    c[0].metric("Räume", len(df))
+    c[1].metric("Ungenutzt", int((df["Lektionen"] == 0).sum()))
+    c[2].metric("Über 85 % belegt", int((df["Auslastung"] > 85).sum()))
+    c[3].metric("Ø Auslastung (genutzte)", f"{df.loc[df['Lektionen'] > 0, 'Auslastung'].mean():.0f} %"
+                if (df["Lektionen"] > 0).any() else "–")
+    typen = st.multiselect("Raumtyp", sorted(df["Typ"].unique()), placeholder="alle Raumtypen")
+    sicht = df[df["Typ"].isin(typen)] if typen else df
+    st.dataframe(sicht, hide_index=True, width="stretch", height=min(420, 38 + 35 * len(sicht)),
+                 column_config={"Auslastung": st.column_config.ProgressColumn("Auslastung", format="%d %%",
+                                                                              min_value=0, max_value=100)})
+    wahl = st.selectbox("Wochenplan für Raum", [f"{z['Schulhaus']} · {z['Raum']}" for z in sicht.to_dict("records")],
+                        key="raum_wahl")
+    if wahl:
+        sh_name, raum_name = wahl.split(" · ", 1)
+        sh = schule.schulhaus(sh_name)
+        raum = next(x for x in sh.raeume if x.name == raum_name)
+        eintr = {l.slot: f"<b>{'/'.join(l.klassen)}</b><br>{l.fach}<br><span class='muted'>{l.lehrperson}</span>"
+                 for l in belegt.get((sh_name, raum_name), [])}
+        _html(_plan(r, eintr, raum.nicht_verfuegbar | sh.nicht_verfuegbar, {}), 440)
+    with st.expander("Belegungsübersicht aller Räume", icon=":material/grid_view:"):
+        _html(_raumbelegung(r), 520)
 
 
 def seite_pruefen() -> None:
@@ -484,11 +577,11 @@ def seite_ergebnis() -> None:
                            "Springstunden"]):
         spalten[i].metric(k, kz[k])
     tabs = st.tabs([":material/map: Karte", ":material/groups: Klassen", ":material/person_search: Lernende",
-                    ":material/swap_horiz: Anpassen", ":material/calendar_month: Stundenpläne",
+                    ":material/swap_horiz: Anpassen", ":material/calendar_month: Stundenpläne", ":material/meeting_room: Räume",
                     ":material/favorite: Wünsche", ":material/lightbulb: Empfehlungen",
                     ":material/visibility: Transparenz", ":material/list: Meldungen", ":material/download: Herunterladen"])
     e = r.einteilung
-    with tabs[8]:
+    with tabs[9]:
         filt = st.multiselect("Anzeigen", SCHWEREGRADE, default=["Fehler", "Warnung"])
         df = pd.DataFrame([{"Schweregrad": m.schwere, "Bereich": m.bereich, "Meldung": m.text,
                             "Quelle": m.quelle} for m in sorted(r.meldungen, key=lambda m: SCHWEREGRADE.index(m.schwere))
@@ -575,16 +668,18 @@ def seite_ergebnis() -> None:
                 st.caption(f"{len(eintr)} Lektionen · Pensum {lp.pensum_min}–{lp.pensum_max}")
                 _html(_plan(r, eintr, lp.nicht_verfuegbar, {}), 440)
     with tabs[5]:
-        _html(_wuensche_html(r), 560)
+        _raeume_tab(r)
     with tabs[6]:
-        _html(_empfehlungen_html(r) or "<p>Keine Empfehlungen.</p>", 720)
+        _html(_wuensche_html(r), 560)
     with tabs[7]:
+        _html(_empfehlungen_html(r) or "<p>Keine Empfehlungen.</p>", 720)
+    with tabs[8]:
         rg = [x for x in regeln(r) if x["geprueft"]]
         ok = sum(not x["verstoesse"] for x in rg)
         (st.success if ok == len(rg) else st.error)(f"{ok} von {len(rg)} harten Regeln erfüllt – unabhängig "
                                                     "nachgezählt.", icon=":material/verified:")
         _html(transparenz_html(r), 1100)
-    with tabs[9]:
+    with tabs[10]:
         mit_foerder = st.toggle("IF/DaZ/IS in Klassenlisten aufnehmen (besonders schützenswerte Daten)")
         with tempfile.TemporaryDirectory() as tmp:
             ordner = Path(tmp)
@@ -659,10 +754,10 @@ def seite_verlauf() -> None:
     if (ordner / "klassenlisten.xlsx").exists():
         c2.download_button("Klassenlisten", (ordner / "klassenlisten.xlsx").read_bytes(), "klassenlisten.xlsx",
                            icon=":material/table_view:", width="stretch")
-    c3.button("↩ Eingabedaten dieses Standes laden", width="stretch", on_click=_stand_laden, args=(ordner,))
+    c3.button("Eingabedaten dieses Standes laden", icon=":material/settings_backup_restore:", width="stretch", on_click=_stand_laden, args=(ordner,))
     if s.get("manuell"):
         st.caption("Manuelle Anpassungen: " + "; ".join(s["manuell"]))
-    with st.popover("🗑 Stand löschen"):
+    with st.popover("Stand löschen", icon=":material/delete:"):
         st.write("Diesen Stand endgültig löschen?")
         if st.button("Ja, löschen", type="primary"):
             verlauf.loesche(s)

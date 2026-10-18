@@ -65,6 +65,10 @@ def test_bedienung_im_browser(app_url):
         seite.get_by_role("tab", name="Gewichtung").click()
         time.sleep(1)
         seite.screenshot(path=BILDER / "1b-gewichtung.png")
+        seite.get_by_role("tab", name="Räume").click()
+        seite.get_by_text("Raumliste aus Excel/CSV übernehmen").click()
+        time.sleep(1)
+        seite.screenshot(path=BILDER / "1c-raeume-import.png")
 
         seite.get_by_role("button", name="Weiter: Prüfen").click()
         seite.get_by_text("Keine Fehler").first.wait_for(timeout=60_000)
@@ -90,6 +94,7 @@ def test_bedienung_im_browser(app_url):
         for tab, datei in (("Klassen", "5-klassen.png"), ("Lernende", "6-lernende.png"),
                            ("Transparenz", "6b-transparenz.png"),
                            ("Anpassen", "7-anpassen.png"), ("Stundenpläne", "8-stundenplan.png"),
+                           ("Räume", "8b-raeume.png"),
                            ("Wünsche", "9-wuensche.png"), ("Empfehlungen", "10-empfehlungen.png"),
                            ("Herunterladen", "11-herunterladen.png")):
             seite.get_by_role("tab", name=tab).click()

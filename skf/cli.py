@@ -5,6 +5,8 @@
     skf export   schule.yaml kinder.csv -o daten.xlsx    Stammdaten exportieren (.xlsx oder .json)
     skf import   daten.xlsx -o ordner/                   Stammdaten importieren → schule.yaml + kinder.csv
     skf kinder   export_schulverwaltung.csv -o kinder.csv  Kinderliste normalisieren/umwandeln
+    skf raeume   schule.yaml raumliste.xlsx              Raumliste übernehmen (CSV/Excel, Spalten frei benannt)
+    skf lehrpersonen schule.yaml personal.csv            Lehrpersonenliste übernehmen
     skf vorlage  -o ordner/                              Vorlagen zum Erfassen eigener Daten
     skf profile                                          verfügbare Kantonsprofile
     skf app                                              Bedienoberfläche im Browser starten
@@ -18,15 +20,15 @@ import sys
 from pathlib import Path
 
 from .ablauf import rechne
-from .austausch import (exportiere_stammdaten, importiere_stammdaten, lese_rohkonfiguration, schreibe_kinder,
-                        schreibe_rohkonfiguration, schreibe_vorlage)
+from .austausch import (exportiere_stammdaten, importiere_stammdaten, lese_liste, lese_rohkonfiguration, raumtypen,
+                        schreibe_kinder, schreibe_rohkonfiguration, schreibe_vorlage, uebernehme_liste)
 from .bericht import ordnername, schreibe_csv, schreibe_html, schreibe_vergleich
 from .daten import STANDARD_GEWICHTE, baue_schule, lade_kinder, lade_profil, lade_schule, profile, szenarien
 from .export import exportiere_listen
 from .geo import geocodiere
 from .pruefung import referenzen, vorpruefung
 
-BEFEHLE = ("rechnen", "pruefen", "export", "import", "kinder", "vorlage", "profile", "app")
+BEFEHLE = ("rechnen", "pruefen", "export", "import", "kinder", "raeume", "lehrpersonen", "vorlage", "profile", "app")
 
 
 def _gewicht(text: str) -> tuple[str, int]:
@@ -46,7 +48,7 @@ def _spalte(text: str) -> tuple[str, str]:
 def _melde(meldungen, max_zeilen: int = 15) -> int:
     fehler = [m for m in meldungen if m.schwere == "Fehler"]
     for m in (fehler + [m for m in meldungen if m.schwere == "Warnung"])[:max_zeilen]:
-        print(f"  {'⛔' if m.schwere == 'Fehler' else '⚠'} {m.bereich}: {m.text}")
+        print(f"  [{m.schwere.upper()}] {m.bereich}: {m.text}")
     return len(fehler)
 
 
@@ -93,6 +95,17 @@ def _parser() -> argparse.ArgumentParser:
     ki.add_argument("-o", "--ziel", required=True, help="Ziel .csv oder .xlsx")
     ki.add_argument("--spalte", action="append", type=_spalte, default=[], metavar="FELD=SPALTE")
 
+    for befehl, text in (("raeume", "Raumliste (CSV/Excel) in die Konfiguration übernehmen"),
+                         ("lehrpersonen", "Lehrpersonenliste (CSV/Excel) in die Konfiguration übernehmen")):
+        li = sub.add_parser(befehl, help=text)
+        li.add_argument("schule", help="schule.yaml")
+        li.add_argument("liste", help="CSV oder XLSX; Spaltennamen werden erkannt (z.B. Schulhaus, Raum, Typ, Plätze)")
+        li.add_argument("-o", "--ziel", help="Ziel-YAML (Standard: schule.yaml überschreiben, Sicherung .bak)")
+        li.add_argument("--ergaenzen", action="store_true",
+                        help="bestehende Einträge behalten (Standard: Räume der genannten Schulhäuser bzw. alle "
+                             "Lehrpersonen ersetzen)")
+        li.add_argument("--spalte", action="append", type=_spalte, default=[], metavar="FELD=SPALTE")
+
     vo = sub.add_parser("vorlage", help="Vorlagen zum Erfassen eigener Daten erzeugen")
     vo.add_argument("-o", "--ordner", required=True)
 
@@ -119,7 +132,7 @@ def main(argv: list[str] | None = None) -> None:
         return
     try:
         {"rechnen": _rechnen, "pruefen": _pruefen, "export": _export, "import": _import, "kinder": _kinder,
-         "vorlage": _vorlage, "profile": _profile, "app": _app}[args.befehl](args)
+         "raeume": _liste, "lehrpersonen": _liste, "vorlage": _vorlage, "profile": _profile, "app": _app}[args.befehl](args)
     except (ValueError, KeyError, FileNotFoundError) as fehler:
         sys.exit(f"Fehler: {fehler}")
 
@@ -151,7 +164,7 @@ def _rechnen(args) -> None:
         listen = exportiere_listen(r, ordner, args.mit_foerderdaten)
         if args.mit_foerderdaten:
             q = ((schule.profil.get("regeln") or {}).get("datenschutz") or {}).get("quelle", "")
-            print(f"  ⚠ Listen enthalten Förderdaten (besonders schützenswert{', ' + q if q else ''}) – "
+            print(f"  Achtung: Listen enthalten Förderdaten (besonders schützenswert{', ' + q if q else ''}) – "
                   "nur an Berechtigte weitergeben")
         _melde(r.meldungen, 10)
         print(f"  {r.anzahl('Fehler')} Fehler, {r.anzahl('Warnung')} Warnungen, {r.anzahl('Hinweis')} Hinweise"
@@ -205,6 +218,21 @@ def _kinder(args) -> None:
     ohne = sum(k.lat is None for k in kinder)
     print(f"{len(kinder)} Lernende → {args.ziel}" + (f" ({ohne} ohne Koordinaten: --geocodieren verwenden)" if ohne
                                                      else ""))
+
+
+def _liste(args) -> None:
+    art = {"raeume": "Raeume", "lehrpersonen": "Lehrpersonen"}[args.befehl]
+    quelle = Path(args.schule)
+    cfg = lese_rohkonfiguration(quelle)
+    zeilen = lese_liste(args.liste, art, dict(args.spalte), raumtypen(cfg))
+    neu, hinweise = uebernehme_liste(cfg, art, zeilen, ersetzen=not args.ergaenzen)
+    ziel = Path(args.ziel) if args.ziel else quelle
+    if ziel == quelle:
+        quelle.with_suffix(quelle.suffix + ".bak").write_bytes(quelle.read_bytes())
+    schreibe_rohkonfiguration(neu, ziel)
+    for h in hinweise:
+        print(f"  {h}")
+    print(f"→ {ziel}" + (f" (Sicherung: {quelle.name}.bak)" if ziel == quelle else ""))
 
 
 def _vorlage(args) -> None:

@@ -8,6 +8,7 @@ import re
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from .icons import PFADE
 from .ablauf import Ergebnis
 from .pruefung import SCHWEREGRADE, Meldung, springstunden, wuensche
 
@@ -19,7 +20,6 @@ def ordnername(szenario: str) -> str:
 
 # Kategoriale Reihenfolge (fix, nie zyklisch) – siehe dataviz-Referenzpalette
 SERIEN = ["var(--s1)", "var(--s2)", "var(--s3)", "var(--s4)", "var(--s5)", "var(--s6)", "var(--s7)", "var(--s8)"]
-ICON = {"Fehler": "⛔", "Warnung": "⚠", "Hinweis": "ℹ"}
 KLASSE = {"Fehler": "sev-f", "Warnung": "sev-w", "Hinweis": "sev-h"}
 
 CSS = """
@@ -42,13 +42,12 @@ body { background:var(--bg); color:var(--fg); font:13px/1.45 var(--font); margin
 a { color:var(--accent) } a:hover { text-decoration:none }
 .app-header { display:flex; align-items:center; gap:12px; margin-bottom:16px }
 .logo { width:40px; height:40px; border-radius:10px; background:var(--accent); color:#fff; display:grid;
-  place-items:center; box-shadow:var(--shadow-sm); flex:none }
+  place-items:center; box-shadow:var(--shadow-sm); flex:none } .logo .icon { width:24px; height:24px }
 .app-header h1 { font-size:21px; font-weight:700; letter-spacing:-.01em; margin:0; line-height:1.2 }
 .sub { color:var(--fg2); margin:2px 0 0; font-size:13px }
 h2 { font-size:13px; margin:0 } h3 { font-size:14px; margin:0 0 6px }
 .muted { color:var(--muted) } .fg2 { color:var(--fg2) }
-.icon { width:18px; height:18px; flex:none; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round;
-  stroke-linejoin:round }
+.icon { width:20px; height:20px; flex:none; fill:currentColor } .icon.klein { width:15px; height:15px; vertical-align:-3px }
 .section-card { background:var(--surface); border:1px solid var(--ring); border-radius:var(--radius-md);
   box-shadow:var(--shadow-xs); margin:12px 0; overflow:clip }
 .section-card > summary { list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between;
@@ -106,6 +105,7 @@ details:not(.section-card) > summary { cursor:pointer; font-weight:600; padding:
 .bar-tick { position:absolute; top:-2px; width:2px; height:18px; background:var(--fg2) }
 .legende { display:flex; gap:14px; flex-wrap:wrap; font-size:12px; color:var(--fg2); margin:6px 0 }
 .legende i { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:5px; vertical-align:-1px }
+.legende i.quadrat { background:var(--fg2) } .legende i.rund { background:var(--fg2); border-radius:50%; width:8px; height:8px }
 .karte { width:100%; max-width:720px; display:block } .lbl { fill:var(--fg); font-size:12px; font-weight:600 }
 .osm { height:480px; border-radius:var(--radius-sm); border:1px solid var(--ring) }
 .karten { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:10px }
@@ -139,41 +139,23 @@ document.getElementById('suche')?.addEventListener('input', filtern);
 """
 
 
-# Linien-Icons im Stil von Feather (MIT-Lizenz), 24er-Raster
-_ICON_PFADE = {
-    "info": '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>',
-    "schule": '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>',
-    "karte": '<polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/>'
-             '<line x1="16" y1="6" x2="16" y2="22"/>',
-    "personen": '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>'
-                '<path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
-    "kalender": '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>'
-                '<line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
-    "warnung": '<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>'
-               '<line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
-    "ok": '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
-    "x": '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>',
-    "minus": '<circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/>',
-    "balken": '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>'
-              '<line x1="6" y1="20" x2="6" y2="14"/>',
-    "herz": '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23'
-            'l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>',
-    "buch": '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
-    "auge": '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
-    "regler": '<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/>'
-              '<line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/>'
-              '<line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>',
-    "raum": '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/>'
-            '<line x1="9" y1="21" x2="9" y2="9"/>',
-    "birne": '<path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.74V16h8v-1.26A7 7 0 0 0 12 2z"/>',
-    "liste": '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>'
-             '<line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',
-    "pfeil": '<polyline points="6 9 12 15 18 9"/>',
+# Einheitliche Icon-Familie: Material Symbols Rounded – dieselbe wie in der App (:material/…:)
+_ICON_NAMEN = {
+    "info": "info", "schule": "school", "karte": "map", "personen": "groups", "kalender": "calendar_month",
+    "warnung": "warning", "ok": "check_circle", "x": "cancel", "minus": "remove_circle", "balken": "bar_chart",
+    "herz": "favorite", "buch": "menu_book", "auge": "visibility", "regler": "tune", "raum": "meeting_room",
+    "birne": "lightbulb", "liste": "list", "pfeil": "expand_more", "person": "person", "lehrperson": "co_present",
+    "weg": "route", "gesetz": "gavel", "familie": "family_restroom",
 }
 
 
 def icon(name: str, klasse: str = "icon") -> str:
-    return f"<svg class='{klasse}' viewBox='0 0 24 24' aria-hidden='true'>{_ICON_PFADE[name]}</svg>"
+    pfad = PFADE[_ICON_NAMEN.get(name, name)]
+    return f"<svg class='{klasse}' viewBox='0 0 24 24' aria-hidden='true'><path d='{pfad}'/></svg>"
+
+
+# Schweregrade: dieselben Symbole wie in der App
+ICON = {"Fehler": icon("x", "icon klein"), "Warnung": icon("warnung", "icon klein"), "Hinweis": icon("info", "icon klein")}
 
 
 def abschnitt(titel: str, inhalt: str, symbol: str, zusatz: str = "", offen: bool = False, anker: str = "",
@@ -312,7 +294,7 @@ def _karte(r: Ergebnis) -> str:
     legende = "".join(f"<span><i style='background:{farbe[s.name]}'></i>{esc(s.name)} "
                       f"({sum(v == s.name for v in e.schulhaus_von.values())} Lernende)</span>"
                       for s in schule.schulhaeuser)
-    return f"<div class='legende'>{legende}<span>■ Schulhaus · ● Wohnort</span></div>" \
+    return f"<div class='legende'>{legende}<span><i class='quadrat'></i>Schulhaus</span><span><i class='rund'></i>Wohnort</span></div>" \
            f"<div class='karte-box'>{''.join(teile)}</div>"
 
 
@@ -496,7 +478,7 @@ def _wuensche_html(r: Ergebnis) -> str:
         verteilung = ", ".join(f"{esc(k)} ({len(v)})" for k, v in sorted(neue.items(), key=lambda t: -len(t[1])))
         einzeln = [k for k, v in neue.items() if len(v) == 1]
         zeilen.append(f"<tr><td>{esc(bisher)}</td><td class='num'>{sum(len(v) for v in neue.values())}</td>"
-                      f"<td>{verteilung}</td><td>{'<span class="badge sev-h">ℹ allein in ' + esc(', '.join(einzeln)) + '</span>' if einzeln else ''}</td></tr>")
+                      f"<td>{verteilung}</td><td>{'<span class="badge sev-h">' + ICON['Hinweis'] + ' allein in ' + esc(', '.join(einzeln)) + '</span>' if einzeln else ''}</td></tr>")
     tabelle = ("<details open><summary>Bisherige Klassen und Kindergartengruppen → neue Klassen</summary><div class='scroll'>"
                "<table><tr><th>bisher</th><th class='num'>Lernende</th><th>neu (Anzahl)</th><th></th></tr>"
                + "".join(zeilen) + "</table></div></details>") if zeilen else ""
@@ -511,7 +493,7 @@ def _empfehlungen_html(r: Ergebnis) -> str:
     if not (p.empfehlungen or p.prognose):
         return ""
     karten = "".join(
-        f"<div class='panel {'dringlich' if x.dringlich else 'rein'}'><h3>{'⚠ ' if x.dringlich else ''}"
+        f"<div class='panel {'dringlich' if x.dringlich else 'rein'}'><h3>{icon('warnung', 'icon klein') + ' ' if x.dringlich else ''}"
         f"{esc(x.titel)}</h3><div class='fg2'>{esc(x.bereich)}</div><p>{esc(x.text)}</p></div>"
         for x in sorted(p.empfehlungen, key=lambda x: (not x.dringlich, x.bereich)))
 

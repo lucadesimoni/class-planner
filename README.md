@@ -32,13 +32,13 @@ Für Fachleute: `uv run skf app` oder `pip install -e .` und dann `skf app`.
 
 | Seite | Inhalt | Bild |
 |---|---|---|
-| **🏠 Start** | Überblick, Fortschritt, Beispiel oder Vorlage mit einem Klick | [Start](docs/screenshots/0-start.png) |
-| **1 · Daten** | Lernende, Lehrpersonen, Schulhäuser, Räume, Klassentypen, Förderangebote direkt in Tabellen bearbeiten oder Excel hochladen; Gewichtung mit Schiebereglern; als Excel speichern | [Daten](docs/screenshots/1-daten.png), [Gewichtung](docs/screenshots/1b-gewichtung.png) |
-| **2 · Prüfen** | fehlende oder widersprüchliche Angaben (⛔ ⚠️ ℹ️) | [Prüfen](docs/screenshots/2-pruefen.png) |
+| **Start** | Überblick, Fortschritt, Beispiel oder Vorlage mit einem Klick | [Start](docs/screenshots/0-start.png) |
+| **1 · Daten** | Lernende, Lehrpersonen, Schulhäuser, Räume, Klassentypen, Förderangebote direkt in Tabellen bearbeiten oder Excel hochladen; **Raum- und Lehrpersonenlisten** (CSV/Excel, Spalten frei benannt) übernehmen; Gewichtung mit Schiebereglern; als Excel speichern | [Daten](docs/screenshots/1-daten.png), [Gewichtung](docs/screenshots/1b-gewichtung.png), [Raumliste](docs/screenshots/1c-raeume-import.png) |
+| **2 · Prüfen** | fehlende oder widersprüchliche Angaben (Fehler, Warnung, Hinweis) | [Prüfen](docs/screenshots/2-pruefen.png) |
 | **3 · Berechnen** | Szenario, Rechenzeit, Notiz; jede Berechnung wird im Verlauf gespeichert | [Berechnen](docs/screenshots/3-berechnen.png) |
-| **4 · Ergebnis** | 🗺️ **Karte** (Klasse wählen → Einzugsgebiet mit Umriss; Farbe nach Schulhaus oder Jahrgang; **Geschwister verbinden**, getrennte Familien rot; Schulwege; Klick hebt Familie hervor) · 🏫 Klassen und Klassenlisten mit Geschwistern und Vorjahresklasse · 👧 **Lernende** (Personenkarte mit Geschwistern, Wünschen ✅/❌, KG-Gruppe, Verlauf) · ✋ **Anpassen** (Kind verschieben, sofort neu geprüft) · 🗓️ Stundenpläne · 🤝 Wünsche und KG-Gruppen · 💡 Empfehlungen · ⬇️ Downloads | [Karte](docs/screenshots/4-ergebnis-karte.png), [Klassen](docs/screenshots/5-klassen.png), [Lernende](docs/screenshots/6-lernende.png), [Anpassen](docs/screenshots/7-anpassen.png), [Stundenplan](docs/screenshots/8-stundenplan.png), [Wünsche](docs/screenshots/9-wuensche.png), [Empfehlungen](docs/screenshots/10-empfehlungen.png), [Downloads](docs/screenshots/11-herunterladen.png) |
+| **4 · Ergebnis** | **Karte** (Klasse wählen → Einzugsgebiet mit Umriss; Farbe nach Schulhaus oder Jahrgang; **Geschwister verbinden**, getrennte Familien rot; Schulwege; Klick hebt Familie hervor) · Klassen und Klassenlisten mit Geschwistern und Vorjahresklasse · **Lernende** (Personenkarte mit Geschwistern, erfüllten und offenen Wünschen, KG-Gruppe, Verlauf) · **Anpassen** (Kind verschieben, sofort neu geprüft) · Stundenpläne · **Räume** (Auslastung, Wochenplan je Raum, Belegungsübersicht) · Wünsche und KG-Gruppen · Empfehlungen · Downloads | [Karte](docs/screenshots/4-ergebnis-karte.png), [Klassen](docs/screenshots/5-klassen.png), [Lernende](docs/screenshots/6-lernende.png), [Anpassen](docs/screenshots/7-anpassen.png), [Stundenplan](docs/screenshots/8-stundenplan.png), [Räume](docs/screenshots/8b-raeume.png), [Wünsche](docs/screenshots/9-wuensche.png), [Empfehlungen](docs/screenshots/10-empfehlungen.png), [Downloads](docs/screenshots/11-herunterladen.png) |
 | **Transparenz** (in 4 · Ergebnis) | alle harten Regeln mit Prüfstatus; Abwägungen (Messwert × Gewicht = Strafpunkte je Ziel); Lösungsgüte pro Rechenschritt; bei jedem Kind **„Warum hier?“** mit allen Schulhäusern, Wegen, freien Plätzen und Gründen | [Transparenz](docs/screenshots/6b-transparenz.png), [Begründung](docs/screenshots/6-lernende.png) |
-| **🕘 Verlauf** | alle gespeicherten Stände mit Kennzahlen; zwei Stände vergleichen (wer wechselte wohin); Bericht/Listen eines Standes herunterladen; Eingabedaten wiederherstellen | [Verlauf](docs/screenshots/12-verlauf.png) |
+| **Verlauf** | alle gespeicherten Stände mit Kennzahlen; zwei Stände vergleichen (wer wechselte wohin); Bericht/Listen eines Standes herunterladen; Eingabedaten wiederherstellen | [Verlauf](docs/screenshots/12-verlauf.png) |
 
 Die Screenshots erzeugt der automatische Browser-Test (`tests/test_browser_e2e.py`). Er
 bedient die App mit dem Malters-Beispiel von Anfang bis Ende. Die Kartenkacheln fehlen
@@ -69,8 +69,10 @@ Bericht und Listen.
 
 Das Design folgt dem Design-System von
 [genealogy-store](https://github.com/lucadesimoni/genealogy-store): helle Fläche,
-weisse Karten, ein ruhiger Akzent (Wandtafelgrün), Abschnittskarten zum Aufklappen und
-Linien-Icons. Der Akzent ist bewusst keine Datenfarbe; Schulhäuser und Jahrgänge haben eigene,
+weisse Karten, ein ruhiger Akzent (Wandtafelgrün) und Abschnittskarten zum Aufklappen.
+**Eine Icon-Familie überall:** [Material Symbols Rounded](https://fonts.google.com/icons)
+(Apache-2.0) – in der App über Streamlit, im Bericht als eingebettete SVGs aus derselben
+Schrift (`skf/icons.py`, erzeugt mit `scripts/erzeuge_icons.py`; offline und druckbar). Der Akzent ist bewusst keine Datenfarbe; Schulhäuser und Jahrgänge haben eigene,
 farbsehschwäche-geprüfte Farben.
 
 ## Was berücksichtigt wird
@@ -138,6 +140,8 @@ Wünschen. Fertig gerechnete Ergebnisse aller Szenarien:
 | `skf export schule.yaml kinder.csv -o daten.xlsx` | Stammdaten als Excel (ein Blatt pro Tabelle) oder `.json` |
 | `skf import daten.xlsx -o ordner` | Stammdaten importieren → `schule.yaml` + `kinder.csv` (mit Referenzprüfung) |
 | `skf kinder export.csv -o kinder.csv` | Export einer Schulverwaltung in die Standard-Kinderliste umwandeln |
+| `skf raeume schule.yaml raumliste.xlsx` | Raumliste (Hauswartung, Liegenschaften) übernehmen; ersetzt die Räume der genannten Schulhäuser (`--ergaenzen`: nur hinzufügen) |
+| `skf lehrpersonen schule.yaml personal.csv` | Lehrpersonenliste übernehmen (Name, Kürzel, Fächer, Stufen, Schulhaus, Pensum, nicht verfügbar) |
 | `skf vorlage -o ordner` | Vorlagen zum Erfassen eigener Daten |
 | `skf profile` | verfügbare Kantonsprofile |
 | `skf app` | Bedienoberfläche im Browser |
@@ -233,6 +237,30 @@ Unbekannte Spalten bleiben erhalten und werden mit exportiert.
   Berechnung läuft eine **Referenzprüfung**: eindeutige IDs und Namen, Verweise auf
   Schulhäuser, Räume, Fächer, Jahrgänge, Kinder (`nicht_mit`) und Quellen.
 
+## Räume planen und importieren
+
+**Geplant wird:** Jede Klasse erhält ein Schulzimmer im passenden Raumtyp (Plätze ≥
+Klassengrösse, IS zählt doppelt). Fächer mit eigenem Raumtyp (Bewegung und Sport →
+Turnhalle, TTG → TTG-Zimmer, auf Wunsch Förderunterricht → Gruppenraum) werden **pro Lektion**
+einem freien Raum zugeteilt – nie doppelt belegt, nur in offenen Zeiten (Sperrzeiten
+des Raums, z.B. Vereinsnutzung `Fr-NM`, und des Schulhauses), auch in einem anderen
+Schulhaus (`nutzt: {Turnhalle: Bündtmättli}`). Reichen die Räume nicht, nennt die
+Konfliktanalyse den Engpass; die Empfehlungen zeigen Raumreserven und Ausbaubedarf.
+
+**Ansehen:** In der App unter *Ergebnis → Räume*: Auslastung jedes Raums, ungenutzte und
+fast volle Räume, Wochenplan je Raum und die Belegungsübersicht aller Räume; im Bericht
+unter *Raumbelegung*; in `stundenplaene.xlsx` ein Blatt je Spezialraum.
+
+**Importieren:** Raumlisten aus der Liegenschaftsverwaltung oder vom Hauswart können
+direkt übernommen werden – in der App unter *Daten → Räume → Raumliste aus Excel/CSV
+übernehmen* oder mit `skf raeume schule.yaml raumliste.xlsx`. Spaltennamen werden
+erkannt (*Schulhaus/Standort/Gebäude, Raum/Zimmer/Raumnummer, Typ/Raumart/Nutzung,
+Plätze/Kapazität, Anzahl, gesperrt/Sperrzeiten*), Raumarten zugeordnet (*Schulzimmer* →
+Klassenzimmer, *Sporthalle* → Turnhalle, *Werkraum* → TTG-Zimmer, *Kiga* → Kindergarten)
+und Zeiten übersetzt (*Freitag Nachmittag* → `Fr-NM`). Beispiel:
+[`beispiele/vorlage/raumliste.csv`](beispiele/vorlage/raumliste.csv). Dasselbe gibt es für
+Lehrpersonenlisten (`skf lehrpersonen …`, Pensum als `12-16`).
+
 ## Schul-Konfiguration (YAML)
 
 Vollständige Beispiele: [`beispiele/vorlage/schule.yaml`](beispiele/vorlage/schule.yaml) (klein) und
@@ -326,7 +354,7 @@ werden als Luftlinie × `umweg_faktor` (Standard 1.3) geschätzt.
 
 ```bash
 pip install -e ".[test]"
-pytest                                   # 39 Tests: Modell, Recht, Import/Export, Verlauf, App, Browser
+pytest                                   # 51 Tests: Modell, Recht, Import/Export, Verlauf, App, Browser
 pytest tests/test_browser_e2e.py -s      # nur Browser-Test (erzeugt docs/screenshots/)
 ```
 
