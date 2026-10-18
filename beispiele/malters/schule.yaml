@@ -21,7 +21,7 @@ schulhaeuser:
       - {name: BM-Zi, typ: Klassenzimmer, anzahl: 13, plaetze: 25}
       - {name: BM-KG, typ: Kindergarten, anzahl: 4, plaetze: 22}
       - {name: BM-Halle, typ: Turnhalle, anzahl: 2, plaetze: 30, nicht_verfuegbar: [Fr-NM]}  # Vereinssport
-      - {name: BM-Werkraum, typ: Werkraum, anzahl: 2, plaetze: 24}
+      - {name: BM-TTG, typ: TTG-Zimmer, anzahl: 2, plaetze: 24}
   - name: Eischachen
     kuerzel: EI
     lat: 47.0402
@@ -30,7 +30,7 @@ schulhaeuser:
       - {name: EI-Zi, typ: Klassenzimmer, anzahl: 11, plaetze: 25}
       - {name: EI-KG, typ: Kindergarten, anzahl: 4, plaetze: 22}
       - {name: EI-Halle, typ: Turnhalle, anzahl: 2, plaetze: 30}
-      - {name: EI-Werkraum, typ: Werkraum, plaetze: 24}
+      - {name: EI-TTG, typ: TTG-Zimmer, plaetze: 24}
   - name: Im Feld
     kuerzel: IF
     lat: 47.0445
@@ -52,7 +52,7 @@ klassenbildung:
     - {jahrgaenge: ["4"], min: 16, max: 22, ideal: 20}
     - {jahrgaenge: ["5"], min: 16, max: 22, ideal: 20}
     - {jahrgaenge: ["6"], min: 16, max: 22, ideal: 20}
-    - {jahrgaenge: ["1", "2"], min: 16, max: 22, ideal: 20, strafe: 150}   # Mischklassen
+    - {jahrgaenge: ["1", "2"], min: 16, max: 22, ideal: 20, strafe: 150}   # Mehrjahrgangsklassen (AdL)
     - {jahrgaenge: ["3", "4"], min: 16, max: 22, ideal: 20, strafe: 150}
     - {jahrgaenge: ["5", "6"], min: 16, max: 22, ideal: 20, strafe: 150}
 
@@ -76,60 +76,60 @@ faecher:
   Französisch: {max_pro_tag: 1}
   BG: {max_pro_tag: 2}
   Musik: {max_pro_tag: 1}
-  TTG: {raumtyp: Werkraum, dauer: 2}
-  Sport: {raumtyp: Turnhalle, max_pro_tag: 1}
+  TTG: {raumtyp: TTG-Zimmer, dauer: 2}
+  Bewegung und Sport: {raumtyp: Turnhalle, max_pro_tag: 1}
   Kindergarten: {raumtyp: Klassenzimmer, max_pro_tag: 6}
   Wald: {raumtyp: Klassenzimmer, max_pro_tag: 6}
 
 # Lektionen pro Woche – vereinfachte ANNAHME; verbindlich ist die WOST 2017 (Quelle "WOST" im Profil)
 stundentafel:
-  KG:      {Kindergarten: 20, Sport: 2}
+  KG:      {Kindergarten: 20, Bewegung und Sport: 2}
   Wald-KG: {Wald: 20}
-  "1": {Deutsch: 6, Mathematik: 5, NMG: 3, BG: 2, TTG: 2, Musik: 2, Sport: 3}
-  "2": {Deutsch: 6, Mathematik: 5, NMG: 4, BG: 2, TTG: 2, Musik: 2, Sport: 3}
-  "3": {Deutsch: 6, Mathematik: 5, NMG: 4, Englisch: 2, BG: 2, TTG: 2, Musik: 2, Sport: 3}
-  "4": {Deutsch: 5, Mathematik: 5, NMG: 5, Englisch: 2, BG: 2, TTG: 2, Musik: 2, Sport: 3}
-  "5": {Deutsch: 5, Mathematik: 5, NMG: 5, Englisch: 2, Französisch: 3, BG: 2, TTG: 2, Musik: 1, Sport: 3}
-  "6": {Deutsch: 5, Mathematik: 5, NMG: 5, Englisch: 2, Französisch: 3, BG: 2, TTG: 2, Musik: 1, Sport: 3}
+  "1": {Deutsch: 6, Mathematik: 5, NMG: 3, BG: 2, TTG: 2, Musik: 2, Bewegung und Sport: 3}
+  "2": {Deutsch: 6, Mathematik: 5, NMG: 4, BG: 2, TTG: 2, Musik: 2, Bewegung und Sport: 3}
+  "3": {Deutsch: 6, Mathematik: 5, NMG: 4, Englisch: 2, BG: 2, TTG: 2, Musik: 2, Bewegung und Sport: 3}
+  "4": {Deutsch: 5, Mathematik: 5, NMG: 5, Englisch: 2, BG: 2, TTG: 2, Musik: 2, Bewegung und Sport: 3}
+  "5": {Deutsch: 5, Mathematik: 5, NMG: 5, Englisch: 2, Französisch: 3, BG: 2, TTG: 2, Musik: 1, Bewegung und Sport: 3}
+  "6": {Deutsch: 5, Mathematik: 5, NMG: 5, Englisch: 2, Französisch: 3, BG: 2, TTG: 2, Musik: 1, Bewegung und Sport: 3}
 
 # Fiktive Lehrpersonen. Pensum = [min, max] Lektionen pro Woche.
 # nicht_verfuegbar: "Mi" (ganzer Tag), "Fr-NM" (Halbtag), "Mo-VM-1" (einzelne Lektion)
 lehrpersonen:
   # --- Bündtmättli: Klassenlehrpersonen
-  - {name: BM Lehrperson 01, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 1a}
-  - {name: BM Lehrperson 02, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 1b}
-  - {name: BM Lehrperson 03, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 2a}
-  - {name: BM Lehrperson 04, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 2b}
-  - {name: BM Lehrperson 05, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 3a}
-  - {name: BM Lehrperson 06, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 3b}
-  - {name: BM Lehrperson 07, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 4a}
-  - {name: BM Lehrperson 08, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 4b}
-  - {name: BM Lehrperson 09, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 5a}
-  - {name: BM Lehrperson 10, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 5b}
-  - {name: BM Lehrperson 11, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
-  - {name: BM Lehrperson 12, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
-  - {name: BM Lehrperson 13, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [12, 16], nicht_verfuegbar: [Mo, Di]}
-  - {name: BM Lehrperson 14, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Bündtmättli, pensum: [10, 14], nicht_verfuegbar: [Do, Fr]}
+  - {name: BM Lehrperson 01, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 1a}
+  - {name: BM Lehrperson 02, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 1b}
+  - {name: BM Lehrperson 03, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 2a}
+  - {name: BM Lehrperson 04, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 2b}
+  - {name: BM Lehrperson 05, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 3a}
+  - {name: BM Lehrperson 06, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 3b}
+  - {name: BM Lehrperson 07, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 4a}
+  - {name: BM Lehrperson 08, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 4b}
+  - {name: BM Lehrperson 09, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 5a}
+  - {name: BM Lehrperson 10, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Bündtmättli, pensum: [22, 28], bisherige_klasse: BM 5b}
+  - {name: BM Lehrperson 11, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
+  - {name: BM Lehrperson 12, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Bündtmättli, pensum: [22, 28]}
+  - {name: BM Lehrperson 13, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Bündtmättli, pensum: [12, 16], nicht_verfuegbar: [Mo, Di]}
+  - {name: BM Lehrperson 14, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Bündtmättli, pensum: [10, 14], nicht_verfuegbar: [Do, Fr]}
   - {name: BM Unterstufe Teilzeit, faecher: [Deutsch, Mathematik, NMG, Musik], jahrgaenge: ["1", "2", "3"], schulhaeuser: Bündtmättli, pensum: [8, 12], nicht_verfuegbar: [Mi, Fr]}
   # --- Eischachen: Klassenlehrpersonen
-  - {name: EI Lehrperson 01, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28], bisherige_klasse: EI 1a}
-  - {name: EI Lehrperson 02, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28], bisherige_klasse: EI 1b}
-  - {name: EI Lehrperson 03, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28], bisherige_klasse: EI 2a}
-  - {name: EI Lehrperson 04, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28], bisherige_klasse: EI 2b}
-  - {name: EI Lehrperson 05, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28], bisherige_klasse: EI 3a}
-  - {name: EI Lehrperson 06, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28], bisherige_klasse: EI 4a}
-  - {name: EI Lehrperson 07, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28], bisherige_klasse: EI 5a}
-  - {name: EI Lehrperson 08, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28]}
-  - {name: EI Lehrperson 09, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [22, 28]}
-  - {name: EI Lehrperson 10, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [14, 20], nicht_verfuegbar: [Mi]}
-  - {name: EI Lehrperson 11, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Sport], schulhaeuser: Eischachen, pensum: [10, 14], nicht_verfuegbar: [Mo]}
+  - {name: EI Lehrperson 01, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Eischachen, pensum: [22, 28], bisherige_klasse: EI 1a}
+  - {name: EI Lehrperson 02, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Eischachen, pensum: [22, 28], bisherige_klasse: EI 1b}
+  - {name: EI Lehrperson 03, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Eischachen, pensum: [22, 28], bisherige_klasse: EI 2a}
+  - {name: EI Lehrperson 04, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Eischachen, pensum: [22, 28], bisherige_klasse: EI 2b}
+  - {name: EI Lehrperson 05, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Eischachen, pensum: [22, 28], bisherige_klasse: EI 3a}
+  - {name: EI Lehrperson 06, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Eischachen, pensum: [22, 28], bisherige_klasse: EI 4a}
+  - {name: EI Lehrperson 07, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Eischachen, pensum: [22, 28], bisherige_klasse: EI 5a}
+  - {name: EI Lehrperson 08, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Eischachen, pensum: [22, 28]}
+  - {name: EI Lehrperson 09, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Eischachen, pensum: [22, 28]}
+  - {name: EI Lehrperson 10, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Eischachen, pensum: [14, 20], nicht_verfuegbar: [Mi]}
+  - {name: EI Lehrperson 11, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: Eischachen, pensum: [10, 14], nicht_verfuegbar: [Mo]}
   # --- Fachlehrpersonen (teils an beiden Schulhäusern)
   - {name: Englisch BM, faecher: [Englisch], schulhaeuser: Bündtmättli, pensum: [10, 24]}
   - {name: Französisch BM, faecher: [Französisch, Englisch], schulhaeuser: Bündtmättli, pensum: [8, 24]}
   - {name: Englisch/Französisch EI, faecher: [Englisch, Französisch], schulhaeuser: Eischachen, pensum: [10, 28]}
   - {name: TTG 1, faecher: [TTG], schulhaeuser: [Bündtmättli, Eischachen], pensum: [14, 26]}
   - {name: TTG 2, faecher: [TTG], schulhaeuser: [Bündtmättli, Eischachen], pensum: [14, 26], nicht_verfuegbar: [Mi]}
-  - {name: Sport Fachlehrperson, faecher: [Sport], schulhaeuser: [Bündtmättli, Eischachen], pensum: [0, 20]}
+  - {name: Sport Fachlehrperson, faecher: [Bewegung und Sport], schulhaeuser: [Bündtmättli, Eischachen], pensum: [0, 20]}
   # --- Schulische Heilpädagogik (IF) und DaZ
   - {name: SHP BM 1, faecher: [IF], schulhaeuser: [Bündtmättli, Im Feld], pensum: [14, 28]}
   - {name: SHP BM 2, faecher: [IF], schulhaeuser: Bündtmättli, pensum: [14, 28]}
@@ -141,15 +141,19 @@ lehrpersonen:
   - {name: DaZ EI, faecher: [DaZ Anfang, DaZ Aufbau], schulhaeuser: Eischachen, pensum: [10, 28]}
   - {name: DaZ Teilzeit, faecher: [DaZ Anfang, DaZ Aufbau], pensum: [0, 12], nicht_verfuegbar: [Mo, Di]}
   # --- Kindergarten
-  - {name: KG BM 1, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Bündtmättli, pensum: [22, 24]}
-  - {name: KG BM 2, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Bündtmättli, pensum: [22, 24]}
-  - {name: KG BM 3, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Bündtmättli, pensum: [22, 24]}
-  - {name: KG BM 4, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Bündtmättli, pensum: [22, 24]}
-  - {name: KG EI 1, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
-  - {name: KG EI 2, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
-  - {name: KG EI 3, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
-  - {name: KG EI 4, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
+  - {name: KG BM 1, faecher: [Kindergarten, Bewegung und Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Bündtmättli, pensum: [22, 24]}
+  - {name: KG BM 2, faecher: [Kindergarten, Bewegung und Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Bündtmättli, pensum: [22, 24]}
+  - {name: KG BM 3, faecher: [Kindergarten, Bewegung und Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Bündtmättli, pensum: [22, 24]}
+  - {name: KG BM 4, faecher: [Kindergarten, Bewegung und Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Bündtmättli, pensum: [22, 24]}
+  - {name: KG EI 1, faecher: [Kindergarten, Bewegung und Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
+  - {name: KG EI 2, faecher: [Kindergarten, Bewegung und Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
+  - {name: KG EI 3, faecher: [Kindergarten, Bewegung und Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
+  - {name: KG EI 4, faecher: [Kindergarten, Bewegung und Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
   - {name: Wald-KG Im Feld, faecher: [Wald], schulhaeuser: Im Feld, pensum: [22, 24]}
+
+# Prognose für Ausbau-Empfehlungen: Malters wuchs 2024/25 → 2025/26 von 879 auf 911 Lernende (+3.6%)
+planung:
+  wachstum_prozent: 3
 
 # Gewichte: was ist wie wichtig? (alle Gewichte: python -m skf --gewichte-anzeigen)
 gewichte:

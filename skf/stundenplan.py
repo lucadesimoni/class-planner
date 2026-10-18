@@ -181,7 +181,7 @@ def _loese_komponente(schule: Schule, klassen: list[Klasse], bloecke: list[Block
             continue
         groessen = {kl: groesse[kl] for kl in pro_klasse}
         for kl, g in groessen.items():
-            warnung = f"{kl} ({g} Kinder) ist grösser als jeder Raum '{typ}' in {ort}"
+            warnung = f"{kl} ({g} Lernende) ist grösser als jeder Raum '{typ}' in {ort}"
             if g > plaetze[-1] and warnung not in warnungen:
                 warnungen.append(warnung)
         for schwelle in sorted(set(min(g, plaetze[-1]) for g in groessen.values())):

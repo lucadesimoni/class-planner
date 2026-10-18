@@ -1,42 +1,100 @@
 # stunden-klassen-fitter
 
-Klasseneinteilung **und** Stundenplan für Volksschulen mit mehreren Schulhäusern, gelöst
-als exakte mathematische Optimierung mit Google OR-Tools CP-SAT. Die Eingaben sind
-bewusst schlicht: **eine YAML-Datei** für die Schule und **eine CSV- oder Excel-Liste**
-für die Kinder. Ein **Kantonsprofil** (aktuell Luzern) liefert die rechtlichen Vorgaben
-samt Quellenangaben.
+**Klassenbildung und Stundenplan für die Volksschule** (Kindergarten und Primarschule) mit
+mehreren Schulhäusern. Für Schulleitungen und Lehrpersonen gibt es eine
+**Bedienoberfläche im Browser**, für Fachleute zusätzlich eine Kommandozeile. Im
+Hintergrund rechnet ein exakter Optimierer (Google OR-Tools CP-SAT). Ein **Kantonsprofil**
+(aktuell Luzern) liefert die rechtlichen Vorgaben samt Quellen. Alle Daten bleiben auf
+dem eigenen Computer.
+
+![Ergebnis in der Bedienoberfläche](docs/screenshots/4-ergebnis.png)
+
+## Installation und Start (ohne Informatikkenntnisse)
+
+1. **Python installieren** (einmalig, Version 3.11 oder neuer): <https://www.python.org/downloads/>.
+   Unter Windows beim Installieren **„Add python.exe to PATH“** anhaken.
+2. **Programm herunterladen**: auf GitHub *Code → Download ZIP*, entpacken.
+3. **Starten** per Doppelklick:
+   - Windows: `start-windows.bat`
+   - macOS: `start-mac.command` (beim ersten Mal: Rechtsklick → Öffnen)
+   - Linux: `./start-linux.sh`
+
+Beim ersten Start richtet sich das Programm selbst ein (2–5 Minuten, Internet nötig).
+Danach öffnet sich die Bedienoberfläche im Browser unter <http://localhost:8501>. Sie ist
+nur auf dem eigenen Computer erreichbar. Zum Beenden das Fenster schliessen.
+
+Für Fachleute: `pip install -e .` und dann `skf app`. Alternativ ohne Download mit
+[uv](https://docs.astral.sh/uv/):
+`uvx --from git+https://github.com/lucadesimoni/stunden-klassen-fitter skf app`.
+
+## Bedienung in vier Schritten
+
+| Schritt | Was passiert | Bild |
+|---|---|---|
+| **1 · Daten** | Beispiel laden oder eigene Stammdaten (Excel) hochladen; Lernende, Lehrpersonen, Schulhäuser, Räume, Klassentypen, Förderangebote direkt in Tabellen bearbeiten; Gewichtung mit Schiebereglern | [Daten](docs/screenshots/1-daten.png), [Gewichtung](docs/screenshots/1b-gewichtung.png) |
+| **2 · Prüfen** | fehlende oder widersprüchliche Angaben als ⛔ Fehler, ⚠️ Warnung, ℹ️ Hinweis | [Prüfen](docs/screenshots/2-pruefen.png) |
+| **3 · Berechnen** | Szenario und Rechenzeit wählen, starten | [Berechnen](docs/screenshots/3-berechnen.png) |
+| **4 · Ergebnis** | Meldungen, OpenStreetMap-Karte, Klassen und Klassenlisten, Stundenpläne pro Klasse und Lehrperson, Wünsche und KG-Gruppen, Empfehlungen, Downloads | [Karte](docs/screenshots/5-karte.png), [Klassen](docs/screenshots/6-klassen.png), [Stundenplan](docs/screenshots/7-stundenplan.png), [Wünsche](docs/screenshots/8-wuensche.png), [Empfehlungen](docs/screenshots/9-empfehlungen.png), [Downloads](docs/screenshots/10-herunterladen.png) |
+
+Die Screenshots erzeugt der automatische Browser-Test (`tests/test_browser_e2e.py`). Er
+klickt die App mit dem Malters-Beispiel von Anfang bis Ende durch. Die Kartenkacheln
+fehlen auf den Bildern, weil die Testumgebung keinen Zugriff auf OpenStreetMap hat.
+
+## Was berücksichtigt wird
 
 | Bereich | Harte Regeln (immer erfüllt) | Weiche Ziele (gewichtet, optimiert) |
 |---|---|---|
-| **Klassen** | Jahrgang passt zum Klassentyp, Klassengrösse (optional verbindlich nach Kantonsrecht), Raumgrösse, ein Raum pro Klasse, max. Schulweg, fixes Schulhaus, Kapazität der Spezialräume, **IS**: max. Anzahl pro Klasse und Mehrfachzählung bei der Klassengrösse, Geschwister im selben Schulhaus (Modus `hart`) | kurze Schulwege, wenige Klassen, Grösse nahe am Ideal, Geschwister im selben Schulhaus (Modus `weich`), **Kontinuität** (bisheriges Schulhaus, bisherige Klasse zusammen), ausgeglichene Verteilung von Geschlecht, **IF, DaZ, IS**, "nicht zusammen"-Wünsche, wenig Mischklassen |
-| **Lehraufträge** | Qualifikation (Fach, Jahrgang, Schulhaus), max. Pensum, Verfügbarkeit, Blockzeiten an jedem Tag abdeckbar, **Förderlektionen IF/DaZ** nur an qualifizierte Lehrpersonen | Klassenlehrprinzip, **gleiche Lehrperson führt ihre bisherige Klasse weiter**, Mindestpensum, wenige Schulhäuser pro Lehrperson |
-| **Stundenplan** | Stundentafel, keine Doppelbelegung von Klasse/Lehrperson/Raum, Verfügbarkeit von Lehrpersonen, **Schulhäusern und Räumen**, Raum gross genug, Doppellektionen, max. Lektionen pro Fach/Tag, Blockzeiten, keine Lücken für Kinder, **Förderlektionen parallel** zu passenden Fächern (Teamteaching bzw. DaZ-Gruppen über Klassen hinweg) | wenige Präsenz-Halbtage, keine Springstunden, keine Schulhauswechsel im Halbtag |
+| **Klassenbildung** | Jahrgang passt zum Klassentyp, Klassengrösse (optional verbindlich nach Kantonsrecht), Raumgrösse, ein Schulzimmer pro Klasse, max. Schulweg, fixes Schulhaus, Kapazität der Spezialräume, **IS**: max. Anzahl pro Klasse und Mehrfachzählung, Geschwister im selben Schulhaus (Modus `hart`) | kurze Schulwege, wenige Klassen, Grösse nahe am Ideal, Geschwister zusammen (Modus `weich`), **Kontinuität** (bisheriges Schulhaus, bisherige Klasse), **Gspänli-Regel** (niemand als Einziger aus seiner KG-Gruppe oder Klasse), **Wünsche der Erziehungsberechtigten** („zusammen mit“, „nicht zusammen mit“, Wunsch-Schulhaus), ausgeglichene Verteilung von Geschlecht, **IF, DaZ, IS**, wenige Mehrjahrgangsklassen |
+| **Lehraufträge** | Qualifikation (Fach, Jahrgang, Schulhaus), max. Pensum, Verfügbarkeit, Blockzeiten an jedem Tag abdeckbar, **Förderlektionen IF/DaZ** nur an qualifizierte Lehrpersonen (SHP, DaZ) | Klassenlehrprinzip, **Lehrperson führt ihre bisherige Klasse weiter**, Mindestpensum, wenige Schulhäuser pro Lehrperson |
+| **Stundenplan** | Stundentafel, keine Doppelbelegung, Verfügbarkeit von Lehrpersonen, **Schulhäusern und Räumen**, Raumgrösse, Doppellektionen, max. Lektionen pro Fach/Tag, Blockzeiten, keine Lücken für Lernende, **Förderlektionen parallel** zu passenden Fächern | wenige Präsenz-Halbtage, keine Springstunden, keine Schulhauswechsel im Halbtag |
 
-Dazu gibt es Szenarien zum Vergleichen von Varianten, einstellbare Gewichte,
-**Meldungen mit Schweregrad und Quellenangabe**, eine **Konfliktanalyse** bei unlösbaren
-Vorgaben, standardisierten **Import/Export** sowie druckfertige **Klassenlisten und
-Stundenpläne**.
+Dazu kommen Szenarien, einstellbare Gewichte, **Meldungen mit Schweregrad und Quelle**,
+eine **Konfliktanalyse** bei Unlösbarkeit, **Empfehlungen** (Lehrpersonen,
+Verfügbarkeit, Räume, Ausbau), standardisierter **Import/Export** und druckfertige
+**Klassenlisten und Stundenpläne**.
 
-## Schnellstart (Beispiel Malters)
+### Wünsche der Erziehungsberechtigten und Kindergartengruppen
+
+In der Liste der Lernenden: `zusammen_mit` und `nicht_mit` (IDs, mit `;` getrennt),
+`wunsch_schulhaus`, `bemerkung`. Dazu `bisherige_klasse` mit der Klasse bzw.
+**Kindergartengruppe im Vorjahr**. Der Optimierer hält solche Gruppen möglichst zusammen
+und vermeidet, dass ein Kind als einziges aus seiner Gruppe in eine neue Klasse kommt.
+Der Bericht zeigt, wie viele Wünsche erfüllt sind, welche nicht, und wie sich die
+KG-Gruppen auf die 1. Klassen verteilen.
+
+### Empfehlungen
+
+- **Lehrpersonen**: Pensenbilanz pro Schulhaus und Fach (Bedarf und freie Pensen),
+  knappe Fächer, nicht ausgeschöpfte Pensen.
+- **Verfügbarkeit**: Stellvertretungsreserve pro Halbtag und Schulhaus. Die Auswertung
+  nennt die Teilzeit-Lehrpersonen, deren zusätzliche Verfügbarkeit am meisten bringen
+  würde.
+- **Räume**: Auslastung von Schulzimmern, Turnhallen und TTG-Zimmern.
+- **Ausbau**: Prognose der Lernenden und benötigten Schulzimmer für die nächsten vier
+  Schuljahre. Die Jahrgänge rücken nach; Wachstum einstellbar mit
+  `planung: {wachstum_prozent: 3}`.
+
+### Begriffe
+
+*Lernende*, *Erziehungsberechtigte*, *Klassenbildung*, *Mehrjahrgangsklasse*
+(altersdurchmischtes Lernen, AdL), *Schulzimmer*, *Pensum*, *Lektionen*, *Halbtag*,
+*Blockzeiten*, *IF* (Integrative Förderung), *DaZ* (Deutsch als Zweitsprache), *IS*
+(Integrative Sonderschulung), *SHP* (Schulische Heilpädagogin/Schulischer Heilpädagoge),
+Fächer nach Lehrplan 21 (*NMG*, *BG*, *TTG*, *Bewegung und Sport*), *Stellvertretung*.
+
+## Beispiel Malters
 
 ```bash
-pip install -e .                       # benötigt Python ≥ 3.10
-python -m skf rechnen beispiele/malters/schule.yaml beispiele/malters/kinder.csv -o ausgabe
-python -m skf rechnen beispiele/malters/schule.yaml beispiele/malters/kinder.csv -o ausgabe -s alle   # alle Szenarien
+skf rechnen beispiele/malters/schule.yaml beispiele/malters/kinder.csv -o ausgabe -s alle
 ```
 
-Danach `ausgabe/bericht.html` öffnen (bei Szenarien `ausgabe/vergleich.html`). Ein fertig
-gerechnetes Ergebnis liegt in [`beispiele/malters/ergebnis/`](beispiele/malters/ergebnis/).
-
 Das Beispiel bildet Kindergarten und Primarschule Malters (LU) nach: die Schulhäuser
-**Bündtmättli** und **Eischachen** (je mit Kindergärten) und den Wald-Kindergarten
-**Im Feld**. **Kinder, Adressen, Lehrpersonen, Raumzahlen, Koordinaten und Stundentafel
-sind fiktiv bzw. Annahmen.** Die Kinderliste erzeugt `beispiele/malters/erzeuge_kinder.py`
-zufällig, aber reproduzierbar: 644 Kinder in Dorf, Schachen, Blatten und auf Höfen, inkl.
-IF/DaZ/IS und Vorjahresklassen.
-
-Eigene Schule: `python -m skf vorlage -o meine_schule` erzeugt eine kleine, lauffähige
-Vorlage (YAML, CSV und Excel), siehe [`beispiele/vorlage/`](beispiele/vorlage/).
+**Bündtmättli** und **Eischachen** (je mit Kindergärten) und den Waldkindergarten
+**Im Feld**. **Lernende, Adressen, Lehrpersonen, Raumzahlen, Koordinaten und
+Stundentafel sind fiktiv bzw. Annahmen.** `beispiele/malters/erzeuge_kinder.py` erzeugt
+644 Lernende reproduzierbar, inklusive IF/DaZ/IS, Vorjahresklassen, KG-Gruppen und
+Wünschen. Fertig gerechnete Ergebnisse aller Szenarien:
+[`beispiele/malters/ergebnis/`](beispiele/malters/ergebnis/) (Einstieg: `vergleich.html`).
 
 ## Befehle
 
@@ -49,6 +107,7 @@ Vorlage (YAML, CSV und Excel), siehe [`beispiele/vorlage/`](beispiele/vorlage/).
 | `skf kinder export.csv -o kinder.csv` | Export einer Schulverwaltung in die Standard-Kinderliste umwandeln |
 | `skf vorlage -o ordner` | Vorlagen zum Erfassen eigener Daten |
 | `skf profile` | verfügbare Kantonsprofile |
+| `skf app` | Bedienoberfläche im Browser |
 | `skf --gewichte-anzeigen` | alle Gewichte mit Standardwert |
 
 Wichtige Optionen für `rechnen`: `-t SEKUNDEN` (Zeitlimit pro Szenario), `-s SZENARIO`
@@ -59,7 +118,7 @@ bzw. `-s alle`, `-g NAME=ZAHL` (Gewicht), `--spalte FELD=Spaltenname`,
 
 | Datei | Inhalt |
 |---|---|
-| `bericht.html` | Status, Kennzahlen, filterbare Meldungen mit Quellen, Rechtsgrundlagen, Karte, Klassen, Auslastung der Lehrpersonen, Raumbelegungs-Heatmap, Stundenpläne mit markierten Problemstellen |
+| `bericht.html` | Status, Kennzahlen, filterbare Meldungen mit Quellen, Rechtsgrundlagen, OpenStreetMap-Karte (mit Ebenen pro Schulhaus; offline SVG-Karte), Wünsche und KG-Gruppen, Empfehlungen, Klassen, Auslastung der Lehrpersonen, Raumbelegungs-Heatmap, Stundenpläne mit markierten Problemstellen |
 | `klassenlisten.xlsx` | Übersicht + ein druckfertiges Blatt pro Klasse (A4, Kopfzeile wiederholt) |
 | `stundenplaene.xlsx` | ein Blatt pro Klasse, Lehrperson und Spezialraum + Liste aller Lektionen |
 | `druck.html` | Klassenlisten und Stundenpläne, eine Seite pro Klasse/Lehrperson (Browser → Drucken/PDF) |
@@ -112,9 +171,9 @@ Die Schul-Konfiguration kann jeden Wert überschreiben.
 ## Kinderliste
 
 ```csv
-id,vorname,nachname,jahrgang,geschlecht,adresse,lat,lon,familie,if,daz,is,schulhaus_fix,bisheriges_schulhaus,bisherige_klasse,nicht_mit
-K0001,Lara,Beispiel,3,w,"Ahornweg 4, 6102 Malters",47.0349,8.1971,F001,ja,,,,Bündtmättli,BM 2a,
-K0002,Noah,Beispiel,KG2,m,"Ahornweg 4, 6102 Malters",47.0349,8.1971,F001,,anfang,,,Bündtmättli,BM KGb,K0007
+id,vorname,nachname,jahrgang,geschlecht,adresse,lat,lon,familie,if,daz,is,bisheriges_schulhaus,bisherige_klasse,zusammen_mit,nicht_mit,wunsch_schulhaus,bemerkung
+K0001,Lara,Beispiel,1,w,"Ahornweg 4, 6102 Malters",47.0349,8.1971,F001,ja,,,Bündtmättli,BM KGb,K0012,,,
+K0002,Noah,Beispiel,KG2,m,"Ahornweg 4, 6102 Malters",47.0349,8.1971,F001,,anfang,,Bündtmättli,BM KGb,,K0007,Eischachen,Arbeitsort
 ```
 
 Pflicht sind `id` und `jahrgang`, dazu Koordinaten oder eine Adresse mit `--geocodieren`
@@ -122,7 +181,8 @@ Pflicht sind `id` und `jahrgang`, dazu Koordinaten oder eine Adresse mit `--geoc
 
 - **CSV mit Komma oder Semikolon**, UTF-8 oder Windows-1252, sowie **Excel (.xlsx)**
 - Spaltennamen wie `Schüler-Nr`, `Vorname`/`Nachname`, `Stufe`, `Strasse`/`PLZ`/`Ort`,
-  `Klasse Vorjahr`; eigene Zuordnung mit `--spalte id="Schüler-Nr"`
+  `Klasse Vorjahr`, `KG-Gruppe`, `Wunsch zusammen`, `Gspänli`, `Wunsch-Schulhaus`;
+  eigene Zuordnung mit `--spalte id="Schüler-Nr"`
 - **Schweizer Landeskoordinaten LV95/LV03** (`E`/`N`) → WGS84
 - `1. Klasse` → `1`, `2. Kindergarten` → `KG2`; `weiblich`/`männlich`; `ja`/`x`/`1`
 - `daz`: `anfang` oder `aufbau` (ein blosses `ja` gilt als Aufbauunterricht)
@@ -233,8 +293,21 @@ werden als Luftlinie × `umweg_faktor` (Standard 1.3) geschätzt.
 
 ```bash
 pip install -e ".[test]"
-pytest
+pytest                                   # 36 Tests: Modell, Recht, Import/Export, App, Browser
+pytest tests/test_browser_e2e.py -s      # nur Browser-Test (erzeugt docs/screenshots/)
 ```
+
+Der Browser-Test braucht Chromium für Playwright (`playwright install chromium`).
+
+## Datenschutz
+
+Alle Daten bleiben lokal. Die Bedienoberfläche ist nur unter `localhost` erreichbar. Für
+die Karte werden nur Kartenkacheln von OpenStreetMap geladen; Daten von Lernenden
+werden nicht übertragen. Förderdaten (IF/DaZ/IS) sind besonders schützenswert (KDSG § 2)
+und erscheinen in Klassenlisten nur auf ausdrücklichen Wunsch.
+
+Kartendarstellung: [Leaflet](https://leafletjs.com) (BSD-2-Clause, im Paket enthalten),
+Kartendaten © [OpenStreetMap](https://www.openstreetmap.org/copyright)-Mitwirkende.
 
 ## Lizenz
 

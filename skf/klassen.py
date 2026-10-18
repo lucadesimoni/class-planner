@@ -8,7 +8,9 @@ Klassengrössen nahe am Ideal, Geschwister im selben Schulhaus.
 
 Schritt B (Kinder auf Parallelklassen): Pro Schulhaus werden die konkreten Kinder
 auf die eröffneten Klassen verteilt (Anzahl je Jahrgang aus Schritt A), so dass
-Geschlecht und Förderbedarf ausgeglichen sind und "nicht_mit"-Wünsche erfüllt.
+Geschlecht und Förderbedarf ausgeglichen sind, Wünsche der Erziehungsberechtigten
+("zusammen mit", "nicht zusammen mit") möglichst erfüllt werden und niemand als einziges
+Kind aus seiner bisherigen Klasse bzw. Kindergartengruppe kommt (Gspänli-Regel).
 """
 from __future__ import annotations
 
@@ -124,7 +126,7 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
                     n[s.name, ri, vi, j] = nv
                     if v.min_pro_jahrgang:
                         regeln.nur_wenn(m.add(nv >= v.min_pro_jahrgang * yv),
-                                        f"Mischklassen {name_v}: mind. {v.min_pro_jahrgang} Kinder pro Jahrgang")
+                                        f"Mehrjahrgangsklasse {name_v}: mind. {v.min_pro_jahrgang} Lernende pro Jahrgang")
                 groesse = sum(n[s.name, ri, vi, j] for j in v.jahrgaenge)
                 m.add(groesse <= gross * yv)
                 regeln.nur_wenn(m.add(groesse >= v.min * yv), f"Mindestgrösse Klassen {name_v} ({v.min})")
@@ -174,6 +176,17 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
         bisher = nach_id[kid].bisheriges_schulhaus
         if bisher and bisher != s and any(sh.name == bisher for sh in schule.schulhaeuser):
             kosten.append(w["schulhaus_gewechselt"] * xv)  # Kontinuität: Schulhaus aus dem Vorjahr
+        wunsch = nach_id[kid].wunsch_schulhaus
+        if wunsch and wunsch != s and any(sh.name == wunsch for sh in schule.schulhaeuser):
+            kosten.append(w["wunsch_schulhaus"] * xv)  # Wunsch-Schulhaus der Erziehungsberechtigten
+
+    # Wunsch "zusammen mit": beide Kinder im selben Schulhaus (Klasse folgt in Schritt B)
+    for a, b in _wunschpaare(kinder):
+        orte = {s for (kid, s) in x if kid in (a, b)}
+        getrennt = m.new_bool_var(f"wz_{a}_{b}")
+        for s_ in orte:
+            m.add(getrennt >= x.get((a, s_), 0) - x.get((b, s_), 0))
+        kosten.append(w["wunsch_zusammen"] * getrennt)
 
     # Integrative Sonderschulung: IS-Kinder zählen bei der Klassengrösse ggf. mehrfach
     # und es gibt höchstens max_is_pro_klasse IS-Kinder pro Klasse (Feinverteilung in Schritt B).
@@ -195,7 +208,7 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
                                 f"IS zählt {schule.is_zaehlt_als:g}-fach bei der Klassengrösse")
             if schule.max_is_pro_klasse is not None:
                 regeln.nur_wenn(m.add(summe_is <= schule.max_is_pro_klasse * yv),
-                                f"Max. {schule.max_is_pro_klasse} IS-Kinder pro Klasse")
+                                f"Max. {schule.max_is_pro_klasse} IS-Lernende pro Klasse")
         for sh in schule.schulhaeuser:
             for j in schule.jahrgaenge:
                 is_sj = [xv for (kid, sn), xv in x.items()
@@ -231,7 +244,7 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
             kosten.append(w["geschwister_getrennt"] * (sum(e.values()) - 1))
 
     m.minimize(sum(kosten))
-    sol, info_a = loese_mit_regeln(m, regeln, "Klasseneinteilung A (Schulhaus/Klassen)", zeitlimit * 0.6)
+    sol, info_a = loese_mit_regeln(m, regeln, "Klassenbildung A (Schulhaus und Klassen)", zeitlimit * 0.6)
 
     schulhaus_von = {kid: s for (kid, s), xv in x.items() if sol.value(xv)}
     klassen: list[Klasse] = []
@@ -315,7 +328,20 @@ def _verteile_kinder(schule: Schule, ks: list[Kind], kl: list[Klasse],
                     m.add(z[k.id, ci] + z[anderer, ci] <= 1 + verletzt)
                     kosten.append(w["nicht_zusammen"] * verletzt)
 
-    # Kontinuität: Kinder einer bisherigen Klasse möglichst zusammen lassen
+    # Wunsch "zusammen mit": in dieselbe Klasse, sofern beide dort möglich sind
+    for a, b in _wunschpaare(ks):
+        gemeinsam = [ci for ci in range(len(kl)) if (a, ci) in z and (b, ci) in z]
+        if not gemeinsam:
+            continue
+        zusammen = []
+        for ci in gemeinsam:
+            beide = m.new_bool_var("zus")
+            m.add(beide <= z[a, ci])
+            m.add(beide <= z[b, ci])
+            zusammen.append(beide)
+        kosten.append(w["wunsch_zusammen"] * (1 - sum(zusammen)))
+
+    # Kontinuität: Kinder einer bisherigen Klasse (z.B. KG-Gruppe) möglichst zusammen lassen
     bisher = defaultdict(list)
     for k in ks:
         if k.bisherige_klasse:
@@ -323,6 +349,14 @@ def _verteile_kinder(schule: Schule, ks: list[Kind], kl: list[Klasse],
     for name, gruppe in bisher.items():
         if len(gruppe) < 2:
             continue
+        # Gspänli-Regel: niemand als einziges Kind seiner bisherigen Klasse in der neuen Klasse
+        for k in gruppe:
+            allein = m.new_bool_var("allein")
+            for ci in range(len(kl)):
+                if (k.id, ci) in z:
+                    andere = [z[o.id, ci] for o in gruppe if o.id != k.id and (o.id, ci) in z]
+                    m.add(allein >= z[k.id, ci] - sum(andere))
+            kosten.append(w["allein_aus_klasse"] * allein)
         genutzt = []
         for ci in range(len(kl)):
             vars_c = [z[k.id, ci] for k in gruppe if (k.id, ci) in z]
@@ -334,8 +368,19 @@ def _verteile_kinder(schule: Schule, ks: list[Kind], kl: list[Klasse],
         kosten.append(w["klasse_getrennt"] * (sum(genutzt) - 1))
 
     m.minimize(sum(kosten))
-    sol, info = loese_mit_regeln(m, regeln, f"Klasseneinteilung B ({kl[0].schulhaus})", max(zeitlimit, 2))
+    sol, info = loese_mit_regeln(m, regeln, f"Klassenbildung B (Zuteilung {kl[0].schulhaus})", max(zeitlimit, 2))
     for (kid, ci), zv in z.items():
         if sol.value(zv):
             kl[ci].kinder.append(kid)
     return info
+
+
+def _wunschpaare(kinder: list[Kind]) -> list[tuple[str, str]]:
+    """Paare aus "zusammen_mit" (ungeordnet, ohne Doppelte, nur vorhandene Kinder)."""
+    ids = {k.id for k in kinder}
+    paare = set()
+    for k in kinder:
+        for anderer in k.zusammen_mit:
+            if anderer in ids and anderer != k.id:
+                paare.add(tuple(sorted((k.id, anderer))))
+    return sorted(paare)

@@ -98,11 +98,18 @@ def referenzen(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
     for k in kinder:
         if not k.id:
             fehler("Kind ohne ID")
-        for anderer in k.nicht_mit:
-            if anderer not in ids_set:
-                fehler(f"{k.id}: 'nicht_mit' verweist auf unbekanntes Kind '{anderer}'", k.id)
-            elif anderer == k.id:
-                fehler(f"{k.id}: 'nicht_mit' verweist auf sich selbst", k.id)
+        for feld in ("nicht_mit", "zusammen_mit"):
+            for anderer in getattr(k, feld):
+                if anderer not in ids_set:
+                    fehler(f"{k.id}: '{feld}' verweist auf unbekanntes Kind '{anderer}'", k.id)
+                elif anderer == k.id:
+                    fehler(f"{k.id}: '{feld}' verweist auf sich selbst", k.id)
+        widerspruch = set(k.zusammen_mit) & set(k.nicht_mit)
+        if widerspruch:
+            fehler(f"{k.id}: {', '.join(sorted(widerspruch))} gleichzeitig 'zusammen mit' und 'nicht mit'", k.id)
+        if k.wunsch_schulhaus and k.wunsch_schulhaus not in schulhaeuser:
+            m.append(Meldung("Warnung", "Daten", f"{k.id}: Wunsch-Schulhaus '{k.wunsch_schulhaus}' existiert nicht",
+                             k.id))
         if k.bisheriges_schulhaus and k.bisheriges_schulhaus not in schulhaeuser:
             m.append(Meldung("Hinweis", "Daten", f"{k.id}: bisheriges Schulhaus '{k.bisheriges_schulhaus}' "
                              "existiert nicht mehr – Kontinuität wird ignoriert", k.id))
@@ -150,7 +157,7 @@ def vorpruefung(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
                 plaetze += max(caps, default=0)
         art = "/".join(sorted(typen))
         if kinder_gruppe > plaetze:
-            m.append(Meldung("Fehler", "Klassen", f"{kinder_gruppe} Kinder ({'/'.join(sorted(jg))}) aber höchstens "
+            m.append(Meldung("Fehler", "Klassen", f"{kinder_gruppe} Lernende ({'/'.join(sorted(jg))}) aber höchstens "
                              f"{plaetze} Plätze in Räumen vom Typ '{art}'"))
         elif kinder_gruppe > 0.95 * plaetze:
             m.append(Meldung("Warnung", "Klassen", f"Räume '{art}' zu {100 * kinder_gruppe / plaetze:.0f}% "
@@ -161,7 +168,7 @@ def vorpruefung(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
         luftlinie_m(k.lat, k.lon, s.lat, s.lon) * schule.umweg_faktor > schule.max_schulweg(k.jahrgang)
         for s in schule.schulhaeuser)]
     if zu_weit:
-        m.append(Meldung("Warnung", "Daten", f"{len(zu_weit)} Kinder wohnen weiter als der max. Schulweg von "
+        m.append(Meldung("Warnung", "Daten", f"{len(zu_weit)} Lernende wohnen weiter als der max. Schulweg von "
                          f"jedem Schulhaus (z.B. {', '.join(zu_weit[:5])})"))
 
     # Stundentafel und Lehrpersonen
@@ -237,7 +244,7 @@ def pruefe(schule: Schule, kinder: list[Kind], e: Einteilung,
     for c in e.klassen:
         anz_is = sum(nach_id[i].is_ for i in c.kinder)
         if schule.max_is_pro_klasse is not None and anz_is > schule.max_is_pro_klasse:
-            f.append(Meldung("Fehler", "Klassen", f"{c.name}: {anz_is} IS-Kinder (max. {schule.max_is_pro_klasse})",
+            f.append(Meldung("Fehler", "Klassen", f"{c.name}: {anz_is} IS-Lernende (max. {schule.max_is_pro_klasse})",
                              c.name))
         gewichtet = gewichtete_groesse(schule, c, nach_id)
         if gewichtet > min(c.vorlage.max, c.raum.plaetze) + 1e-9:
@@ -441,4 +448,44 @@ def rechtspruefung(schule: Schule, kinder: list[Kind], e: Einteilung, bloecke: l
             m.append(Meldung("Hinweis", "Recht", f"IF-Lektionen {ist} unter dem Richtwert von ca. {soll:.0f} "
                              f"({len(kinder)} Lernende, 1 Vollpensum pro {ifr['lernende_pro_vollpensum']})",
                              quelle=ifr.get("quelle", "")))
+    return m
+
+
+def wuensche(kinder: list[Kind], e: Einteilung) -> dict:
+    """Auswertung der Wünsche der Erziehungsberechtigten und der Gspänli-Regel."""
+    nach_id = {k.id: k for k in kinder}
+    paare_zus = sorted({tuple(sorted((k.id, a))) for k in kinder for a in k.zusammen_mit if a in nach_id})
+    paare_nicht = sorted({tuple(sorted((k.id, a))) for k in kinder for a in k.nicht_mit if a in nach_id})
+    zus_ok = [p for p in paare_zus if e.klasse_von[p[0]] == e.klasse_von[p[1]]]
+    nicht_ok = [p for p in paare_nicht if e.klasse_von[p[0]] != e.klasse_von[p[1]]]
+    mit_wunsch_sh = [k for k in kinder if k.wunsch_schulhaus]
+    sh_ok = [k for k in mit_wunsch_sh if e.schulhaus_von[k.id] == k.wunsch_schulhaus]
+    gruppen = defaultdict(lambda: defaultdict(list))  # bisherige Klasse -> neue Klasse -> Kinder
+    for k in kinder:
+        if k.bisherige_klasse:
+            gruppen[k.bisherige_klasse][e.klasse_von[k.id]].append(k.id)
+    allein = [(bisher, neu, ids[0]) for bisher, neue in gruppen.items() for neu, ids in neue.items()
+              if len(ids) == 1 and sum(len(v) for v in neue.values()) > 1]
+    return {"zusammen": (paare_zus, zus_ok), "nicht": (paare_nicht, nicht_ok),
+            "schulhaus": (mit_wunsch_sh, sh_ok), "gruppen": gruppen, "allein": allein}
+
+
+def wunsch_meldungen(kinder: list[Kind], e: Einteilung) -> list[Meldung]:
+    w = wuensche(kinder, e)
+    m = []
+    paare, ok = w["zusammen"]
+    for a, b in sorted(set(paare) - set(ok)):
+        m.append(Meldung("Hinweis", "Wünsche", f"Wunsch 'zusammen mit' nicht erfüllt: {a} ({e.klasse_von[a]}) und "
+                         f"{b} ({e.klasse_von[b]})", e.klasse_von[a]))
+    paare, ok = w["nicht"]
+    for a, b in sorted(set(paare) - set(ok)):
+        m.append(Meldung("Warnung", "Wünsche", f"Wunsch 'nicht zusammen mit' nicht erfüllt: {a} und {b} in "
+                         f"{e.klasse_von[a]}", e.klasse_von[a]))
+    alle, ok = w["schulhaus"]
+    for k in alle:
+        if k not in ok:
+            m.append(Meldung("Hinweis", "Wünsche", f"{k.id}: Wunsch-Schulhaus {k.wunsch_schulhaus} nicht erfüllt "
+                             f"(zugeteilt: {e.schulhaus_von[k.id]})", e.klasse_von[k.id]))
+    for bisher, neu, kid in w["allein"]:
+        m.append(Meldung("Hinweis", "Wünsche", f"{kid} kommt als einziges Kind aus {bisher} in {neu}", neu))
     return m

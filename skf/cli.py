@@ -7,6 +7,7 @@
     skf kinder   export_schulverwaltung.csv -o kinder.csv  Kinderliste normalisieren/umwandeln
     skf vorlage  -o ordner/                              Vorlagen zum Erfassen eigener Daten
     skf profile                                          verfügbare Kantonsprofile
+    skf app                                              Bedienoberfläche im Browser starten
 
 Kurzform: ``skf schule.yaml kinder.csv`` entspricht ``skf rechnen …``.
 """
@@ -25,7 +26,7 @@ from .export import exportiere_listen
 from .geo import geocodiere
 from .pruefung import referenzen, vorpruefung
 
-BEFEHLE = ("rechnen", "pruefen", "export", "import", "kinder", "vorlage", "profile")
+BEFEHLE = ("rechnen", "pruefen", "export", "import", "kinder", "vorlage", "profile", "app")
 
 
 def _gewicht(text: str) -> tuple[str, int]:
@@ -50,7 +51,7 @@ def _melde(meldungen, max_zeilen: int = 15) -> int:
 
 
 def _parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(prog="skf", description="Klasseneinteilung und Stundenplan für Schulen")
+    p = argparse.ArgumentParser(prog="skf", description="Klassenbildung und Stundenplan für die Volksschule")
     p.add_argument("--gewichte-anzeigen", action="store_true", help="alle Gewichte mit Standardwert auflisten")
     sub = p.add_subparsers(dest="befehl")
 
@@ -65,7 +66,7 @@ def _parser() -> argparse.ArgumentParser:
                    help="Gewicht überschreiben, z.B. -g schulweg_pro_km=300 (mehrfach möglich)")
     r.add_argument("--spalte", action="append", type=_spalte, default=[], metavar="FELD=SPALTE",
                    help="Spalte der Kinderliste zuordnen, z.B. --spalte id=Schüler-Nr")
-    r.add_argument("--nur-klassen", action="store_true", help="nur Klasseneinteilung, kein Stundenplan")
+    r.add_argument("--nur-klassen", action="store_true", help="nur Klassenbildung, kein Stundenplan")
     r.add_argument("--mit-foerderdaten", action="store_true",
                    help="IF/DaZ/IS in Klassenlisten aufnehmen (besonders schützenswerte Daten!)")
     r.add_argument("--geocodieren", action="store_true",
@@ -96,6 +97,9 @@ def _parser() -> argparse.ArgumentParser:
     vo.add_argument("-o", "--ordner", required=True)
 
     sub.add_parser("profile", help="verfügbare Kantonsprofile anzeigen")
+    ap = sub.add_parser("app", help="Bedienoberfläche im Browser starten")
+    ap.add_argument("--port", type=int, default=8501)
+    ap.add_argument("--ohne-browser", action="store_true", help="Browser nicht automatisch öffnen")
     return p
 
 
@@ -115,7 +119,7 @@ def main(argv: list[str] | None = None) -> None:
         return
     try:
         {"rechnen": _rechnen, "pruefen": _pruefen, "export": _export, "import": _import, "kinder": _kinder,
-         "vorlage": _vorlage, "profile": _profile}[args.befehl](args)
+         "vorlage": _vorlage, "profile": _profile, "app": _app}[args.befehl](args)
     except (ValueError, KeyError, FileNotFoundError) as fehler:
         sys.exit(f"Fehler: {fehler}")
 
@@ -138,7 +142,7 @@ def _rechnen(args) -> None:
     ergebnisse = {}
     for name in gewuenscht:
         schule = lade_schule(args.schule, name, dict(args.gewicht))
-        print(f"== Szenario {name}: {len(kinder)} Kinder, {len(schule.schulhaeuser)} Schulhäuser, "
+        print(f"== Szenario {name}: {len(kinder)} Lernende, {len(schule.schulhaeuser)} Schulhäuser, "
               f"{len(schule.lehrpersonen)} Lehrpersonen, {len(schule.slots)} Zeitfenster/Woche")
         r = rechne(schule, kinder, zeitlimit=args.zeit, nur_klassen=args.nur_klassen)
         ordner = ausgabe / ordnername(name) if mehrere else ausgabe
@@ -166,7 +170,7 @@ def _pruefen(args) -> None:
     kinder = lade_kinder(args.kinder, dict(args.spalte))
     meldungen = vorpruefung(schule, kinder)
     n = _melde(meldungen, 50)
-    print(f"{len(kinder)} Kinder geprüft: {n} Fehler, {sum(m.schwere == 'Warnung' for m in meldungen)} Warnungen, "
+    print(f"{len(kinder)} Lernende geprüft: {n} Fehler, {sum(m.schwere == 'Warnung' for m in meldungen)} Warnungen, "
           f"{sum(m.schwere == 'Hinweis' for m in meldungen)} Hinweise")
     if n:
         sys.exit(1)
@@ -176,7 +180,7 @@ def _export(args) -> None:
     cfg = lese_rohkonfiguration(args.schule)
     kinder = lade_kinder(args.kinder, dict(args.spalte))
     exportiere_stammdaten(cfg, kinder, args.ziel)
-    print(f"Stammdaten exportiert: {args.ziel} ({len(kinder)} Kinder)")
+    print(f"Stammdaten exportiert: {args.ziel} ({len(kinder)} Lernende)")
 
 
 def _import(args) -> None:
@@ -190,7 +194,7 @@ def _import(args) -> None:
         cfg = _mische(lade_profil(cfg["basis_profil"]), cfg)
     cfg.pop("szenarien", None)
     n = _melde(referenzen(baue_schule(cfg), kinder), 50)
-    print(f"Importiert nach {ordner}/: schule.yaml, kinder.csv ({len(kinder)} Kinder), {n} Fehler in den Referenzen")
+    print(f"Importiert nach {ordner}/: schule.yaml, kinder.csv ({len(kinder)} Lernende), {n} Fehler in den Referenzen")
     if n:
         sys.exit(1)
 
@@ -199,7 +203,7 @@ def _kinder(args) -> None:
     kinder = lade_kinder(args.quelle, dict(args.spalte))
     schreibe_kinder(kinder, args.ziel)
     ohne = sum(k.lat is None for k in kinder)
-    print(f"{len(kinder)} Kinder → {args.ziel}" + (f" ({ohne} ohne Koordinaten: --geocodieren verwenden)" if ohne
+    print(f"{len(kinder)} Lernende → {args.ziel}" + (f" ({ohne} ohne Koordinaten: --geocodieren verwenden)" if ohne
                                                      else ""))
 
 
@@ -211,3 +215,19 @@ def _vorlage(args) -> None:
 def _profile(args) -> None:
     for name in profile():
         print(f"{name:12} {lade_profil(name)['profil']['name']}")
+
+
+def _app(args) -> None:
+    import threading
+    import webbrowser
+
+    from streamlit.web import cli as streamlit_cli
+    app = Path(__file__).parent / "app.py"
+    url = f"http://localhost:{args.port}"
+    print(f"Bedienoberfläche startet: {url}  (beenden mit Ctrl+C bzw. Fenster schliessen)")
+    if not args.ohne_browser:  # Browser selbst öffnen (headless vermeidet Rückfragen beim ersten Start)
+        threading.Timer(3.0, webbrowser.open, args=(url,)).start()
+    sys.argv = ["streamlit", "run", str(app), "--server.port", str(args.port), "--server.address", "localhost",
+                "--server.headless", "true", "--browser.gatherUsageStats", "false", "--theme.base", "light",
+                "--client.toolbarMode", "minimal"]
+    sys.exit(streamlit_cli.main())

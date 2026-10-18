@@ -3,12 +3,13 @@ from __future__ import annotations
 
 import csv
 import html
+import json
 import re
 from collections import Counter, defaultdict
 from pathlib import Path
 
 from .ablauf import Ergebnis
-from .pruefung import SCHWEREGRADE, Meldung, springstunden
+from .pruefung import SCHWEREGRADE, Meldung, springstunden, wuensche
 
 esc = html.escape
 
@@ -84,6 +85,11 @@ td.num, th.num { text-align:right; font-variant-numeric:tabular-nums }
 .legende { display:flex; gap:14px; flex-wrap:wrap; font-size:.9em; color:var(--fg2); margin:6px 0 }
 .legende i { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:5px; vertical-align:-1px }
 .karte { width:100%; max-width:720px; display:block } .lbl { fill:var(--fg); font-size:12px; font-weight:600 }
+.osm { height:460px; border-radius:8px; border:1px solid var(--ring) }
+.karten { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:10px }
+.karten .panel { padding:10px 12px } .karten h3 { margin:.1em 0 .3em; font-size:1em }
+.dringlich { border-left:4px solid var(--crit) } .rein { border-left:4px solid var(--base) }
+.pos { color:var(--good-text) } .neg { color:var(--crit); font-weight:600 }
 .groesse { display:inline-block; height:8px; background:var(--bar); border-radius:0 4px 4px 0; vertical-align:middle;
   margin-right:6px }
 """
@@ -229,10 +235,124 @@ def _karte(r: Ergebnis) -> str:
                      f"stroke-width='3'>{esc(s.name)}</text>")
     teile.append("</svg>")
     legende = "".join(f"<span><i style='background:{farbe[s.name]}'></i>{esc(s.name)} "
-                      f"({sum(v == s.name for v in e.schulhaus_von.values())} Kinder)</span>"
+                      f"({sum(v == s.name for v in e.schulhaus_von.values())} Lernende)</span>"
                       for s in schule.schulhaeuser)
     return f"<div class='legende'>{legende}<span>■ Schulhaus · ● Wohnort</span></div>" \
            f"<div class='karte-box'>{''.join(teile)}</div>"
+
+
+def _osm_karte(r: Ergebnis) -> str:
+    """Interaktive OpenStreetMap-Karte (Leaflet). Ohne Internet bleibt die SVG-Karte sichtbar."""
+    schule, e = r.schule, r.einteilung
+    farben = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"]
+    farbe = {s.name: farben[i] if i < len(farben) else "#898781" for i, s in enumerate(schule.schulhaeuser)}
+    daten = {
+        "schulhaeuser": [{"name": s.name, "lat": s.lat, "lon": s.lon, "farbe": farbe[s.name],
+                          "klassen": [c.name for c in e.klassen if c.schulhaus == s.name]}
+                         for s in schule.schulhaeuser],
+        "kinder": [{"lat": k.lat, "lon": k.lon, "sh": e.schulhaus_von[k.id], "farbe": farbe[e.schulhaus_von[k.id]],
+                    "t": f"{k.id} {k.name} · {k.jahrgang} → {e.klasse_von[k.id]} · {e.schulweg_m[k.id] / 1000:.2f} km"}
+                   for k in r.kinder if k.lat is not None],
+    }
+    leaflet = Path(__file__).parent / "static" / "leaflet"
+    return f"""<style>{(leaflet / "leaflet.css").read_text(encoding="utf-8")}</style>
+<div id="osm" class="osm" role="img" aria-label="OpenStreetMap-Karte der Wohnorte und Schulhäuser"></div>
+<p class="muted">Kartendaten © OpenStreetMap-Mitwirkende (Kacheln werden von tile.openstreetmap.org geladen,
+die Daten der Lernenden verlassen den Computer nicht). Ebenen pro Schulhaus ein-/ausblenden.</p>
+<div id="svgkarte" hidden>{_karte(r)}</div>
+<script>/* Leaflet 1.9.4, BSD-2-Clause, © Volodymyr Agafonkin */{(leaflet / "leaflet.js").read_text(encoding="utf-8")}</script>
+<script>
+(function () {{
+  const D = {json.dumps(daten, ensure_ascii=False)};
+  if (typeof L === "undefined") {{  // offline: SVG-Karte zeigen
+    document.getElementById("osm").hidden = true; document.getElementById("svgkarte").hidden = false; return;
+  }}
+  const karte = L.map("osm", {{scrollWheelZoom: false}});
+  L.tileLayer("https://tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png", {{maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende'}}).addTo(karte);
+  const ebenen = {{}};
+  for (const s of D.schulhaeuser) ebenen[s.name] = L.layerGroup().addTo(karte);
+  for (const k of D.kinder) L.circleMarker([k.lat, k.lon], {{radius: 4, color: "#fff", weight: 1, fillColor: k.farbe,
+    fillOpacity: .85}}).bindTooltip(k.t).addTo(ebenen[k.sh]);
+  for (const s of D.schulhaeuser) L.circleMarker([s.lat, s.lon], {{radius: 11, color: "#0b0b0b", weight: 3,
+    fillColor: s.farbe, fillOpacity: 1}}).bindTooltip("<b>" + s.name + "</b>", {{permanent: true, direction: "right"}})
+    .bindPopup("<b>" + s.name + "</b><br>" + s.klassen.join(", ")).addTo(ebenen[s.name]);
+  L.control.layers(null, Object.fromEntries(D.schulhaeuser.map(s =>
+    ['<span style="color:' + s.farbe + '">●</span> ' + s.name, ebenen[s.name]])), {{collapsed: false}}).addTo(karte);
+  karte.fitBounds(D.kinder.map(k => [k.lat, k.lon]).concat(D.schulhaeuser.map(s => [s.lat, s.lon])), {{padding: [20, 20]}});
+}})();
+</script>"""
+
+
+def _wuensche_html(r: Ergebnis) -> str:
+    w = wuensche(r.kinder, r.einteilung)
+    e = r.einteilung
+
+    def quote(paar):
+        alle, ok = paar
+        return f"{len(ok)} von {len(alle)}" if alle else "–"
+    kacheln = (f"<div class='kacheln'><div class='kachel'><b>{quote(w['zusammen'])}</b><span>Wunsch „zusammen mit“ "
+               f"erfüllt</span></div><div class='kachel'><b>{quote(w['nicht'])}</b><span>Wunsch „nicht zusammen mit“ "
+               f"erfüllt</span></div><div class='kachel'><b>{quote(w['schulhaus'])}</b><span>Wunsch-Schulhaus erfüllt"
+               f"</span></div><div class='kachel'><b>{len(w['allein'])}</b><span>Lernende als Einzige aus ihrer "
+               "bisherigen Klasse/KG-Gruppe</span></div></div>")
+    zeilen = []
+    for bisher in sorted(w["gruppen"]):
+        neue = w["gruppen"][bisher]
+        if sum(len(v) for v in neue.values()) < 2:
+            continue
+        verteilung = ", ".join(f"{esc(k)} ({len(v)})" for k, v in sorted(neue.items(), key=lambda t: -len(t[1])))
+        einzeln = [k for k, v in neue.items() if len(v) == 1]
+        zeilen.append(f"<tr><td>{esc(bisher)}</td><td class='num'>{sum(len(v) for v in neue.values())}</td>"
+                      f"<td>{verteilung}</td><td>{'<span class="badge sev-h">ℹ allein in ' + esc(', '.join(einzeln)) + '</span>' if einzeln else ''}</td></tr>")
+    tabelle = ("<details open><summary>Bisherige Klassen und Kindergartengruppen → neue Klassen</summary><div class='scroll'>"
+               "<table><tr><th>bisher</th><th class='num'>Lernende</th><th>neu (Anzahl)</th><th></th></tr>"
+               + "".join(zeilen) + "</table></div></details>") if zeilen else ""
+    offen = [f"<li>{esc(a)} ({esc(e.klasse_von[a])}) und {esc(b)} ({esc(e.klasse_von[b])})</li>"
+             for a, b in sorted(set(w["zusammen"][0]) - set(w["zusammen"][1]))]
+    return (kacheln + tabelle + (f"<details><summary>Nicht erfüllte Wünsche „zusammen mit“ ({len(offen)})</summary>"
+                                 f"<ul>{''.join(offen)}</ul></details>" if offen else ""))
+
+
+def _empfehlungen_html(r: Ergebnis) -> str:
+    p = r.planung
+    if not (p.empfehlungen or p.prognose):
+        return ""
+    karten = "".join(
+        f"<div class='panel {'dringlich' if x.dringlich else 'rein'}'><h3>{'⚠ ' if x.dringlich else ''}"
+        f"{esc(x.titel)}</h3><div class='fg2'>{esc(x.bereich)}</div><p>{esc(x.text)}</p></div>"
+        for x in sorted(p.empfehlungen, key=lambda x: (not x.dringlich, x.bereich)))
+
+    def tabelle(zeilen, spalten, fmt=None):
+        if not zeilen:
+            return ""
+        kopf = "".join(f"<th>{esc(sp)}</th>" for sp in spalten)
+        body = "".join("<tr>" + "".join(f"<td>{(fmt or {}).get(sp, lambda v: esc(str(v)))(z[sp])}</td>"
+                                        for sp in spalten) + "</tr>" for z in zeilen)
+        return f"<div class='scroll'><table><tr>{kopf}</tr>{body}</table></div>"
+
+    def balken(v):
+        farbe = "var(--crit)" if v >= 95 else ("var(--warn)" if v >= 85 else "var(--bar)")
+        return (f"<span class='groesse' style='width:{min(100, v) * 0.8:.0f}px;background:{farbe}'></span>{v}%")
+
+    def differenz(v):
+        return f"<span class='{'neg' if v < 0 else 'pos'}'>{v:+d}</span>"
+    prognose = [z for z in p.prognose]
+    return ("<h2 id='empfehlungen'>Empfehlungen: Lehrpersonen, Verfügbarkeit, Räume, Ausbau</h2>"
+            f"<div class='karten'>{karten}</div>"
+            "<details><summary>Pensenbilanz pro Schulhaus und Fach</summary>"
+            + tabelle(p.pensenbilanz, ["Schulhaus", "Fach", "Bedarf (L)", "Lehrpersonen", "freie Pensen (L)"])
+            + "</details><details><summary>Raumauslastung</summary>"
+            + tabelle(p.raeume, ["Schulhaus", "Raumtyp", "Räume", "genutzt", "Auslastung"], {"Auslastung": balken})
+            + "</details><details><summary>Prognose Lernende und Schulraum</summary>"
+            "<p class='muted'>Jahrgänge rücken nach; neuer KG1-Jahrgang wie heute bzw. gemäss <code>planung</code>; "
+            "Einzugsgebiete wie in der aktuellen Zuteilung.</p>"
+            + tabelle(prognose, ["Schuljahr", "Schulhaus", "Raumtyp", "Lernende", "Klassen (mind.)", "Räume",
+                                 "Differenz"], {"Differenz": differenz})
+            + "</details><details><summary>Stellvertretungsreserve pro Halbtag</summary>"
+            "<p class='muted'>Kleinste Anzahl verfügbarer Lehrpersonen ohne Unterricht während des Halbtags.</p>"
+            + tabelle(p.reserve, ["Schulhaus", "Halbtag", "Reserve", "abwesend (Teilzeit)"])
+            + "</details>")
 
 
 def _auslastung(r: Ergebnis, meldungen_von: dict[str, list[Meldung]]) -> str:
@@ -343,7 +463,7 @@ def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(schule.name)} – {esc(schule.szenario)}</title><style>{CSS}</style></head><body>
 <h1>{esc(schule.name)}</h1>
-<p class="sub">Szenario <b>{esc(schule.szenario)}</b> · {len(r.kinder)} Kinder · {len(schule.schulhaeuser)} Schulhäuser ·
+<p class="sub">Szenario <b>{esc(schule.szenario)}</b> · {len(r.kinder)} Lernende · {len(schule.schulhaeuser)} Schulhäuser ·
 {len(schule.lehrpersonen)} Lehrpersonen{f' · <a href="{vergleich_link}">Szenarienvergleich</a>' if vergleich_link else ''}</p>
 {banner}<div class="kacheln">"""]
     teile += [f"<div class='kachel'><b>{esc(v)}</b><span>{esc(k)}</span></div>" for k, v in r.kennzahlen().items()]
@@ -373,14 +493,16 @@ def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
         pfad.write_text("".join(teile), encoding="utf-8")
         return
 
-    teile.append("<h2>Wohnorte und Schulhäuser</h2>" + _karte(r))
+    teile.append("<h2>Wohnorte und Schulhäuser</h2>" + _osm_karte(r))
+    teile.append("<h2 id='wuensche'>Wünsche der Erziehungsberechtigten und Kindergartengruppen</h2>" + _wuensche_html(r))
+    teile.append(_empfehlungen_html(r))
 
     lp_pro_klasse = defaultdict(lambda: defaultdict(int))
     for b in r.bloecke:
         lp_pro_klasse[b.klasse][b.lehrperson] += b.lektionen
     groesst = max((c.groesse for c in e.klassen), default=1)
     teile.append("<h2>Klassen</h2><div class='scroll'><table><tr><th>Klasse</th><th>Schulhaus</th><th>Raum</th>"
-                 "<th>Kinder</th><th class='num'>♀/♂</th><th class='num' title='Integrative Förderung / Deutsch als Zweitsprache / "
+                 "<th>Lernende</th><th class='num'>♀/♂</th><th class='num' title='Integrative Förderung / Deutsch als Zweitsprache / "
                  "Integrative Sonderschulung'>IF/DaZ/IS</th><th class='num'>Ø Weg</th>"
                  "<th>Lehrpersonen (Lektionen)</th><th>Meldungen</th></tr>")
     for c in e.klassen:
@@ -416,7 +538,7 @@ def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
                 if m.slot is not None:
                     marken[m.slot].append(m)
             namen = ", ".join(esc(nach_id[i].name or i) for i in sorted(c.kinder))
-            teile.append(f"<details><summary>{esc(c.name)} – {esc(c.schulhaus)}, {len(c.kinder)} Kinder "
+            teile.append(f"<details><summary>{esc(c.name)} – {esc(c.schulhaus)}, {len(c.kinder)} Lernende "
                          f"{_badges(meldungen_von.get(c.name, []))}</summary>"
                          f"<div class='scroll'>{_plan(r, eintr, zu, marken)}</div>"
                          f"<p class='muted'>{namen}</p></details>")
@@ -465,7 +587,7 @@ def schreibe_vergleich(pfad: Path, ergebnisse: dict[str, Ergebnis]) -> None:
     pfad.write_text(f"""<!doctype html><html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Szenarienvergleich</title><style>{CSS}</style></head><body>
-<h1>Szenarienvergleich</h1><p class="sub">{esc(erstes.schule.name)} · {len(erstes.kinder)} Kinder ·
+<h1>Szenarienvergleich</h1><p class="sub">{esc(erstes.schule.name)} · {len(erstes.kinder)} Lernende ·
 Spaltenkopf anklicken für den ausführlichen Bericht</p>
 <div class="scroll"><table><tr><th>Kennzahl</th>{kopf}</tr>{''.join(zeilen)}</table></div>
 </body></html>""", encoding="utf-8")

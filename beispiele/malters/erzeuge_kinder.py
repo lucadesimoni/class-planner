@@ -56,10 +56,8 @@ def bisherige_klasse(schulhaus, jg):
     kuerzel = SCHULHAEUSER[schulhaus][0]
     if jg == "KG1":
         return ""
-    if jg == "KG2":
+    if jg in ("KG2", "1"):  # KG2 und 1. Klasse: Kindergartengruppe im Vorjahr
         return f"{kuerzel} KG{random.choice('abcd')}"
-    if jg == "1":
-        return ""
     return f"{kuerzel} {int(jg) - 1}{random.choice('ab')}"
 
 
@@ -95,13 +93,25 @@ def main():
                 "schulhaus_fix": "",
                 "bisheriges_schulhaus": vorjahr if jg != "KG1" else "",
                 "bisherige_klasse": bisherige_klasse(vorjahr, jg),
-                "nicht_mit": "",
+                "zusammen_mit": "", "nicht_mit": "",
+                "wunsch_schulhaus": random.choice(list(SCHULHAEUSER)) if random.random() < 0.06 else "",
+                "bemerkung": "",
             })
-    # einige Wünsche "nicht in dieselbe Klasse"
+    # Wünsche der Erziehungsberechtigten: "nicht zusammen mit" und "zusammen mit" (Gspänli,
+    # bevorzugt aus derselben Kindergartengruppe bzw. Klasse)
     for _ in range(12):
         jg = random.choice(reihenfolge[2:])
         a, b = random.sample([k for k in kinder if k["jahrgang"] == jg], 2)
-        a["nicht_mit"] = b["id"]  # Wunsch: nicht in dieselbe Klasse
+        a["nicht_mit"] = b["id"]
+        a["bemerkung"] = "Wunsch der Erziehungsberechtigten: getrennt"
+    for _ in range(30):
+        jg = random.choice(reihenfolge[1:])
+        a = random.choice([k for k in kinder if k["jahrgang"] == jg and not k["zusammen_mit"]])
+        kandidaten = [k for k in kinder if k["jahrgang"] == jg and k is not a and k["id"] not in a["nicht_mit"]
+                      and a["id"] not in k["nicht_mit"]
+                      and (k["bisherige_klasse"] == a["bisherige_klasse"] or random.random() < 0.1)]
+        if kandidaten:
+            a["zusammen_mit"] = random.choice(kandidaten)["id"]
 
     wr = csv.DictWriter(sys.stdout, fieldnames=list(kinder[0]))
     wr.writeheader()

@@ -52,24 +52,24 @@ faecher:
   BG: {max_pro_tag: 2}
   Musik: {max_pro_tag: 1}
   TTG: {raumtyp: Klassenzimmer, dauer: 2}
-  Sport: {raumtyp: Turnhalle, max_pro_tag: 1}
+  Bewegung und Sport: {raumtyp: Turnhalle, max_pro_tag: 1}
   Kindergarten: {max_pro_tag: 6}
 
 stundentafel:                   # Werte mit der kantonalen Stundentafel (WOST) abgleichen
-  KG: {Kindergarten: 20, Sport: 2}
-  "1": {Deutsch: 6, Mathematik: 5, NMG: 3, BG: 2, TTG: 2, Musik: 2, Sport: 3}
-  "2": {Deutsch: 6, Mathematik: 5, NMG: 4, BG: 2, TTG: 2, Musik: 2, Sport: 3}
+  KG: {Kindergarten: 20, Bewegung und Sport: 2}
+  "1": {Deutsch: 6, Mathematik: 5, NMG: 3, BG: 2, TTG: 2, Musik: 2, Bewegung und Sport: 3}
+  "2": {Deutsch: 6, Mathematik: 5, NMG: 4, BG: 2, TTG: 2, Musik: 2, Bewegung und Sport: 3}
 
 lehrpersonen:
-  - {name: Lehrperson 1, faecher: [Deutsch, Mathematik, NMG, BG, Musik, TTG, Sport], schulhaeuser: Schulhaus A, pensum: [20, 28]}
-  - {name: Lehrperson 2, faecher: [Deutsch, Mathematik, NMG, BG, Musik, TTG, Sport], schulhaeuser: Schulhaus A, pensum: [20, 28], bisherige_klasse: A 1a}
-  - {name: Lehrperson 3, faecher: [Deutsch, Mathematik, NMG, BG, Musik, TTG, Sport], schulhaeuser: Schulhaus B, pensum: [20, 28]}
-  - {name: Lehrperson 4, faecher: [Deutsch, Mathematik, NMG, BG, Musik, TTG, Sport], schulhaeuser: Schulhaus B, pensum: [10, 28], nicht_verfuegbar: [Fr-NM]}
-  - {name: KG A, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Schulhaus A, pensum: [20, 24]}
-  - {name: KG B, faecher: [Kindergarten, Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Schulhaus B, pensum: [20, 24]}
+  - {name: Lehrperson 1, faecher: [Deutsch, Mathematik, NMG, BG, Musik, TTG, Bewegung und Sport], schulhaeuser: Schulhaus A, pensum: [20, 28]}
+  - {name: Lehrperson 2, faecher: [Deutsch, Mathematik, NMG, BG, Musik, TTG, Bewegung und Sport], schulhaeuser: Schulhaus A, pensum: [20, 28], bisherige_klasse: A 1a}
+  - {name: Lehrperson 3, faecher: [Deutsch, Mathematik, NMG, BG, Musik, TTG, Bewegung und Sport], schulhaeuser: Schulhaus B, pensum: [20, 28]}
+  - {name: Lehrperson 4, faecher: [Deutsch, Mathematik, NMG, BG, Musik, TTG, Bewegung und Sport], schulhaeuser: Schulhaus B, pensum: [10, 28], nicht_verfuegbar: [Fr-NM]}
+  - {name: KG A, faecher: [Kindergarten, Bewegung und Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Schulhaus A, pensum: [20, 24]}
+  - {name: KG B, faecher: [Kindergarten, Bewegung und Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Schulhaus B, pensum: [20, 24]}
   - {name: SHP (IF), faecher: [IF], pensum: [0, 28]}
   - {name: DaZ-Lehrperson, faecher: [DaZ Anfang, DaZ Aufbau], pensum: [0, 28]}
-  - {name: Sportlehrperson, faecher: [Sport], pensum: [0, 20]}
+  - {name: Sportlehrperson, faecher: [Bewegung und Sport], pensum: [0, 20]}
 
 gewichte:
   schulweg_pro_km: 100

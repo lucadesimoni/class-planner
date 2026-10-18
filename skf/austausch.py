@@ -28,7 +28,7 @@ JA = {"1", "ja", "j", "yes", "y", "true", "wahr", "x", "✓"}
 # Standardspalten der Kinderliste (Export) – Reihenfolge = Spaltenreihenfolge
 KINDER_SPALTEN = ["id", "vorname", "nachname", "name", "jahrgang", "geschlecht", "adresse", "lat", "lon",
                   "familie", "if", "daz", "is", "foerderbedarf", "schulhaus_fix", "bisheriges_schulhaus",
-                  "bisherige_klasse", "nicht_mit"]
+                  "bisherige_klasse", "zusammen_mit", "nicht_mit", "wunsch_schulhaus", "bemerkung"]
 
 # erkannte Spaltennamen (normalisiert: klein, Umlaute aufgelöst, nur a-z0-9)
 ALIASE = {
@@ -54,8 +54,13 @@ ALIASE = {
     "foerderbedarf": ["foerderbedarf", "foerderung", "besondererbedarf"],
     "schulhaus_fix": ["schulhausfix", "fixesschulhaus", "zuteilungfix"],
     "bisheriges_schulhaus": ["bisherigesschulhaus", "schulhausvorjahr", "schulhausbisher"],
-    "bisherige_klasse": ["bisherigeklasse", "klassevorjahr", "klassebisher"],
-    "nicht_mit": ["nichtmit", "nichtzusammenmit", "trennenvon"],
+    "bisherige_klasse": ["bisherigeklasse", "klassevorjahr", "klassebisher", "kggruppe", "kindergartengruppe",
+                         "kigagruppe", "kindergartenvorjahr"],
+    "zusammen_mit": ["zusammenmit", "wunschzusammen", "wunschmit", "gspaenli", "freundschaftswunsch",
+                     "wunschmitschueler"],
+    "nicht_mit": ["nichtmit", "nichtzusammenmit", "trennenvon", "wunschgetrennt"],
+    "wunsch_schulhaus": ["wunschschulhaus", "schulhauswunsch"],
+    "bemerkung": ["bemerkung", "bemerkungen", "notiz", "kommentar"],
 }
 
 
@@ -178,6 +183,8 @@ def lese_kinder(pfad: str | Path, spalten: dict[str, str] | None = None) -> list
             nicht_mit=[x.strip() for x in re.split(r"[;,]", w("nicht_mit")) if x.strip()],
             if_=_ja(w("if")), daz=daz, is_=_ja(w("is")),
             bisheriges_schulhaus=w("bisheriges_schulhaus"), bisherige_klasse=w("bisherige_klasse"),
+            zusammen_mit=[x.strip() for x in re.split(r"[;,]", w("zusammen_mit")) if x.strip()],
+            wunsch_schulhaus=w("wunsch_schulhaus"), bemerkung=w("bemerkung"),
             vorname=w("vorname"), nachname=w("nachname"),
             zusatz={k: str(v) for k, v in zeile.items() if k not in benutzt and k and v not in (None, "")}))
     return kinder
@@ -191,7 +198,8 @@ def kind_als_dict(k: Kind) -> dict[str, str]:
         "familie": k.familie, "if": "ja" if k.if_ else "", "daz": k.daz, "is": "ja" if k.is_ else "",
         "foerderbedarf": "ja" if k.foerderbedarf else "", "schulhaus_fix": k.schulhaus_fix,
         "bisheriges_schulhaus": k.bisheriges_schulhaus, "bisherige_klasse": k.bisherige_klasse,
-        "nicht_mit": ";".join(k.nicht_mit),
+        "zusammen_mit": ";".join(k.zusammen_mit), "nicht_mit": ";".join(k.nicht_mit),
+        "wunsch_schulhaus": k.wunsch_schulhaus, "bemerkung": k.bemerkung,
     }
     d.update({f: v for f, v in k.zusatz.items() if f not in d})
     return d
@@ -429,7 +437,8 @@ def schreibe_vorlage(ordner: str | Path) -> list[Path]:
     """Leere, ausgefüllte Beispiel-Vorlagen zum Erfassen eigener Daten."""
     ordner = Path(ordner)
     ordner.mkdir(parents=True, exist_ok=True)
-    beispiel = Path(__file__).parent.parent / "beispiele" / "vorlage"
+    from .daten import beispiel_ordner
+    beispiel = beispiel_ordner() / "vorlage"
     dateien = []
     for name in ("schule.yaml", "kinder.csv"):
         ziel = ordner / name

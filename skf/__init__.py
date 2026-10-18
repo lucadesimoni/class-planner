@@ -1,4 +1,4 @@
-"""stunden-klassen-fitter: Klasseneinteilung und Stundenplan als exakte Optimierung."""
+"""stunden-klassen-fitter: Klassenbildung und Stundenplan als exakte Optimierung."""
 from .daten import lade_kinder, lade_schule
 from .klassen import teile_ein
 from .lehrauftrag import verteile_lehrauftraege

@@ -107,7 +107,7 @@ def klassenlisten_xlsx(r: Ergebnis, pfad: Path, mit_foerderdaten: bool = False) 
         zeilen.append([c.name, c.schulhaus, c.raum.name, "/".join(c.jahrgaenge), len(ks),
                        sum(k.geschlecht == "w" for k in ks), sum(k.geschlecht == "m" for k in ks),
                        ", ".join(klp.get(c.name, [])[:2])])
-    tabelle(ws, ["Klasse", "Schulhaus", "Zimmer", "Jahrgänge", "Kinder", "Mädchen", "Knaben", "Klassenlehrperson(en)"],
+    tabelle(ws, ["Klasse", "Schulhaus", "Schulzimmer", "Jahrgänge", "Lernende", "Mädchen", "Knaben", "Klassenlehrperson(en)"],
             zeilen)
     _druck(ws, kopfzeile=1)
 
@@ -118,8 +118,8 @@ def klassenlisten_xlsx(r: Ergebnis, pfad: Path, mit_foerderdaten: bool = False) 
         ws["A1"] = f"Klassenliste {c.name}"
         ws["A1"].font = Font(bold=True, size=14)
         ws["A2"] = (f"{schule.name} · {schule.schuljahr + ' · ' if schule.schuljahr else ''}Schulhaus {c.schulhaus}, "
-                    f"Zimmer {c.raum.name}")
-        ws["A3"] = f"Klassenlehrperson: {', '.join(klp.get(c.name, [])[:2]) or '–'} · {len(c.kinder)} Kinder"
+                    f"Schulzimmer {c.raum.name}")
+        ws["A3"] = f"Klassenlehrperson: {', '.join(klp.get(c.name, [])[:2]) or '–'} · {len(c.kinder)} Lernende"
         ks = sorted((nach_id[i] for i in c.kinder), key=lambda k: (_namen(k)[0], _namen(k)[1]))
         zeilen = [[i, *_namen(k), k.jahrgang, k.geschlecht, k.adresse] + ([_merkmale(k)] if mit_foerderdaten else [])
                   for i, k in enumerate(ks, 1)]
@@ -176,7 +176,7 @@ def stundenplaene_xlsx(r: Ergebnis, pfad: Path) -> None:
             if c.name in l.klassen:
                 eintr[l.slot].append(f"{l.fach} – {l.lehrperson} ({l.raum_label})" if l.art == "unterricht"
                                      else f"+ {l.fach}: {l.lehrperson}")
-        plan(f"Klasse {c.name}", f"Schulhaus {c.schulhaus}, Zimmer {c.raum.name}", eintr,
+        plan(f"Klasse {c.name}", f"Schulhaus {c.schulhaus}, Schulzimmer {c.raum.name}", eintr,
              schule.schulhaus(c.schulhaus).nicht_verfuegbar)
     for lp in schule.lehrpersonen:
         eintr = defaultdict(list)
@@ -246,7 +246,7 @@ def druck_html(r: Ergebnis, pfad: Path, mit_foerderdaten: bool = False) -> None:
             + (f"<td>{esc(_merkmale(k))}</td>" if mit_foerderdaten else "") + "</tr>" for i, k in enumerate(ks, 1))
         teile.append(f"<section class='seite'><h1>Klassenliste {esc(c.name)}</h1><p class='sub'>{esc(schule.name)} · "
                      f"Schulhaus {esc(c.schulhaus)}, Zimmer {esc(c.raum.name)} · Klassenlehrperson: "
-                     f"{esc(', '.join(klp.get(c.name, [])[:2]) or '–')} · {len(ks)} Kinder</p>"
+                     f"{esc(', '.join(klp.get(c.name, [])[:2]) or '–')} · {len(ks)} Lernende</p>"
                      f"<table>{kopf}{zeilen_html}</table><p class='fuss'>{stand}</p></section>")
         eintr = defaultdict(str)
         for l in sorted(r.lektionen, key=lambda l: l.art != "unterricht"):

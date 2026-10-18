@@ -24,6 +24,9 @@ STANDARD_GEWICHTE = {
     "nicht_zusammen": 1000,       # Wunsch "nicht in dieselbe Klasse" verletzt
     "schulhaus_gewechselt": 150,  # Kind wechselt gegenüber Vorjahr das Schulhaus
     "klasse_getrennt": 60,        # bisherige Klasse wird auf mehrere Klassen verteilt
+    "allein_aus_klasse": 200,     # Gspänli-Regel: Kind als einziges aus seiner bisherigen Klasse/KG-Gruppe
+    "wunsch_zusammen": 250,       # Wunsch der Erziehungsberechtigten "zusammen mit" nicht erfüllt
+    "wunsch_schulhaus": 150,      # Wunsch-Schulhaus der Erziehungsberechtigten nicht erfüllt
     # Lehraufträge
     "lehrperson_pro_klasse": 200, # jede Lehrperson in einer Klasse (Klassenlehrprinzip)
     "pensum_unterschritten": 20,  # pro fehlende Lektion unter Mindestpensum
@@ -110,7 +113,10 @@ class Kind:
     daz: str = ""                 # Deutsch als Zweitsprache: "" | "anfang" | "aufbau"
     is_: bool = False             # Integrative Sonderschulung
     bisheriges_schulhaus: str = ""
-    bisherige_klasse: str = ""
+    bisherige_klasse: str = ""       # z.B. KG-Gruppe im Vorjahr ("BM KGb")
+    zusammen_mit: list[str] = field(default_factory=list)  # Wunsch der Erziehungsberechtigten (IDs)
+    wunsch_schulhaus: str = ""       # Wunsch der Erziehungsberechtigten
+    bemerkung: str = ""
     vorname: str = ""
     nachname: str = ""
     zusatz: dict[str, str] = field(default_factory=dict)  # weitere Spalten (unverändert exportiert)
@@ -188,6 +194,7 @@ class Schule:
     foerderangebote: list["Foerderangebot"] = field(default_factory=list)
     profil: dict = field(default_factory=dict)   # Kantonsprofil inkl. Quellen und Regeln
     schuljahr: str = ""
+    planung: dict = field(default_factory=dict)  # Prognose: wachstum_prozent, neue_kg1_pro_jahr
 
     def quelle(self, schluessel: str) -> dict:
         return self.profil.get("quellen", {}).get(schluessel, {})
@@ -282,6 +289,14 @@ def szenarien(pfad: str | Path) -> list[str]:
 
 
 PROFIL_ORDNER = Path(__file__).parent / "profile"
+
+
+def beispiel_ordner() -> Path:
+    """Beispieldaten: im Quellcode unter beispiele/, nach der Installation im Paket skf.beispiele."""
+    quelle = Path(__file__).parent.parent / "beispiele"
+    if (quelle / "vorlage").exists():
+        return quelle
+    return Path(__file__).parent / "beispiele"  # installiert: Paket skf.beispiele
 
 
 def profile() -> list[str]:
@@ -410,7 +425,7 @@ def baue_schule(cfg: dict) -> Schule:
         geschwister=str(kb.get("geschwister", "weich")),
         is_zaehlt_als=float(sp.get("is_zaehlt_als", 1)), max_is_pro_klasse=sp.get("max_is_pro_klasse"),
         ausgleich=tuple(sp.get("ausgleich", MERKMALE)), foerderangebote=angebote, profil=profil,
-        schuljahr=str(cfg.get("schuljahr", "")))
+        schuljahr=str(cfg.get("schuljahr", "")), planung=dict(cfg.get("planung") or {}))
 
 
 def lade_kinder(pfad: str | Path, spalten: dict[str, str] | None = None) -> list[Kind]:

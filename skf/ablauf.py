@@ -7,7 +7,8 @@ from dataclasses import dataclass, field
 from .daten import Kind, Schule
 from .klassen import Einteilung, teile_ein
 from .lehrauftrag import Block, verteile_lehrauftraege
-from .pruefung import Meldung, pruefe, qualitaet, rechtspruefung, vorpruefung
+from .planung import Planung, plane
+from .pruefung import Meldung, pruefe, qualitaet, rechtspruefung, vorpruefung, wuensche, wunsch_meldungen
 from .solver import KeineLoesung, Loesungsinfo
 from .stundenplan import Lektion, erstelle_stundenplan
 
@@ -22,6 +23,7 @@ class Ergebnis:
     infos: list[Loesungsinfo] = field(default_factory=list)
     meldungen: list[Meldung] = field(default_factory=list)
     sekunden: float = 0.0
+    planung: Planung = field(default_factory=Planung)
 
     def anzahl(self, schwere: str) -> int:
         return sum(m.schwere == schwere for m in self.meldungen)
@@ -29,6 +31,9 @@ class Ergebnis:
     @property
     def vollstaendig(self) -> bool:
         return self.einteilung is not None and bool(self.lektionen)
+
+    def _wunschquote(self) -> str:
+        return _wunschquote_text(wuensche(self.kinder, self.einteilung))
 
     def kennzahlen(self) -> dict[str, str]:
         e = self.einteilung
@@ -38,17 +43,24 @@ class Ergebnis:
             "Ø Klassengrösse": f"{len(self.kinder) / len(e.klassen):.1f}" if e and e.klassen else "–",
             "Ø Schulweg": f"{sum(wege) / len(wege) / 1000:.2f} km" if wege else "–",
             "Max. Schulweg": f"{max(wege) / 1000:.2f} km" if wege else "–",
-            "Mischklassen": str(sum(len(c.jahrgaenge) > 1 and c.vorlage.bezeichnung == "" for c in e.klassen))
+            "Mehrjahrgangsklassen": str(sum(len(c.jahrgaenge) > 1 and c.vorlage.bezeichnung == "" for c in e.klassen))
             if e else "–",
             "Lehrpersonen im Einsatz": str(len({b.lehrperson for b in self.bloecke})) if self.bloecke else "–",
             "Förderlektionen": str(sum(b.lektionen for b in self.bloecke if b.art == "foerder"))
             if self.bloecke else "–",
             "Springstunden": str(sum("Springstunde" in m.text for m in self.meldungen)) if self.lektionen else "–",
+            "Wünsche erfüllt": self._wunschquote() if e else "–",
             "Fehler": str(self.anzahl("Fehler")),
             "Warnungen": str(self.anzahl("Warnung")),
             "Hinweise": str(self.anzahl("Hinweis")),
             "Rechenzeit": f"{self.sekunden:.0f} s",
         }
+
+
+def _wunschquote_text(w: dict) -> str:
+    gesamt = sum(len(w[k][0]) for k in ("zusammen", "nicht", "schulhaus"))
+    erfuellt = sum(len(w[k][1]) for k in ("zusammen", "nicht", "schulhaus"))
+    return f"{erfuellt}/{gesamt}" if gesamt else "–"
 
 
 def rechne(schule: Schule, kinder: list[Kind], zeitlimit: float = 120, nur_klassen: bool = False,
@@ -101,6 +113,8 @@ def rechne(schule: Schule, kinder: list[Kind], zeitlimit: float = 120, nur_klass
         r.meldungen += pruefe(schule, kinder, r.einteilung, *teil)
         r.meldungen += qualitaet(schule, kinder, r.einteilung, r.bloecke, r.lektionen)
         r.meldungen += rechtspruefung(schule, kinder, r.einteilung, r.bloecke)
+        r.meldungen += wunsch_meldungen(kinder, r.einteilung)
+        r.planung = plane(schule, kinder, r)
     for i in r.infos:
         if not i.optimal and i.zielwert and (i.zielwert - i.schranke) / abs(i.zielwert) > 0.05:
             r.meldungen.append(Meldung("Hinweis", "Solver", f"{i.schritt}: Lösung ist bis zu "

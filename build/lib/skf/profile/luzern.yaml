@@ -1,0 +1,119 @@
+# Kantonsprofil Luzern – Volksschule (Kindergarten und Primarschule)
+#
+# Rechtliche Vorgaben und kantonale Richtlinien als Standardwerte samt Quellen.
+# Eine Schul-Konfiguration bindet das Profil mit `basis_profil: luzern` ein und
+# kann jeden Wert überschreiben. Mit `profil: {verbindlich: true}` werden die
+# Klassengrössen als harte Grenzen verwendet, sonst nur geprüft (Warnung).
+#
+# OHNE GEWÄHR: Stand der Recherche Oktober 2026. Massgebend ist immer der aktuelle
+# Wortlaut in der Systematischen Rechtssammlung (srl.lu.ch) und die Vorgaben der
+# Dienststelle Volksschulbildung (DVS). Werte mit "pruefen" bitte vor Gebrauch verifizieren.
+
+profil:
+  name: Kanton Luzern – Volksschule (KG/Primar)
+  stand: "Recherche Oktober 2026 – ohne Gewähr, aktuelle Fassungen prüfen"
+  verbindlich: false
+  quellen:
+    BV-19:
+      titel: "Bundesverfassung, Art. 19 – Anspruch auf ausreichenden und unentgeltlichen Grundschulunterricht"
+      erlass: SR 101
+      url: https://www.fedlex.admin.ch/eli/cc/1999/404/de#art_19
+    BV-62:
+      titel: "Bundesverfassung, Art. 62 – Schulwesen ist Sache der Kantone"
+      erlass: SR 101
+      url: https://www.fedlex.admin.ch/eli/cc/1999/404/de#art_62
+    BehiG-20:
+      titel: "Behindertengleichstellungsgesetz, Art. 20 – Integration behinderter Kinder in die Regelschule"
+      erlass: SR 151.3
+      url: https://www.fedlex.admin.ch/eli/cc/2003/667/de#art_20
+    VBG-36a:
+      titel: "Gesetz über die Volksschulbildung (VBG), § 36a – Schultransport bei unzumutbarem Schulweg"
+      erlass: SRL Nr. 400a
+      url: https://srl.lu.ch/app/de/texts_of_law/400a
+    VBV-3:
+      titel: "Verordnung zum Gesetz über die Volksschulbildung (VBV), § 3 Abs. 4 – Unterricht in Kindergarten und Primarschule am Vormittag in Blockzeiten"
+      erlass: SRL Nr. 405
+      url: https://srl.lu.ch/app/de/texts_of_law/405
+    VBV-7:
+      titel: "VBV, § 7 – Klassengrössen"
+      erlass: SRL Nr. 405
+      url: https://srl.lu.ch/app/de/texts_of_law/405
+      hinweis: "DVS nennt für Kindergarten und Primarschule min. 16 / max. 22 Lernende; ältere Fassungen nennen als Minimum 12 (KG) bzw. 15 (Primar) – aktuelle Fassung prüfen"
+    DVS-Klassen:
+      titel: "Dienststelle Volksschulbildung – Klassen & Pensen (Klassengrössen, Integration und Klassengrösse)"
+      url: https://volksschulbildung.lu.ch/unterricht_organisation/uo_planen_org_ilink/uo_po_klassen_pensen
+    FV:
+      titel: "Verordnung über die Förderangebote der Volksschule (Förderverordnung) vom 12. April 2011 – u.a. IF und DaZ"
+      erlass: SRL Nr. 406
+      url: https://srl.lu.ch/app/de/texts_of_law/406
+    IF-RL:
+      titel: "DVS-Richtlinie Integrative Förderung – IF im Klassenverband; IF-Pensen nach Anzahl Lernenden (mind. 1 Vollpensum pro 140 Lernende)"
+      url: https://umsetzungen-dvs.lu.ch/book/66fbee5ac211ca4898085826/66fbee772316f662c602c03d
+    DaZ-UH:
+      titel: "DVS, DaZ-Umsetzungshilfe – Anfangsunterricht KG–2. Kl. 3 L, ab 3. Kl. 4 L (1–3 Lernende), ab 4 Lernenden +0.5 L je weitere; Aufbauunterricht 2 L (1–3 Lernende); gestützt auf § 17 Förderverordnung"
+      url: https://volksschulbildung.lu.ch
+      hinweis: "Aktuelle Fassung der DaZ-Umsetzungshilfe bei der DVS beziehen"
+    SSV-30a:
+      titel: "Verordnung über die Sonderschulung (Sonderschulverordnung), § 30a Abs. 2 – Zusatzbeitrag, wenn bei integrativer Sonderschulung die maximale Klassengrösse eingehalten wird"
+      erlass: SRL Nr. 409
+      url: https://srl.lu.ch/app/de/texts_of_law/409
+    DVS-Schulweg:
+      titel: "DVS – Schulweg (Zumutbarkeit nach Alter, Länge, Art, Beschaffenheit und Gefährlichkeit; Luzerner Rechtsprechung: rund 30 Minuten Fussweg ab Kindergarten grundsätzlich zumutbar)"
+      url: https://volksschulbildung.lu.ch/unterricht_organisation/uo_planen_org_ilink/uo_po_schulweg
+    WOST:
+      titel: "Wochenstundentafel für den 1. und 2. Zyklus (WOST 2017), Kanton Luzern"
+      url: https://volksschulbildung.lu.ch/-/media/Volksschulbildung/Dokumente/unterricht_organisation/faecher_wost_lehrmittel/wochenstundentafel/rrb_bkd_dvs_wost2017.pdf
+    KDSG:
+      titel: "Kantonales Datenschutzgesetz (KDSG), § 2 – besonders schützenswerte Personendaten (u.a. Gesundheit)"
+      erlass: SRL Nr. 38
+      url: https://srl.lu.ch/app/de/texts_of_law/38
+
+  regeln:
+    klassengroessen:
+      Kindergarten: {jahrgaenge: [KG1, KG2], min: 16, max: 22, quelle: VBV-7}
+      Primarschule: {jahrgaenge: ["1", "2", "3", "4", "5", "6"], min: 16, max: 22, quelle: VBV-7}
+    blockzeiten: {pflicht: true, quelle: VBV-3}
+    schulweg:
+      zumutbar_minuten: 30
+      gehtempo_kmh: {KG1: 3.0, KG2: 3.0, "1": 3.5, "2": 3.5, default: 4.0}   # Annahme für die Umrechnung
+      quelle: DVS-Schulweg
+      transport: VBG-36a
+    integrative_foerderung:
+      lernende_pro_vollpensum: 140
+      vollpensum_lektionen: 28     # Annahme – kantonales Vollpensum der IF-Lehrperson prüfen
+      quelle: IF-RL
+    sonderschulung: {quelle: SSV-30a, integration: BehiG-20}
+    stundentafel: {quelle: WOST}
+    datenschutz: {quelle: KDSG}
+
+zeitraster:
+  blockzeiten: true
+
+sonderpaedagogik:
+  ausgleich: [if, daz, is, foerderbedarf]
+  foerderangebote:
+    # IF: Pool nach Lernendenzahl (1 Vollpensum / 140 Lernende ≈ 0.2 L pro Kind bei 28 L),
+    # hier vereinfachend pro Klasse verteilt und im Klassenverband (Teamteaching) geplant.
+    - {name: IF, merkmal: alle, pro_kind: 0.2, max: 8, parallel_zu: [Deutsch, Mathematik, Kindergarten], quelle: IF-RL}
+    # DaZ: Gruppen pro Schulhaus und Stufe (über Klassen hinweg), Lektionen nach Gruppengrösse.
+    # Raum wird nicht geplant (raumtyp ""); wer Gruppenräume hat, setzt raumtyp: Gruppenraum.
+    - name: DaZ Anfang
+      merkmal: daz=anfang
+      gruppierung: schulhaus
+      stufen: [[KG1, KG2], ["1", "2"], ["3", "4"], ["5", "6"]]
+      max_gruppe: 8
+      basis: {default: 4, KG1: 3, KG2: 3, "1": 3, "2": 3}
+      frei_bis: 3
+      pro_kind: 0.5
+      raumtyp: ""
+      quelle: DaZ-UH
+    - name: DaZ Aufbau
+      merkmal: daz=aufbau
+      gruppierung: schulhaus
+      stufen: [[KG1, KG2], ["1", "2"], ["3", "4"], ["5", "6"]]
+      max_gruppe: 8
+      basis: 2
+      frei_bis: 3
+      pro_kind: 0.5          # Annahme analog Anfangsunterricht – mit DaZ-Umsetzungshilfe abgleichen
+      raumtyp: ""
+      quelle: DaZ-UH
