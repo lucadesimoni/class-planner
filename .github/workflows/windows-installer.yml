@@ -1,0 +1,84 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+#
+# Baut und testet den Windows-Installer (gratis: GitHub Actions + Inno Setup).
+# Ergebnis: Artefakt "Klassenbildung-Setup" am Lauf; bei einem Tag v* zusätzlich als Release.
+name: Windows-Installer
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+    branches: [main, ccr-aacc267d-zkqp1r]
+    paths:
+      - "skf/**"
+      - "beispiele/vorlage/**"
+      - "beispiele/malters/schule.yaml"
+      - "beispiele/malters/kinder.csv"
+      - "installer/**"
+      - "scripts/lizenzen.py"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".github/workflows/windows-installer.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  installer:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Inno Setup bereitstellen
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe")) { choco install innosetup --no-progress -y }
+
+      - name: Installer bauen
+        shell: pwsh
+        run: ./installer/windows/baue.ps1
+
+      - name: Installer testen (still installieren, rechnen, App starten)
+        shell: pwsh
+        run: |
+          $setup = Get-ChildItem installer/build/ausgabe/*.exe | Select-Object -First 1
+          $ziel = Join-Path $env:RUNNER_TEMP "Klassenbildung"
+          Start-Process -Wait -FilePath $setup.FullName -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/DIR=$ziel"
+          $py = Join-Path $ziel "python\python.exe"
+          if (-not (Test-Path $py)) { throw "Installation fehlt: $py" }
+          # Rechnen mit der mitgelieferten Vorlage – ohne Internet, ohne Quellcode
+          Set-Location $env:RUNNER_TEMP
+          $vorlage = (& $py -c "from skf.daten import beispiel_ordner; print(beispiel_ordner() / 'vorlage')").Trim()
+          & $py -m skf rechnen "$vorlage\schule.yaml" "$vorlage\kinder.csv" -o ausgabe -t 30
+          if ($LASTEXITCODE) { throw "Rechnen fehlgeschlagen" }
+          if (-not (Test-Path ausgabe\bericht.html)) { throw "Bericht fehlt" }
+          # Bedienoberfläche starten und abfragen
+          $app = Start-Process -FilePath $py -ArgumentList "-m", "skf", "app", "--ohne-browser" -PassThru
+          $ok = $false
+          foreach ($i in 1..60) {
+            Start-Sleep -Seconds 2
+            try { if ((Invoke-WebRequest http://localhost:8501/_stcore/health -UseBasicParsing).Content -eq "ok") { $ok = $true; break } } catch {}
+          }
+          Stop-Process -Id $app.Id -Force
+          if (-not $ok) { throw "Bedienoberfläche antwortet nicht" }
+          # Deinstallation
+          Start-Process -Wait -FilePath (Join-Path $ziel "unins000.exe") -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES"
+          foreach ($i in 1..30) { if (-not (Test-Path $py)) { break }; Start-Sleep -Seconds 2 }
+          if (Test-Path $py) { throw "Deinstallation unvollständig" }
+          "Installer-Test bestanden"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Klassenbildung-Setup
+          path: installer/build/ausgabe/*.exe
+          retention-days: 30
+
+      - name: Release (nur bei Tag v*)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: installer/build/ausgabe/*.exe
