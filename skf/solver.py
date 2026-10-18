@@ -1,6 +1,7 @@
 """Gemeinsame Hilfsfunktionen für den CP-SAT-Solver (Google OR-Tools)."""
 from __future__ import annotations
 
+import time
 from dataclasses import dataclass
 
 from ortools.sat.python import cp_model
@@ -47,6 +48,16 @@ def loese(model: cp_model.CpModel, schritt: str, zeitlimit: float,
     info = Loesungsinfo(schritt, name, solver.objective_value, solver.best_objective_bound,
                         solver.wall_time)
     return solver, info
+
+
+def _lockerbar(name: str) -> int:
+    """Wie gut sich eine Regel in der Praxis anpassen lässt (höher = eher anpassbar)."""
+    for i, wort in enumerate(("eine Lektion pro Zeitfenster", "keine Lücken", "Blockzeiten", "parallel",
+                              "pro Tag", "Mindestgrösse", "Höchstgrösse", "Kapazität", "Anzahl Räume", "IS",
+                              "Schulweg", "Geschwister", "Pensum", "Verfügbarkeit")):
+        if wort in name:
+            return i
+    return 5
 
 
 class Regeln:
@@ -99,16 +110,37 @@ class Regeln:
             kern = unloesbar(namen, zeitlimit)
             if kern is None:
                 return []
-            for n in list(kern):  # verkleinern: Gruppe weglassen, wenn es ohne sie unlösbar bleibt
-                if len(kern) > 1:
-                    rest = [k for k in kern if k != n]
-                    kleiner = unloesbar(rest, max(1.0, zeitlimit / 10))
+            ende = time.time() + zeitlimit  # Verkleinern mit festem Zeitbudget
+            for n in sorted(kern, key=_lockerbar):  # strukturelle Regeln zuerst weglassen
+                if len(kern) <= 1 or time.time() > ende:
+                    break
+                if n in kern:
+                    kleiner = unloesbar([k for k in kern if k != n], max(0.5, min(3.0, ende - time.time())))
                     if kleiner is not None:
                         kern = kleiner
-            return kern
+            return sorted(kern, key=lambda n: -_lockerbar(n))
         finally:
             self.model.clear_assumptions()
             self._setze((1, 1))
+
+
+def _zusammenfassen(kern: list[str]) -> str:
+    """Grosse Konfliktmengen nach Art der Regel bündeln, anpassbare Regeln zuerst."""
+    arten: dict[str, list[str]] = {}
+    for n in kern:
+        if n.startswith("Verfügbarkeit "):
+            arten.setdefault("Verfügbarkeit", []).append(n.removeprefix("Verfügbarkeit "))
+        elif n.startswith("Blockzeiten "):
+            arten.setdefault("Blockzeiten", []).append(n.removeprefix("Blockzeiten ").split(" am ")[0])
+        elif ": " in n:
+            arten.setdefault(n.split(": ", 1)[1], []).append(n.split(": ", 1)[0])
+        else:
+            arten.setdefault(n, [])
+    teile = []
+    for art, wer in sorted(arten.items(), key=lambda t: -_lockerbar(t[0])):
+        wer = list(dict.fromkeys(wer))
+        teile.append(f"{art} ({len(wer)}: {', '.join(wer[:6])}{' …' if len(wer) > 6 else ''})" if wer else art)
+    return "; ".join(teile)
 
 
 def loese_mit_regeln(model: cp_model.CpModel, regeln: Regeln, schritt: str, zeitlimit: float,
@@ -120,8 +152,10 @@ def loese_mit_regeln(model: cp_model.CpModel, regeln: Regeln, schritt: str, zeit
     except KeineLoesung as fehler:
         if "nachweislich" not in str(fehler):
             raise
-        kern = regeln.konflikt(min(30.0, max(5.0, zeitlimit)))
+        kern = regeln.konflikt(min(20.0, max(5.0, zeitlimit / 2)))
         if not kern:
             raise
-        raise KeineLoesung(f"{schritt}: nachweislich keine Lösung möglich. Diese Regeln widersprechen sich: "
-                           + "; ".join(kern) + ". Mindestens eine davon lockern.", kern) from None
+        gezeigt = "; ".join(kern) if len(kern) <= 10 else _zusammenfassen(kern)
+        raise KeineLoesung(f"{schritt}: nachweislich keine Lösung möglich. Diese Regeln widersprechen sich "
+                           f"(zusammen mit festen Vorgaben wie Räumen und Stundentafel): {gezeigt}. "
+                           "Mindestens eine davon lockern.", kern) from None

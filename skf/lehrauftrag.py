@@ -139,7 +139,10 @@ def gesperrte_slots(schule: Schule, klasse: Klasse, fach: str, lp: Lehrperson) -
 
 
 def verteile_lehrauftraege(schule: Schule, klassen: list[Klasse], zeitlimit: float = 30,
-                           kinder: list[Kind] | None = None) -> tuple[list[Block], Loesungsinfo]:
+                           kinder: list[Kind] | None = None,
+                           verbote: list[list[tuple[str, str, str]]] | None = None) -> tuple[list[Block], Loesungsinfo]:
+    """``verbote``: Listen von (Klasse, Fach, Lehrperson), die nicht alle zugleich gelten dürfen
+    (Rückmeldung aus einem unlösbaren Stundenplan)."""
     w = schule.gewichte
     nach_id = {k.id: k for k in kinder or []}
     bloecke = []
@@ -207,31 +210,38 @@ def verteile_lehrauftraege(schule: Schule, klassen: list[Klasse], zeitlimit: flo
         gesperrt = {(bi, ti): gesperrte_slots(schule, klasse_von[bloecke[bi].klasse], bloecke[bi].fach,
                                               schule.lehrpersonen[ti])
                     for (bi, ti) in a if bloecke[bi].klasse in voll and bloecke[bi].art == "unterricht"}
-        for tag in dict.fromkeys(s.tag for s in schule.slots):
-            vm_alle = [s.index for s in schule.slots if s.tag == tag and s.halbtag == vm]
-            angebot = defaultdict(list)  # (lehrperson, klasse) -> Ausdrücke
-            for (bi, ti), av in a.items():
-                b = bloecke[bi]
-                if b.klasse not in voll or b.art != "unterricht":
-                    continue
-                frei = sum(1 for i in vm_alle if i not in gesperrt[bi, ti])
-                fach = schule.faecher[b.fach]
+        # Fluss pro Lektionengruppe und Tag: jede Gruppe gibt pro Tag höchstens so viele
+        # Lektionen, wie Fach-Tageslimit und freie Vormittagslektionen erlauben, und über
+        # die Woche höchstens ihre Lektionenzahl.
+        tage = list(dict.fromkeys(s.tag for s in schule.slots))
+        vm_tag = {tag: [s.index for s in schule.slots if s.tag == tag and s.halbtag == vm] for tag in tage}
+        deckung = defaultdict(list)       # (klasse, tag) -> Flüsse
+        pro_lp_tag = defaultdict(list)    # (lehrperson, tag) -> Flüsse
+        for (bi, ti), av in a.items():
+            b = bloecke[bi]
+            if b.klasse not in voll or b.art != "unterricht":
+                continue
+            fach = schule.faecher[b.fach]
+            woche = []
+            for tag in tage:
+                frei = sum(1 for i in vm_tag[tag] if i not in gesperrt[bi, ti])
                 cap = min(b.lektionen, max(fach.max_pro_tag, fach.dauer), frei)
-                if cap:
-                    angebot[ti, b.klasse].append(cap * av)
-            deckung = defaultdict(list)
-            pro_lp_tag = defaultdict(list)
-            for (ti, kl), terme in angebot.items():
-                frei = sum(1 for i in vm_alle if i not in schule.lehrpersonen[ti].nicht_verfuegbar)
-                f = m.new_int_var(0, frei, f"fluss_{tag}_{ti}_{kl}")
-                m.add(f <= sum(terme))
-                deckung[kl].append(f)
-                pro_lp_tag[ti, frei].append(f)
-            for (ti, frei), fs in pro_lp_tag.items():
-                m.add(sum(fs) <= frei)
-            for kl in voll:
-                pflicht = [i for i in vm_alle if i not in schule.schulhaus(klasse_von[kl].schulhaus).nicht_verfuegbar]
-                regeln.nur_wenn(m.add(sum(deckung[kl]) >= len(pflicht)), f"Blockzeiten {kl} am {tag}")
+                if not cap:
+                    continue
+                f = m.new_int_var(0, cap, f"fluss_{bi}_{ti}_{tag}")
+                m.add(f <= cap * av)
+                woche.append(f)
+                deckung[b.klasse, tag].append(f)
+                pro_lp_tag[ti, tag].append(f)
+            if woche:
+                m.add(sum(woche) <= b.lektionen)
+        for (ti, tag), fs in pro_lp_tag.items():
+            m.add(sum(fs) <= sum(1 for i in vm_tag[tag] if i not in schule.lehrpersonen[ti].nicht_verfuegbar))
+        for kl in voll:
+            for tag in tage:
+                pflicht = [i for i in vm_tag[tag] if i not in schule.schulhaus(klasse_von[kl].schulhaus).nicht_verfuegbar]
+                if pflicht:
+                    regeln.nur_wenn(m.add(sum(deckung[kl, tag]) >= len(pflicht)), f"Blockzeiten {kl} am {tag}")
 
     pro_klasse = defaultdict(lambda: defaultdict(list))
     for (bi, ti), av in a.items():
@@ -262,6 +272,13 @@ def verteile_lehrauftraege(schule: Schule, klassen: list[Klasse], zeitlimit: flo
             bonus = round(w["lehrperson_kontinuitaet"] * anteil * b.lektionen / total[b.klasse])
             if bonus:
                 kosten.append(-bonus * av)
+
+    lp_index = {lp.name: ti for ti, lp in enumerate(schule.lehrpersonen)}
+    for verbot in verbote or []:
+        terme = [a[bi, lp_index[lp]] for bi, b in enumerate(bloecke) for kl, fach, lp in verbot
+                 if b.klasse == kl and b.fach == fach and (bi, lp_index.get(lp)) in a]
+        if terme:
+            m.add(sum(terme) <= len(terme) - 1)
 
     m.minimize(sum(kosten))
     sol, info = loese_mit_regeln(m, regeln, "Lehraufträge", zeitlimit)
