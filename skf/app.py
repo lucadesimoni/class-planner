@@ -21,13 +21,68 @@ from skf import verlauf
 from skf.ablauf import Ergebnis, rechne, verschiebe
 from skf.austausch import (BLAETTER, KINDER_SPALTEN, LISTENFELDER, ZAHLFELDER, _cfg_aus_tabellen, _tabellen_aus_cfg,
                            exportiere_stammdaten, importiere_stammdaten, kind_als_dict, lese_kinder)
-from skf.bericht import CSS, _empfehlungen_html, _osm_karte, _plan, _wuensche_html, schreibe_csv, schreibe_html
+from skf.bericht import (CSS, _empfehlungen_html, _osm_karte, _plan, _wuensche_html, schreibe_csv,
+                         schreibe_html, transparenz_html)
 from skf.daten import STANDARD_GEWICHTE, beispiel_ordner, lade_schule
 from skf.export import exportiere_listen
 from skf.pruefung import SCHWEREGRADE, vorpruefung
+from skf.transparenz import begruendung, regeln
 
 BEISPIELE = beispiel_ordner()
-ICON = {"Fehler": "⛔", "Warnung": "⚠️", "Hinweis": "ℹ️"}
+ICON = {"Fehler": ":material/cancel:", "Warnung": ":material/warning:", "Hinweis": ":material/info:"}
+FARBE = {"Fehler": "red", "Warnung": "orange", "Hinweis": "gray"}
+
+# Design-System wie genealogy-store: helle Fläche, weisse Karten, feine Rahmen, Akzent Wandtafelgrün
+STIL = """
+<style>
+.stApp { background:#f6f7fb; }
+.block-container { max-width:1240px; padding-top:2.2rem; }
+[data-testid="stSidebar"] { background:#ffffff; border-right:1px solid #e4e7ee; }
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p { font-size:13px; }
+h1, h2, h3 { letter-spacing:-.01em; color:#14171f; }
+h2 { font-size:21px !important; font-weight:700 !important; }
+h3 { font-size:16px !important; font-weight:600 !important; }
+[data-testid="stVerticalBlockBorderWrapper"]:has(> div > [data-testid="stVerticalBlock"]) { border-radius:12px; }
+div[data-testid="stVerticalBlockBorderWrapper"][class*="border"], [data-testid="stExpander"] details {
+  background:#ffffff; border-color:#e4e7ee !important; border-radius:12px !important;
+  box-shadow:0 1px 2px rgba(20,23,31,.05); }
+[data-testid="stMetric"] { background:#ffffff; border:1px solid #e4e7ee; border-radius:12px; padding:12px 14px;
+  box-shadow:0 1px 2px rgba(20,23,31,.05); }
+[data-testid="stMetricLabel"] p { font-size:12px; color:#676e7d; }
+[data-testid="stMetricValue"] { font-size:24px; font-weight:600; }
+.stButton > button, .stDownloadButton > button { border-radius:8px; font-weight:500; font-size:13px;
+  border-color:#cdd2dd; }
+.stButton > button[kind="primary"] { background:#2f5d50; border-color:#2f5d50; }
+.stButton > button[kind="primary"]:hover { background:#244a40; border-color:#244a40; }
+[data-baseweb="tab-list"] { gap:4px; border-bottom:1px solid #e4e7ee; }
+[data-baseweb="tab"] p { font-size:13px; font-weight:500; }
+[data-testid="stDataFrame"], [data-testid="stDataEditor"] { border:1px solid #e4e7ee; border-radius:8px; overflow:hidden; }
+.skf-kopf { display:flex; align-items:center; gap:12px; margin:0 0 14px; }
+.skf-logo { width:40px; height:40px; border-radius:10px; background:#2f5d50; color:#fff; display:grid;
+  place-items:center; box-shadow:0 2px 6px rgba(20,23,31,.07); flex:none; }
+.skf-logo svg { width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round;
+  stroke-linejoin:round; }
+.skf-kopf h1 { font-size:21px; font-weight:700; margin:0; padding:0; line-height:1.2; }
+.skf-kopf p { margin:2px 0 0; color:#676e7d; font-size:13px; }
+.skf-schritt { color:#2f5d50; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
+</style>
+"""
+
+
+def _logo() -> str:
+    """Logo als Bild (Streamlit filtert eingebettetes SVG aus st.html)."""
+    import base64
+    svg = ("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' "
+           "stroke-linecap='round' stroke-linejoin='round'><path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/>"
+           "<path d='M9 22V12h6v10'/></svg>")
+    return (f"<div class='skf-logo'><img alt='' width='20' height='20' "
+            f"src='data:image/svg+xml;base64,{base64.b64encode(svg.encode()).decode()}'></div>")
+
+
+def _kopf(titel: str, untertitel: str, schritt: str = "") -> None:
+    st.html(f"<div class='skf-kopf'>{_logo()}<div>"
+            f"{f'<div class=skf-schritt>{schritt}</div>' if schritt else ''}<h1>{titel}</h1><p>{untertitel}</p>"
+            "</div></div>")
 SPALTEN_LERNENDE = {
     "id": "ID", "vorname": "Vorname", "nachname": "Nachname", "name": "Name", "jahrgang": "Jahrgang (KG1, KG2, 1–6)",
     "geschlecht": "Geschlecht (w/m)", "adresse": "Adresse", "lat": "Breite", "lon": "Länge", "familie": "Familie (Geschwister)",
@@ -122,7 +177,7 @@ def _laden(cfg: dict, kinder) -> None:
     st.session_state.bearbeitet = {"Kinder": st.session_state.kinder_df, **st.session_state.tabellen}
     st.session_state.extra = extra
     st.session_state.pop("ergebnis", None)
-    st.toast("Daten geladen ✅")
+    st.toast("Daten geladen", icon=":material/check_circle:")
 
 
 def _aktuelle_daten():
@@ -135,7 +190,11 @@ def _aktuelle_daten():
 
 # ------------------------------------------------------------------ Navigation
 
-SEITEN = ["🏠 Start", "1 · Daten", "2 · Prüfen", "3 · Berechnen", "4 · Ergebnis", "🕘 Verlauf", "❓ Hilfe"]
+SEITEN = {"start": ":material/home: Start", "daten": ":material/table_view: 1 · Daten",
+          "pruefen": ":material/fact_check: 2 · Prüfen", "berechnen": ":material/calculate: 3 · Berechnen",
+          "ergebnis": ":material/insights: 4 · Ergebnis", "verlauf": ":material/history: Verlauf",
+          "hilfe": ":material/help: Hilfe"}
+TITEL = {k: v.split(": ", 1)[1].split(" · ")[-1] for k, v in SEITEN.items()}
 
 
 def _gehe(seite: str) -> None:
@@ -143,19 +202,25 @@ def _gehe(seite: str) -> None:
 
 
 def _weiter(seite: str, text: str | None = None) -> None:
-    st.button(text or f"Weiter: {seite} →", type="primary", on_click=_gehe, args=(seite,), key=f"weiter_{seite}")
+    st.button(text or f"Weiter: {TITEL[seite]}", type="primary", on_click=_gehe, args=(seite,), key=f"weiter_{seite}",
+              icon=":material/arrow_forward:")
+
+
+def _ja_nein(ok: bool) -> str:
+    return ":green[:material/check_circle:]" if ok else ":red[:material/cancel:]"
 
 
 def _beispiel(name: str) -> None:
     ordner = BEISPIELE / name
     _laden(yaml.safe_load((ordner / "schule.yaml").read_text(encoding="utf-8")), lese_kinder(ordner / "kinder.csv"))
-    st.session_state.seite = "1 · Daten"
+    st.session_state.seite = "daten"
 
 
 # ------------------------------------------------------------------ Seiten
 
 def seite_start() -> None:
-    st.title("Klassenbildung & Stundenplan")
+    _kopf("Klassenbildung & Stundenplan", "Volksschule · Kindergarten und Primarschule · alle Daten bleiben auf "
+          "diesem Computer")
     st.write("Bildet Klassen, verteilt Lehraufträge und erstellt den Stundenplan – unter Berücksichtigung von "
              "Schulwegen, Geschwistern, Kindergartengruppen, Wünschen der Erziehungsberechtigten, IF/DaZ/IS, "
              "Verfügbarkeiten und kantonalen Vorgaben. **Alle Daten bleiben auf diesem Computer.**")
@@ -167,29 +232,30 @@ def seite_start() -> None:
             ("3 Berechnen", "Klassen und Stundenplan berechnen lassen", hat_ergebnis),
             ("4 Ergebnis", "Karte, Klassenlisten, Stundenpläne, Empfehlungen", hat_ergebnis)]):
         with spalte.container(border=True):
-            st.markdown(f"**{'✅' if fertig else '⬜'} {titel}**")
+            st.markdown(f"{':green[:material/check_circle:]' if fertig else ':gray[:material/radio_button_unchecked:]'} "
+                        f"**{titel}**")
             st.caption(text)
     st.subheader("Loslegen")
     a, b, d = st.columns(3)
-    a.button("📂 Beispiel Malters ansehen", on_click=_beispiel, args=("malters",), width="stretch",
+    a.button("Beispiel Malters ansehen", icon=":material/folder_open:", on_click=_beispiel, args=("malters",), width="stretch",
              help="644 fiktive Lernende, 3 Schulhäuser – zeigt alle Funktionen")
-    b.button("🧩 Kleine Vorlage öffnen", on_click=_beispiel, args=("vorlage",), width="stretch",
+    b.button("Kleine Vorlage öffnen", icon=":material/extension:", on_click=_beispiel, args=("vorlage",), width="stretch",
              help="110 Lernende, 2 Schulhäuser – ideal zum Ausprobieren und als Ausgangspunkt")
-    d.button("⬆️ Eigene Daten hochladen", on_click=_gehe, args=("1 · Daten",), width="stretch")
+    d.button("Eigene Daten hochladen", icon=":material/upload:", on_click=_gehe, args=("daten",), width="stretch")
     if hat_ergebnis:
         st.success("Es liegt ein berechnetes Ergebnis vor.")
-        _weiter("4 · Ergebnis", "Zum Ergebnis →")
+        _weiter("ergebnis", "Zum Ergebnis")
     staende = verlauf.staende()
     if staende:
-        st.caption(f"🕘 {len(staende)} gespeicherte Stände im Verlauf (zuletzt {staende[0]['zeit'].replace('T', ' ')}).")
+        st.caption(f":material/history: {len(staende)} gespeicherte Stände im Verlauf (zuletzt {staende[0]['zeit'].replace('T', ' ')}).")
 
 
 def seite_daten() -> None:
-    st.header("1 · Daten")
+    _kopf("Daten", "Lernende, Lehrpersonen, Schulhäuser und Regeln erfassen oder hochladen", "Schritt 1 von 4")
     c1, c2, c3 = st.columns(3)
     c1.button("Beispiel Malters laden", on_click=_beispiel, args=("malters",), width="stretch")
     c2.button("Kleine Vorlage laden", on_click=_beispiel, args=("vorlage",), width="stretch")
-    with c3.popover("⬆️ Eigene Dateien hochladen", width="stretch"):
+    with c3.popover("Eigene Dateien hochladen", icon=":material/upload:", width="stretch"):
         st.caption("Am einfachsten: zuerst die *Kleine Vorlage* laden, als Excel speichern, dort ausfüllen und "
                    "hier wieder hochladen.")
         stamm = st.file_uploader("Stammdaten (Excel .xlsx) oder Konfiguration (.yaml/.json)",
@@ -209,7 +275,7 @@ def seite_daten() -> None:
                         _laden(yaml.safe_load(pfad.read_text(encoding="utf-8")), lese_kinder(lpfad))
                     else:
                         _laden(*importiere_stammdaten(pfad))
-                st.toast("Daten übernommen ✅")
+                st.toast("Daten übernommen", icon=":material/check_circle:")
             except Exception as fehler:  # noqa: BLE001 – verständlich melden statt abstürzen
                 st.error(f"Die Datei konnte nicht gelesen werden: {fehler}")
 
@@ -221,8 +287,9 @@ def seite_daten() -> None:
     st.caption(f"**{cfg.get('name', 'Schule')}** · Schuljahr {cfg.get('schuljahr', '–')} · "
                f"Kantonsprofil: {cfg.get('basis_profil', 'keines')} · "
                f"{len(st.session_state.bearbeitet['Kinder'])} Lernende")
-    tabs = st.tabs(["👧 Lernende", "🧑‍🏫 Lehrpersonen", "🏫 Schulhäuser", "🚪 Räume", "🧮 Klassentypen", "📚 Fächer",
-                    "🤝 Förderangebote", "⚖️ Gewichtung"])
+    tabs = st.tabs([":material/child_care: Lernende", ":material/school: Lehrpersonen", ":material/home: Schulhäuser",
+                    ":material/meeting_room: Räume", ":material/category: Klassentypen", ":material/menu_book: Fächer",
+                    ":material/volunteer_activism: Förderangebote", ":material/tune: Gewichtung"])
     with tabs[0]:
         alle = st.toggle("Alle Spalten zeigen (Koordinaten, Förderdetails)", key="alle_spalten")
         st.caption("Wünsche: IDs mit `;` trennen. *Klasse/KG-Gruppe Vorjahr* hält Gruppen zusammen (Gspänli-Regel). "
@@ -279,13 +346,13 @@ def seite_daten() -> None:
         exportiere_stammdaten(cfg_neu, kinder, Path(tmp) / "stammdaten.xlsx")
         inhalt = (Path(tmp) / "stammdaten.xlsx").read_bytes()
     a, b = st.columns(2)
-    a.download_button("💾 Stammdaten als Excel speichern", inhalt, "stammdaten.xlsx", width="stretch")
+    a.download_button("Stammdaten als Excel speichern", inhalt, "stammdaten.xlsx", icon=":material/save:", width="stretch")
     with b:
-        _weiter("2 · Prüfen")
+        _weiter("pruefen")
 
 
 def seite_pruefen() -> None:
-    st.header("2 · Prüfen")
+    _kopf("Prüfen", "Fehlende oder widersprüchliche Angaben vor dem Rechnen finden", "Schritt 2 von 4")
     if "tabellen" not in st.session_state:
         st.info("Zuerst Daten laden (Schritt 1).")
         return
@@ -306,11 +373,11 @@ def seite_pruefen() -> None:
     for m in sorted(meldungen, key=lambda m: SCHWEREGRADE.index(m.schwere)):
         {"Fehler": st.error, "Warnung": st.warning, "Hinweis": st.info}[m.schwere](f"**{m.bereich}:** {m.text}")
     if not zaehler["Fehler"]:
-        _weiter("3 · Berechnen")
+        _weiter("berechnen")
 
 
 def seite_berechnen() -> None:
-    st.header("3 · Berechnen")
+    _kopf("Berechnen", "Klassen, Lehraufträge und Stundenplan optimieren", "Schritt 3 von 4")
     if "tabellen" not in st.session_state:
         st.info("Zuerst Daten laden (Schritt 1).")
         return
@@ -323,7 +390,7 @@ def seite_berechnen() -> None:
                             format_func=lambda s: f"{s // 60} min" if s >= 60 else f"{s} s",
                             help="Mehr Zeit = näher am Optimum. Kleine Schulen sind in Sekunden fertig.")
     notiz = st.text_input("Notiz für den Verlauf (optional)", placeholder="z.B. Variante mit 2 Mehrjahrgangsklassen")
-    if st.button("▶ Klassen und Stundenplan berechnen", type="primary", width="stretch"):
+    if st.button("Klassen und Stundenplan berechnen", type="primary", width="stretch", icon=":material/play_arrow:"):
         try:
             schule = _schule_aus_cfg(cfg, szenario)
         except Exception as fehler:  # noqa: BLE001
@@ -334,14 +401,14 @@ def seite_berechnen() -> None:
             st.session_state.ergebnis = r
             try:
                 st.session_state.stand = str(verlauf.speichere(r, cfg, notiz))
-                st.write("🕘 Im Verlauf gespeichert.")
+                st.write(":material/history: Im Verlauf gespeichert.")
             except OSError as fehler:
                 st.warning(f"Verlauf konnte nicht gespeichert werden: {fehler}")
             ok = r.anzahl("Fehler") == 0 and r.vollstaendig
-            status.update(label="Fertig ✅" if ok else "Fertig – mit Fehlern (siehe Ergebnis)",
+            status.update(label="Fertig" if ok else "Fertig – mit Fehlern (siehe Ergebnis)",
                           state="complete" if ok else "error")
     if st.session_state.get("ergebnis"):
-        _weiter("4 · Ergebnis", "Zum Ergebnis →")
+        _weiter("ergebnis", "Zum Ergebnis")
 
 
 def _kind_karte(r: Ergebnis, kid: str) -> None:
@@ -361,19 +428,19 @@ def _kind_karte(r: Ergebnis, kid: str) -> None:
     geschwister = [g for g in r.kinder if k.familie and g.familie == k.familie and g.id != kid]
     if geschwister:
         st.markdown("**Geschwister:** " + ", ".join(
-            f"{g.name} ({g.id}, {e.klasse_von[g.id]}{'' if e.schulhaus_von[g.id] == e.schulhaus_von[kid] else ' ⚠️ anderes Schulhaus'})"
+            f"{g.name} ({g.id}, {e.klasse_von[g.id]}{'' if e.schulhaus_von[g.id] == e.schulhaus_von[kid] else ' :orange[anderes Schulhaus]'})"
             for g in geschwister))
     wuensche_k = []
     for anderer in k.zusammen_mit:
         if anderer in nach_id:
-            wuensche_k.append(f"{'✅' if e.klasse_von[anderer] == e.klasse_von[kid] else '❌'} zusammen mit "
+            wuensche_k.append(f"{_ja_nein(e.klasse_von[anderer] == e.klasse_von[kid])} zusammen mit "
                               f"{nach_id[anderer].name} ({anderer}, {e.klasse_von[anderer]})")
     for anderer in k.nicht_mit:
         if anderer in nach_id:
-            wuensche_k.append(f"{'✅' if e.klasse_von[anderer] != e.klasse_von[kid] else '❌'} nicht zusammen mit "
+            wuensche_k.append(f"{_ja_nein(e.klasse_von[anderer] != e.klasse_von[kid])} nicht zusammen mit "
                               f"{nach_id[anderer].name} ({anderer})")
     if k.wunsch_schulhaus:
-        wuensche_k.append(f"{'✅' if e.schulhaus_von[kid] == k.wunsch_schulhaus else '❌'} Wunsch-Schulhaus "
+        wuensche_k.append(f"{_ja_nein(e.schulhaus_von[kid] == k.wunsch_schulhaus)} Wunsch-Schulhaus "
                           f"{k.wunsch_schulhaus}")
     if wuensche_k:
         st.markdown("**Wünsche der Erziehungsberechtigten:**  \n" + "  \n".join(wuensche_k))
@@ -381,9 +448,17 @@ def _kind_karte(r: Ergebnis, kid: str) -> None:
         gspaenli = [g for g in r.kinder if g.bisherige_klasse == k.bisherige_klasse and g.id != kid
                     and e.klasse_von[g.id] == e.klasse_von[kid]]
         st.markdown(f"**Aus {k.bisherige_klasse} ebenfalls in {e.klasse_von[kid]}:** "
-                    + (", ".join(g.name for g in gspaenli) if gspaenli else "niemand ⚠️"))
+                    + (", ".join(g.name for g in gspaenli) if gspaenli else ":orange[niemand]"))
     if k.bemerkung:
         st.markdown(f"**Bemerkung:** {k.bemerkung}")
+    with st.container(border=True):
+        st.markdown(":material/visibility: **Warum hier?**")
+        b = begruendung(r, kid)
+        st.markdown(f"**Schulhaus:** {b['schulhaus_text']}  \n**Klasse:** {b['klasse_text']}")
+        st.dataframe(pd.DataFrame([{"": "✓" if z["gewaehlt"] else "", "Schulhaus": z["schulhaus"],
+                                    "Weg km": z["weg_km"], "Klassen dieses Jahrgangs (Grösse)": z["klassen"],
+                                    "freie Plätze": z["freie_plaetze"], "spricht dafür / dagegen": z["gruende"]}
+                                   for z in b["schulhaeuser"]]), hide_index=True, width="stretch")
     historie = verlauf.kind_verlauf(kid)
     if historie:
         st.markdown("**Verlauf (gespeicherte Stände):**")
@@ -393,27 +468,29 @@ def _kind_karte(r: Ergebnis, kid: str) -> None:
 
 
 def seite_ergebnis() -> None:
-    st.header("4 · Ergebnis")
+    _kopf("Ergebnis", "Karte, Klassen, Begründungen, Stundenpläne, Empfehlungen und Downloads", "Schritt 4 von 4")
     r: Ergebnis | None = st.session_state.get("ergebnis")
     if not r:
         st.info("Noch nichts berechnet (Schritt 3).")
         return
     if r.anzahl("Fehler"):
-        st.error(f"⛔ {r.anzahl('Fehler')} Fehler – das Ergebnis ist so nicht verwendbar. Details unter *Meldungen*.")
+        st.error(f"{r.anzahl('Fehler')} Fehler – das Ergebnis ist so nicht verwendbar. Details unter *Meldungen*.")
     else:
-        st.success("✅ Alle harten Regeln erfüllt." + (f" {r.anzahl('Warnung')} Warnungen bitte prüfen."
+        st.success("Alle harten Regeln erfüllt." + (f" {r.anzahl('Warnung')} Warnungen bitte prüfen."
                                                        if r.anzahl("Warnung") else ""))
     kz = r.kennzahlen()
     spalten = st.columns(6)
     for i, k in enumerate(["Klassen", "Ø Klassengrösse", "Ø Schulweg", "Wünsche erfüllt", "Förderlektionen",
                            "Springstunden"]):
         spalten[i].metric(k, kz[k])
-    tabs = st.tabs(["🗺️ Karte", "🏫 Klassen", "👧 Lernende", "✋ Anpassen", "🗓️ Stundenpläne",
-                    "🤝 Wünsche & KG-Gruppen", "💡 Empfehlungen", "⚠️ Meldungen", "⬇️ Herunterladen"])
+    tabs = st.tabs([":material/map: Karte", ":material/groups: Klassen", ":material/person_search: Lernende",
+                    ":material/swap_horiz: Anpassen", ":material/calendar_month: Stundenpläne",
+                    ":material/favorite: Wünsche", ":material/lightbulb: Empfehlungen",
+                    ":material/visibility: Transparenz", ":material/list: Meldungen", ":material/download: Herunterladen"])
     e = r.einteilung
-    with tabs[7]:
+    with tabs[8]:
         filt = st.multiselect("Anzeigen", SCHWEREGRADE, default=["Fehler", "Warnung"])
-        df = pd.DataFrame([{"": ICON[m.schwere], "Schweregrad": m.schwere, "Bereich": m.bereich, "Meldung": m.text,
+        df = pd.DataFrame([{"Schweregrad": m.schwere, "Bereich": m.bereich, "Meldung": m.text,
                             "Quelle": m.quelle} for m in sorted(r.meldungen, key=lambda m: SCHWEREGRADE.index(m.schwere))
                            if m.schwere in filt])
         st.dataframe(df, width="stretch", hide_index=True, height=420)
@@ -473,7 +550,7 @@ def seite_ergebnis() -> None:
             if st.button("Angepassten Stand im Verlauf speichern"):
                 cfg, _ = _aktuelle_daten()
                 verlauf.speichere(r, cfg, "manuell angepasst")
-                st.toast("Gespeichert 🕘")
+                st.toast("Im Verlauf gespeichert", icon=":material/history:")
     with tabs[4]:
         if not r.lektionen:
             st.info("Kein Stundenplan berechnet.")
@@ -501,7 +578,13 @@ def seite_ergebnis() -> None:
         _html(_wuensche_html(r), 560)
     with tabs[6]:
         _html(_empfehlungen_html(r) or "<p>Keine Empfehlungen.</p>", 720)
-    with tabs[8]:
+    with tabs[7]:
+        rg = [x for x in regeln(r) if x["geprueft"]]
+        ok = sum(not x["verstoesse"] for x in rg)
+        (st.success if ok == len(rg) else st.error)(f"{ok} von {len(rg)} harten Regeln erfüllt – unabhängig "
+                                                    "nachgezählt.", icon=":material/verified:")
+        _html(transparenz_html(r), 1100)
+    with tabs[9]:
         mit_foerder = st.toggle("IF/DaZ/IS in Klassenlisten aufnehmen (besonders schützenswerte Daten)")
         with tempfile.TemporaryDirectory() as tmp:
             ordner = Path(tmp)
@@ -513,23 +596,24 @@ def seite_ergebnis() -> None:
                                "druck.html": "Druckversion (im Browser drucken oder als PDF speichern)",
                                "bericht.html": "Bericht (alles auf einen Blick)"}.items():
                 if (ordner / name).exists():
-                    st.download_button(f"⬇ {text}", (ordner / name).read_bytes(), name, key=f"dl_{name}",
+                    st.download_button(text, (ordner / name).read_bytes(), name, icon=":material/download:", key=f"dl_{name}",
                                        width="stretch")
             zip_puffer = io.BytesIO()
             with zipfile.ZipFile(zip_puffer, "w", zipfile.ZIP_DEFLATED) as z:
                 for f in ordner.iterdir():
                     z.write(f, f.name)
-            st.download_button("⬇ Alles als ZIP (inkl. CSV-Rohdaten)", zip_puffer.getvalue(), "ergebnis.zip",
+            st.download_button("Alles als ZIP (inkl. CSV-Rohdaten)", zip_puffer.getvalue(), "ergebnis.zip",
+                               icon=":material/folder_zip:",
                                width="stretch")
 
 
 def _stand_laden(ordner: Path) -> None:
     _laden(*importiere_stammdaten(ordner / "stammdaten.xlsx"))
-    st.session_state.seite = "1 · Daten"
+    st.session_state.seite = "daten"
 
 
 def seite_verlauf() -> None:
-    st.header("🕘 Verlauf")
+    _kopf("Verlauf", "Gespeicherte Berechnungen vergleichen und wiederherstellen")
     st.caption(f"Jede Berechnung wird mit Eingabedaten und Ergebnis gespeichert in `{verlauf.basis()}`.")
     staende = verlauf.staende()
     if not staende:
@@ -571,10 +655,10 @@ def seite_verlauf() -> None:
     ordner = Path(s["ordner"])
     c1, c2, c3 = st.columns(3)
     if (ordner / "bericht.html").exists():
-        c1.download_button("⬇ Bericht", (ordner / "bericht.html").read_bytes(), "bericht.html", width="stretch")
+        c1.download_button("Bericht", (ordner / "bericht.html").read_bytes(), "bericht.html", icon=":material/description:", width="stretch")
     if (ordner / "klassenlisten.xlsx").exists():
-        c2.download_button("⬇ Klassenlisten", (ordner / "klassenlisten.xlsx").read_bytes(), "klassenlisten.xlsx",
-                           width="stretch")
+        c2.download_button("Klassenlisten", (ordner / "klassenlisten.xlsx").read_bytes(), "klassenlisten.xlsx",
+                           icon=":material/table_view:", width="stretch")
     c3.button("↩ Eingabedaten dieses Standes laden", width="stretch", on_click=_stand_laden, args=(ordner,))
     if s.get("manuell"):
         st.caption("Manuelle Anpassungen: " + "; ".join(s["manuell"]))
@@ -586,14 +670,15 @@ def seite_verlauf() -> None:
 
 
 def seite_hilfe() -> None:
-    st.header("❓ Hilfe")
+    _kopf("Hilfe", "Bedienung, Begriffe und Datenschutz")
     st.markdown("""
 **So gehts**
 
 1. **Daten** – Beispiel oder Vorlage laden, oder eigene Stammdaten (Excel) hochladen. Tipp: Vorlage laden →
    *Stammdaten als Excel speichern* → in Excel ausfüllen → wieder hochladen.
-2. **Prüfen** – zeigt fehlende oder widersprüchliche Angaben (⛔ Fehler, ⚠️ Warnung, ℹ️ Hinweis).
-3. **Berechnen** – Szenario und Rechenzeit wählen, starten. Jede Berechnung landet im 🕘 Verlauf.
+2. **Prüfen** – zeigt fehlende oder widersprüchliche Angaben (:red[:material/cancel:] Fehler,
+   :orange[:material/warning:] Warnung, :gray[:material/info:] Hinweis).
+3. **Berechnen** – Szenario und Rechenzeit wählen, starten. Jede Berechnung landet im Verlauf.
 4. **Ergebnis** – Karte, Klassen, Lernende (Personenkarte mit Geschwistern, Wünschen, Verlauf), manuell anpassen,
    Stundenpläne, Wünsche, Empfehlungen, Downloads.
 
@@ -614,19 +699,22 @@ Nur Kartenkacheln werden von OpenStreetMap geladen. Förderdaten erscheinen in L
 
 
 def main() -> None:
-    st.set_page_config(page_title="Klassenbildung & Stundenplan", page_icon="🏫", layout="wide")
-    st.session_state.setdefault("seite", SEITEN[0])
-    st.sidebar.title("🏫 Klassenbildung")
-    st.sidebar.radio("Navigation", SEITEN, key="seite", label_visibility="collapsed")
+    st.set_page_config(page_title="Klassenbildung & Stundenplan", page_icon=":material/school:", layout="wide")
+    st.html(STIL)
+    st.session_state.setdefault("seite", "start")
+    st.sidebar.html(f"<div class='skf-kopf'>{_logo()}<div><h1>Klassenbildung"
+                    "</h1><p>& Stundenplan</p></div></div>")
+    st.sidebar.radio("Navigation", list(SEITEN), key="seite", label_visibility="collapsed", format_func=SEITEN.get)
     if "tabellen" in st.session_state:
-        st.sidebar.caption(f"📄 {st.session_state.extra['rest'].get('name', '')} · "
+        st.sidebar.caption(f":material/description: {st.session_state.extra['rest'].get('name', '')} · "
                            f"{len(st.session_state.bearbeitet['Kinder'])} Lernende")
     if st.session_state.get("ergebnis"):
         r = st.session_state.ergebnis
-        st.sidebar.caption(f"🧮 Berechnet: {r.schule.szenario} · {'✅' if not r.anzahl('Fehler') else '⛔'} "
+        st.sidebar.caption(f":material/calculate: Berechnet: {r.schule.szenario} · "
+                           f"{':green[:material/check_circle:]' if not r.anzahl('Fehler') else ':red[:material/cancel:]'} "
                            f"{r.anzahl('Fehler')} Fehler")
-    {"🏠 Start": seite_start, "1 · Daten": seite_daten, "2 · Prüfen": seite_pruefen, "3 · Berechnen": seite_berechnen,
-     "4 · Ergebnis": seite_ergebnis, "🕘 Verlauf": seite_verlauf, "❓ Hilfe": seite_hilfe}[st.session_state.seite]()
+    {"start": seite_start, "daten": seite_daten, "pruefen": seite_pruefen, "berechnen": seite_berechnen,
+     "ergebnis": seite_ergebnis, "verlauf": seite_verlauf, "hilfe": seite_hilfe}[st.session_state.seite]()
 
 
 main()

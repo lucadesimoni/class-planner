@@ -23,75 +23,103 @@ ICON = {"Fehler": "⛔", "Warnung": "⚠", "Hinweis": "ℹ"}
 KLASSE = {"Fehler": "sev-f", "Warnung": "sev-w", "Hinweis": "sev-h"}
 
 CSS = """
+/* Design-System angelehnt an genealogy-store (packages/web/src/index.css): helle Fläche, weisse Karten,
+   feine Rahmen, Akzent Wandtafelgrün (#2f5d50 – bewusst keine Datenfarbe), 4-px-Raster, ruhige Schatten. */
 :root { color-scheme: light;
-  --bg:#f9f9f7; --surface:#fcfcfb; --fg:#0b0b0b; --fg2:#52514e; --muted:#898781; --grid:#e1e0d9; --base:#c3c2b7;
-  --ring:rgba(11,11,11,.10); --belegt:#b7d3f6; --belegt-fg:#0d366b; --bar:#2a78d6; --band:#e1e0d9;
+  --bg:#f6f7fb; --surface:#ffffff; --surface-hover:#f1f2f8; --fg:#14171f; --fg2:#676e7d; --muted:#9ba1af;
+  --grid:#e4e7ee; --base:#cdd2dd; --ring:#e4e7ee;
+  --accent:#2f5d50; --accent-soft:#e8f0ed; --chart:#3d7a69;
+  --belegt:#e8f0ed; --belegt-fg:#244a40; --bar:#3d7a69; --band:#e4e7ee;
   --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --s6:#008300; --s7:#6250d6; --s8:#e34948;
-  --crit:#d03b3b; --warn:#fab219; --good:#0ca30c; --good-text:#006300; --info:#52514e; }
-@media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) { color-scheme: dark;
-  --bg:#0d0d0d; --surface:#1a1a19; --fg:#f0efec; --fg2:#c3c2b7; --muted:#898781; --grid:#2c2c2a; --base:#383835;
-  --ring:rgba(255,255,255,.10); --belegt:#184f95; --belegt-fg:#e6effb; --bar:#3987e5; --band:#383835;
-  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
-  --good-text:#0ca30c; --info:#c3c2b7; } }
-:root[data-theme="dark"] { color-scheme: dark;
-  --bg:#0d0d0d; --surface:#1a1a19; --fg:#f0efec; --fg2:#c3c2b7; --muted:#898781; --grid:#2c2c2a; --base:#383835;
-  --ring:rgba(255,255,255,.10); --belegt:#184f95; --belegt-fg:#e6effb; --bar:#3987e5; --band:#383835;
-  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
-  --good-text:#0ca30c; --info:#c3c2b7; }
+  --crit:#c02b3c; --crit-bg:#fbeaec; --crit-border:#eec3c9; --warn:#b4690e; --warn-bg:#fdf3e3; --warn-border:#f3d9ab;
+  --good:#1a8a4c; --good-bg:#eafaf1; --good-text:#1a8a4c; --info:#676e7d;
+  --shadow-xs:0 1px 2px rgba(20,23,31,.05); --shadow-sm:0 2px 6px rgba(20,23,31,.07);
+  --radius-sm:8px; --radius-md:12px; --radius-pill:999px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
 * { box-sizing:border-box }
-body { background:var(--bg); color:var(--fg); font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;
-  margin:0 auto; max-width:1180px; padding:16px; }
-a { color:var(--s1) } h1 { margin:.2em 0; font-size:1.6em } .sub { color:var(--fg2); margin:0 0 12px }
-h2 { margin:2em 0 .6em; font-size:1.2em; border-bottom:1px solid var(--grid); padding-bottom:.25em }
+body { background:var(--bg); color:var(--fg); font:13px/1.45 var(--font); margin:0 auto; max-width:1200px;
+  padding:28px 24px 48px; -webkit-font-smoothing:antialiased }
+a { color:var(--accent) } a:hover { text-decoration:none }
+.app-header { display:flex; align-items:center; gap:12px; margin-bottom:16px }
+.logo { width:40px; height:40px; border-radius:10px; background:var(--accent); color:#fff; display:grid;
+  place-items:center; box-shadow:var(--shadow-sm); flex:none }
+.app-header h1 { font-size:21px; font-weight:700; letter-spacing:-.01em; margin:0; line-height:1.2 }
+.sub { color:var(--fg2); margin:2px 0 0; font-size:13px }
+h2 { font-size:13px; margin:0 } h3 { font-size:14px; margin:0 0 6px }
 .muted { color:var(--muted) } .fg2 { color:var(--fg2) }
-.karte-box, .kachel, table, .banner, .panel { background:var(--surface); border:1px solid var(--ring); border-radius:8px }
-.kacheln { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:8px }
-.kachel { padding:10px 12px } .kachel b { font-size:1.45em; display:block; font-weight:600 }
-.kachel span { color:var(--fg2); font-size:.9em }
-.banner { padding:10px 14px; margin:12px 0; display:flex; gap:10px; align-items:center; border-left:6px solid var(--good) }
-.banner.f { border-left-color:var(--crit) } .banner.w { border-left-color:var(--warn) }
-table { border-collapse:separate; border-spacing:0; width:100%; overflow:hidden }
-td, th { border-bottom:1px solid var(--grid); padding:5px 8px; text-align:left; vertical-align:top }
-th { color:var(--fg2); font-weight:600; font-size:.9em } tr:last-child td { border-bottom:0 }
+.icon { width:18px; height:18px; flex:none; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round;
+  stroke-linejoin:round }
+.section-card { background:var(--surface); border:1px solid var(--ring); border-radius:var(--radius-md);
+  box-shadow:var(--shadow-xs); margin:12px 0; overflow:clip }
+.section-card > summary { list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between;
+  gap:12px; padding:12px 14px; font-size:13px }
+.section-card > summary::-webkit-details-marker { display:none }
+.section-card > summary:hover { background:var(--surface-hover) }
+.section-title { display:inline-flex; align-items:center; gap:8px; min-width:0 } .section-title .icon { color:var(--accent) }
+.section-title b { font-weight:600 }
+.chevron { color:var(--fg2); transition:transform .16s ease } .section-card[open] > summary .chevron { transform:rotate(180deg) }
+.section-body { padding:12px 14px 16px; border-top:1px solid var(--ring) }
+.karte-box, .kachel, .banner, .panel { background:var(--surface); border:1px solid var(--ring); border-radius:var(--radius-md);
+  box-shadow:var(--shadow-xs) }
+.kacheln { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:8px; margin:12px 0 }
+.kachel { padding:12px 14px } .kachel b { font-size:24px; display:block; font-weight:600; letter-spacing:-.01em }
+.kachel span { color:var(--fg2); font-size:12px; overflow-wrap:anywhere }
+.banner { padding:10px 14px; margin:0 0 4px; display:flex; gap:10px; align-items:center }
+.banner.ok { background:var(--good-bg); border-color:#bfe6cf; color:#14532d }
+.banner.w { background:var(--warn-bg); border-color:var(--warn-border); color:#6b3d06 }
+.banner.f { background:var(--crit-bg); border-color:var(--crit-border); color:#7a1522 }
+table { border-collapse:separate; border-spacing:0; width:100%; background:var(--surface); border:1px solid var(--ring);
+  border-radius:var(--radius-sm); overflow:hidden }
+td, th { border-bottom:1px solid var(--grid); padding:6px 9px; text-align:left; vertical-align:top }
+th { color:var(--fg2); font-weight:600; font-size:12px; background:#fafbfd } tr:last-child td { border-bottom:0 }
 td.num, th.num { text-align:right; font-variant-numeric:tabular-nums }
-.scroll { overflow-x:auto } details { margin:.35em 0 } summary { cursor:pointer; font-weight:600; padding:4px 0 }
-.badge { display:inline-flex; gap:4px; align-items:center; border-radius:999px; padding:1px 8px; font-size:.82em;
-  font-weight:600; border:1px solid var(--ring); white-space:nowrap }
-.sev-f { color:#fff; background:var(--crit) } .sev-w { color:#0b0b0b; background:var(--warn) }
-.sev-h { color:var(--info); background:transparent }
-.filter { display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:6px 0 }
-.filter button { font:inherit; cursor:pointer; border-radius:999px; padding:3px 12px; border:1px solid var(--base);
+.scroll { overflow-x:auto } details:not(.section-card) { margin:6px 0 }
+details:not(.section-card) > summary { cursor:pointer; font-weight:600; padding:4px 0 }
+.badge { display:inline-flex; gap:4px; align-items:center; border-radius:var(--radius-pill); padding:1px 8px;
+  font-size:11px; font-weight:600; border:1px solid transparent; white-space:nowrap }
+.sev-f { color:var(--crit); background:var(--crit-bg); border-color:var(--crit-border) }
+.sev-w { color:var(--warn); background:var(--warn-bg); border-color:var(--warn-border) }
+.sev-h { color:var(--info); background:#f1f2f8; border-color:var(--ring) }
+.ok-badge { color:var(--good); background:var(--good-bg); border-color:#bfe6cf }
+.filter { display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:0 0 8px }
+.filter button { font:inherit; cursor:pointer; border-radius:var(--radius-pill); padding:3px 10px; border:1px solid var(--base);
   background:var(--surface); color:var(--fg) }
 .filter button[aria-pressed="false"] { opacity:.45; text-decoration:line-through }
-.filter input { font:inherit; padding:3px 8px; border-radius:6px; border:1px solid var(--base); background:var(--surface);
-  color:var(--fg); min-width:200px; flex:1 }
+.filter input { font:inherit; padding:6px 10px; border-radius:var(--radius-sm); border:1px solid var(--base);
+  background:var(--surface); color:var(--fg); min-width:200px; flex:1 }
 .meldungen { max-height:420px; overflow:auto }
 .plan td { font-size:12px; min-width:92px; height:46px; border-right:1px solid var(--grid) }
 .plan th { font-size:12px } .plan td:last-child { border-right:0 }
-.plan td.leer { background:transparent }
 .plan td.zu, .heat td.zu { background:repeating-linear-gradient(45deg, transparent 0 5px, var(--grid) 5px 7px); color:var(--muted) }
 .plan td.mark-f { box-shadow:inset 0 0 0 2px var(--crit) } .plan td.mark-w { box-shadow:inset 0 0 0 2px var(--warn) }
 .plan td.mark-h { box-shadow:inset 0 0 0 2px var(--base) }
-.plan .spring { color:var(--muted); font-style:italic } .plan .foerder { color:var(--fg2); font-style:italic }
+.plan .spring { color:var(--muted); font-style:italic } .plan .foerder { color:var(--accent); font-style:italic }
 .heat { font-size:11px } .heat td, .heat th { padding:2px 3px; border-right:1px solid var(--grid); text-align:center;
   white-space:nowrap } .heat th.raum { text-align:left }
 .heat td.b { background:var(--belegt); color:var(--belegt-fg) } .heat .tag { border-left:2px solid var(--base) }
-.bar-row { display:grid; grid-template-columns:minmax(120px,220px) 1fr 70px; gap:8px; align-items:center; padding:2px 0 }
+.bar-row { display:grid; grid-template-columns:minmax(140px,250px) 1fr minmax(90px,max-content); gap:10px; align-items:center;
+  padding:3px 0 } .bar-row .num { white-space:nowrap; text-align:right }
 .bar-row .name { white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
 .bar-track { position:relative; height:14px }
 .bar-band { position:absolute; top:3px; height:8px; background:var(--band); border-radius:4px }
 .bar { position:absolute; top:2px; height:10px; background:var(--bar); border-radius:0 4px 4px 0 }
 .bar-tick { position:absolute; top:-2px; width:2px; height:18px; background:var(--fg2) }
-.legende { display:flex; gap:14px; flex-wrap:wrap; font-size:.9em; color:var(--fg2); margin:6px 0 }
+.legende { display:flex; gap:14px; flex-wrap:wrap; font-size:12px; color:var(--fg2); margin:6px 0 }
 .legende i { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:5px; vertical-align:-1px }
 .karte { width:100%; max-width:720px; display:block } .lbl { fill:var(--fg); font-size:12px; font-weight:600 }
-.osm { height:460px; border-radius:8px; border:1px solid var(--ring) }
+.osm { height:480px; border-radius:var(--radius-sm); border:1px solid var(--ring) }
 .karten { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:10px }
-.karten .panel { padding:10px 12px } .karten h3 { margin:.1em 0 .3em; font-size:1em }
+.karten .panel { padding:12px 14px } .karten h3 { margin:.1em 0 .3em; font-size:14px }
 .dringlich { border-left:4px solid var(--crit) } .rein { border-left:4px solid var(--base) }
-.pos { color:var(--good-text) } .neg { color:var(--crit); font-weight:600 }
+.pos { color:var(--good) } .neg { color:var(--crit); font-weight:600 }
 .groesse { display:inline-block; height:8px; background:var(--bar); border-radius:0 4px 4px 0; vertical-align:middle;
   margin-right:6px }
+.checks { list-style:none; margin:0; padding:0; display:grid; gap:4px }
+.checks li { display:flex; gap:8px; align-items:flex-start; padding:6px 8px; border-radius:var(--radius-sm) }
+.checks li.ok .icon { color:var(--good) } .checks li.x { background:var(--crit-bg) } .checks li.x .icon { color:var(--crit) }
+.checks li.n .icon { color:var(--muted) } .checks small { display:block; color:var(--fg2) }
+.zwei { display:grid; grid-template-columns:repeat(auto-fit,minmax(360px,1fr)); gap:16px }
+.erklaerung { color:var(--fg2); font-size:12px; margin:0 0 10px }
 """
 
 JS = """
@@ -109,6 +137,53 @@ document.querySelectorAll('button[data-sev]').forEach(b => b.addEventListener('c
 }));
 document.getElementById('suche')?.addEventListener('input', filtern);
 """
+
+
+# Linien-Icons im Stil von Feather (MIT-Lizenz), 24er-Raster
+_ICON_PFADE = {
+    "info": '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>',
+    "schule": '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>',
+    "karte": '<polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/>'
+             '<line x1="16" y1="6" x2="16" y2="22"/>',
+    "personen": '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>'
+                '<path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    "kalender": '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>'
+                '<line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+    "warnung": '<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>'
+               '<line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+    "ok": '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
+    "x": '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>',
+    "minus": '<circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/>',
+    "balken": '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>'
+              '<line x1="6" y1="20" x2="6" y2="14"/>',
+    "herz": '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23'
+            'l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>',
+    "buch": '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+    "auge": '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
+    "regler": '<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/>'
+              '<line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/>'
+              '<line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>',
+    "raum": '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/>'
+            '<line x1="9" y1="21" x2="9" y2="9"/>',
+    "birne": '<path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.74V16h8v-1.26A7 7 0 0 0 12 2z"/>',
+    "liste": '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>'
+             '<line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',
+    "pfeil": '<polyline points="6 9 12 15 18 9"/>',
+}
+
+
+def icon(name: str, klasse: str = "icon") -> str:
+    return f"<svg class='{klasse}' viewBox='0 0 24 24' aria-hidden='true'>{_ICON_PFADE[name]}</svg>"
+
+
+def abschnitt(titel: str, inhalt: str, symbol: str, zusatz: str = "", offen: bool = False, anker: str = "",
+              status: str = "") -> str:
+    """Aufklappbare Abschnittskarte (wie section-card in genealogy-store)."""
+    return (f"<details class='section-card'{' open' if offen else ''}{f' id={chr(39)}{anker}{chr(39)}' if anker else ''}>"
+            f"<summary><span class='section-title'>{icon(symbol)}<span><b>{esc(titel)}</b>"
+            f"{f' <span class=muted>({esc(zusatz)})</span>' if zusatz else ''}</span></span>"
+            f"<span class='section-title'>{status}{icon('pfeil', 'icon chevron')}</span></summary>"
+            f"<div class='section-body'>{inhalt}</div></details>")
 
 
 def schreibe_csv(ordner: Path, r: Ergebnis) -> None:
@@ -455,8 +530,7 @@ def _empfehlungen_html(r: Ergebnis) -> str:
     def differenz(v):
         return f"<span class='{'neg' if v < 0 else 'pos'}'>{v:+d}</span>"
     prognose = [z for z in p.prognose]
-    return ("<h2 id='empfehlungen'>Empfehlungen: Lehrpersonen, Verfügbarkeit, Räume, Ausbau</h2>"
-            f"<div class='karten'>{karten}</div>"
+    return (f"<div class='karten'>{karten}</div>"
             "<details><summary>Pensenbilanz pro Schulhaus und Fach</summary>"
             + tabelle(p.pensenbilanz, ["Schulhaus", "Fach", "Bedarf (L)", "Lehrpersonen", "freie Pensen (L)"])
             + "</details><details><summary>Raumauslastung</summary>"
@@ -551,11 +625,51 @@ def _rechtsgrundlagen(r: Ergebnis) -> str:
         f"<td>{esc(q.get('erlass', ''))}</td><td class='num'>{genutzt[k] or ''}</td>"
         f"<td><a href='{esc(q.get('url', '#'))}' target='_blank' rel='noopener'>Link</a></td></tr>"
         for k, q in quellen.items())
-    return (f"<h2>Rechtsgrundlagen und Richtlinien</h2><p class='fg2'>{esc(profil.get('name', ''))} · "
+    return (f"<p class='fg2'>{esc(profil.get('name', ''))} · "
             f"{esc(profil.get('stand', ''))} · Klassengrössen "
             f"{'verbindlich angewendet' if profil.get('verbindlich') else 'geprüft (nicht erzwungen)'}</p>"
             "<div class='scroll'><table><tr><th>Kürzel</th><th>Inhalt</th><th>Erlass</th><th class='num'>Meldungen</th>"
             f"<th></th></tr>{zeilen}</table></div>")
+
+
+def transparenz_html(r: Ergebnis) -> str:
+    """Regel-Checkliste, Abwägungen (Strafpunkte je Kriterium) und Lösungsgüte."""
+    from .transparenz import guete, kriterien, regeln
+    teile = ["<div class='zwei'><div><h3>Harte Regeln – immer einzuhalten</h3>"
+             "<p class='erklaerung'>Jede Regel wird nach der Berechnung unabhängig nachgezählt.</p><ul class='checks'>"]
+    for x in regeln(r):
+        if not x["geprueft"]:
+            art, sym, info = "n", "minus", "nicht geprüft (Schritt nicht berechnet)"
+        elif x["verstoesse"]:
+            art, sym, info = "x", "x", f"{x['verstoesse']} Verstösse: " + "; ".join(x["beispiele"])
+        else:
+            art, sym, info = "ok", "ok", "erfüllt"
+        teile.append(f"<li class='{art}'>{icon(sym)}<span>{esc(x['regel'])}<small>{esc(x['bereich'])} · "
+                     f"{esc(info)}</small></span></li>")
+    teile.append("</ul></div><div><h3>Abwägungen – was der Optimierer gegeneinander abgewogen hat</h3>"
+                 "<p class='erklaerung'>Jedes weiche Ziel kostet Strafpunkte = Messwert × Gewicht. Gesucht ist die "
+                 "Lösung mit der kleinsten Summe. Ein höheres Gewicht (Einstellungen) macht ein Ziel wichtiger.</p>")
+    krit = [k for k in kriterien(r) if k["gewicht"]]
+    gesamt = sum(max(0, k["strafpunkte"]) for k in krit) or 1
+    for bereich in dict.fromkeys(k["bereich"] for k in krit):
+        teile.append(f"<p class='fg2'><b>{esc(bereich)}</b></p>")
+        for k in sorted((k for k in krit if k["bereich"] == bereich), key=lambda k: -k["strafpunkte"]):
+            anteil = 100 * max(0, k["strafpunkte"]) / gesamt
+            teile.append(f"<div class='bar-row' title='{esc(k['kriterium'])}: {esc(k['wert'])} × Gewicht {k['gewicht']} "
+                         f"= {k['strafpunkte']} Punkte'><span class='name'>{esc(k['kriterium'])}</span>"
+                         f"<span class='bar-track'><span class='bar' style='left:0;width:{anteil:.1f}%'></span></span>"
+                         f"<span class='num fg2'>{esc(k['wert'])}</span></div>")
+    teile.append("<p class='erklaerung'>Balkenlänge = Anteil an allen Strafpunkten. Details beim Überfahren.</p>"
+                 "<h3>Lösungsgüte</h3>")
+    for g in guete(r):
+        teile.append(f"<div class='bar-row'><span class='name'>{esc(g['schritt'])}</span><span class='bar-track'>"
+                     f"<span class='bar-band' style='left:0;width:100%'></span><span class='bar' "
+                     f"style='left:0;width:{g['mindestens']}%'></span></span><span class='num fg2'>"
+                     f"{'optimal' if g['status'] == 'beweisbar optimal' else '≥ ' + format(g['mindestens'], '.0f') + '%'}"
+                     f"</span></div>")
+    teile.append("<p class='erklaerung'>„optimal“ = mathematisch bewiesen bestmöglich. „≥ x %“ = höchstens (100−x) % "
+                 "vom Optimum entfernt; mehr Rechenzeit verkleinert die Lücke.</p></div></div>")
+    return "".join(teile)
 
 
 def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
@@ -565,30 +679,37 @@ def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
     for m in r.meldungen:
         if m.bezug:
             meldungen_von[m.bezug].append(m)
-    nf = r.anzahl("Fehler")
+    nf, nw = r.anzahl("Fehler"), r.anzahl("Warnung")
     if nf:
-        banner = (f"<div class='banner f'><span class='badge sev-f'>⛔ Fehler</span><span>{nf} Fehler – das Ergebnis ist "
-                  "so nicht verwendbar. Details unter <a href='#meldungen'>Meldungen</a>.</span></div>")
-    elif r.anzahl("Warnung"):
-        banner = (f"<div class='banner w'><span class='badge sev-w'>⚠ Warnung</span><span>Alle harten Regeln erfüllt, "
-                  f"aber {r.anzahl('Warnung')} Warnungen prüfen.</span></div>")
+        banner = (f"<div class='banner f'>{icon('x')}<span><b>{nf} Fehler</b> – das Ergebnis ist so nicht verwendbar. "
+                  "Details unter <a href='#meldungen'>Meldungen</a>.</span></div>")
+    elif nw:
+        banner = (f"<div class='banner w'>{icon('warnung')}<span><b>Alle harten Regeln erfüllt.</b> {nw} Warnungen "
+                  "bitte prüfen.</span></div>")
     else:
-        banner = ("<div class='banner'><span class='badge' style='color:var(--good-text)'>✓ OK</span>"
-                  "<span>Alle harten Regeln erfüllt.</span></div>")
+        banner = f"<div class='banner ok'>{icon('ok')}<span><b>Alle harten Regeln erfüllt.</b></span></div>"
 
     teile = [f"""<!doctype html><html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(schule.name)} – {esc(schule.szenario)}</title><style>{CSS}</style></head><body>
-<h1>{esc(schule.name)}</h1>
-<p class="sub">Szenario <b>{esc(schule.szenario)}</b> · {len(r.kinder)} Lernende · {len(schule.schulhaeuser)} Schulhäuser ·
-{len(schule.lehrpersonen)} Lehrpersonen{f' · <a href="{vergleich_link}">Szenarienvergleich</a>' if vergleich_link else ''}</p>
+<header class="app-header"><div class="logo">{icon('schule')}</div><div><h1>{esc(schule.name)}</h1>
+<p class="sub">Klassenbildung & Stundenplan · Szenario <b>{esc(schule.szenario)}</b>{' · ' + esc(schule.schuljahr) if schule.schuljahr else ''}
+ · {len(r.kinder)} Lernende · {len(schule.schulhaeuser)} Schulhäuser · {len(schule.lehrpersonen)} Lehrpersonen
+{f' · <a href="{vergleich_link}">Szenarienvergleich</a>' if vergleich_link else ''}</p></div></header>
 {banner}<div class="kacheln">"""]
     teile += [f"<div class='kachel'><b>{esc(v)}</b><span>{esc(k)}</span></div>" for k, v in r.kennzahlen().items()]
     teile.append("</div>")
 
-    # Meldungen
+    from .transparenz import regeln
+    rg = [x for x in regeln(r) if x["geprueft"]]
+    ok = sum(1 for x in rg if not x["verstoesse"])
+    status = (f"<span class='badge {'ok-badge' if ok == len(rg) else 'sev-f'}'>{ok} von {len(rg)} Regeln erfüllt</span>"
+              if rg else "")
+    teile.append(abschnitt("Transparenz", transparenz_html(r), "auge", "Regeln, Abwägungen, Lösungsgüte",
+                           offen=True, status=status))
+
     zaehler = Counter(m.schwere for m in r.meldungen)
-    teile.append("<h2 id='meldungen'>Meldungen</h2><div class='filter'>" + "".join(
+    filt = ("<div class='filter'>" + "".join(
         f"<button data-sev='{s}' aria-pressed='true'><span class='badge {KLASSE[s]}'>{ICON[s]} {s}</span> "
         f"{zaehler[s]}</button>" for s in SCHWEREGRADE) +
         "<input id='suche' type='search' placeholder='Meldungen durchsuchen …'></div>")
@@ -598,49 +719,59 @@ def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
             f"</span></td><td class='fg2'>{esc(m.bereich)}</td><td>{esc(m.text)}</td><td>{_quelle_link(schule, m.quelle)}"
             "</td></tr>"
             for m in sorted(r.meldungen, key=lambda m: (SCHWEREGRADE.index(m.schwere), m.bereich)))
-        teile.append(f"<div class='meldungen panel'><table><tr><th>Schweregrad</th><th>Bereich</th><th>Meldung</th><th>Quelle</th>"
-                     f"</tr>{zeilen}</table></div>")
+        liste = (f"<div class='meldungen'><table><tr><th>Schweregrad</th><th>Bereich</th><th>Meldung</th><th>Quelle</th>"
+                 f"</tr>{zeilen}</table></div>")
     else:
-        teile.append("<p class='muted'>Keine Meldungen.</p>")
-
-    teile.append("<h2>Solver</h2><ul>" + "".join(f"<li>{esc(str(i))}</li>" for i in r.infos) + "</ul>")
-    teile.append(_rechtsgrundlagen(r))
+        liste = "<p class='muted'>Keine Meldungen.</p>"
+    status_m = "".join(f"<span class='badge {KLASSE[s]}'>{ICON[s]} {zaehler[s]}</span>" for s in SCHWEREGRADE
+                       if zaehler[s])
+    teile.append(abschnitt("Meldungen", filt + liste, "liste", f"{len(r.meldungen)}", offen=bool(nf), anker="meldungen",
+                           status=status_m))
     if not e:
+        teile.append(abschnitt("Rechtsgrundlagen und Richtlinien", _rechtsgrundlagen(r), "buch"))
         teile.append(f"<script>{JS}</script></body></html>")
         pfad.write_text("".join(teile), encoding="utf-8")
         return
 
-    teile.append("<h2>Wohnorte und Schulhäuser</h2>" + _osm_karte(r))
-    teile.append("<h2 id='wuensche'>Wünsche der Erziehungsberechtigten und Kindergartengruppen</h2>" + _wuensche_html(r))
-    teile.append(_empfehlungen_html(r))
+    teile.append(abschnitt("Karte: Wohnorte, Klassen, Geschwister", _osm_karte(r), "karte",
+                           f"{len(r.kinder)} Lernende, {len(e.klassen)} Klassen", offen=True))
+    teile.append(abschnitt("Wünsche der Erziehungsberechtigten und Kindergartengruppen", _wuensche_html(r), "herz",
+                           r.kennzahlen().get("Wünsche erfüllt", "") + " Wünsche erfüllt", anker="wuensche"))
+    emp = _empfehlungen_html(r)
+    if emp:
+        dringend = sum(x.dringlich for x in r.planung.empfehlungen)
+        teile.append(abschnitt("Empfehlungen: Lehrpersonen, Verfügbarkeit, Räume, Ausbau", emp, "birne",
+                               f"{len(r.planung.empfehlungen)} Empfehlungen",
+                               status=f"<span class='badge sev-w'>{dringend} dringlich</span>" if dringend else ""))
 
     lp_pro_klasse = defaultdict(lambda: defaultdict(int))
     for b in r.bloecke:
         lp_pro_klasse[b.klasse][b.lehrperson] += b.lektionen
     groesst = max((c.groesse for c in e.klassen), default=1)
-    teile.append("<h2>Klassen</h2><div class='scroll'><table><tr><th>Klasse</th><th>Schulhaus</th><th>Raum</th>"
-                 "<th>Lernende</th><th class='num'>♀/♂</th><th class='num' title='Integrative Förderung / Deutsch als Zweitsprache / "
-                 "Integrative Sonderschulung'>IF/DaZ/IS</th><th class='num'>Ø Weg</th>"
-                 "<th>Lehrpersonen (Lektionen)</th><th>Meldungen</th></tr>")
+    k_teile = ["<div class='scroll'><table><tr><th>Klasse</th><th>Schulhaus</th><th>Raum</th>"
+               "<th>Lernende</th><th class='num'>♀/♂</th><th class='num' title='Integrative Förderung / Deutsch als "
+               "Zweitsprache / Integrative Sonderschulung'>IF/DaZ/IS</th><th class='num'>Ø Weg</th>"
+               "<th>Lehrpersonen (Lektionen)</th><th>Meldungen</th></tr>"]
     for c in e.klassen:
         ks = [nach_id[i] for i in c.kinder]
         weg = sum(e.schulweg_m[i] for i in c.kinder) / max(1, len(ks)) / 1000
         lps = ", ".join(f"{esc(n)} ({l})" for n, l in sorted(lp_pro_klasse[c.name].items(), key=lambda t: -t[1]))
-        teile.append(
-            f"<tr><td>{esc(c.name)}</td><td>{esc(c.schulhaus)}</td><td>{esc(c.raum.name)}</td>"
+        k_teile.append(
+            f"<tr><td><b>{esc(c.name)}</b></td><td>{esc(c.schulhaus)}</td><td>{esc(c.raum.name)}</td>"
             f"<td title='{len(ks)} von max. {min(c.vorlage.max, c.raum.plaetze)}'><span class='groesse' "
             f"style='width:{60 * len(ks) / groesst:.0f}px'></span>{len(ks)}</td>"
             f"<td class='num'>{sum(k.geschlecht == 'w' for k in ks)}/{sum(k.geschlecht == 'm' for k in ks)}</td>"
             f"<td class='num'>{sum(k.if_ for k in ks)}/{sum(bool(k.daz) for k in ks)}/{sum(k.is_ for k in ks)}</td>"
             f"<td class='num'>{weg:.2f} km</td>"
             f"<td>{lps}</td><td>{_badges(meldungen_von.get(c.name, []))}</td></tr>")
-    teile.append("</table></div>")
+    k_teile.append("</table></div>")
+    teile.append(abschnitt("Klassen", "".join(k_teile), "personen", f"{len(e.klassen)} Klassen", offen=True))
 
     if r.lektionen:
-        teile.append("<h2>Auslastung der Lehrpersonen</h2>" + _auslastung(r, meldungen_von))
-        teile.append("<h2>Raumbelegung</h2>" + _raumbelegung(r))
-
-        teile.append("<h2>Stundenpläne der Klassen</h2>")
+        teile.append(abschnitt("Auslastung der Lehrpersonen", _auslastung(r, meldungen_von), "balken",
+                               f"{len({b.lehrperson for b in r.bloecke})} im Einsatz"))
+        teile.append(abschnitt("Raumbelegung", _raumbelegung(r), "raum"))
+        pl = []
         for c in e.klassen:
             eintr = defaultdict(str)
             for l in sorted(r.lektionen, key=lambda l: l.art != "unterricht"):
@@ -648,37 +779,38 @@ def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
                     eintr[l.slot] += (f"<b>{esc(l.fach)}</b><br>{esc(l.lehrperson)}<br><span class='muted'>"
                                       f"{esc(l.raum_label)}</span>" if l.art == "unterricht" else
                                       f"<br><span class='foerder'>+ {esc(l.fach)}: {esc(l.lehrperson)}</span>")
-            eintr = dict(eintr)
             zu = schule.schulhaus(c.schulhaus).nicht_verfuegbar | c.raum.nicht_verfuegbar
             marken = defaultdict(list)
             for m in meldungen_von.get(c.name, []):
                 if m.slot is not None:
                     marken[m.slot].append(m)
             namen = ", ".join(esc(nach_id[i].name or i) for i in sorted(c.kinder))
-            teile.append(f"<details><summary>{esc(c.name)} – {esc(c.schulhaus)}, {len(c.kinder)} Lernende "
-                         f"{_badges(meldungen_von.get(c.name, []))}</summary>"
-                         f"<div class='scroll'>{_plan(r, eintr, zu, marken)}</div>"
-                         f"<p class='muted'>{namen}</p></details>")
-
-        teile.append("<h2>Stundenpläne der Lehrpersonen</h2>")
+            pl.append(f"<details><summary>{esc(c.name)} – {esc(c.schulhaus)}, {len(c.kinder)} Lernende "
+                      f"{_badges(meldungen_von.get(c.name, []))}</summary>"
+                      f"<div class='scroll'>{_plan(r, dict(eintr), zu, marken)}</div>"
+                      f"<p class='muted'>{namen}</p></details>")
+        teile.append(abschnitt("Stundenpläne der Klassen", "".join(pl), "kalender", f"{len(e.klassen)}"))
         pensum = Counter()
         for b in r.bloecke:
             pensum[b.lehrperson] += b.lektionen
+        pl = []
         for lp in schule.lehrpersonen:
             if lp.name not in pensum:
-                teile.append(f"<p class='muted'>{esc(lp.name)}: nicht eingesetzt "
-                             f"{_badges(meldungen_von.get(lp.name, []))}</p>")
+                pl.append(f"<p class='muted'>{esc(lp.name)}: nicht eingesetzt {_badges(meldungen_von.get(lp.name, []))}</p>")
                 continue
-            eintr = {l.slot: f"<b>{esc('/'.join(l.klassen))}</b><br>{esc(l.fach)}<br><span class='muted'>{esc(l.raum_label)}</span>"
-                     for l in r.lektionen if l.lehrperson == lp.name}
+            eintr = {l.slot: f"<b>{esc('/'.join(l.klassen))}</b><br>{esc(l.fach)}<br><span class='muted'>"
+                             f"{esc(l.raum_label)}</span>" for l in r.lektionen if l.lehrperson == lp.name}
             marken = defaultdict(list)
             for m in meldungen_von.get(lp.name, []):
                 if m.slot is not None:
                     marken[m.slot].append(m)
             extra = {i: "<span class='spring'>Springstunde</span>" for i in springstunden(schule, r.lektionen, lp.name)}
-            teile.append(f"<details><summary>{esc(lp.name)} – {pensum[lp.name]} Lektionen "
-                         f"(Pensum {lp.pensum_min}–{lp.pensum_max}) {_badges(meldungen_von.get(lp.name, []))}</summary>"
-                         f"<div class='scroll'>{_plan(r, eintr, lp.nicht_verfuegbar, marken, extra)}</div></details>")
+            pl.append(f"<details><summary>{esc(lp.name)} – {pensum[lp.name]} Lektionen "
+                      f"(Pensum {lp.pensum_min}–{lp.pensum_max}) {_badges(meldungen_von.get(lp.name, []))}</summary>"
+                      f"<div class='scroll'>{_plan(r, eintr, lp.nicht_verfuegbar, marken, extra)}</div></details>")
+        teile.append(abschnitt("Stundenpläne der Lehrpersonen", "".join(pl), "kalender", f"{len(pensum)}"))
+    teile.append(abschnitt("Rechtsgrundlagen und Richtlinien", _rechtsgrundlagen(r), "buch",
+                           (schule.profil or {}).get("name", "")))
     teile.append(f"<script>{JS}</script></body></html>")
     pfad.write_text("".join(teile), encoding="utf-8")
 

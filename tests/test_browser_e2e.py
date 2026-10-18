@@ -44,7 +44,7 @@ def app_url(tmp_path_factory):
 
 
 def _navigiere(seite, ziel):
-    seite.locator("section[data-testid='stSidebar']").get_by_text(ziel, exact=True).click()
+    seite.locator("section[data-testid='stSidebar'] label").filter(has_text=ziel).click()
     time.sleep(1.5)
 
 
@@ -66,19 +66,19 @@ def test_bedienung_im_browser(app_url):
         time.sleep(1)
         seite.screenshot(path=BILDER / "1b-gewichtung.png")
 
-        seite.get_by_role("button", name="Weiter: 2 · Prüfen →").click()
+        seite.get_by_role("button", name="Weiter: Prüfen").click()
         seite.get_by_text("Keine Fehler").first.wait_for(timeout=60_000)
         time.sleep(1)
         seite.screenshot(path=BILDER / "2-pruefen.png")
 
-        seite.get_by_role("button", name="Weiter: 3 · Berechnen →").click()
+        seite.get_by_role("button", name="Weiter: Berechnen").click()
         seite.get_by_placeholder("z.B. Variante").fill("Browser-Test")
-        seite.get_by_role("button", name="▶ Klassen und Stundenplan berechnen").click()
-        seite.get_by_role("button", name="Zum Ergebnis →").wait_for(timeout=600_000)
+        seite.get_by_role("button", name="Klassen und Stundenplan berechnen").click()
+        seite.get_by_role("button", name="Zum Ergebnis").wait_for(timeout=600_000)
         time.sleep(1)
         seite.screenshot(path=BILDER / "3-berechnen.png")
 
-        seite.get_by_role("button", name="Zum Ergebnis →").click()
+        seite.get_by_role("button", name="Zum Ergebnis").click()
         seite.get_by_text("Alle harten Regeln erfüllt").first.wait_for(timeout=60_000)
         time.sleep(3)
         karte = seite.frame_locator("iframe").first
@@ -88,21 +88,22 @@ def test_bedienung_im_browser(app_url):
         seite.screenshot(path=BILDER / "4-ergebnis-karte.png")
 
         for tab, datei in (("Klassen", "5-klassen.png"), ("Lernende", "6-lernende.png"),
+                           ("Transparenz", "6b-transparenz.png"),
                            ("Anpassen", "7-anpassen.png"), ("Stundenpläne", "8-stundenplan.png"),
-                           ("Wünsche & KG-Gruppen", "9-wuensche.png"), ("Empfehlungen", "10-empfehlungen.png"),
+                           ("Wünsche", "9-wuensche.png"), ("Empfehlungen", "10-empfehlungen.png"),
                            ("Herunterladen", "11-herunterladen.png")):
             seite.get_by_role("tab", name=tab).click()
             time.sleep(2.5)
             seite.screenshot(path=BILDER / datei)
         with seite.expect_download() as download:
-            seite.get_by_role("button", name="⬇ Klassenlisten (Excel, druckfertig)").click()
+            seite.get_by_role("button", name="Klassenlisten (Excel, druckfertig)").click()
         assert download.value.suggested_filename == "klassenlisten.xlsx"
 
         seite.get_by_role("tab", name="Anpassen").click()
         time.sleep(1)
         seite.get_by_role("button", name="Verschieben und prüfen").wait_for()
 
-        _navigiere(seite, "🕘 Verlauf")
+        _navigiere(seite, "Verlauf")
         seite.get_by_text("Zwei Stände vergleichen").wait_for(timeout=30_000)
         assert seite.get_by_text("Browser-Test").count() > 0  # Notiz des gespeicherten Standes
         time.sleep(1)

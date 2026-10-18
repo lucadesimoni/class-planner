@@ -228,6 +228,8 @@ def _app(args) -> None:
     if not args.ohne_browser:  # Browser selbst öffnen (headless vermeidet Rückfragen beim ersten Start)
         threading.Timer(3.0, webbrowser.open, args=(url,)).start()
     sys.argv = ["streamlit", "run", str(app), "--server.port", str(args.port), "--server.address", "localhost",
-                "--server.headless", "true", "--browser.gatherUsageStats", "false", "--theme.base", "light",
-                "--client.toolbarMode", "minimal"]
+                "--server.headless", "true", "--browser.gatherUsageStats", "false", "--client.toolbarMode", "minimal",
+                # Design-System wie genealogy-store: helle Fläche, weisse Karten, Akzent Wandtafelgrün
+                "--theme.base", "light", "--theme.primaryColor", "#2f5d50", "--theme.backgroundColor", "#f6f7fb",
+                "--theme.secondaryBackgroundColor", "#eef0f5", "--theme.textColor", "#14171f"]
     sys.exit(streamlit_cli.main())

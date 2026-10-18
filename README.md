@@ -37,6 +37,7 @@ Für Fachleute: `uv run skf app` oder `pip install -e .` und dann `skf app`.
 | **2 · Prüfen** | fehlende oder widersprüchliche Angaben (⛔ ⚠️ ℹ️) | [Prüfen](docs/screenshots/2-pruefen.png) |
 | **3 · Berechnen** | Szenario, Rechenzeit, Notiz; jede Berechnung wird im Verlauf gespeichert | [Berechnen](docs/screenshots/3-berechnen.png) |
 | **4 · Ergebnis** | 🗺️ **Karte** (Klasse wählen → Einzugsgebiet mit Umriss; Farbe nach Schulhaus oder Jahrgang; **Geschwister verbinden**, getrennte Familien rot; Schulwege; Klick hebt Familie hervor) · 🏫 Klassen und Klassenlisten mit Geschwistern und Vorjahresklasse · 👧 **Lernende** (Personenkarte mit Geschwistern, Wünschen ✅/❌, KG-Gruppe, Verlauf) · ✋ **Anpassen** (Kind verschieben, sofort neu geprüft) · 🗓️ Stundenpläne · 🤝 Wünsche und KG-Gruppen · 💡 Empfehlungen · ⬇️ Downloads | [Karte](docs/screenshots/4-ergebnis-karte.png), [Klassen](docs/screenshots/5-klassen.png), [Lernende](docs/screenshots/6-lernende.png), [Anpassen](docs/screenshots/7-anpassen.png), [Stundenplan](docs/screenshots/8-stundenplan.png), [Wünsche](docs/screenshots/9-wuensche.png), [Empfehlungen](docs/screenshots/10-empfehlungen.png), [Downloads](docs/screenshots/11-herunterladen.png) |
+| **Transparenz** (in 4 · Ergebnis) | alle harten Regeln mit Prüfstatus; Abwägungen (Messwert × Gewicht = Strafpunkte je Ziel); Lösungsgüte pro Rechenschritt; bei jedem Kind **„Warum hier?“** mit allen Schulhäusern, Wegen, freien Plätzen und Gründen | [Transparenz](docs/screenshots/6b-transparenz.png), [Begründung](docs/screenshots/6-lernende.png) |
 | **🕘 Verlauf** | alle gespeicherten Stände mit Kennzahlen; zwei Stände vergleichen (wer wechselte wohin); Bericht/Listen eines Standes herunterladen; Eingabedaten wiederherstellen | [Verlauf](docs/screenshots/12-verlauf.png) |
 
 Die Screenshots erzeugt der automatische Browser-Test (`tests/test_browser_e2e.py`). Er
@@ -46,6 +47,31 @@ auf den Bildern, weil die Testumgebung keinen Zugriff auf OpenStreetMap hat.
 Der **Verlauf** liegt im Benutzerordner unter `Klassenbildung/verlauf/`, anpassbar mit
 der Umgebungsvariable `SKF_DATEN`. Zu jedem Stand gehören Eingabedaten, Zuteilung,
 Bericht und Listen.
+
+## Transparenz: nachvollziehen statt glauben
+
+- **Harte Regeln**: Nach jeder Berechnung zählt ein separater Prüfer alle 15 Regeln
+  nach, etwa keine Doppelbelegung, Blockzeiten, Klassengrössen, Verfügbarkeiten,
+  Stundentafel und Förderlektionen. Jede Regel zeigt ✓ oder die Verstösse.
+- **Abwägungen**: Jedes weiche Ziel kostet Strafpunkte = Messwert × Gewicht, zum
+  Beispiel 880 km Schulwege × 100/km. Ein Balken zeigt, welche Ziele das Ergebnis
+  prägen und wo ein anderes Gewicht etwas bewirkt. Die Werte werden aus dem Ergebnis
+  nachgerechnet, nicht vom Solver übernommen.
+- **Lösungsgüte**: Pro Rechenschritt „beweisbar optimal“ oder „mindestens x % des
+  Optimums“. Grosse Schulen sind nicht immer beweisbar optimal; das wird so angezeigt
+  und nicht beschönigt.
+- **Begründung pro Kind**: Alle möglichen Schulhäuser mit Weg, Klassen, freien Plätzen
+  und Gründen (Geschwister, Vorjahr, Wunsch, max. Schulweg), dazu ein Satz, warum
+  genau diese Klasse.
+- **Konfliktanalyse**: Bei Unlösbarkeit werden die Regeln genannt, die sich widersprechen.
+- **Quellen**: Rechtliche Vorgaben sind mit Erlass und Link belegt; Annahmen sind als
+  solche markiert.
+
+Das Design folgt dem Design-System von
+[genealogy-store](https://github.com/lucadesimoni/genealogy-store): helle Fläche,
+weisse Karten, ein ruhiger Akzent (Wandtafelgrün), Abschnittskarten zum Aufklappen und
+Linien-Icons. Der Akzent ist bewusst keine Datenfarbe; Schulhäuser und Jahrgänge haben eigene,
+farbsehschwäche-geprüfte Farben.
 
 ## Was berücksichtigt wird
 

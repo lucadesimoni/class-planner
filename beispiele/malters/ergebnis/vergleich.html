@@ -1,77 +1,105 @@
 <!doctype html><html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Szenarienvergleich</title><style>
+/* Design-System angelehnt an genealogy-store (packages/web/src/index.css): helle Fläche, weisse Karten,
+   feine Rahmen, Akzent Wandtafelgrün (#2f5d50 – bewusst keine Datenfarbe), 4-px-Raster, ruhige Schatten. */
 :root { color-scheme: light;
-  --bg:#f9f9f7; --surface:#fcfcfb; --fg:#0b0b0b; --fg2:#52514e; --muted:#898781; --grid:#e1e0d9; --base:#c3c2b7;
-  --ring:rgba(11,11,11,.10); --belegt:#b7d3f6; --belegt-fg:#0d366b; --bar:#2a78d6; --band:#e1e0d9;
+  --bg:#f6f7fb; --surface:#ffffff; --surface-hover:#f1f2f8; --fg:#14171f; --fg2:#676e7d; --muted:#9ba1af;
+  --grid:#e4e7ee; --base:#cdd2dd; --ring:#e4e7ee;
+  --accent:#2f5d50; --accent-soft:#e8f0ed; --chart:#3d7a69;
+  --belegt:#e8f0ed; --belegt-fg:#244a40; --bar:#3d7a69; --band:#e4e7ee;
   --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --s6:#008300; --s7:#6250d6; --s8:#e34948;
-  --crit:#d03b3b; --warn:#fab219; --good:#0ca30c; --good-text:#006300; --info:#52514e; }
-@media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) { color-scheme: dark;
-  --bg:#0d0d0d; --surface:#1a1a19; --fg:#f0efec; --fg2:#c3c2b7; --muted:#898781; --grid:#2c2c2a; --base:#383835;
-  --ring:rgba(255,255,255,.10); --belegt:#184f95; --belegt-fg:#e6effb; --bar:#3987e5; --band:#383835;
-  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
-  --good-text:#0ca30c; --info:#c3c2b7; } }
-:root[data-theme="dark"] { color-scheme: dark;
-  --bg:#0d0d0d; --surface:#1a1a19; --fg:#f0efec; --fg2:#c3c2b7; --muted:#898781; --grid:#2c2c2a; --base:#383835;
-  --ring:rgba(255,255,255,.10); --belegt:#184f95; --belegt-fg:#e6effb; --bar:#3987e5; --band:#383835;
-  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300; --s7:#9085e9; --s8:#e66767;
-  --good-text:#0ca30c; --info:#c3c2b7; }
+  --crit:#c02b3c; --crit-bg:#fbeaec; --crit-border:#eec3c9; --warn:#b4690e; --warn-bg:#fdf3e3; --warn-border:#f3d9ab;
+  --good:#1a8a4c; --good-bg:#eafaf1; --good-text:#1a8a4c; --info:#676e7d;
+  --shadow-xs:0 1px 2px rgba(20,23,31,.05); --shadow-sm:0 2px 6px rgba(20,23,31,.07);
+  --radius-sm:8px; --radius-md:12px; --radius-pill:999px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
 * { box-sizing:border-box }
-body { background:var(--bg); color:var(--fg); font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;
-  margin:0 auto; max-width:1180px; padding:16px; }
-a { color:var(--s1) } h1 { margin:.2em 0; font-size:1.6em } .sub { color:var(--fg2); margin:0 0 12px }
-h2 { margin:2em 0 .6em; font-size:1.2em; border-bottom:1px solid var(--grid); padding-bottom:.25em }
+body { background:var(--bg); color:var(--fg); font:13px/1.45 var(--font); margin:0 auto; max-width:1200px;
+  padding:28px 24px 48px; -webkit-font-smoothing:antialiased }
+a { color:var(--accent) } a:hover { text-decoration:none }
+.app-header { display:flex; align-items:center; gap:12px; margin-bottom:16px }
+.logo { width:40px; height:40px; border-radius:10px; background:var(--accent); color:#fff; display:grid;
+  place-items:center; box-shadow:var(--shadow-sm); flex:none }
+.app-header h1 { font-size:21px; font-weight:700; letter-spacing:-.01em; margin:0; line-height:1.2 }
+.sub { color:var(--fg2); margin:2px 0 0; font-size:13px }
+h2 { font-size:13px; margin:0 } h3 { font-size:14px; margin:0 0 6px }
 .muted { color:var(--muted) } .fg2 { color:var(--fg2) }
-.karte-box, .kachel, table, .banner, .panel { background:var(--surface); border:1px solid var(--ring); border-radius:8px }
-.kacheln { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:8px }
-.kachel { padding:10px 12px } .kachel b { font-size:1.45em; display:block; font-weight:600 }
-.kachel span { color:var(--fg2); font-size:.9em }
-.banner { padding:10px 14px; margin:12px 0; display:flex; gap:10px; align-items:center; border-left:6px solid var(--good) }
-.banner.f { border-left-color:var(--crit) } .banner.w { border-left-color:var(--warn) }
-table { border-collapse:separate; border-spacing:0; width:100%; overflow:hidden }
-td, th { border-bottom:1px solid var(--grid); padding:5px 8px; text-align:left; vertical-align:top }
-th { color:var(--fg2); font-weight:600; font-size:.9em } tr:last-child td { border-bottom:0 }
+.icon { width:18px; height:18px; flex:none; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round;
+  stroke-linejoin:round }
+.section-card { background:var(--surface); border:1px solid var(--ring); border-radius:var(--radius-md);
+  box-shadow:var(--shadow-xs); margin:12px 0; overflow:clip }
+.section-card > summary { list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between;
+  gap:12px; padding:12px 14px; font-size:13px }
+.section-card > summary::-webkit-details-marker { display:none }
+.section-card > summary:hover { background:var(--surface-hover) }
+.section-title { display:inline-flex; align-items:center; gap:8px; min-width:0 } .section-title .icon { color:var(--accent) }
+.section-title b { font-weight:600 }
+.chevron { color:var(--fg2); transition:transform .16s ease } .section-card[open] > summary .chevron { transform:rotate(180deg) }
+.section-body { padding:12px 14px 16px; border-top:1px solid var(--ring) }
+.karte-box, .kachel, .banner, .panel { background:var(--surface); border:1px solid var(--ring); border-radius:var(--radius-md);
+  box-shadow:var(--shadow-xs) }
+.kacheln { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:8px; margin:12px 0 }
+.kachel { padding:12px 14px } .kachel b { font-size:24px; display:block; font-weight:600; letter-spacing:-.01em }
+.kachel span { color:var(--fg2); font-size:12px; overflow-wrap:anywhere }
+.banner { padding:10px 14px; margin:0 0 4px; display:flex; gap:10px; align-items:center }
+.banner.ok { background:var(--good-bg); border-color:#bfe6cf; color:#14532d }
+.banner.w { background:var(--warn-bg); border-color:var(--warn-border); color:#6b3d06 }
+.banner.f { background:var(--crit-bg); border-color:var(--crit-border); color:#7a1522 }
+table { border-collapse:separate; border-spacing:0; width:100%; background:var(--surface); border:1px solid var(--ring);
+  border-radius:var(--radius-sm); overflow:hidden }
+td, th { border-bottom:1px solid var(--grid); padding:6px 9px; text-align:left; vertical-align:top }
+th { color:var(--fg2); font-weight:600; font-size:12px; background:#fafbfd } tr:last-child td { border-bottom:0 }
 td.num, th.num { text-align:right; font-variant-numeric:tabular-nums }
-.scroll { overflow-x:auto } details { margin:.35em 0 } summary { cursor:pointer; font-weight:600; padding:4px 0 }
-.badge { display:inline-flex; gap:4px; align-items:center; border-radius:999px; padding:1px 8px; font-size:.82em;
-  font-weight:600; border:1px solid var(--ring); white-space:nowrap }
-.sev-f { color:#fff; background:var(--crit) } .sev-w { color:#0b0b0b; background:var(--warn) }
-.sev-h { color:var(--info); background:transparent }
-.filter { display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:6px 0 }
-.filter button { font:inherit; cursor:pointer; border-radius:999px; padding:3px 12px; border:1px solid var(--base);
+.scroll { overflow-x:auto } details:not(.section-card) { margin:6px 0 }
+details:not(.section-card) > summary { cursor:pointer; font-weight:600; padding:4px 0 }
+.badge { display:inline-flex; gap:4px; align-items:center; border-radius:var(--radius-pill); padding:1px 8px;
+  font-size:11px; font-weight:600; border:1px solid transparent; white-space:nowrap }
+.sev-f { color:var(--crit); background:var(--crit-bg); border-color:var(--crit-border) }
+.sev-w { color:var(--warn); background:var(--warn-bg); border-color:var(--warn-border) }
+.sev-h { color:var(--info); background:#f1f2f8; border-color:var(--ring) }
+.ok-badge { color:var(--good); background:var(--good-bg); border-color:#bfe6cf }
+.filter { display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:0 0 8px }
+.filter button { font:inherit; cursor:pointer; border-radius:var(--radius-pill); padding:3px 10px; border:1px solid var(--base);
   background:var(--surface); color:var(--fg) }
 .filter button[aria-pressed="false"] { opacity:.45; text-decoration:line-through }
-.filter input { font:inherit; padding:3px 8px; border-radius:6px; border:1px solid var(--base); background:var(--surface);
-  color:var(--fg); min-width:200px; flex:1 }
+.filter input { font:inherit; padding:6px 10px; border-radius:var(--radius-sm); border:1px solid var(--base);
+  background:var(--surface); color:var(--fg); min-width:200px; flex:1 }
 .meldungen { max-height:420px; overflow:auto }
 .plan td { font-size:12px; min-width:92px; height:46px; border-right:1px solid var(--grid) }
 .plan th { font-size:12px } .plan td:last-child { border-right:0 }
-.plan td.leer { background:transparent }
 .plan td.zu, .heat td.zu { background:repeating-linear-gradient(45deg, transparent 0 5px, var(--grid) 5px 7px); color:var(--muted) }
 .plan td.mark-f { box-shadow:inset 0 0 0 2px var(--crit) } .plan td.mark-w { box-shadow:inset 0 0 0 2px var(--warn) }
 .plan td.mark-h { box-shadow:inset 0 0 0 2px var(--base) }
-.plan .spring { color:var(--muted); font-style:italic } .plan .foerder { color:var(--fg2); font-style:italic }
+.plan .spring { color:var(--muted); font-style:italic } .plan .foerder { color:var(--accent); font-style:italic }
 .heat { font-size:11px } .heat td, .heat th { padding:2px 3px; border-right:1px solid var(--grid); text-align:center;
   white-space:nowrap } .heat th.raum { text-align:left }
 .heat td.b { background:var(--belegt); color:var(--belegt-fg) } .heat .tag { border-left:2px solid var(--base) }
-.bar-row { display:grid; grid-template-columns:minmax(120px,220px) 1fr 70px; gap:8px; align-items:center; padding:2px 0 }
+.bar-row { display:grid; grid-template-columns:minmax(140px,250px) 1fr minmax(90px,max-content); gap:10px; align-items:center;
+  padding:3px 0 } .bar-row .num { white-space:nowrap; text-align:right }
 .bar-row .name { white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
 .bar-track { position:relative; height:14px }
 .bar-band { position:absolute; top:3px; height:8px; background:var(--band); border-radius:4px }
 .bar { position:absolute; top:2px; height:10px; background:var(--bar); border-radius:0 4px 4px 0 }
 .bar-tick { position:absolute; top:-2px; width:2px; height:18px; background:var(--fg2) }
-.legende { display:flex; gap:14px; flex-wrap:wrap; font-size:.9em; color:var(--fg2); margin:6px 0 }
+.legende { display:flex; gap:14px; flex-wrap:wrap; font-size:12px; color:var(--fg2); margin:6px 0 }
 .legende i { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:5px; vertical-align:-1px }
 .karte { width:100%; max-width:720px; display:block } .lbl { fill:var(--fg); font-size:12px; font-weight:600 }
-.osm { height:460px; border-radius:8px; border:1px solid var(--ring) }
+.osm { height:480px; border-radius:var(--radius-sm); border:1px solid var(--ring) }
 .karten { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:10px }
-.karten .panel { padding:10px 12px } .karten h3 { margin:.1em 0 .3em; font-size:1em }
+.karten .panel { padding:12px 14px } .karten h3 { margin:.1em 0 .3em; font-size:14px }
 .dringlich { border-left:4px solid var(--crit) } .rein { border-left:4px solid var(--base) }
-.pos { color:var(--good-text) } .neg { color:var(--crit); font-weight:600 }
+.pos { color:var(--good) } .neg { color:var(--crit); font-weight:600 }
 .groesse { display:inline-block; height:8px; background:var(--bar); border-radius:0 4px 4px 0; vertical-align:middle;
   margin-right:6px }
+.checks { list-style:none; margin:0; padding:0; display:grid; gap:4px }
+.checks li { display:flex; gap:8px; align-items:flex-start; padding:6px 8px; border-radius:var(--radius-sm) }
+.checks li.ok .icon { color:var(--good) } .checks li.x { background:var(--crit-bg) } .checks li.x .icon { color:var(--crit) }
+.checks li.n .icon { color:var(--muted) } .checks small { display:block; color:var(--fg2) }
+.zwei { display:grid; grid-template-columns:repeat(auto-fit,minmax(360px,1fr)); gap:16px }
+.erklaerung { color:var(--fg2); font-size:12px; margin:0 0 10px }
 </style></head><body>
 <h1>Szenarienvergleich</h1><p class="sub">Schule Malters – Kindergarten &amp; Primar (Beispiel) · 644 Lernende ·
 Spaltenkopf anklicken für den ausführlichen Bericht</p>
-<div class="scroll"><table><tr><th>Kennzahl</th><th class='num'><a href='Basis/bericht.html'>Basis</a></th><th class='num'><a href='Kurze_Schulwege/bericht.html'>Kurze Schulwege</a></th><th class='num'><a href='Umbau_Eischachen/bericht.html'>Umbau Eischachen</a></th><th class='num'><a href='Geschwister_zwingend/bericht.html'>Geschwister zwingend</a></th><th class='num'><a href='Lehrpersonenmangel/bericht.html'>Lehrpersonenmangel</a></th></tr><tr><th>Klassen</th><td class='num'>32</td><td class='num'>32</td><td class='num'>–</td><td class='num'>32</td><td class='num'>32</td></tr><tr><th>Ø Klassengrösse</th><td class='num'>20.1</td><td class='num'>20.1</td><td class='num'>–</td><td class='num'>20.1</td><td class='num'>20.1</td></tr><tr><th>Ø Schulweg</th><td class='num'>1.36 km</td><td class='num'>1.31 km</td><td class='num'>–</td><td class='num'>1.36 km</td><td class='num'>1.35 km</td></tr><tr><th>Max. Schulweg</th><td class='num'>5.51 km</td><td class='num'>5.51 km</td><td class='num'>–</td><td class='num'>5.51 km</td><td class='num'>5.51 km</td></tr><tr><th>Mehrjahrgangsklassen</th><td class='num'>2</td><td class='num'>2</td><td class='num'>–</td><td class='num'>2</td><td class='num'>2</td></tr><tr><th>Lehrpersonen im Einsatz</th><td class='num'>47</td><td class='num'>47</td><td class='num'>–</td><td class='num'>48</td><td class='num'>46</td></tr><tr><th>Förderlektionen</th><td class='num'>203</td><td class='num'>201</td><td class='num'>–</td><td class='num'>202</td><td class='num'>197</td></tr><tr><th>Springstunden</th><td class='num'>0</td><td class='num'>0</td><td class='num'>–</td><td class='num'>0</td><td class='num'>1</td></tr><tr><th>Wünsche erfüllt</th><td class='num'>66/84</td><td class='num'>59/84</td><td class='num'>–</td><td class='num'>65/84</td><td class='num'>64/84</td></tr><tr><th>Fehler</th><td class='num'>0</td><td class='num'>0</td><td class='num'><span class='badge sev-f'>⛔ 1</span></td><td class='num'>0</td><td class='num'>0</td></tr><tr><th>Warnungen</th><td class='num'><span class='badge sev-w'>⚠ 10</span></td><td class='num'><span class='badge sev-w'>⚠ 10</span></td><td class='num'><span class='badge sev-w'>⚠ 1</span></td><td class='num'><span class='badge sev-w'>⚠ 9</span></td><td class='num'><span class='badge sev-w'>⚠ 10</span></td></tr><tr><th>Hinweise</th><td class='num'><span class='badge sev-h'>ℹ 73</span></td><td class='num'><span class='badge sev-h'>ℹ 81</span></td><td class='num'>0</td><td class='num'><span class='badge sev-h'>ℹ 79</span></td><td class='num'><span class='badge sev-h'>ℹ 78</span></td></tr><tr><th>Rechenzeit</th><td class='num'>92 s</td><td class='num'>94 s</td><td class='num'>9 s</td><td class='num'>168 s</td><td class='num'>216 s</td></tr></table></div>
+<div class="scroll"><table><tr><th>Kennzahl</th><th class='num'><a href='Basis/bericht.html'>Basis</a></th><th class='num'><a href='Kurze_Schulwege/bericht.html'>Kurze Schulwege</a></th><th class='num'><a href='Umbau_Eischachen/bericht.html'>Umbau Eischachen</a></th><th class='num'><a href='Geschwister_zwingend/bericht.html'>Geschwister zwingend</a></th><th class='num'><a href='Lehrpersonenmangel/bericht.html'>Lehrpersonenmangel</a></th></tr><tr><th>Klassen</th><td class='num'>32</td><td class='num'>33</td><td class='num'>–</td><td class='num'>32</td><td class='num'>32</td></tr><tr><th>Ø Klassengrösse</th><td class='num'>20.1</td><td class='num'>19.5</td><td class='num'>–</td><td class='num'>20.1</td><td class='num'>20.1</td></tr><tr><th>Ø Schulweg</th><td class='num'>1.36 km</td><td class='num'>1.31 km</td><td class='num'>–</td><td class='num'>1.36 km</td><td class='num'>1.36 km</td></tr><tr><th>Max. Schulweg</th><td class='num'>5.51 km</td><td class='num'>5.51 km</td><td class='num'>–</td><td class='num'>5.51 km</td><td class='num'>5.51 km</td></tr><tr><th>Mehrjahrgangsklassen</th><td class='num'>2</td><td class='num'>6</td><td class='num'>–</td><td class='num'>2</td><td class='num'>1</td></tr><tr><th>Lehrpersonen im Einsatz</th><td class='num'>49</td><td class='num'>48</td><td class='num'>–</td><td class='num'>47</td><td class='num'>47</td></tr><tr><th>Förderlektionen</th><td class='num'>201</td><td class='num'>197</td><td class='num'>–</td><td class='num'>202</td><td class='num'>202</td></tr><tr><th>Springstunden</th><td class='num'>5</td><td class='num'>5</td><td class='num'>–</td><td class='num'>0</td><td class='num'>1</td></tr><tr><th>Wünsche erfüllt</th><td class='num'>67/84</td><td class='num'>58/84</td><td class='num'>–</td><td class='num'>65/84</td><td class='num'>66/84</td></tr><tr><th>Fehler</th><td class='num'>0</td><td class='num'>0</td><td class='num'><span class='badge sev-f'>⛔ 1</span></td><td class='num'>0</td><td class='num'>0</td></tr><tr><th>Warnungen</th><td class='num'><span class='badge sev-w'>⚠ 9</span></td><td class='num'><span class='badge sev-w'>⚠ 10</span></td><td class='num'><span class='badge sev-w'>⚠ 1</span></td><td class='num'><span class='badge sev-w'>⚠ 9</span></td><td class='num'><span class='badge sev-w'>⚠ 10</span></td></tr><tr><th>Hinweise</th><td class='num'><span class='badge sev-h'>ℹ 85</span></td><td class='num'><span class='badge sev-h'>ℹ 85</span></td><td class='num'>0</td><td class='num'><span class='badge sev-h'>ℹ 74</span></td><td class='num'><span class='badge sev-h'>ℹ 76</span></td></tr><tr><th>Rechenzeit</th><td class='num'>94 s</td><td class='num'>96 s</td><td class='num'>9 s</td><td class='num'>92 s</td><td class='num'>169 s</td></tr></table></div>
 </body></html>
