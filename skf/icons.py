@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: LicenseRef-Proprietary AND Apache-2.0
-# Copyright (c) 2026 Outthinkx Community (Erzeugung); Glyphen: Material Symbols, (c) Google LLC, Apache-2.0
+# Copyright (c) 2026 Outthinkx for Communities (Erzeugung); Glyphen: Material Symbols, (c) Google LLC, Apache-2.0
 """Icons: Material Symbols Rounded (Google, Apache-2.0), erzeugt von scripts/erzeuge_icons.py."""
 
 # viewBox 0 0 24 24, Füllfarbe currentColor

@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx Community. Alle Rechte vorbehalten.
+# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
 """End-to-end-Tests an einer kleinen Schule mit zwei Schulhäusern."""
 import csv
 import random

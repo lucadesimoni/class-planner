@@ -1,6 +1,6 @@
 #!/bin/bash
 # SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx Community. Alle Rechte vorbehalten.
+# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
 # ============================================================
 #  Klassenbildung & Stundenplan – Start für Linux und macOS
 #  ./start-linux.sh  (macOS: Doppelklick auf start-mac.command)

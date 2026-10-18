@@ -1,6 +1,6 @@
 # Drittkomponenten und Hinweise
 
-Diese Software (© 2026 Outthinkx Community, proprietär, siehe [LICENSE](LICENSE)) verwendet
+Diese Software (© 2026 Outthinkx for Communities, proprietär, siehe [LICENSE](LICENSE)) verwendet
 die folgenden Komponenten Dritter. Alle stehen unter **freizügigen Lizenzen**, die
 den Verkauf und die proprietäre Lizenzierung der eigenen Software erlauben; keine
 davon ist eine „Copyleft“-Lizenz (GPL/AGPL/LGPL), die den eigenen Code erfassen würde.

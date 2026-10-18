@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx Community. Alle Rechte vorbehalten.
+# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
 """Saubere Exporte: Klassenlisten und Stundenpläne als Excel und als druckfertiges HTML.
 
 * klassenlisten.xlsx – Übersicht + ein Blatt pro Klasse (A4 hoch, Kopfzeile wiederholt)

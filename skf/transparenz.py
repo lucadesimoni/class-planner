@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx Community. Alle Rechte vorbehalten.
+# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
 """Transparenz: nachvollziehbar machen, was der Optimierer entschieden hat und warum.
 
 * regeln(r)          – jede harte Regel mit Prüfstatus (wie viele Verstösse)

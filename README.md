@@ -372,12 +372,12 @@ Kartendaten © [OpenStreetMap](https://www.openstreetmap.org/copyright)-Mitwirke
 
 ## Lizenz und Rechte
 
-**Proprietäre Software.** © 2026 Outthinkx Community, alle Rechte vorbehalten – siehe
+**Proprietäre Software.** © 2026 Outthinkx for Communities, alle Rechte vorbehalten – siehe
 [LICENSE](LICENSE). Nutzung, Weitergabe und Betrieb nur mit schriftlicher Lizenz; eine
 Vertragsvorlage für Schulgemeinden liegt unter
 [`docs/lizenzvertrag-vorlage.md`](docs/lizenzvertrag-vorlage.md) (vor Verwendung
 juristisch prüfen lassen). Frühere Stände dieses Repositorys standen unter der GPL-3.0;
-sie bleiben unter jener Lizenz, alle neuen Stände nicht. Damit die Outthinkx Community
+sie bleiben unter jener Lizenz, alle neuen Stände nicht. Damit die Outthinkx for Communities
 die Rechte hält, braucht es eine schriftliche Übertragung vom Urheber – Vorlage:
 [`docs/rechteuebertragung-vorlage.md`](docs/rechteuebertragung-vorlage.md).
 
