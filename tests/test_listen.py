@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 """Raum- und Lehrpersonenlisten aus CSV/Excel übernehmen (tolerante Spaltennamen)."""
 from pathlib import Path
 

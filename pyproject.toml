@@ -7,7 +7,9 @@ name = "stunden-klassen-fitter"
 version = "0.1.0"
 description = "Klassenbildung und Stundenplan für die Volksschule mit mehreren Schulhäusern (exakte Optimierung mit OR-Tools CP-SAT)"
 readme = "README.md"
-license = {text = "GPL-3.0-or-later"}
+license = {text = "LicenseRef-Proprietary"}
+authors = [{name = "Luca De Simoni"}]
+classifiers = ["License :: Other/Proprietary License", "Private :: Do Not Upload"]
 requires-python = ">=3.10"
 dependencies = ["ortools>=9.10", "pyyaml>=6", "openpyxl>=3.1", "streamlit>=1.40", "pandas>=2"]
 
@@ -24,6 +26,6 @@ packages = ["skf", "skf.beispiele"]
 "skf.beispiele" = "beispiele"
 
 [tool.setuptools.package-data]
-skf = ["profile/*.yaml", "static/leaflet/*", "static/leaflet/images/*"]
+skf = ["profile/*.yaml", "static/leaflet/*", "static/leaflet/images/*", "static/material-symbols/*"]
 "skf.beispiele" = ["malters/schule.yaml", "malters/kinder.csv", "malters/erzeuge_kinder.py", "vorlage/*"]
 

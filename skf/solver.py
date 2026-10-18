@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 """Gemeinsame Hilfsfunktionen für den CP-SAT-Solver (Google OR-Tools)."""
 from __future__ import annotations
 

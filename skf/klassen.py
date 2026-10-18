@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 """Klasseneinteilung in zwei exakten Schritten.
 
 Schritt A (Schulhaus & Klassen): Jedes Kind wird einem Schulhaus zugeteilt und in

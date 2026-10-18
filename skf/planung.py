@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 """Empfehlungen für Schulleitung und Behörden: Lehrpersonen, Verfügbarkeiten, Räume, Ausbau.
 
 Alle Auswertungen beruhen auf dem berechneten Ergebnis und sind bewusst einfach

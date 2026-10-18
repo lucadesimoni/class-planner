@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 """Icons: Material Symbols Rounded (Google, Apache-2.0), erzeugt von scripts/erzeuge_icons.py."""
 
 # viewBox 0 0 24 24, Füllfarbe currentColor

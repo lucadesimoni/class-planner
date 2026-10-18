@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 """Transparenz: nachvollziehbar machen, was der Optimierer entschieden hat und warum.
 
 * regeln(r)          – jede harte Regel mit Prüfstatus (wie viele Verstösse)

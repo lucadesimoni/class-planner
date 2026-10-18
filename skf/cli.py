@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 """Kommandozeile.
 
     skf rechnen  schule.yaml kinder.csv -o ausgabe/      Klassen + Stundenplan + Berichte + Listen

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 """Bedienoberfläche für Schulleitung und Lehrpersonen (Streamlit).
 
 Start:  skf app   (oder Doppelklick auf start-windows.bat / start-mac.command / start-linux.sh)
@@ -791,6 +793,12 @@ Nur Kartenkacheln werden von OpenStreetMap geladen. Förderdaten erscheinen in L
 **Hilfe bei Problemen** – Fenster schliessen und das Startprogramm erneut doppelklicken. Unklare Meldungen bei
 *Prüfen* zuerst beheben.
 """)
+    with st.expander("Über diese Software und Lizenzen", icon=":material/info:"):
+        st.markdown("**Klassenbildung & Stundenplan** · © 2026 Luca De Simoni · alle Rechte vorbehalten.  \n"
+                    "Nutzung nur mit gültiger Lizenz. Verwendete Komponenten (Google OR-Tools, Streamlit, pandas, "
+                    "openpyxl, PyYAML, Leaflet, Material Symbols u.a.) stehen unter freizügigen Lizenzen "
+                    "(Apache-2.0, MIT, BSD); Kartendaten © OpenStreetMap-Mitwirkende. Details: "
+                    "`LICENSE` und `THIRD_PARTY_NOTICES.md` im Programmordner.")
 
 
 def main() -> None:

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 """Stundenplan als exaktes CP-SAT-Modell.
 
 Harte Regeln: keine Doppelbelegung von Klassen, Lehrpersonen und Spezialräumen,

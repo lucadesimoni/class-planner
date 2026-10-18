@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 """End-to-End-Test der Bedienoberfläche: Daten laden → prüfen → berechnen → Ergebnis."""
 from pathlib import Path
 

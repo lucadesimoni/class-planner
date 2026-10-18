@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 """Erzeugt skf/icons.py aus der Schrift Material Symbols Rounded (Apache-2.0).
 
 Die App (Streamlit) zeigt dieselbe Icon-Familie (`:material/…:`); der Bericht

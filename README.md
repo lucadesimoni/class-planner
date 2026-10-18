@@ -370,6 +370,23 @@ und erscheinen in Klassenlisten nur auf ausdrücklichen Wunsch.
 Kartendarstellung: [Leaflet](https://leafletjs.com) (BSD-2-Clause, im Paket enthalten),
 Kartendaten © [OpenStreetMap](https://www.openstreetmap.org/copyright)-Mitwirkende.
 
-## Lizenz
+## Lizenz und Rechte
 
-GPL-3.0, siehe [LICENSE](LICENSE).
+**Proprietäre Software.** © 2026 Luca De Simoni, alle Rechte vorbehalten – siehe
+[LICENSE](LICENSE). Nutzung, Weitergabe und Betrieb nur mit schriftlicher Lizenz; eine
+Vertragsvorlage für Schulgemeinden liegt unter
+[`docs/lizenzvertrag-vorlage.md`](docs/lizenzvertrag-vorlage.md) (vor Verwendung
+juristisch prüfen lassen). Frühere Stände dieses Repositorys standen unter der GPL-3.0;
+sie bleiben unter jener Lizenz, alle neuen Stände nicht.
+
+- **Eigener Code:** jede Quelldatei trägt `SPDX-License-Identifier: LicenseRef-Proprietary`
+  und den Copyright-Vermerk.
+- **Drittkomponenten:** ausschliesslich freizügige Lizenzen (Apache-2.0, MIT, BSD, PSF,
+  MPL-2.0 für certifi), kein Copyleft – vollständige Liste, Pflichten und Dienste
+  (OpenStreetMap, geo.admin.ch) in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+  `scripts/lizenzen.py` sammelt alle Lizenztexte für ein Komplettpaket.
+- **Kartenkacheln:** Die Kacheln von openstreetmap.org sind nicht für kommerzielle Last
+  gedacht. Für den Verkauf einen Anbieter eintragen: `SKF_KARTE_KACHELN` (URL mit
+  `{z}/{x}/{y}`) und `SKF_KARTE_QUELLE` (Namensnennung).
+- **Beispieldaten** (Malters) sind erfunden; keine Verbindung zur Gemeinde Malters
+  oder zum Kanton Luzern. Gesetzestexte werden nur zusammengefasst und verlinkt.

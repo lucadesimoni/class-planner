@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 """Ausgabe als CSV-Dateien, als eigenständiger HTML-Bericht und als Szenarienvergleich."""
 from __future__ import annotations
 
@@ -103,6 +105,7 @@ details:not(.section-card) > summary { cursor:pointer; font-weight:600; padding:
 .bar-band { position:absolute; top:3px; height:8px; background:var(--band); border-radius:4px }
 .bar { position:absolute; top:2px; height:10px; background:var(--bar); border-radius:0 4px 4px 0 }
 .bar-tick { position:absolute; top:-2px; width:2px; height:18px; background:var(--fg2) }
+.fuss { margin-top:28px; font-size:12px; text-align:center }
 .legende { display:flex; gap:14px; flex-wrap:wrap; font-size:12px; color:var(--fg2); margin:6px 0 }
 .legende i { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:5px; vertical-align:-1px }
 .legende i.quadrat { background:var(--fg2) } .legende i.rund { background:var(--fg2); border-radius:50%; width:8px; height:8px }
@@ -156,6 +159,10 @@ def icon(name: str, klasse: str = "icon") -> str:
 
 # Schweregrade: dieselben Symbole wie in der App
 ICON = {"Fehler": icon("x", "icon klein"), "Warnung": icon("warnung", "icon klein"), "Hinweis": icon("info", "icon klein")}
+
+
+FUSS = ("<p class='muted fuss'>Erstellt mit Klassenbildung &amp; Stundenplan · © 2026 Luca De Simoni · "
+        "Planungshilfsmittel – Entscheide trifft die Schulbehörde.</p>")
 
 
 def abschnitt(titel: str, inhalt: str, symbol: str, zusatz: str = "", offen: bool = False, anker: str = "",
@@ -298,6 +305,18 @@ def _karte(r: Ergebnis) -> str:
            f"<div class='karte-box'>{''.join(teile)}</div>"
 
 
+# Kartenkacheln: Standard sind die Kacheln der OpenStreetMap Foundation (nur für geringe Nutzung,
+# siehe https://operations.osmfoundation.org/policies/tiles/). Für den kommerziellen Betrieb einen
+# Kachel-Anbieter oder swisstopo eintragen: SKF_KARTE_KACHELN (URL mit {z}/{x}/{y}) und SKF_KARTE_QUELLE.
+KACHELN = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+KACHEL_QUELLE = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende'
+
+
+def _kacheln() -> tuple[str, str]:
+    import os
+    return os.environ.get("SKF_KARTE_KACHELN", KACHELN), os.environ.get("SKF_KARTE_QUELLE", KACHEL_QUELLE)
+
+
 KARTE_JS = r"""
 (function () {
   const D = __DATEN__;
@@ -305,8 +324,7 @@ KARTE_JS = r"""
     document.getElementById("osm").hidden = true; document.getElementById("svgkarte").hidden = false; return;
   }
   const karte = L.map("osm", {scrollWheelZoom: false});
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende'}).addTo(karte);
+  L.tileLayer(__KACHELN__, {maxZoom: 19, attribution: __QUELLE__}).addTo(karte);
   const sh = Object.fromEntries(D.schulhaeuser.map(s => [s.name, s]));
   const kinder = L.layerGroup().addTo(karte), linien = L.layerGroup().addTo(karte), umriss = L.layerGroup().addTo(karte);
   const zustand = {modus: "schulhaus", klasse: "", geschwister: false, wege: false, familie: ""};
@@ -444,6 +462,9 @@ def _osm_karte(r: Ergebnis) -> str:
     Ohne Internet bleibt die SVG-Karte sichtbar."""
     leaflet = Path(__file__).parent / "static" / "leaflet"
     daten = json.dumps(karten_daten(r), ensure_ascii=False).replace("</", "<\\/")
+    url, quelle = _kacheln()
+    skript = (KARTE_JS.replace("__DATEN__", daten).replace("__KACHELN__", json.dumps(url))
+              .replace("__QUELLE__", json.dumps(quelle)))
     return f"""<style>{(leaflet / "leaflet.css").read_text(encoding="utf-8")}
 .kartensteuerung {{ background:#fff; color:#0b0b0b; padding:8px 10px; border-radius:6px; box-shadow:0 1px 4px rgba(0,0,0,.3);
   display:flex; flex-direction:column; gap:5px; font:13px system-ui,sans-serif; max-width:230px }}
@@ -455,7 +476,7 @@ def _osm_karte(r: Ergebnis) -> str:
 Kartendaten © OpenStreetMap-Mitwirkende (nur Kartenkacheln werden geladen, keine Daten der Lernenden).</p>
 <div id="svgkarte" hidden>{_karte(r)}</div>
 <script>/* Leaflet 1.9.4, BSD-2-Clause, © Volodymyr Agafonkin */{(leaflet / "leaflet.js").read_text(encoding="utf-8")}</script>
-<script>{KARTE_JS.replace("__DATEN__", daten)}</script>"""
+<script>{skript}</script>"""
 
 
 def _wuensche_html(r: Ergebnis) -> str:
@@ -711,7 +732,7 @@ def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
                            status=status_m))
     if not e:
         teile.append(abschnitt("Rechtsgrundlagen und Richtlinien", _rechtsgrundlagen(r), "buch"))
-        teile.append(f"<script>{JS}</script></body></html>")
+        teile.append(f"{FUSS}<script>{JS}</script></body></html>")
         pfad.write_text("".join(teile), encoding="utf-8")
         return
 
@@ -793,7 +814,7 @@ def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
         teile.append(abschnitt("Stundenpläne der Lehrpersonen", "".join(pl), "kalender", f"{len(pensum)}"))
     teile.append(abschnitt("Rechtsgrundlagen und Richtlinien", _rechtsgrundlagen(r), "buch",
                            (schule.profil or {}).get("name", "")))
-    teile.append(f"<script>{JS}</script></body></html>")
+    teile.append(f"{FUSS}<script>{JS}</script></body></html>")
     pfad.write_text("".join(teile), encoding="utf-8")
 
 

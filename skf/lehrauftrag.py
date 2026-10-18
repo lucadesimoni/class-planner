@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 """Verteilung der Lektionen (Klasse x Fach) auf Lehrpersonen.
 
 Exaktes Optimierungsmodell: jede Lektionengruppe bekommt genau eine qualifizierte

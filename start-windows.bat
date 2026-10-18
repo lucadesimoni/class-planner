@@ -1,4 +1,6 @@
 @echo off
+rem SPDX-License-Identifier: LicenseRef-Proprietary
+rem Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 rem ============================================================
 rem  Klassenbildung & Stundenplan – Start fuer Windows
 rem  Einfach doppelklicken. Beim ersten Mal wird alles Noetige

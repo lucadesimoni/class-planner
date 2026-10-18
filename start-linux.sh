@@ -1,4 +1,6 @@
 #!/bin/bash
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 # ============================================================
 #  Klassenbildung & Stundenplan – Start für Linux und macOS
 #  ./start-linux.sh  (macOS: Doppelklick auf start-mac.command)

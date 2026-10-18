@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 """Datenmodell: lädt die Schul-Konfiguration (YAML) und die Kinderliste (CSV).
 
 Alles ist bewusst flach gehalten: ein YAML für die Schule, ein CSV für die Kinder.

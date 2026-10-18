@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Luca De Simoni. Alle Rechte vorbehalten.
 """Szenarien, Gewichte, Verfügbarkeit von Schulhäusern/Räumen und Meldungen."""
 import pytest
 
