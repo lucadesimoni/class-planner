@@ -241,47 +241,164 @@ def _karte(r: Ergebnis) -> str:
            f"<div class='karte-box'>{''.join(teile)}</div>"
 
 
-def _osm_karte(r: Ergebnis) -> str:
-    """Interaktive OpenStreetMap-Karte (Leaflet). Ohne Internet bleibt die SVG-Karte sichtbar."""
+KARTE_JS = r"""
+(function () {
+  const D = __DATEN__;
+  if (typeof L === "undefined") {  // offline: SVG-Karte zeigen
+    document.getElementById("osm").hidden = true; document.getElementById("svgkarte").hidden = false; return;
+  }
+  const karte = L.map("osm", {scrollWheelZoom: false});
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende'}).addTo(karte);
+  const sh = Object.fromEntries(D.schulhaeuser.map(s => [s.name, s]));
+  const kinder = L.layerGroup().addTo(karte), linien = L.layerGroup().addTo(karte), umriss = L.layerGroup().addTo(karte);
+  const zustand = {modus: "schulhaus", klasse: "", geschwister: false, wege: false, familie: ""};
+
+  function farbe(k) { return zustand.modus === "jahrgang" ? D.jahrgangsfarben[k.jg] : sh[k.sh].farbe; }
+  function huelle(p) {  // konvexe Hülle (monotone chain)
+    p = p.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+    const x = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+    const u = [], l = [];
+    for (const q of p) { while (l.length > 1 && x(l[l.length - 2], l[l.length - 1], q) <= 0) l.pop(); l.push(q); }
+    for (const q of p.reverse()) { while (u.length > 1 && x(u[u.length - 2], u[u.length - 1], q) <= 0) u.pop(); u.push(q); }
+    return l.slice(0, -1).concat(u.slice(0, -1));
+  }
+  function zeichnen() {
+    kinder.clearLayers(); linien.clearLayers(); umriss.clearLayers();
+    const aktiv = k => !zustand.klasse || k.kl === zustand.klasse;
+    for (const k of D.kinder) {
+      const an = aktiv(k), fam = zustand.familie && k.fam === zustand.familie;
+      const m = L.circleMarker([k.lat, k.lon], {radius: fam ? 8 : (an && zustand.klasse ? 6 : 4),
+        color: fam ? "#0b0b0b" : "#fff", weight: fam ? 3 : 1, fillColor: an ? farbe(k) : "#c3c2b7",
+        fillOpacity: an ? .9 : .35}).bindTooltip(k.t).addTo(kinder);
+      m.on("click", () => { zustand.familie = k.fam && zustand.familie !== k.fam ? k.fam : ""; zeichnen(); });
+      if ((zustand.wege && an) || fam)
+        L.polyline([[k.lat, k.lon], [sh[k.sh].lat, sh[k.sh].lon]], {color: farbe(k), weight: fam ? 3 : 1,
+          opacity: fam ? .9 : .45}).addTo(linien);
+    }
+    if (zustand.geschwister) for (const f of D.familien) {
+      // ohne Klassenwahl nur getrennte Familien, mit Klassenwahl die Familien dieser Klasse
+      if (zustand.klasse ? !f.kinder.some(i => D.kinder[i].kl === zustand.klasse) : !f.getrennt) continue;
+      for (const k of f.kinder) {
+        const kk = D.kinder[k];
+        L.polyline([[kk.lat, kk.lon], [sh[kk.sh].lat, sh[kk.sh].lon]], {color: f.getrennt ? "#d03b3b" : "#52514e",
+          weight: f.getrennt ? 2.5 : 1, dashArray: f.getrennt ? "6 4" : null, opacity: .8})
+          .bindTooltip(f.text).addTo(linien);
+      }
+    }
+    if (zustand.klasse) {
+      const pts = D.kinder.filter(aktiv).map(k => [k.lat, k.lon]);
+      if (pts.length > 2) L.polygon(huelle(pts), {color: "#0b0b0b", weight: 1.5, dashArray: "4 3", fillOpacity: .06})
+        .addTo(umriss);
+    }
+    for (const s of D.schulhaeuser) L.circleMarker([s.lat, s.lon], {radius: 11, color: "#0b0b0b", weight: 3,
+      fillColor: s.farbe, fillOpacity: 1}).bindTooltip("<b>" + s.name + "</b>", {permanent: true, direction: "right"})
+      .bindPopup("<b>" + s.name + "</b><br>" + s.klassen.join(", ")).addTo(kinder);
+    legende();
+  }
+  function legende() {
+    const el = document.getElementById("kartenlegende");
+    let h = zustand.modus === "jahrgang"
+      ? Object.entries(D.jahrgangsfarben).map(([j, f]) => `<span><i style="background:${f}"></i>${j}</span>`).join("")
+      : D.schulhaeuser.map(s => `<span><i style="background:${s.farbe}"></i>${s.name}</span>`).join("");
+    if (zustand.geschwister) h += `<span><b style="color:#d03b3b">- - -</b> ${D.getrennt} Familien auf mehrere Schulhäuser verteilt</span>` +
+      (zustand.klasse ? `<span><b style="color:#52514e">——</b> Geschwister im selben Schulhaus</span>` : "");
+    if (zustand.klasse) { const n = D.kinder.filter(k => k.kl === zustand.klasse).length;
+      h += `<span><b>${zustand.klasse}</b>: ${n} Lernende, Umriss = Einzugsgebiet</span>`; }
+    if (zustand.familie) h += `<span>Familie ${zustand.familie} hervorgehoben (erneut klicken zum Aufheben)</span>`;
+    el.innerHTML = h;
+  }
+  const steuerung = L.control({position: "topright"});
+  steuerung.onAdd = function () {
+    const d = L.DomUtil.create("div", "kartensteuerung");
+    const optionen = D.schulhaeuser.map(s => `<optgroup label="${s.name}">` +
+      s.klassen.map(k => `<option>${k}</option>`).join("") + "</optgroup>").join("");
+    d.innerHTML = `<label>Klasse <select id="k_klasse"><option value="">alle</option>${optionen}</select></label>
+      <label>Farbe <select id="k_modus"><option value="schulhaus">nach Schulhaus</option>
+      <option value="jahrgang">nach Jahrgang</option></select></label>
+      <label><input type="checkbox" id="k_geschw"> Geschwister verbinden</label>
+      <label><input type="checkbox" id="k_wege"> Schulwege zeigen</label>`;
+    L.DomEvent.disableClickPropagation(d);
+    d.querySelector("#k_klasse").onchange = e => { zustand.klasse = e.target.value; zeichnen();
+      if (zustand.klasse) karte.fitBounds(D.kinder.filter(k => k.kl === zustand.klasse).map(k => [k.lat, k.lon])
+        .concat([[sh[D.klassen[zustand.klasse]].lat, sh[D.klassen[zustand.klasse]].lon]]), {padding: [30, 30]}); };
+    d.querySelector("#k_modus").onchange = e => { zustand.modus = e.target.value; zeichnen(); };
+    d.querySelector("#k_geschw").onchange = e => { zustand.geschwister = e.target.checked; zeichnen(); };
+    d.querySelector("#k_wege").onchange = e => { zustand.wege = e.target.checked; zeichnen(); };
+    return d;
+  };
+  steuerung.addTo(karte);
+  karte.fitBounds(D.kinder.map(k => [k.lat, k.lon]).concat(D.schulhaeuser.map(s => [s.lat, s.lon])), {padding: [20, 20]});
+  zeichnen();
+})();
+"""
+
+# Ordinale Jahrgangsfarben: eine Farbe (Blau), hell → dunkel (Stufen 250–700 der Referenzpalette)
+JAHRGANG_BLAU = ["#86b6ef", "#6da7ec", "#5598e7", "#3987e5", "#2a78d6", "#256abf", "#1c5cab", "#184f95",
+                 "#104281", "#0d366b"]
+
+
+def karten_daten(r: Ergebnis) -> dict:
     schule, e = r.schule, r.einteilung
     farben = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"]
     farbe = {s.name: farben[i] if i < len(farben) else "#898781" for i, s in enumerate(schule.schulhaeuser)}
-    daten = {
+    stufen = [j for j in schule.jahrgaenge]
+    jg_farbe = {j: JAHRGANG_BLAU[min(len(JAHRGANG_BLAU) - 1, round(i * (len(JAHRGANG_BLAU) - 1) /
+                                                                     max(1, len(stufen) - 1)))]
+                for i, j in enumerate(stufen)}
+    mit_koord = [k for k in r.kinder if k.lat is not None]
+    index = {k.id: i for i, k in enumerate(mit_koord)}
+    familien = {}
+    for k in mit_koord:
+        if k.familie:
+            familien.setdefault(k.familie, []).append(k)
+    geschwister_text = {}
+    fam_daten = []
+    for fam, ks in familien.items():
+        if len(ks) < 2:
+            continue
+        orte = {e.schulhaus_von[k.id] for k in ks}
+        text = f"Familie {fam}: " + ", ".join(f"{k.vorname or k.name} ({e.klasse_von[k.id]})" for k in ks)
+        fam_daten.append({"kinder": [index[k.id] for k in ks], "getrennt": len(orte) > 1, "text": text})
+        for k in ks:
+            geschwister_text[k.id] = ", ".join(f"{g.id} {g.vorname or g.name} ({e.klasse_von[g.id]})"
+                                               for g in ks if g.id != k.id)
+    return {
         "schulhaeuser": [{"name": s.name, "lat": s.lat, "lon": s.lon, "farbe": farbe[s.name],
                           "klassen": [c.name for c in e.klassen if c.schulhaus == s.name]}
                          for s in schule.schulhaeuser],
-        "kinder": [{"lat": k.lat, "lon": k.lon, "sh": e.schulhaus_von[k.id], "farbe": farbe[e.schulhaus_von[k.id]],
-                    "t": f"{k.id} {k.name} · {k.jahrgang} → {e.klasse_von[k.id]} · {e.schulweg_m[k.id] / 1000:.2f} km"}
-                   for k in r.kinder if k.lat is not None],
+        "klassen": {c.name: c.schulhaus for c in e.klassen},
+        "jahrgangsfarben": jg_farbe,
+        "familien": fam_daten,
+        "getrennt": sum(f["getrennt"] for f in fam_daten),
+        "kinder": [{"lat": k.lat, "lon": k.lon, "sh": e.schulhaus_von[k.id], "kl": e.klasse_von[k.id],
+                    "jg": k.jahrgang, "fam": k.familie if k.id in geschwister_text else "",
+                    "t": f"<b>{html.escape(k.id)} {html.escape(k.name)}</b> · {html.escape(k.jahrgang)} → "
+                         f"{html.escape(e.klasse_von[k.id])} · {e.schulweg_m[k.id] / 1000:.2f} km"
+                         + (f"<br>Vorjahr: {html.escape(k.bisherige_klasse)}" if k.bisherige_klasse else "")
+                         + (f"<br>Geschwister: {html.escape(geschwister_text[k.id])}"
+                            if k.id in geschwister_text else "")}
+                   for k in mit_koord],
     }
+
+
+def _osm_karte(r: Ergebnis) -> str:
+    """Interaktive OpenStreetMap-Karte (Leaflet): Klassen, Jahrgänge, Geschwister, Schulwege.
+    Ohne Internet bleibt die SVG-Karte sichtbar."""
     leaflet = Path(__file__).parent / "static" / "leaflet"
-    return f"""<style>{(leaflet / "leaflet.css").read_text(encoding="utf-8")}</style>
-<div id="osm" class="osm" role="img" aria-label="OpenStreetMap-Karte der Wohnorte und Schulhäuser"></div>
-<p class="muted">Kartendaten © OpenStreetMap-Mitwirkende (Kacheln werden von tile.openstreetmap.org geladen,
-die Daten der Lernenden verlassen den Computer nicht). Ebenen pro Schulhaus ein-/ausblenden.</p>
+    daten = json.dumps(karten_daten(r), ensure_ascii=False).replace("</", "<\\/")
+    return f"""<style>{(leaflet / "leaflet.css").read_text(encoding="utf-8")}
+.kartensteuerung {{ background:#fff; color:#0b0b0b; padding:8px 10px; border-radius:6px; box-shadow:0 1px 4px rgba(0,0,0,.3);
+  display:flex; flex-direction:column; gap:5px; font:13px system-ui,sans-serif; max-width:230px }}
+.kartensteuerung select {{ font:inherit; max-width:150px; margin-left:4px }}
+.leaflet-tooltip {{ font:12px/1.35 system-ui,sans-serif }}</style>
+<div id="osm" class="osm" role="img" aria-label="OpenStreetMap-Karte der Wohnorte, Klassen und Schulhäuser"></div>
+<div id="kartenlegende" class="legende"></div>
+<p class="muted">Klasse wählen = Einzugsgebiet mit Umriss · Punkt anklicken = Familie hervorheben ·
+Kartendaten © OpenStreetMap-Mitwirkende (nur Kartenkacheln werden geladen, keine Daten der Lernenden).</p>
 <div id="svgkarte" hidden>{_karte(r)}</div>
 <script>/* Leaflet 1.9.4, BSD-2-Clause, © Volodymyr Agafonkin */{(leaflet / "leaflet.js").read_text(encoding="utf-8")}</script>
-<script>
-(function () {{
-  const D = {json.dumps(daten, ensure_ascii=False)};
-  if (typeof L === "undefined") {{  // offline: SVG-Karte zeigen
-    document.getElementById("osm").hidden = true; document.getElementById("svgkarte").hidden = false; return;
-  }}
-  const karte = L.map("osm", {{scrollWheelZoom: false}});
-  L.tileLayer("https://tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png", {{maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-Mitwirkende'}}).addTo(karte);
-  const ebenen = {{}};
-  for (const s of D.schulhaeuser) ebenen[s.name] = L.layerGroup().addTo(karte);
-  for (const k of D.kinder) L.circleMarker([k.lat, k.lon], {{radius: 4, color: "#fff", weight: 1, fillColor: k.farbe,
-    fillOpacity: .85}}).bindTooltip(k.t).addTo(ebenen[k.sh]);
-  for (const s of D.schulhaeuser) L.circleMarker([s.lat, s.lon], {{radius: 11, color: "#0b0b0b", weight: 3,
-    fillColor: s.farbe, fillOpacity: 1}}).bindTooltip("<b>" + s.name + "</b>", {{permanent: true, direction: "right"}})
-    .bindPopup("<b>" + s.name + "</b><br>" + s.klassen.join(", ")).addTo(ebenen[s.name]);
-  L.control.layers(null, Object.fromEntries(D.schulhaeuser.map(s =>
-    ['<span style="color:' + s.farbe + '">●</span> ' + s.name, ebenen[s.name]])), {{collapsed: false}}).addTo(karte);
-  karte.fitBounds(D.kinder.map(k => [k.lat, k.lon]).concat(D.schulhaeuser.map(s => [s.lat, s.lon])), {{padding: [20, 20]}});
-}})();
-</script>"""
+<script>{KARTE_JS.replace("__DATEN__", daten)}</script>"""
 
 
 def _wuensche_html(r: Ergebnis) -> str:

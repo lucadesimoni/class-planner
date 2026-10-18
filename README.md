@@ -7,38 +7,45 @@ Hintergrund rechnet ein exakter Optimierer (Google OR-Tools CP-SAT). Ein **Kanto
 (aktuell Luzern) liefert die rechtlichen Vorgaben samt Quellen. Alle Daten bleiben auf
 dem eigenen Computer.
 
-![Ergebnis in der Bedienoberfläche](docs/screenshots/4-ergebnis.png)
+![Ergebnis mit Karte: Einzugsgebiet einer Klasse und Geschwister](docs/screenshots/4-ergebnis-karte.png)
 
-## Installation und Start (ohne Informatikkenntnisse)
+## Installation und Start – ohne Vorkenntnisse
 
-1. **Python installieren** (einmalig, Version 3.11 oder neuer): <https://www.python.org/downloads/>.
-   Unter Windows beim Installieren **„Add python.exe to PATH“** anhaken.
-2. **Programm herunterladen**: auf GitHub *Code → Download ZIP*, entpacken.
-3. **Starten** per Doppelklick:
-   - Windows: `start-windows.bat`
-   - macOS: `start-mac.command` (beim ersten Mal: Rechtsklick → Öffnen)
-   - Linux: `./start-linux.sh`
+1. Auf GitHub **Code → Download ZIP** klicken und die ZIP-Datei entpacken (z.B. in *Dokumente*).
+2. Im entpackten Ordner doppelklicken:
+   - **Windows**: `start-windows.bat`
+   - **macOS**: `start-mac.command` (beim ersten Mal: Rechtsklick → *Öffnen* → *Öffnen*)
+   - **Linux**: `start-linux.sh`
+3. Warten. Beim ersten Mal richtet sich alles selbst ein (2–5 Minuten, Internet nötig).
+   Danach öffnet sich die Bedienoberfläche im Browser. Unter Windows liegt ab dann eine
+   Verknüpfung **„Klassenbildung“** auf dem Desktop.
 
-Beim ersten Start richtet sich das Programm selbst ein (2–5 Minuten, Internet nötig).
-Danach öffnet sich die Bedienoberfläche im Browser unter <http://localhost:8501>. Sie ist
-nur auf dem eigenen Computer erreichbar. Zum Beenden das Fenster schliessen.
+Python muss **nicht** installiert sein. Das Startprogramm lädt das Hilfsprogramm
+[uv](https://docs.astral.sh/uv/), und uv holt Python und alle Bausteine in genau
+geprüften Versionen (`uv.lock`). Ist bereits Python vorhanden und uv nicht erreichbar,
+wird jenes verwendet. Zum Beenden das schwarze Fenster schliessen. Die Oberfläche ist
+nur auf dem eigenen Computer erreichbar (<http://localhost:8501>).
 
-Für Fachleute: `pip install -e .` und dann `skf app`. Alternativ ohne Download mit
-[uv](https://docs.astral.sh/uv/):
-`uvx --from git+https://github.com/lucadesimoni/stunden-klassen-fitter skf app`.
+Für Fachleute: `uv run skf app` oder `pip install -e .` und dann `skf app`.
 
-## Bedienung in vier Schritten
+## Bedienung
 
-| Schritt | Was passiert | Bild |
+| Seite | Inhalt | Bild |
 |---|---|---|
-| **1 · Daten** | Beispiel laden oder eigene Stammdaten (Excel) hochladen; Lernende, Lehrpersonen, Schulhäuser, Räume, Klassentypen, Förderangebote direkt in Tabellen bearbeiten; Gewichtung mit Schiebereglern | [Daten](docs/screenshots/1-daten.png), [Gewichtung](docs/screenshots/1b-gewichtung.png) |
-| **2 · Prüfen** | fehlende oder widersprüchliche Angaben als ⛔ Fehler, ⚠️ Warnung, ℹ️ Hinweis | [Prüfen](docs/screenshots/2-pruefen.png) |
-| **3 · Berechnen** | Szenario und Rechenzeit wählen, starten | [Berechnen](docs/screenshots/3-berechnen.png) |
-| **4 · Ergebnis** | Meldungen, OpenStreetMap-Karte, Klassen und Klassenlisten, Stundenpläne pro Klasse und Lehrperson, Wünsche und KG-Gruppen, Empfehlungen, Downloads | [Karte](docs/screenshots/5-karte.png), [Klassen](docs/screenshots/6-klassen.png), [Stundenplan](docs/screenshots/7-stundenplan.png), [Wünsche](docs/screenshots/8-wuensche.png), [Empfehlungen](docs/screenshots/9-empfehlungen.png), [Downloads](docs/screenshots/10-herunterladen.png) |
+| **🏠 Start** | Überblick, Fortschritt, Beispiel oder Vorlage mit einem Klick | [Start](docs/screenshots/0-start.png) |
+| **1 · Daten** | Lernende, Lehrpersonen, Schulhäuser, Räume, Klassentypen, Förderangebote direkt in Tabellen bearbeiten oder Excel hochladen; Gewichtung mit Schiebereglern; als Excel speichern | [Daten](docs/screenshots/1-daten.png), [Gewichtung](docs/screenshots/1b-gewichtung.png) |
+| **2 · Prüfen** | fehlende oder widersprüchliche Angaben (⛔ ⚠️ ℹ️) | [Prüfen](docs/screenshots/2-pruefen.png) |
+| **3 · Berechnen** | Szenario, Rechenzeit, Notiz; jede Berechnung wird im Verlauf gespeichert | [Berechnen](docs/screenshots/3-berechnen.png) |
+| **4 · Ergebnis** | 🗺️ **Karte** (Klasse wählen → Einzugsgebiet mit Umriss; Farbe nach Schulhaus oder Jahrgang; **Geschwister verbinden**, getrennte Familien rot; Schulwege; Klick hebt Familie hervor) · 🏫 Klassen und Klassenlisten mit Geschwistern und Vorjahresklasse · 👧 **Lernende** (Personenkarte mit Geschwistern, Wünschen ✅/❌, KG-Gruppe, Verlauf) · ✋ **Anpassen** (Kind verschieben, sofort neu geprüft) · 🗓️ Stundenpläne · 🤝 Wünsche und KG-Gruppen · 💡 Empfehlungen · ⬇️ Downloads | [Karte](docs/screenshots/4-ergebnis-karte.png), [Klassen](docs/screenshots/5-klassen.png), [Lernende](docs/screenshots/6-lernende.png), [Anpassen](docs/screenshots/7-anpassen.png), [Stundenplan](docs/screenshots/8-stundenplan.png), [Wünsche](docs/screenshots/9-wuensche.png), [Empfehlungen](docs/screenshots/10-empfehlungen.png), [Downloads](docs/screenshots/11-herunterladen.png) |
+| **🕘 Verlauf** | alle gespeicherten Stände mit Kennzahlen; zwei Stände vergleichen (wer wechselte wohin); Bericht/Listen eines Standes herunterladen; Eingabedaten wiederherstellen | [Verlauf](docs/screenshots/12-verlauf.png) |
 
 Die Screenshots erzeugt der automatische Browser-Test (`tests/test_browser_e2e.py`). Er
-klickt die App mit dem Malters-Beispiel von Anfang bis Ende durch. Die Kartenkacheln
-fehlen auf den Bildern, weil die Testumgebung keinen Zugriff auf OpenStreetMap hat.
+bedient die App mit dem Malters-Beispiel von Anfang bis Ende. Die Kartenkacheln fehlen
+auf den Bildern, weil die Testumgebung keinen Zugriff auf OpenStreetMap hat.
+
+Der **Verlauf** liegt im Benutzerordner unter `Klassenbildung/verlauf/`, anpassbar mit
+der Umgebungsvariable `SKF_DATEN`. Zu jedem Stand gehören Eingabedaten, Zuteilung,
+Bericht und Listen.
 
 ## Was berücksichtigt wird
 
@@ -293,7 +300,7 @@ werden als Luftlinie × `umweg_faktor` (Standard 1.3) geschätzt.
 
 ```bash
 pip install -e ".[test]"
-pytest                                   # 36 Tests: Modell, Recht, Import/Export, App, Browser
+pytest                                   # 39 Tests: Modell, Recht, Import/Export, Verlauf, App, Browser
 pytest tests/test_browser_e2e.py -s      # nur Browser-Test (erzeugt docs/screenshots/)
 ```
 

@@ -24,6 +24,7 @@ class Ergebnis:
     meldungen: list[Meldung] = field(default_factory=list)
     sekunden: float = 0.0
     planung: Planung = field(default_factory=Planung)
+    manuell: list[str] = field(default_factory=list)   # manuelle Anpassungen (Protokoll)
 
     def anzahl(self, schwere: str) -> int:
         return sum(m.schwere == schwere for m in self.meldungen)
@@ -132,3 +133,49 @@ def _beteiligte_lehrpersonen(konflikt: list[str], schule: Schule) -> set[str]:
             if regel == f"Verfügbarkeit {name}" or regel.startswith(f"{name}:"):
                 beteiligt.add(name)
     return beteiligt
+
+
+def verschiebe(r: Ergebnis, kid: str, ziel: str) -> str:
+    """Manuelle Anpassung: ein Kind in eine andere Klasse verschieben und alles neu prüfen.
+
+    Der Stundenplan bleibt bestehen (Klassen ändern sich nicht); Förderlektionen, die von
+    der Zusammensetzung abhängen, werden als Hinweis gemeldet.
+    """
+    from .geo import luftlinie_m
+    e = r.einteilung
+    klassen = {c.name: c for c in e.klassen}
+    kind = next(k for k in r.kinder if k.id == kid)
+    alt, neu = klassen[e.klasse_von[kid]], klassen[ziel]
+    if kind.jahrgang not in neu.vorlage.jahrgaenge:
+        raise ValueError(f"{ziel} führt den Jahrgang {kind.jahrgang} nicht")
+    if alt is neu:
+        return "keine Änderung"
+    alt.kinder.remove(kid)
+    alt.anzahl_pro_jahrgang[kind.jahrgang] -= 1
+    neu.kinder.append(kid)
+    neu.anzahl_pro_jahrgang[kind.jahrgang] = neu.anzahl_pro_jahrgang.get(kind.jahrgang, 0) + 1
+    e.klasse_von[kid] = neu.name
+    e.schulhaus_von[kid] = neu.schulhaus
+    sh = r.schule.schulhaus(neu.schulhaus)
+    if kind.lat is not None:
+        e.schulweg_m[kid] = luftlinie_m(kind.lat, kind.lon, sh.lat, sh.lon) * r.schule.umweg_faktor
+    text = f"{kid} manuell von {alt.name} nach {neu.name} verschoben"
+    r.manuell.append(text)
+    pruefe_neu(r)
+    return text
+
+
+def pruefe_neu(r: Ergebnis) -> None:
+    """Meldungen und Empfehlungen nach einer manuellen Änderung neu berechnen."""
+    schule, kinder, e = r.schule, r.kinder, r.einteilung
+    behalten = [m for m in r.meldungen if m.bereich in ("Daten", "Solver") and "manuell" not in m.text]
+    r.meldungen = behalten + [Meldung("Hinweis", "Manuell", t) for t in r.manuell]
+    teil = (r.bloecke, r.lektionen) if r.lektionen else ()
+    r.meldungen += pruefe(schule, kinder, e, *teil)
+    r.meldungen += qualitaet(schule, kinder, e, r.bloecke, r.lektionen)
+    r.meldungen += rechtspruefung(schule, kinder, e, r.bloecke)
+    r.meldungen += wunsch_meldungen(kinder, e)
+    if r.manuell and r.lektionen:
+        r.meldungen.append(Meldung("Hinweis", "Manuell", "Klassen wurden manuell angepasst: Förderlektionen (IF/DaZ) "
+                                   "hängen von der Zusammensetzung ab – Stundenplan bei Bedarf neu berechnen."))
+    r.planung = plane(schule, kinder, r)
