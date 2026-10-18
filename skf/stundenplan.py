@@ -4,7 +4,9 @@
 
 Harte Regeln: keine Doppelbelegung von Klassen, Lehrpersonen und Spezialräumen,
 Verfügbarkeiten, Doppellektionen am Stück, max. Lektionen pro Fach und Tag,
-Blockzeiten (Vormittag lückenlos) und keine Lücken für Kinder innerhalb eines Halbtags.
+Blockzeiten (Vormittag lückenlos) und keine Lücken für Kinder innerhalb eines Halbtags;
+optional Schulbus (Beginn/Schluss passend zu Ankunft/Abfahrt) und Wegzeiten der
+Lehrpersonen zwischen Schulhäusern (siehe skf.mobilitaet).
 Weiche Ziele: wenige Präsenz-Halbtage und keine Springstunden für Lehrpersonen,
 keine Schulhauswechsel innerhalb eines Halbtags.
 
@@ -21,6 +23,7 @@ from ortools.sat.python import cp_model
 from .daten import Schule
 from .klassen import Klasse
 from .lehrauftrag import Block, gesperrte_slots
+from .mobilitaet import bus_halbtag, halbtage_der_klasse, lektionsort, zu_knapp
 from .solver import KeineLoesung, Loesungsinfo, Regeln, loese_mit_regeln
 
 
@@ -71,7 +74,9 @@ def _komponenten(schule: Schule, bloecke: list[Block]) -> list[set[str]]:
 
 
 def erstelle_stundenplan(schule: Schule, klassen: list[Klasse], bloecke: list[Block],
-                         zeitlimit: float = 120) -> tuple[list[Lektion], list[Loesungsinfo], list[str]]:
+                         zeitlimit: float = 120, buslinien: dict[str, set[str]] | None = None
+                         ) -> tuple[list[Lektion], list[Loesungsinfo], list[str]]:
+    """``buslinien``: Klasse -> Buslinien ihrer Kinder (für die Schulbus-Bedingung)."""
     lektionen, infos, warnungen = [], [], []
     komponenten = [k for k in _komponenten(schule, bloecke) if any(b.schulhaus in k for b in bloecke)]
     gesamt = sum(b.lektionen for b in bloecke)
@@ -79,7 +84,8 @@ def erstelle_stundenplan(schule: Schule, klassen: list[Klasse], bloecke: list[Bl
         teil = [b for b in bloecke if b.schulhaus in komp]
         anteil = sum(b.lektionen for b in teil) / gesamt
         l, info, warn = _loese_komponente(schule, [c for c in klassen if c.schulhaus in komp],
-                                          teil, max(5.0, zeitlimit * anteil), "/".join(sorted(komp)))
+                                          teil, max(5.0, zeitlimit * anteil), "/".join(sorted(komp)),
+                                          buslinien or {})
         lektionen += l
         infos.append(info)
         warnungen += warn
@@ -87,7 +93,7 @@ def erstelle_stundenplan(schule: Schule, klassen: list[Klasse], bloecke: list[Bl
 
 
 def _loese_komponente(schule: Schule, klassen: list[Klasse], bloecke: list[Block],
-                      zeitlimit: float, titel: str):
+                      zeitlimit: float, titel: str, buslinien: dict[str, set[str]]):
     w = schule.gewichte
     slots = schule.slots
     lp_nach_name = {lp.name: lp for lp in schule.lehrpersonen}
@@ -169,6 +175,17 @@ def _loese_komponente(schule: Schule, klassen: list[Klasse], bloecke: list[Block
             vorher = s
         for i in pflicht:
             regeln.nur_wenn(m.add(co[i] == 1), f"Blockzeiten {c.name}")
+        # Schulbus: Unterricht nur, wenn die Ankunft passt; Schluss passend zu einer Abfahrt
+        linien = buslinien.get(c.name)
+        if linien:
+            regel = f"Buszeiten {'/'.join(sorted(linien))}: {c.name}"
+            for hs in halbtage_der_klasse(schule, c.schulhaus).values():
+                moeglich, ende_ok, _ = bus_halbtag(schule, linien, hs)
+                for j, s in enumerate(hs):
+                    if not moeglich or (s.index not in ende_ok and j + 1 == len(hs)):
+                        regeln.nur_wenn(m.add(co[s.index] == 0), regel)
+                    elif s.index not in ende_ok:  # hier darf der Halbtag nicht enden
+                        regeln.nur_wenn(m.add(co[s.index] <= co[hs[j + 1].index]), regel)
 
     # Spezialräume: Hall-Bedingung über Klassengrössen (exakt für "Raum gross genug")
     raumbedarf = defaultdict(lambda: defaultdict(list))  # (ort, typ, slot) -> klasse -> vars
@@ -232,6 +249,26 @@ def _loese_komponente(schule: Schule, klassen: list[Klasse], bloecke: list[Block
                     wechsel = m.new_int_var(0, len(dort), "w")
                     m.add(wechsel >= sum(dort) - 1)
                     kosten.append(w["schulhauswechsel"] * wechsel)
+
+    # Wegzeiten: zwischen zwei Lektionen in verschiedenen Schulhäusern muss der Weg Platz haben
+    knapp = zu_knapp(schule)
+    if knapp:
+        am_ort = defaultdict(list)  # (Lehrperson, Ort, Slot) -> Variablen
+        for b, dauer, _, starts in ereignisse:
+            ort = lektionsort(schule, b.schulhaus, b.fach)
+            for st, var in starts.items():
+                for i in range(st, st + dauer):
+                    am_ort[b.lehrperson, ort, i].append(var)
+        orte = defaultdict(set)
+        for name, ort, _ in am_ort:
+            orte[name].add(ort)
+        for name, os_ in orte.items():
+            for a in os_:
+                for b in os_:
+                    for s1, s2 in knapp.get((a, b), []):
+                        va, vb = am_ort.get((name, a, s1)), am_ort.get((name, b, s2))
+                        if va and vb:
+                            regeln.nur_wenn(m.add(sum(va) + sum(vb) <= 1), f"Wegzeit {name}: {a} → {b}")
 
     m.minimize(sum(kosten))
     sol, info = loese_mit_regeln(m, regeln, f"Stundenplan {titel}", zeitlimit)

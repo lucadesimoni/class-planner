@@ -96,3 +96,18 @@ def test_app_bearbeitung_wirkt_sich_aus():
     _seite(at, "pruefen")
     texte = [e.value for e in at.error]
     assert any("unbekanntes Fach 'Werken'" in t for t in texte), texte
+
+
+def test_schulbus_und_wegzeiten_bleiben_beim_bearbeiten_erhalten():
+    at = AppTest.from_file(APP, default_timeout=180)
+    at.run()
+    next(b for b in at.button if "Beispiel Malters" in b.label).click().run()
+    assert not at.exception
+    rest = at.session_state["extra"]["rest"]
+    linie = rest["schulbus"]["linien"][0]
+    assert linie["name"] == "Schulbus Blatten" and linie["abfahrt"]["NM"] == ["14:25", "15:15"]
+    assert linie["ankunft"] == {"VM": "07:50", "NM": "13:20"}
+    assert rest["wegzeiten"]["minuten"] == [["Bündtmättli", "Eischachen", 10]]
+    assert at.toggle(key="wegzeiten_an").value
+    _seite(at, "pruefen")
+    assert not at.exception

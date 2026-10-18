@@ -34,14 +34,21 @@ REGELN = [
     ("Keine Lücken im Halbtag für Lernende", "Stundenplan", ("Lücke",)),
     ("Förderlektionen parallel zum passenden Unterricht", "Stundenplan", ("parallel zu",)),
 ]
+# Nur aktiv, wenn eingerichtet (Schulbus bzw. Wegzeiten in der Konfiguration)
+REGELN_OPTIONAL = [
+    ("Schulbus: nur Schulhäuser, die die Linie anfährt", "Klassen", ("nicht angefahren",), "bus"),
+    ("Schulbus: Unterricht passt zu Ankunft und Abfahrt", "Stundenplan", ("Schulbus",), "bus"),
+    ("Wegzeiten der Lehrpersonen zwischen Schulhäusern", "Stundenplan", ("Wegzeit",), "weg"),
+]
 
 
 def regeln(r: Ergebnis) -> list[dict]:
     fehler = [m for m in r.meldungen if m.schwere == "Fehler" and m.bereich in ("Klassen", "Lehraufträge",
                                                                                 "Stundenplan")]
     geprueft = {"Klassen": r.einteilung is not None, "Lehraufträge": bool(r.bloecke), "Stundenplan": bool(r.lektionen)}
+    aktiv = {"bus": bool(r.schule.buslinien and any(k.bus for k in r.kinder)), "weg": bool(r.schule.wegzeiten)}
     out = []
-    for name, bereich, woerter in REGELN:
+    for name, bereich, woerter in REGELN + [x[:3] for x in REGELN_OPTIONAL if aktiv[x[3]]]:
         treffer = [m for m in fehler if m.bereich == bereich and any(w in m.text for w in woerter)]
         out.append({"regel": name, "bereich": bereich, "geprueft": geprueft[bereich], "verstoesse": len(treffer),
                     "beispiele": [m.text for m in treffer[:3]]})

@@ -89,7 +89,8 @@ SPALTEN_LERNENDE = {
     "if": "IF", "daz": "DaZ (anfang/aufbau)", "is": "IS", "foerderbedarf": "weiterer Förderbedarf",
     "schulhaus_fix": "Schulhaus fix", "bisheriges_schulhaus": "Schulhaus Vorjahr",
     "bisherige_klasse": "Klasse/KG-Gruppe Vorjahr", "zusammen_mit": "Wunsch: zusammen mit (IDs)",
-    "nicht_mit": "Wunsch: nicht zusammen mit (IDs)", "wunsch_schulhaus": "Wunsch-Schulhaus", "bemerkung": "Bemerkung",
+    "nicht_mit": "Wunsch: nicht zusammen mit (IDs)", "wunsch_schulhaus": "Wunsch-Schulhaus", "bus": "Schulbus (Linie)",
+    "bemerkung": "Bemerkung",
 }
 
 GEWICHT_TEXT = {
@@ -302,14 +303,15 @@ def seite_daten() -> None:
                f"{len(st.session_state.bearbeitet['Kinder'])} Lernende")
     tabs = st.tabs([":material/child_care: Lernende", ":material/co_present: Lehrpersonen", ":material/school: Schulhäuser",
                     ":material/meeting_room: Räume", ":material/category: Klassentypen", ":material/menu_book: Fächer",
-                    ":material/volunteer_activism: Förderangebote", ":material/tune: Gewichtung"])
+                    ":material/volunteer_activism: Förderangebote", ":material/tune: Gewichtung",
+                    ":material/directions_bus: Schulbus & Wege"])
     with tabs[0]:
         alle = st.toggle("Alle Spalten zeigen (Koordinaten, Förderdetails)", key="alle_spalten")
         st.caption("Wünsche: IDs mit `;` trennen. *Klasse/KG-Gruppe Vorjahr* hält Gruppen zusammen (Gspänli-Regel). "
                    "IF/IS: `ja`; DaZ: `anfang` oder `aufbau`. Neue Zeile: unten in der Tabelle.")
         sichtbar = None if alle else ["id", "vorname", "nachname", "jahrgang", "geschlecht", "adresse", "familie",
                                       "if", "daz", "is", "bisherige_klasse", "zusammen_mit", "nicht_mit",
-                                      "wunsch_schulhaus", "bemerkung"]
+                                      "wunsch_schulhaus", "bus", "bemerkung"]
         st.session_state.bearbeitet["Kinder"] = st.data_editor(
             st.session_state.kinder_df, num_rows="dynamic", width="stretch", height=430,
             key=f"ed_kinder_{st.session_state.version}", column_order=sichtbar,
@@ -357,6 +359,9 @@ def seite_daten() -> None:
                                                    int(gew.get(k, standard)), step=10, key=f"g_{k}")
         rest["gewichte"] = {k: v for k, v in gew.items() if v != STANDARD_GEWICHTE[k]}
 
+    with tabs[8]:
+        _schulbus_und_wege(st.session_state.extra["rest"])
+
     cfg_neu, kinder = _aktuelle_daten()
     with tempfile.TemporaryDirectory() as tmp:
         exportiere_stammdaten(cfg_neu, kinder, Path(tmp) / "stammdaten.xlsx")
@@ -365,6 +370,71 @@ def seite_daten() -> None:
     a.download_button("Stammdaten als Excel speichern", inhalt, "stammdaten.xlsx", icon=":material/save:", width="stretch")
     with b:
         _weiter("pruefen")
+
+
+def _zeiten(text) -> list[str]:
+    return [t.strip() for t in str(text or "").replace(",", ";").split(";") if t.strip()]
+
+
+def _schulbus_und_wege(rest: dict) -> None:
+    """Optionale Regeln für Dörfer: Schulbus und Wegzeiten der Lehrpersonen."""
+    st.markdown("**Schulbus** – Kinder mit einer Buslinie (Spalte *Schulbus* bei den Lernenden) kommen nur in "
+                "Schulhäuser, die die Linie anfährt. Ihr Unterricht beginnt nach der Ankunft und endet passend zu "
+                "einer Abfahrt. Zeiten wie `07:50`, mehrere mit `;` trennen.")
+    bus = rest.get("schulbus") or {}
+    def text(v) -> str:
+        return v if isinstance(v, str) else "; ".join(str(x) for x in v or [])
+
+    zeilen = [{"name": l.get("name", ""), "schulhaeuser": text(l.get("schulhaeuser")),
+               **{f"{art}_{ht.lower()}": text((l.get(art) or {}).get(ht)) for art in ("ankunft", "abfahrt")
+                  for ht in ("VM", "NM")}}
+              for l in bus.get("linien") or []]
+    df = st.data_editor(
+        pd.DataFrame(zeilen, columns=["name", "schulhaeuser", "ankunft_vm", "ankunft_nm", "abfahrt_vm", "abfahrt_nm"]),
+        num_rows="dynamic", width="stretch", key=f"ed_bus_{st.session_state.version}",
+        column_config={"name": "Linie", "schulhaeuser": "Angefahrene Schulhäuser", "ankunft_vm": "Ankunft Vormittag",
+                       "ankunft_nm": "Ankunft Nachmittag", "abfahrt_vm": "Abfahrten Mittag",
+                       "abfahrt_nm": "Abfahrten Nachmittag"})
+    warte = st.number_input("Höchste Wartezeit der Kinder (Minuten)", 0, 60, int(bus.get("wartezeit_max", 15)), 5)
+    linien = []
+    for z in df.to_dict("records"):
+        if not str(z.get("name") or "").strip():
+            continue
+        l = {"name": str(z["name"]).strip(), "schulhaeuser": _zeiten(z.get("schulhaeuser"))}
+        ank = {k: str(z[f"ankunft_{k.lower()}"]).strip() for k in ("VM", "NM") if str(z.get(f"ankunft_{k.lower()}") or "").strip()}
+        ab = {k: _zeiten(z.get(f"abfahrt_{k.lower()}")) for k in ("VM", "NM") if _zeiten(z.get(f"abfahrt_{k.lower()}"))}
+        if ank:
+            l["ankunft"] = ank
+        if ab:
+            l["abfahrt"] = ab
+        linien.append(l)
+    if linien:
+        rest["schulbus"] = {"wartezeit_max": int(warte), "linien": linien}
+    else:
+        rest.pop("schulbus", None)
+
+    st.divider()
+    st.markdown("**Wegzeiten der Lehrpersonen** – zwei Lektionen direkt nacheinander in verschiedenen Schulhäusern "
+                "nur, wenn die Pause für den Weg reicht.")
+    weg = rest.get("wegzeiten")
+    an = st.toggle("Wegzeiten berücksichtigen", value=bool(weg), key="wegzeiten_an")
+    if not an:
+        rest.pop("wegzeiten", None)
+        return
+    weg = weg if isinstance(weg, dict) else {}
+    kmh = st.number_input("Geschwindigkeit für Wege ohne eigene Angabe (km/h, aus Koordinaten)", 3, 60,
+                          int(weg.get("geschwindigkeit_kmh", 20)))
+    minuten = weg.get("minuten") or {}
+    paare = [{"von": a, "nach": b, "minuten": v} for a, b, v in (
+        [[*str(k).partition(" - " if " - " in str(k) else "-")[::2], v] for k, v in minuten.items()]
+        if isinstance(minuten, dict) else minuten)]
+    df = st.data_editor(pd.DataFrame(paare, columns=["von", "nach", "minuten"]), num_rows="dynamic", width="stretch",
+                        key=f"ed_weg_{st.session_state.version}",
+                        column_config={"von": "Schulhaus", "nach": "Schulhaus",
+                                       "minuten": st.column_config.NumberColumn("Minuten", min_value=0, step=1)})
+    eintraege = [[str(z["von"]).strip(), str(z["nach"]).strip(), int(z["minuten"])] for z in df.to_dict("records")
+                 if str(z.get("von") or "").strip() and str(z.get("nach") or "").strip() and pd.notna(z.get("minuten"))]
+    rest["wegzeiten"] = {"geschwindigkeit_kmh": int(kmh), **({"minuten": eintraege} if eintraege else {})}
 
 
 def _liste_hochladen(art: str) -> None:
@@ -537,6 +607,8 @@ def _kind_karte(r: Ergebnis, kid: str) -> None:
     if k.wunsch_schulhaus:
         wuensche_k.append(f"{_ja_nein(e.schulhaus_von[kid] == k.wunsch_schulhaus)} Wunsch-Schulhaus "
                           f"{k.wunsch_schulhaus}")
+    if k.bus:
+        st.markdown(f"**Schulbus:** {k.bus}")
     if wuensche_k:
         st.markdown("**Wünsche der Erziehungsberechtigten:**  \n" + "  \n".join(wuensche_k))
     if k.bisherige_klasse:
@@ -786,6 +858,8 @@ def seite_hilfe() -> None:
   *SHP* Schulische Heilpädagogin/Schulischer Heilpädagoge.
 - *Gspänli-Regel*: Niemand kommt als einziges Kind aus seiner KG-Gruppe/Klasse in eine neue Klasse.
 - *Blockzeiten*: Unterricht an allen Vormittagen (Kanton Luzern: VBV § 3).
+- *Schulbus*: Kinder einer Buslinie kommen nur in angefahrene Schulhäuser; Unterricht beginnt nach der Ankunft und endet passend zu einer Abfahrt (Daten → Schulbus & Wege).
+- *Wegzeiten*: Lehrpersonen wechseln direkt nacheinander nur dann das Schulhaus, wenn die Pause für den Weg reicht.
 
 **Datenschutz** – Alle Daten bleiben auf diesem Computer (Verlauf im Ordner *Klassenbildung* im Benutzerordner).
 Nur Kartenkacheln werden von OpenStreetMap geladen. Förderdaten erscheinen in Listen nur auf Wunsch.

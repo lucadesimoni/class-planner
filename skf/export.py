@@ -113,7 +113,8 @@ def klassenlisten_xlsx(r: Ergebnis, pfad: Path, mit_foerderdaten: bool = False) 
             zeilen)
     _druck(ws, kopfzeile=1)
 
-    kopf = ["Nr.", "Nachname", "Vorname", "Jahrgang", "Geschlecht", "Adresse"] + (
+    mit_bus = any(k.bus for k in r.kinder)
+    kopf = ["Nr.", "Nachname", "Vorname", "Jahrgang", "Geschlecht", "Adresse"] + (["Schulbus"] if mit_bus else []) + (
         ["Förderung"] if mit_foerderdaten else [])
     for c in e.klassen:
         ws = wb.create_sheet(_blattname(c.name, vergeben))
@@ -123,7 +124,8 @@ def klassenlisten_xlsx(r: Ergebnis, pfad: Path, mit_foerderdaten: bool = False) 
                     f"Schulzimmer {c.raum.name}")
         ws["A3"] = f"Klassenlehrperson: {', '.join(klp.get(c.name, [])[:2]) or '–'} · {len(c.kinder)} Lernende"
         ks = sorted((nach_id[i] for i in c.kinder), key=lambda k: (_namen(k)[0], _namen(k)[1]))
-        zeilen = [[i, *_namen(k), k.jahrgang, k.geschlecht, k.adresse] + ([_merkmale(k)] if mit_foerderdaten else [])
+        zeilen = [[i, *_namen(k), k.jahrgang, k.geschlecht, k.adresse] + ([k.bus] if mit_bus else [])
+                  + ([_merkmale(k)] if mit_foerderdaten else [])
                   for i, k in enumerate(ks, 1)]
         tabelle(ws, kopf, zeilen, start=5)
         _druck(ws, kopfzeile=5)
@@ -240,12 +242,13 @@ def druck_html(r: Ergebnis, pfad: Path, mit_foerderdaten: bool = False) -> None:
              f"Stundenpläne</title><style>{DRUCK_CSS}</style></head><body>"]
     for c in e.klassen:
         ks = sorted((nach_id[i] for i in c.kinder), key=lambda k: _namen(k))
+        mit_bus = any(k.bus for k in r.kinder)
         kopf = "<tr><th>Nr.</th><th>Nachname</th><th>Vorname</th><th>Jg.</th><th>G.</th><th>Adresse</th>" + (
-            "<th>Förderung</th>" if mit_foerderdaten else "") + "</tr>"
+            "<th>Schulbus</th>" if mit_bus else "") + ("<th>Förderung</th>" if mit_foerderdaten else "") + "</tr>"
         zeilen_html = "".join(
             f"<tr><td>{i}</td><td>{esc(_namen(k)[0])}</td><td>{esc(_namen(k)[1])}</td><td>{esc(k.jahrgang)}</td>"
             f"<td>{esc(k.geschlecht)}</td><td>{esc(k.adresse)}</td>"
-            + (f"<td>{esc(_merkmale(k))}</td>" if mit_foerderdaten else "") + "</tr>" for i, k in enumerate(ks, 1))
+            + (f"<td>{esc(k.bus)}</td>" if mit_bus else "") + (f"<td>{esc(_merkmale(k))}</td>" if mit_foerderdaten else "") + "</tr>" for i, k in enumerate(ks, 1))
         teile.append(f"<section class='seite'><h1>Klassenliste {esc(c.name)}</h1><p class='sub'>{esc(schule.name)} · "
                      f"Schulhaus {esc(c.schulhaus)}, Zimmer {esc(c.raum.name)} · Klassenlehrperson: "
                      f"{esc(', '.join(klp.get(c.name, [])[:2]) or '–')} · {len(ks)} Lernende</p>"

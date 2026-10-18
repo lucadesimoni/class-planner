@@ -91,7 +91,16 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
         moegliche = [s.name for s in schule.schulhaeuser
                      if any(k.jahrgang in v.jahrgaenge and (not v.schulhaeuser or s.name in v.schulhaeuser)
                             for v in schule.vorlagen)]
-        nah = [s for s in moegliche if dist[k.id, s] <= schule.max_schulweg(k.jahrgang)]
+        linie = schule.buslinie(k.bus) if k.bus else None
+        if linie:  # Schulbus ersetzt den Fussweg: nur Schulhäuser, die die Linie anfährt
+            nah = [s for s in moegliche if s in linie.schulhaeuser]
+            grund = f"Schulbus {linie.name}: nur angefahrene Schulhäuser"
+            if not nah:
+                warnungen.append(f"{k.id}: Buslinie {linie.name} fährt kein passendes Schulhaus an – "
+                                 "max. Schulweg gilt")
+        if not linie or not nah:
+            nah = [s for s in moegliche if dist[k.id, s] <= schule.max_schulweg(k.jahrgang)]
+            grund = f"Max. Schulweg Jahrgang {k.jahrgang} ({schule.max_schulweg(k.jahrgang)} m)"
         if not nah and moegliche:
             naechstes = min(moegliche, key=lambda s: dist[k.id, s])
             warnungen.append(f"{k.id}: kein Schulhaus innerhalb max. Schulweg – nächstes ({naechstes}) zugelassen")
@@ -99,8 +108,7 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
         for s in moegliche:
             x[k.id, s] = m.new_bool_var(f"x_{k.id}_{s}")
             if s not in nah:
-                regeln.nur_wenn(m.add(x[k.id, s] == 0), f"Max. Schulweg Jahrgang {k.jahrgang} "
-                                                         f"({schule.max_schulweg(k.jahrgang)} m)")
+                regeln.nur_wenn(m.add(x[k.id, s] == 0), grund)
             if k.schulhaus_fix and s != k.schulhaus_fix:
                 regeln.nur_wenn(m.add(x[k.id, s] == 0), "Fixe Schulhaus-Zuteilungen")
         m.add_exactly_one(x[k.id, s] for s in moegliche)

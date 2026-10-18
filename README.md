@@ -79,14 +79,49 @@ farbsehschwäche-geprüfte Farben.
 
 | Bereich | Harte Regeln (immer erfüllt) | Weiche Ziele (gewichtet, optimiert) |
 |---|---|---|
-| **Klassenbildung** | Jahrgang passt zum Klassentyp, Klassengrösse (optional verbindlich nach Kantonsrecht), Raumgrösse, ein Schulzimmer pro Klasse, max. Schulweg, fixes Schulhaus, Kapazität der Spezialräume, **IS**: max. Anzahl pro Klasse und Mehrfachzählung, Geschwister im selben Schulhaus (Modus `hart`) | kurze Schulwege, wenige Klassen, Grösse nahe am Ideal, Geschwister zusammen (Modus `weich`), **Kontinuität** (bisheriges Schulhaus, bisherige Klasse), **Gspänli-Regel** (niemand als Einziger aus seiner KG-Gruppe oder Klasse), **Wünsche der Erziehungsberechtigten** („zusammen mit“, „nicht zusammen mit“, Wunsch-Schulhaus), ausgeglichene Verteilung von Geschlecht, **IF, DaZ, IS**, wenige Mehrjahrgangsklassen |
+| **Klassenbildung** | Jahrgang passt zum Klassentyp, Klassengrösse (optional verbindlich nach Kantonsrecht), Raumgrösse, ein Schulzimmer pro Klasse, max. Schulweg (bzw. **Schulbus**: nur angefahrene Schulhäuser), fixes Schulhaus, Kapazität der Spezialräume, **IS**: max. Anzahl pro Klasse und Mehrfachzählung, Geschwister im selben Schulhaus (Modus `hart`) | kurze Schulwege, wenige Klassen, Grösse nahe am Ideal, Geschwister zusammen (Modus `weich`), **Kontinuität** (bisheriges Schulhaus, bisherige Klasse), **Gspänli-Regel** (niemand als Einziger aus seiner KG-Gruppe oder Klasse), **Wünsche der Erziehungsberechtigten** („zusammen mit“, „nicht zusammen mit“, Wunsch-Schulhaus), ausgeglichene Verteilung von Geschlecht, **IF, DaZ, IS**, wenige Mehrjahrgangsklassen |
 | **Lehraufträge** | Qualifikation (Fach, Jahrgang, Schulhaus), max. Pensum, Verfügbarkeit, Blockzeiten an jedem Tag abdeckbar, **Förderlektionen IF/DaZ** nur an qualifizierte Lehrpersonen (SHP, DaZ) | Klassenlehrprinzip, **Lehrperson führt ihre bisherige Klasse weiter**, Mindestpensum, wenige Schulhäuser pro Lehrperson |
-| **Stundenplan** | Stundentafel, keine Doppelbelegung, Verfügbarkeit von Lehrpersonen, **Schulhäusern und Räumen**, Raumgrösse, Doppellektionen, max. Lektionen pro Fach/Tag, Blockzeiten, keine Lücken für Lernende, **Förderlektionen parallel** zu passenden Fächern | wenige Präsenz-Halbtage, keine Springstunden, keine Schulhauswechsel im Halbtag |
+| **Stundenplan** | Stundentafel, keine Doppelbelegung, Verfügbarkeit von Lehrpersonen, **Schulhäusern und Räumen**, Raumgrösse, Doppellektionen, max. Lektionen pro Fach/Tag, Blockzeiten, keine Lücken für Lernende, **Förderlektionen parallel** zu passenden Fächern; optional **Schulbus** (Beginn nach Ankunft, Schluss passend zu einer Abfahrt) und **Wegzeiten** der Lehrpersonen zwischen Schulhäusern | wenige Präsenz-Halbtage, keine Springstunden, keine Schulhauswechsel im Halbtag |
 
 Dazu kommen Szenarien, einstellbare Gewichte, **Meldungen mit Schweregrad und Quelle**,
 eine **Konfliktanalyse** bei Unlösbarkeit, **Empfehlungen** (Lehrpersonen,
 Verfügbarkeit, Räume, Ausbau), standardisierter **Import/Export** und druckfertige
 **Klassenlisten und Stundenpläne**.
+
+### Für Dörfer: Schulbus und Wegzeiten (optional)
+
+**Schulbus.** Kinder aus Weilern tragen in der Spalte *Schulbus* ihre Linie. Sie kommen
+nur in Schulhäuser, die die Linie anfährt (der max. Schulweg gilt für sie nicht – der
+Bus ersetzt den Fussweg). Ihr Unterricht beginnt nach der Ankunft und endet passend zu
+einer Abfahrt, mit höchstens `wartezeit_max` Minuten Warten. Fährt am Nachmittag nur
+ein Bus, haben alle Klassen mit Buskindern den Nachmittag ganz oder gar nicht – fährt er
+zweimal, ist auch ein kurzer Nachmittag möglich. Passt eine Ankunft nie zum
+Unterrichtsbeginn, meldet das schon die Prüfung; ist der Plan so unmöglich, nennt die
+Konfliktanalyse die Buszeiten als Ursache.
+
+**Wegzeiten.** Eine Lehrperson unterrichtet zwei Lektionen direkt nacheinander in
+verschiedenen Schulhäusern nur, wenn die Pause für den Weg reicht (Lektionsdauer
+`zeitraster.lektion_minuten`, Standard 45). Wegzeiten stehen in der Konfiguration oder
+werden aus den Koordinaten berechnet (Luftlinie × Umwegfaktor bei der eingestellten
+Geschwindigkeit). Turnhallen in einem anderen Schulhaus (`nutzt`) zählen als dieser Ort.
+
+Beides wird in der App unter *Daten → Schulbus & Wege* eingerichtet, gilt als harte
+Regel, wird nach der Berechnung unabhängig nachgezählt und erscheint in der
+Transparenz-Ansicht. Klassenlisten erhalten eine Spalte *Schulbus*. Das Beispiel Malters
+enthält eine Buslinie für den Weiler Blatten und eine Wegzeit Bündtmättli–Eischachen.
+
+```yaml
+schulbus:
+  wartezeit_max: 15                          # Minuten
+  linien:
+    - name: Schulbus Blatten
+      schulhaeuser: [Bündtmättli]
+      ankunft: {VM: "07:50", NM: "13:20"}
+      abfahrt: {VM: "11:40", NM: ["14:25", "15:15"], Mi-VM: "11:45"}   # Tag-Halbtag geht vor
+wegzeiten:                                   # oder einfach: wegzeiten: true (nur aus Koordinaten)
+  geschwindigkeit_kmh: 15
+  minuten: {Bündtmättli-Eischachen: 10}      # "A - B", falls Namen Bindestriche enthalten
+```
 
 ### Wünsche der Erziehungsberechtigten und Kindergartengruppen
 
@@ -354,7 +389,7 @@ werden als Luftlinie × `umweg_faktor` (Standard 1.3) geschätzt.
 
 ```bash
 pip install -e ".[test]"
-pytest                                   # 51 Tests: Modell, Recht, Import/Export, Verlauf, App, Browser
+pytest                                   # 58 Tests: Modell, Recht, Import/Export, Verlauf, App, Browser
 pytest tests/test_browser_e2e.py -s      # nur Browser-Test (erzeugt docs/screenshots/)
 ```
 

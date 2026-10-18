@@ -15,6 +15,8 @@ from dataclasses import dataclass
 
 from .daten import Kind, Schule
 from .geo import luftlinie_m
+from .mobilitaet import (bus_halbtag, buslinien_der_klassen, halbtage_der_klasse, lektionsort, wegzeit,
+                         zu_knapp)
 from .klassen import Einteilung
 from .lehrauftrag import Block, qualifiziert, stundentafel
 from .stundenplan import Lektion, blockzeit_slots
@@ -166,7 +168,27 @@ def vorpruefung(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
                              "ausgelastet – kaum Spielraum für eine gute Einteilung"))
 
     # Schulwege
-    zu_weit = [k.id for k in kinder if k.lat is not None and k.jahrgang in schule.jahrgaenge and all(
+    for k in kinder:
+        if k.bus and not schule.buslinie(k.bus):
+            m.append(Meldung("Fehler", "Daten", f"{k.id}: unbekannte Buslinie '{k.bus}' "
+                             f"(vorhanden: {', '.join(b.name for b in schule.buslinien) or 'keine'})", k.id))
+    for b in schule.buslinien:
+        for sh in b.schulhaeuser:
+            if sh not in {x.name for x in schule.schulhaeuser}:
+                m.append(Meldung("Fehler", "Daten", f"Buslinie {b.name}: unbekanntes Schulhaus '{sh}'"))
+        for sh in schule.schulhaeuser:
+            if sh.name not in b.schulhaeuser:
+                continue
+            for hs in halbtage_der_klasse(schule, sh.name).values():
+                moeglich, ende_ok, _ = bus_halbtag(schule, {b.name}, hs)
+                if not moeglich:
+                    m.append(Meldung("Warnung", "Daten", f"Buslinie {b.name}: Ankunft passt nicht zum "
+                                     f"Unterrichtsbeginn {hs[0].label} in {sh.name} – an diesem Halbtag kein "
+                                     "Unterricht für Buskinder möglich"))
+                elif not ende_ok:
+                    m.append(Meldung("Warnung", "Daten", f"Buslinie {b.name}: keine Abfahrt passt zu einem "
+                                     f"Unterrichtsschluss am {hs[0].tag} {hs[0].halbtag} in {sh.name}"))
+    zu_weit = [k.id for k in kinder if k.lat is not None and k.jahrgang in schule.jahrgaenge and not k.bus and all(
         luftlinie_m(k.lat, k.lon, s.lat, s.lon) * schule.umweg_faktor > schule.max_schulweg(k.jahrgang)
         for s in schule.schulhaeuser)]
     if zu_weit:
@@ -236,6 +258,12 @@ def pruefe(schule: Schule, kinder: list[Kind], e: Einteilung,
             f.append(Meldung("Fehler", "Klassen", f"{k.id} ({k.jahrgang}) in falscher Stufe", e.klasse_von[k.id]))
         if k.schulhaus_fix and e.schulhaus_von[k.id] != k.schulhaus_fix:
             f.append(Meldung("Fehler", "Klassen", f"{k.id} nicht im fixen Schulhaus {k.schulhaus_fix}", k.id))
+        linie = schule.buslinie(k.bus) if k.bus else None
+        if linie and e.schulhaus_von.get(k.id) not in linie.schulhaeuser and any(
+                k.jahrgang in v.jahrgaenge and (not v.schulhaeuser or sh in v.schulhaeuser)
+                for sh in linie.schulhaeuser for v in schule.vorlagen):
+            f.append(Meldung("Fehler", "Klassen", f"{k.id}: Schulhaus {e.schulhaus_von.get(k.id)} wird von "
+                             f"Buslinie {linie.name} nicht angefahren", k.id))
     raeume = Counter((c.schulhaus, c.raum.name) for c in e.klassen)
     f += [Meldung("Fehler", "Klassen", f"Raum {r[1]} doppelt vergeben", r[1]) for r, n in raeume.items() if n > 1]
     for c in e.klassen:
@@ -340,6 +368,34 @@ def pruefe(schule: Schule, kinder: list[Kind], e: Einteilung,
         if len(slots) >= len(pflicht):
             f += [Meldung("Fehler", "Stundenplan", f"{name}: Blockzeit {schule.slots[i].label} nicht besetzt", name, i)
                   for i in pflicht if i not in slots]
+
+    # Schulbus: Beginn nach Ankunft, Schluss passend zu einer Abfahrt
+    linien = buslinien_der_klassen(e.klassen, kinder)
+    for name, slots in belegt.items():
+        if not linien.get(name):
+            continue
+        for hs in halbtage_der_klasse(schule, klassen[name].schulhaus).values():
+            da = [s for s in hs if s.index in slots]
+            if not da:
+                continue
+            moeglich, ende_ok, gruende = bus_halbtag(schule, linien[name], hs)
+            if not moeglich or da[-1].index not in ende_ok:
+                f.append(Meldung("Fehler", "Stundenplan", f"{name}: Unterricht {da[0].tag} {da[0].halbtag} passt "
+                                 f"nicht zum Schulbus ({'; '.join(gruende)})", name, da[-1].index))
+
+    # Wegzeiten der Lehrpersonen zwischen Schulhäusern
+    knapp = zu_knapp(schule)
+    if knapp:
+        wo = defaultdict(dict)
+        for l in lektionen:
+            wo[l.lehrperson][l.slot] = lektionsort(schule, l.schulhaus, l.fach)
+        for name, orte in wo.items():
+            for (a, b), paare in knapp.items():
+                for s1, s2 in paare:
+                    if orte.get(s1) == a and orte.get(s2) == b:
+                        f.append(Meldung("Fehler", "Stundenplan", f"{name}: Wegzeit {a} → {b} "
+                                         f"({wegzeit(schule, a, b)} min) reicht nicht zwischen "
+                                         f"{schule.slots[s1].label} und {schule.slots[s2].label}", name, s2))
     return f
 
 
@@ -370,7 +426,7 @@ def qualitaet(schule: Schule, kinder: list[Kind], e: Einteilung,
         w = sum(k.geschlecht == "w" for k in ks)
         if ks and abs(2 * w - len(ks)) > 0.4 * len(ks):
             m.append(Meldung("Hinweis", "Klassen", f"{c.name}: Geschlechterverhältnis {w}:{len(ks) - w}", c.name))
-        weit = [k.id for k in ks if e.schulweg_m[k.id] > schule.max_schulweg(k.jahrgang)]
+        weit = [k.id for k in ks if e.schulweg_m[k.id] > schule.max_schulweg(k.jahrgang) and not k.bus]
         if weit:
             m.append(Meldung("Warnung", "Klassen", f"{c.name}: {len(weit)} Kind(er) mit Schulweg über Maximum "
                              f"({', '.join(weit)})", c.name))

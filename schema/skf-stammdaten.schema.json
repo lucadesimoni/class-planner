@@ -53,8 +53,32 @@
             "tage": {"type": "array", "items": {"type": "string"}},
             "halbtage": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}},
             "frei": {"type": "array", "items": {"type": "string"}},
-            "blockzeiten": {"type": "boolean"}
+            "blockzeiten": {"type": "boolean"},
+            "lektion_minuten": {"type": "integer", "minimum": 1}
           }
+        },
+        "schulbus": {
+          "type": "object", "description": "optional: Buslinien binden Schulhaus, Unterrichtsbeginn und -schluss",
+          "properties": {
+            "wartezeit_max": {"type": "integer", "minimum": 0},
+            "linien": {"type": "array", "items": {
+              "type": "object", "required": ["name", "schulhaeuser"],
+              "properties": {
+                "name": {"type": "string"},
+                "schulhaeuser": {"oneOf": [{"type": "string"}, {"type": "array", "items": {"type": "string"}}]},
+                "ankunft": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^\\d{1,2}:\\d{2}$"}},
+                "abfahrt": {"type": "object", "additionalProperties": {"oneOf": [
+                  {"type": "string"}, {"type": "array", "items": {"type": "string"}}]}}
+              }}}
+          }
+        },
+        "wegzeiten": {
+          "description": "optional: Wegzeiten der Lehrpersonen zwischen Schulhäusern (true = aus Koordinaten)",
+          "oneOf": [{"type": "boolean"}, {"type": "object", "properties": {
+            "geschwindigkeit_kmh": {"type": "number", "exclusiveMinimum": 0},
+            "minuten": {"oneOf": [{"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+                                  {"type": "array", "items": {"type": "array", "minItems": 3, "maxItems": 3}}]}
+          }}]
         },
         "faecher": {"type": "object", "additionalProperties": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/fach"}]}},
         "stundentafel": {"type": "object", "additionalProperties": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}},
@@ -127,7 +151,8 @@
         "familie": {"type": "string"}, "if": {"type": "string"}, "daz": {"enum": ["", "anfang", "aufbau"]},
         "is": {"type": "string"}, "foerderbedarf": {"type": "string"}, "schulhaus_fix": {"type": "string"},
         "bisheriges_schulhaus": {"type": "string"}, "bisherige_klasse": {"type": "string"},
-        "nicht_mit": {"type": "string", "description": "IDs, mit ; getrennt"}
+        "nicht_mit": {"type": "string", "description": "IDs, mit ; getrennt"},
+        "bus": {"type": "string", "description": "Schulbuslinie (Name aus schule.schulbus.linien)"}
       },
       "additionalProperties": {"type": "string"}
     }

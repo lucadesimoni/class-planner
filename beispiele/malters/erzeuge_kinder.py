@@ -97,6 +97,7 @@ def main():
                 "bisherige_klasse": bisherige_klasse(vorjahr, jg),
                 "zusammen_mit": "", "nicht_mit": "",
                 "wunsch_schulhaus": random.choice(list(SCHULHAEUSER)) if random.random() < 0.06 else "",
+                "bus": "Schulbus Blatten" if gebiet == "Blatten" else "",  # Weiler: Schulbus statt Fussweg
                 "bemerkung": "",
             })
     # Wünsche der Erziehungsberechtigten: "nicht zusammen mit" und "zusammen mit" (Gspänli,

@@ -12,6 +12,7 @@ from .lehrauftrag import Block, verteile_lehrauftraege
 from .planung import Planung, plane
 from .pruefung import Meldung, pruefe, qualitaet, rechtspruefung, vorpruefung, wuensche, wunsch_meldungen
 from .solver import KeineLoesung, Loesungsinfo
+from .mobilitaet import buslinien_der_klassen
 from .stundenplan import Lektion, erstelle_stundenplan
 
 
@@ -87,8 +88,9 @@ def rechne(schule: Schule, kinder: list[Kind], zeitlimit: float = 120, nur_klass
                                                          kinder=kinder, verbote=verbote)
                 protokoll(f"  {info}")
                 try:
-                    r.lektionen, infos, warnungen = erstelle_stundenplan(schule, r.einteilung.klassen, r.bloecke,
-                                                                         zeitlimit=zeitlimit * 0.6)
+                    r.lektionen, infos, warnungen = erstelle_stundenplan(
+                        schule, r.einteilung.klassen, r.bloecke, zeitlimit=zeitlimit * 0.6,
+                        buslinien=buslinien_der_klassen(r.einteilung.klassen, kinder))
                 except KeineLoesung as fehler:
                     # Rückkopplung: Lehraufträge der am Konflikt beteiligten Lehrpersonen neu verteilen
                     beteiligt = _beteiligte_lehrpersonen(fehler.konflikt, schule) or {
@@ -132,7 +134,7 @@ def _beteiligte_lehrpersonen(konflikt: list[str], schule: Schule) -> set[str]:
     beteiligt = set()
     for regel in konflikt:
         for name in namen:
-            if regel == f"Verfügbarkeit {name}" or regel.startswith(f"{name}:"):
+            if regel == f"Verfügbarkeit {name}" or regel.startswith((f"{name}:", f"Wegzeit {name}:")):
                 beteiligt.add(name)
     return beteiligt
 

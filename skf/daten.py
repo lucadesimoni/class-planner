@@ -119,6 +119,7 @@ class Kind:
     zusammen_mit: list[str] = field(default_factory=list)  # Wunsch der Erziehungsberechtigten (IDs)
     wunsch_schulhaus: str = ""       # Wunsch der Erziehungsberechtigten
     bemerkung: str = ""
+    bus: str = ""                    # Schulbuslinie (optional)
     vorname: str = ""
     nachname: str = ""
     zusatz: dict[str, str] = field(default_factory=dict)  # weitere Spalten (unverändert exportiert)
@@ -174,6 +175,19 @@ class Slot:
 
 
 @dataclass
+class Buslinie:
+    """Schulbus (optional): bindet Unterrichtsbeginn und -schluss der Kinder dieser Linie."""
+    name: str
+    schulhaeuser: list[str]
+    ankunft: dict[str, int] = field(default_factory=dict)        # "NM" oder "Mi-VM" -> Minuten ab 0:00
+    abfahrt: dict[str, list[int]] = field(default_factory=dict)  # "VM"/"NM" oder "Mo-NM" -> Abfahrten
+
+    def zeiten(self, art: str, tag: str, halbtag: str):
+        d = self.ankunft if art == "ankunft" else self.abfahrt
+        return d.get(f"{tag}-{halbtag}", d.get(halbtag))
+
+
+@dataclass
 class Schule:
     name: str
     jahrgaenge: list[str]
@@ -197,6 +211,13 @@ class Schule:
     profil: dict = field(default_factory=dict)   # Kantonsprofil inkl. Quellen und Regeln
     schuljahr: str = ""
     planung: dict = field(default_factory=dict)  # Prognose: wachstum_prozent, neue_kg1_pro_jahr
+    lektion_minuten: int = 45
+    buslinien: list[Buslinie] = field(default_factory=list)
+    bus_wartezeit: int = 15                      # Minuten, die Kinder höchstens auf Bus/Unterricht warten
+    wegzeiten: dict | None = None                # None = aus; sonst {"minuten": {(a, b): min}, "kmh": float}
+
+    def buslinie(self, name: str) -> Buslinie | None:
+        return next((b for b in self.buslinien if b.name == name), None)
 
     def quelle(self, schluessel: str) -> dict:
         return self.profil.get("quellen", {}).get(schluessel, {})
@@ -427,7 +448,41 @@ def baue_schule(cfg: dict) -> Schule:
         geschwister=str(kb.get("geschwister", "weich")),
         is_zaehlt_als=float(sp.get("is_zaehlt_als", 1)), max_is_pro_klasse=sp.get("max_is_pro_klasse"),
         ausgleich=tuple(sp.get("ausgleich", MERKMALE)), foerderangebote=angebote, profil=profil,
-        schuljahr=str(cfg.get("schuljahr", "")), planung=dict(cfg.get("planung") or {}))
+        schuljahr=str(cfg.get("schuljahr", "")), planung=dict(cfg.get("planung") or {}),
+        lektion_minuten=int(cfg["zeitraster"].get("lektion_minuten", 45)),
+        buslinien=_buslinien(cfg.get("schulbus") or {}),
+        bus_wartezeit=int((cfg.get("schulbus") or {}).get("wartezeit_max", 15)),
+        wegzeiten=_wegzeiten(cfg.get("wegzeiten")))
+
+
+def minuten(zeit: str) -> int:
+    """"07:50" → 470."""
+    h, _, m = str(zeit).strip().partition(":")
+    return int(h) * 60 + int(m or 0)
+
+
+def _buslinien(cfg: dict) -> list[Buslinie]:
+    linien = []
+    for l in cfg.get("linien", []) or []:
+        linien.append(Buslinie(
+            name=str(l["name"]), schulhaeuser=_liste(l.get("schulhaeuser")) or [],
+            ankunft={str(k): minuten(v) for k, v in (l.get("ankunft") or {}).items()},
+            abfahrt={str(k): sorted(minuten(x) for x in _liste(v)) for k, v in (l.get("abfahrt") or {}).items()}))
+    return linien
+
+
+def _wegzeiten(cfg) -> dict | None:
+    """wegzeiten: {minuten: {"A-B": 12}, geschwindigkeit_kmh: 20}; true = nur aus Koordinaten."""
+    if not cfg:
+        return None
+    cfg = {} if cfg is True else cfg
+    paare = {}
+    eintraege = cfg.get("minuten") or {}
+    if isinstance(eintraege, dict):  # {"A - B": 12} (Bindestrich mit Leerzeichen, falls Namen "-" enthalten)
+        eintraege = [[*str(k).partition(" - " if " - " in str(k) else "-")[::2], v] for k, v in eintraege.items()]
+    for a, b, v in eintraege:
+        paare[str(a).strip(), str(b).strip()] = paare[str(b).strip(), str(a).strip()] = int(v)
+    return {"minuten": paare, "kmh": float(cfg.get("geschwindigkeit_kmh", 20))}
 
 
 def lade_kinder(pfad: str | Path, spalten: dict[str, str] | None = None) -> list[Kind]:
