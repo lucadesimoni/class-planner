@@ -1,0 +1,33 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+#
+# Veröffentlicht den Release-Entwurf vX.Y.Z (aus skf/version.py); GitHub setzt dabei den Tag.
+# Weigert sich, solange das Repository öffentlich ist – die Pakete sind proprietär.
+name: Release veröffentlichen
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  veroeffentlichen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Nur in einem privaten Repository
+        if: ${{ !github.event.repository.private }}
+        run: |
+          echo "::error::Das Repository ist öffentlich. Zuerst unter Settings → General → Danger Zone auf privat stellen."
+          exit 1
+
+      - uses: actions/checkout@v5
+
+      - name: Entwurf veröffentlichen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(sed -n 's/^__version__ = "\(.*\)"/\1/p' skf/version.py)
+          gh release view "v$version" --json isDraft,assets --jq '"Entwurf: \(.isDraft), Pakete: \(.assets | length)"'
+          gh release edit "v$version" --draft=false --latest
+          gh release view "v$version" --json url,tagName,isDraft --jq '"\(.tagName) veröffentlicht: \(.url)"'
