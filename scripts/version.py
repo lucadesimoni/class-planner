@@ -6,8 +6,8 @@
     python scripts/version.py 0.2.0      setzt 0.2.0 in skf/version.py, pyproject.toml und uv.lock
                                          und macht aus "Unveröffentlicht" im CHANGELOG den Abschnitt 0.2.0
 
-Danach: committen und mit `git tag -a v0.2.0 -m "Version 0.2.0"` + `git push --tags`
-veröffentlichen – der Workflow baut daraus die Windows-Pakete als Release-Entwurf.
+Danach committen, pushen und auf GitHub *Actions → Windows-Installer → Run workflow* mit
+"release" starten (oder Tag v0.2.0 pushen) – das ergibt Tag, Windows-Pakete und Release-Entwurf.
 """
 import re
 import sys
@@ -55,7 +55,7 @@ def setze(neu: str) -> None:
     text = re.sub(r"^\[Unveröffentlicht\]: .*$", f"[Unveröffentlicht]: {repo}/compare/v{neu}...HEAD\n"
                   f"[{neu}]: {repo}/compare/v{alt}...v{neu}", text, count=1, flags=re.M)
     log.write_text(text, encoding="utf-8")
-    print(f"{alt} → {neu}. Jetzt CHANGELOG.md ergänzen, committen und taggen: git tag -a v{neu} -m \"Version {neu}\"")
+    print(f"{alt} → {neu}. Jetzt CHANGELOG.md ergänzen, committen, pushen und den Release-Workflow starten.")
 
 
 def main() -> None:

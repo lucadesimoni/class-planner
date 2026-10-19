@@ -4,14 +4,20 @@
 # Baut und testet die Windows-Pakete (gratis: GitHub Actions, Inno Setup, Windows SDK):
 #   Klassenbildung-Setup-<Version>.exe  – Installationsprogramm zum Herunterladen
 #   Klassenbildung-<Version>.msix       – Paket für den Microsoft Store (der Store signiert es)
-# Ergebnis: Artefakt "Klassenbildung-Windows" am Lauf. Ein Tag vX.Y.Z (gleich skf/version.py)
-# erzeugt zusätzlich einen Release-Entwurf mit den Paketen und dem Changelog-Abschnitt.
+# Ergebnis: Artefakt "Klassenbildung-Windows" am Lauf. Release: "Run workflow" mit
+# "release" (setzt Tag vX.Y.Z aus skf/version.py) oder ein gepushter Tag vX.Y.Z – beides
+# erzeugt einen Release-Entwurf mit den Paketen und dem Changelog-Abschnitt.
 # Store-Identität aus dem Partner Center als Repository-Variablen: MSIX_NAME, MSIX_PUBLISHER,
 # MSIX_PUBLISHER_NAME (Settings → Secrets and variables → Actions → Variables).
 name: Windows-Installer
 
 on:
   workflow_dispatch:
+    inputs:
+      release:
+        description: "Release-Entwurf mit Tag vX.Y.Z (aus skf/version.py) anlegen"
+        type: boolean
+        default: false
   push:
     tags: ["v*"]
     branches: [main, ccr-aacc267d-zkqp1r]
@@ -122,22 +128,33 @@ jobs:
             installer/build/ausgabe/*.msix
           retention-days: 30
 
-      - name: Release-Notizen aus dem CHANGELOG
-        if: startsWith(github.ref, 'refs/tags/v')
+      - name: Version bestimmen
+        id: version
         shell: pwsh
         run: |
-          $v = "${{ github.ref_name }}".TrimStart("v")
+          $v = (Select-String -Path skf/version.py -Pattern '^__version__ = "(.+)"').Matches[0].Groups[1].Value
+          "version=$v" >> $env:GITHUB_OUTPUT
+          $release = "${{ startsWith(github.ref, 'refs/tags/v') || inputs.release }}" -eq "true"
+          "release=$($release.ToString().ToLower())" >> $env:GITHUB_OUTPUT
+
+      - name: Release-Notizen aus dem CHANGELOG
+        if: steps.version.outputs.release == 'true'
+        shell: pwsh
+        run: |
+          $v = "${{ steps.version.outputs.version }}"
           $text = Get-Content CHANGELOG.md -Raw -Encoding UTF8
           $m = [regex]::Match($text, "(?ms)^## \[$([regex]::Escape($v))\][^\n]*\n(.*?)(?=^## \[|^\[)")
           if (-not $m.Success) { throw "CHANGELOG.md hat keinen Abschnitt für $v" }
           [IO.File]::WriteAllText("$env:RUNNER_TEMP\notizen.md", $m.Groups[1].Value.Trim())
 
-      - name: Release-Entwurf (nur bei Tag v*)
-        if: startsWith(github.ref, 'refs/tags/v')
+      - name: Release-Entwurf
+        if: steps.version.outputs.release == 'true'
         uses: softprops/action-gh-release@v2
         with:
           draft: true
-          name: Klassenbildung & Stundenplan ${{ github.ref_name }}
+          tag_name: v${{ steps.version.outputs.version }}
+          target_commitish: ${{ github.sha }}
+          name: Klassenbildung & Stundenplan v${{ steps.version.outputs.version }}
           body_path: ${{ runner.temp }}/notizen.md
           files: |
             installer/build/ausgabe/*.exe
