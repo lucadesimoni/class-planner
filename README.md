@@ -1,6 +1,6 @@
 # stunden-klassen-fitter
 
-**Klassenbildung und Stundenplan für die Volksschule** (Kindergarten und Primarschule) mit
+**Klassenbildung und Stundenplan für die Volksschule** (Kindergarten, Primar und Oberstufe) mit
 mehreren Schulhäusern. Für Schulleitungen und Lehrpersonen gibt es eine
 **Bedienoberfläche im Browser**, für Fachleute zusätzlich eine Kommandozeile. Im
 Hintergrund rechnet ein exakter Optimierer (Google OR-Tools CP-SAT). Ein **Kantonsprofil**
@@ -169,9 +169,13 @@ S1A → S2A → S3A → Abschluss          S1B → S2B …            S1C → S2
   ist (Primar und Oberstufe in getrennten Schulhäusern bleiben getrennte Gruppen).
 
 ```bash
-skf uebertritt schule.yaml kinder.csv --zuteilung ausgabe/einteilung.csv \
-    --entscheide entscheide.csv --neu neueintritte_kg1.csv -o kinder_naechstes_jahr.csv
+skf uebertritt schule.yaml kinder.csv --zuteilung ausgabe/zuteilung.json \
+    --entscheide entscheide.csv --neu neueintritte_kg1.csv -o kinder_2028-29.csv
+skf rechnen schule.yaml kinder_2028-29.csv -o ausgabe_2028-29/ --schuljahr 2028/29
 ```
+
+Durchgerechnet im Beispiel Malters: [`beispiele/malters/uebertritt/`](beispiele/malters/uebertritt/)
+(Entscheide, Neueintritte, Protokoll, Planung 2028/29).
 
 Das Protokoll (`…_uebertritte.csv`) listet jeden Schritt. In der App: Seite
 **Schuljahreswechsel** – Entscheide auswählen, Neueintritte hochladen, Vorschau prüfen,
@@ -352,6 +356,21 @@ Pflicht sind `id` und `jahrgang`, dazu Koordinaten oder eine Adresse mit `--geoc
 
 Unbekannte Spalten bleiben erhalten und werden mit exportiert.
 
+## Daten speichern – auch ohne die App lesbar
+
+Alle Daten liegen als offene Dateien im Datenordner (Benutzerordner/*Klassenbildung*,
+änderbar mit `SKF_DATEN`):
+
+- **Arbeitsstand:** die App sichert die Eingaben bei jeder Änderung
+  (`arbeitsstand/`: `stammdaten.json`, `schule.yaml`, `kinder.csv`) und bietet beim
+  nächsten Start *Weiterarbeiten* an.
+- **Verlauf:** jede Berechnung als eigener Ordner – für Menschen `bericht.html`,
+  Excel-Listen und `LIESMICH.txt`, für Programme `ergebnis.json`, `stammdaten.json`
+  (beide mit JSON-Schema unter [`schema/`](schema/)) und CSV-Tabellen.
+- `skf rechnen … -o ordner/` schreibt dieselben Dateien.
+
+Alle Felder und Ordner sind in [`docs/datenformate.md`](docs/datenformate.md) beschrieben.
+
 ## Stammdaten-Austausch
 
 - **Excel**: `skf export … -o daten.xlsx` schreibt die Blätter Info, Schulhaeuser,
@@ -480,7 +499,7 @@ werden als Luftlinie × `umweg_faktor` (Standard 1.3) geschätzt.
 
 ```bash
 pip install -e ".[test]"
-pytest                                   # 62 Tests: Modell, Recht, Import/Export, Verlauf, App, Browser
+pytest                                   # 95 Tests: Modell, Recht, Übertritte, Datenablage, Import/Export, Verlauf, App, Browser
 pytest tests/test_browser_e2e.py -s      # nur Browser-Test (erzeugt docs/screenshots/)
 ```
 

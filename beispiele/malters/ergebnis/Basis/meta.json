@@ -1,0 +1,25 @@
+{
+ "zeit": "2026-10-19T15:02:18",
+ "szenario": "Basis",
+ "schule": "Schule Malters – Volksschule (Beispiel)",
+ "schuljahr": "2027/28",
+ "notiz": "",
+ "kennzahlen": {
+  "Klassen": "47",
+  "Ø Klassengrösse": "18.8",
+  "Ø Schulweg": "1.42 km",
+  "Max. Schulweg": "5.51 km",
+  "Mehrjahrgangsklassen": "0",
+  "Lehrpersonen im Einsatz": "70",
+  "Förderlektionen": "272",
+  "Springstunden": "5",
+  "Wünsche erfüllt": "66/84",
+  "Fehler": "0",
+  "Warnungen": "10",
+  "Hinweise": "104",
+  "Rechenzeit": "112 s"
+ },
+ "manuell": [],
+ "programmversion": "0.1.0",
+ "profilversion": "2026.10.1"
+}

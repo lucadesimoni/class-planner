@@ -10,6 +10,7 @@ import re
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from .datenablage import schreibe_ergebnis_json
 from .icons import PFADE
 from .version import __version__
 from .ablauf import Ergebnis
@@ -187,6 +188,7 @@ def schreibe_csv(ordner: Path, r: Ergebnis) -> None:
             wr.writerow([m.schwere, m.bereich, m.text, m.bezug,
                          schule.slots[m.slot].label if m.slot is not None else "", m.quelle,
                          q.get("titel", ""), q.get("url", "")])
+    schreibe_ergebnis_json(ordner / "ergebnis.json", r)
     if not e:
         return
     nach_id = {k.id: k for k in r.kinder}

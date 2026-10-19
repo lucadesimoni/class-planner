@@ -23,6 +23,9 @@ Neue Version: `python scripts/version.py 0.2.0`.
 - **Schulhäuser mit Stufen** (`stufen: KG1-6`, `S1-S3`, `5-S3`): welche Stufen wo zur Schule gehen.
 - **Oberstufe** mit Niveaus (`S1A` …), gemeinsame oder eigene Stundentafel je Niveau, kombinierte
   B/C-Klassen; Beispiel Malters mit Oberstufe (Annahmen) und Übertrittsdaten.
+- **Offene Datenablage:** `ergebnis.json` (Schema `skf-ergebnis`), `stammdaten.json` und `LIESMICH.txt`
+  in jedem Stand; automatische Sicherung des Arbeitsstands mit *Weiterarbeiten*; Beschreibung aller
+  Dateien in `docs/datenformate.md`.
 - Robustheits-Sweep `scripts/robustheit.py` (23 Grenz- und Zufallsfälle, bis 1288 Lernende).
 
 ## [0.1.0] – 2026-10-19

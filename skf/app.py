@@ -9,9 +9,12 @@ Alle Daten bleiben auf dem eigenen Computer.
 """
 from __future__ import annotations
 
+import hashlib
 import io
+import json
 import tempfile
 import zipfile
+from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
@@ -30,6 +33,7 @@ from skf.daten import STANDARD_GEWICHTE, beispiel_ordner, lade_schule
 from skf.export import exportiere_listen
 from skf.pruefung import SCHWEREGRADE, vorpruefung
 from skf.transparenz import begruendung, regeln
+from skf.datenablage import arbeitsstand_info, arbeitsstand_ordner, lade_arbeitsstand, speichere_arbeitsstand
 from skf.version import __version__
 
 BEISPIELE = beispiel_ordner()
@@ -234,9 +238,32 @@ def _beispiel(name: str) -> None:
 
 # ------------------------------------------------------------------ Seiten
 
+def _arbeitsstand_laden() -> None:
+    _laden(*lade_arbeitsstand())
+    st.session_state.seite = "daten"
+
+
+def _arbeitsstand_sichern() -> None:
+    """Eingaben bei jeder Änderung dauerhaft ablegen (JSON + YAML + CSV) – nichts geht verloren."""
+    if "tabellen" not in st.session_state:
+        return
+    try:
+        cfg, kinder = _aktuelle_daten()
+        zeichen = hashlib.sha256((json.dumps(cfg, sort_keys=True, default=str)
+                                  + st.session_state.bearbeitet["Kinder"].to_csv()).encode()).hexdigest()
+        if st.session_state.get("gesichert") != zeichen:
+            speichere_arbeitsstand(cfg, kinder)
+            st.session_state.gesichert = zeichen
+            st.session_state.gesichert_um = datetime.now().strftime("%H:%M")
+        st.sidebar.caption(f":material/save: Arbeitsstand gesichert {st.session_state.get('gesichert_um', '')}",
+                           help=f"{arbeitsstand_ordner()} – stammdaten.json, schule.yaml, kinder.csv")
+    except Exception as fehler:  # noqa: BLE001 – Sichern darf die Bedienung nie unterbrechen
+        st.sidebar.caption(f":material/warning: Arbeitsstand nicht gesichert: {fehler}")
+
+
 def seite_start() -> None:
-    _kopf("Klassenbildung & Stundenplan", "Volksschule · Kindergarten und Primarschule · alle Daten bleiben auf "
-          "diesem Computer")
+    _kopf("Klassenbildung & Stundenplan", "Volksschule · Kindergarten, Primar und Oberstufe · alle Daten bleiben "
+          "auf diesem Computer")
     st.write("Bildet Klassen, verteilt Lehraufträge und erstellt den Stundenplan – unter Berücksichtigung von "
              "Schulwegen, Geschwistern, Kindergartengruppen, Wünschen der Erziehungsberechtigten, IF/DaZ/IS, "
              "Verfügbarkeiten und kantonalen Vorgaben. **Alle Daten bleiben auf diesem Computer.**")
@@ -251,10 +278,17 @@ def seite_start() -> None:
             st.markdown(f"{':green[:material/check_circle:]' if fertig else ':gray[:material/radio_button_unchecked:]'} "
                         f"**{titel}**")
             st.caption(text)
+    info = arbeitsstand_info()
+    if info and not hat_daten:
+        with st.container(border=True):
+            st.markdown(f":material/restore: **Weiterarbeiten** – Arbeitsstand vom {info['zeit']}: "
+                        f"{info['schule']}, {info['lernende']} Lernende")
+            st.button("Letzten Arbeitsstand fortsetzen", type="primary", icon=":material/restore:",
+                      on_click=_arbeitsstand_laden, key="weiter")
     st.subheader("Loslegen")
     a, b, d = st.columns(3)
     a.button("Beispiel Malters ansehen", icon=":material/folder_open:", on_click=_beispiel, args=("malters",), width="stretch",
-             help="644 fiktive Lernende, 3 Schulhäuser – zeigt alle Funktionen")
+             help="884 fiktive Lernende, KG bis Oberstufe, 4 Schulhäuser – zeigt alle Funktionen")
     b.button("Kleine Vorlage öffnen", icon=":material/extension:", on_click=_beispiel, args=("vorlage",), width="stretch",
              help="110 Lernende, 2 Schulhäuser – ideal zum Ausprobieren und als Ausgangspunkt")
     d.button("Eigene Daten hochladen", icon=":material/upload:", on_click=_gehe, args=("daten",), width="stretch")
@@ -805,24 +839,25 @@ def seite_uebertritt() -> None:
     if not klasse_von:
         st.warning("Tipp: zuerst das laufende Schuljahr berechnen (Schritt 3) – dann werden die aktuellen Klassen "
                    "als „bisherige Klasse“ übernommen (Gspänli-Regel, Kontinuität).", icon=":material/info:")
-    st.markdown("**Entscheide** – leer = normal in die nächste Stufe. Wo es mehrere nächste Stufen gibt "
+    st.markdown("**Entscheide** – *normal* = in die nächste Stufe. Wo es mehrere nächste Stufen gibt "
                 "(z.B. 6. Klasse → Sek A/B/C), ist ein Entscheid nötig.")
-    optionen = ["", "A", "B", "C", "repetiert", "überspringt"] + extern(schule)
+    optionen = ["normal", "A", "B", "C", "repetiert", "überspringt"] + extern(schule)
     wahl_noetig = {j for j, n in folge.items() if len(n) > 1}
     nur = st.toggle("Nur Übertrittsstufen zeigen", value=True, key="ue_nur",
                     help="Kindergarten 2, letzte Primarklasse und Oberstufe")
     df = st.session_state.bearbeitet["Kinder"].copy()
     if "uebertritt" not in df:
         df["uebertritt"] = ""
-    df["uebertritt"] = df["uebertritt"].fillna("").astype(str)
+    df["uebertritt"] = df["uebertritt"].fillna("").astype(str).replace("", "normal")
     df["klasse"] = df["id"].map(klasse_von).fillna(df.get("bisherige_klasse", ""))
     sicht = df[df["jahrgang"].isin(wahl_noetig | {"KG2"} | {j for j in folge if j.startswith("S")})] if nur else df
     ed = st.data_editor(
         sicht[["id", "vorname", "nachname", "jahrgang", "klasse", "uebertritt"]], hide_index=True, width="stretch",
         height=380, key=f"ed_ue_{st.session_state.version}", disabled=["id", "vorname", "nachname", "jahrgang", "klasse"],
         column_config={"uebertritt": st.column_config.SelectboxColumn("Entscheid", options=optionen),
+                       "id": "ID", "vorname": "Vorname", "nachname": "Nachname",
                        "klasse": "Klasse jetzt", "jahrgang": "Jahrgang jetzt"})
-    geaendert = dict(zip(ed["id"], ed["uebertritt"].fillna("")))
+    geaendert = {i: ("" if u in (None, "normal") else u) for i, u in zip(ed["id"], ed["uebertritt"])}
     basis = st.session_state.bearbeitet["Kinder"]
     if "uebertritt" not in basis:
         basis["uebertritt"] = ""
@@ -940,7 +975,7 @@ def seite_hilfe() -> None:
    Stundenpläne, Wünsche, Empfehlungen, Downloads.
 
 **Begriffe**
-- *Lernende*: Kinder in Kindergarten und Primarschule · *Erziehungsberechtigte*: Eltern bzw. Sorgeberechtigte.
+- *Lernende*: Kinder und Jugendliche in Kindergarten, Primar und Oberstufe · *Erziehungsberechtigte*: Eltern bzw. Sorgeberechtigte.
 - *Mehrjahrgangsklasse*: altersdurchmischtes Lernen (AdL) · *KG-Gruppe*: Kindergartenklasse im Vorjahr.
 - *IF* Integrative Förderung · *DaZ* Deutsch als Zweitsprache · *IS* Integrative Sonderschulung ·
   *SHP* Schulische Heilpädagogin/Schulischer Heilpädagoge.
@@ -986,6 +1021,7 @@ def main() -> None:
     {"start": seite_start, "daten": seite_daten, "pruefen": seite_pruefen, "berechnen": seite_berechnen,
      "ergebnis": seite_ergebnis, "uebertritt": seite_uebertritt, "verlauf": seite_verlauf,
      "hilfe": seite_hilfe}[st.session_state.seite]()
+    _arbeitsstand_sichern()  # nach der Seite: enthält die eben gemachten Änderungen
 
 
 main()

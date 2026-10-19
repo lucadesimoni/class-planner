@@ -127,3 +127,15 @@ def test_schuljahreswechsel_in_der_app(verlauf_ordner):
     assert at.session_state["extra"]["rest"]["schuljahr"] == "2028/29"
     kinder = at.session_state["bearbeitet"]["Kinder"]
     assert len(kinder) < vorher and "KG1" not in set(kinder["jahrgang"])  # KG1 → KG2, oberste Stufe tritt aus
+
+
+def test_arbeitsstand_wird_gesichert_und_fortgesetzt(verlauf_ordner):
+    at = AppTest.from_file(APP, default_timeout=180)
+    at.run()
+    _vorlage(at)
+    assert (verlauf_ordner / "arbeitsstand" / "stammdaten.json").exists()
+    neu = AppTest.from_file(APP, default_timeout=180)  # App neu gestartet
+    neu.run()
+    neu.button(key="weiter").click().run()
+    assert not neu.exception and neu.session_state["seite"] == "daten"
+    assert len(neu.session_state["bearbeitet"]["Kinder"]) == 110

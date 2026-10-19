@@ -5,14 +5,15 @@
 Ordner pro Stand: <basis>/<JJJJ-MM-TT_HHMMSS>_<szenario>/
     meta.json        Zeitpunkt, Szenario, Kennzahlen, Notiz, manuelle Anpassungen
     zuteilung.json   Lernende → Schulhaus/Klasse
-    stammdaten.xlsx  Eingabedaten (Schule + Lernende) zum Wiederherstellen
-    bericht.html, klassenlisten.xlsx, stundenplaene.xlsx, druck.html
+    stammdaten.xlsx  Eingabedaten (Schule + Lernende) zum Wiederherstellen, dazu stammdaten.json
+    ergebnis.json    vollständiges Ergebnis, maschinenlesbar (Schema skf-ergebnis)
+    LIESMICH.txt     Erklärung des Ordners für Menschen
+    bericht.html, klassenlisten.xlsx, stundenplaene.xlsx, druck.html, *.csv
 Basis: Umgebungsvariable SKF_DATEN oder ~/Klassenbildung/verlauf.
 """
 from __future__ import annotations
 
 import json
-import os
 import re
 import shutil
 from datetime import datetime
@@ -23,20 +24,20 @@ from .version import __version__
 
 
 def basis() -> Path:
-    return Path(os.environ.get("SKF_DATEN", Path.home() / "Klassenbildung")) / "verlauf"
+    from .datenablage import datenordner
+    return datenordner() / "verlauf"
 
 
-def speichere(r: Ergebnis, cfg: dict, notiz: str = "", ordner: Path | None = None) -> Path:
+def schreibe_stand(ziel: Path, r: Ergebnis, cfg: dict, notiz: str = "", zeit: datetime | None = None) -> None:
+    """Alle Dateien eines Standes: für Menschen (HTML, Excel, LIESMICH) und Programme (JSON, CSV)."""
     from .austausch import exportiere_stammdaten
-    from .bericht import schreibe_csv, schreibe_html
-    from .export import exportiere_listen
-    jetzt = datetime.now()
-    name = f"{jetzt:%Y-%m-%d_%H%M%S}_{re.sub(r'[^\w-]+', '_', r.schule.szenario)}"
-    ziel = (ordner or basis()) / name
+    from .bericht import schreibe_csv
+    from .datenablage import schreibe_liesmich
+    zeit = zeit or datetime.now()
     ziel.mkdir(parents=True, exist_ok=True)
     e = r.einteilung
     (ziel / "meta.json").write_text(json.dumps({
-        "zeit": jetzt.isoformat(timespec="seconds"), "szenario": r.schule.szenario, "schule": r.schule.name,
+        "zeit": zeit.isoformat(timespec="seconds"), "szenario": r.schule.szenario, "schule": r.schule.name,
         "schuljahr": r.schule.schuljahr, "notiz": notiz, "kennzahlen": r.kennzahlen(),
         "manuell": list(getattr(r, "manuell", [])), "programmversion": __version__,
         "profilversion": (r.schule.profil or {}).get("version", ""),
@@ -46,7 +47,18 @@ def speichere(r: Ergebnis, cfg: dict, notiz: str = "", ordner: Path | None = Non
             {kid: {"schulhaus": e.schulhaus_von[kid], "klasse": e.klasse_von[kid]} for kid in e.klasse_von},
             ensure_ascii=False, indent=0), encoding="utf-8")
     exportiere_stammdaten(cfg, r.kinder, ziel / "stammdaten.xlsx")
+    exportiere_stammdaten(cfg, r.kinder, ziel / "stammdaten.json")
+    schreibe_liesmich(ziel, r)
     schreibe_csv(ziel, r)
+
+
+def speichere(r: Ergebnis, cfg: dict, notiz: str = "", ordner: Path | None = None) -> Path:
+    from .bericht import schreibe_html
+    from .export import exportiere_listen
+    jetzt = datetime.now()
+    name = f"{jetzt:%Y-%m-%d_%H%M%S}_{re.sub(r'[^\w-]+', '_', r.schule.szenario)}"
+    ziel = (ordner or basis()) / name
+    schreibe_stand(ziel, r, cfg, notiz, jetzt)
     schreibe_html(ziel / "bericht.html", r)
     exportiere_listen(r, ziel)
     return ziel

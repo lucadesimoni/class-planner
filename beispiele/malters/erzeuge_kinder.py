@@ -123,8 +123,8 @@ def uebertritt(kinder):
     rng.shuffle(wahl)
     for k, w in zip(sechste, wahl):
         entscheide[k["id"]] = w
-    for jg, e, n in (("S2A", "Kurzzeitgymnasium", 3), ("S1A", "B", 2), ("S1C", "B", 2), ("3", "repetiert", 2),
-                     ("KG2", "repetiert", 2)):
+    for jg, e, n in (("S2A", "Kurzzeitgymnasium", 3), ("S2B", "A", 2), ("S1A", "B", 2), ("S1C", "B", 2),
+                     ("3", "repetiert", 2), ("KG2", "repetiert", 2)):
         for k in rng.sample([k for k in kinder if k["jahrgang"] == jg and k["id"] not in entscheide], n):
             entscheide[k["id"]] = e
     for k in rng.sample([k for k in kinder if k["id"] not in entscheide], 7):

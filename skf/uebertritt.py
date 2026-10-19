@@ -176,8 +176,8 @@ def zusammenfassung(protokoll: list[Schritt]) -> list[tuple[str, int]]:
     reihenfolge = ["Neueintritt", "Aufstieg", "Übertritt Kindergarten → Primar", "Übertritt Primar → Sek",
                    "Umstufung", "Repetition", "Überspringt", "Austritt", "Abschluss", "Entscheid fehlt"]
     zaehler = Counter(s.art for s in protokoll)
-    return sorted(zaehler.items(), key=lambda t: next((i for i, r in enumerate(reihenfolge) if t[0].startswith(r)),
-                                                      99))
+    return sorted(zaehler.items(), key=lambda t: (next((i for i, r in enumerate(reihenfolge) if t[0].startswith(r)),
+                                                       99), t[0]))
 
 
 def naechstes_schuljahr(text: str) -> str:

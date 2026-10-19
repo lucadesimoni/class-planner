@@ -61,7 +61,7 @@ def test_bedienung_im_browser(app_url):
         seite.screenshot(path=BILDER / "0-start.png")
 
         seite.get_by_role("button", name="Beispiel Malters ansehen").click()
-        seite.get_by_text("644 Lernende").first.wait_for(timeout=60_000)
+        seite.get_by_text("884 Lernende").first.wait_for(timeout=60_000)
         time.sleep(1.5)
         seite.screenshot(path=BILDER / "1-daten.png")
         seite.get_by_role("tab", name="Gewichtung").click()

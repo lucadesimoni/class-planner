@@ -1,9 +1,9 @@
 id,vorname,nachname,jahrgang,geschlecht,adresse,lat,lon,familie,daz,bus
-N0001,Lara,Probst,KG1,w,"Buchenweg 50, Malters Dorf (fiktiv)",47.03497,8.19475,FN0001,,
-N0002,Nils,Exempel,KG1,m,"Birkenweg 50, Schachen (fiktiv)",47.03147,8.14985,FN0002,,
-N0003,Nico,Probst,KG1,m,"Buchenweg 60, Malters Dorf (fiktiv)",47.03565,8.18802,FN0003,,
-N0004,Luca,Muster,KG1,m,"Föhrenweg 38, Malters Dorf (fiktiv)",47.03392,8.1817,FN0004,anfang,
-N0005,Luca,Exempel,KG1,m,"Tannenweg 20, Malters Dorf (fiktiv)",47.02533,8.19258,FN0005,,
+N0001,Levin,Annahme,KG1,m,"Ulmenweg 16, Malters Nord (fiktiv)",47.04504,8.18057,FN0001,,
+N0002,Jonas,Beispiel,KG1,m,"Erlenweg 8, Malters Dorf (fiktiv)",47.0332,8.17401,FN0002,,
+N0003,Levin,Annahme,KG1,m,"Ulmenweg 40, Malters Dorf (fiktiv)",47.03421,8.18921,FN0003,,
+N0004,Malea,Annahme,KG1,w,"Weidenweg 7, Schachen (fiktiv)",47.04126,8.15158,FN0004,,
+N0005,Jonas,Vorlage,KG1,m,"Tannenweg 20, Blatten (fiktiv)",47.04101,8.22488,FN0005,,Schulbus Blatten
 N0006,Lara,Testa,KG1,w,"Ahornweg 9, Malters Dorf (fiktiv)",47.03645,8.18517,FN0006,,
 N0007,Noah,Fiktiv,KG1,m,"Ulmenweg 6, Malters Dorf (fiktiv)",47.03333,8.18643,FN0007,,
 N0008,Samuel,Modell,KG1,m,"Erlenweg 19, Malters Dorf (fiktiv)",47.031,8.17994,FN0008,,

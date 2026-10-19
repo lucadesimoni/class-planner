@@ -1,0 +1,25 @@
+{
+ "zeit": "2026-10-19T15:05:06",
+ "szenario": "Umbau Eischachen",
+ "schule": "Schule Malters – Volksschule (Beispiel)",
+ "schuljahr": "2027/28",
+ "notiz": "",
+ "kennzahlen": {
+  "Klassen": "–",
+  "Ø Klassengrösse": "–",
+  "Ø Schulweg": "–",
+  "Max. Schulweg": "–",
+  "Mehrjahrgangsklassen": "–",
+  "Lehrpersonen im Einsatz": "–",
+  "Förderlektionen": "–",
+  "Springstunden": "–",
+  "Wünsche erfüllt": "–",
+  "Fehler": "1",
+  "Warnungen": "1",
+  "Hinweise": "0",
+  "Rechenzeit": "10 s"
+ },
+ "manuell": [],
+ "programmversion": "0.1.0",
+ "profilversion": "2026.10.1"
+}

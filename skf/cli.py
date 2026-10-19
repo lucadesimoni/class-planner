@@ -25,11 +25,13 @@ from pathlib import Path
 from .ablauf import rechne
 from .austausch import (exportiere_stammdaten, importiere_stammdaten, lese_liste, lese_rohkonfiguration, raumtypen,
                         schreibe_kinder, schreibe_rohkonfiguration, schreibe_vorlage, uebernehme_liste)
-from .bericht import ordnername, schreibe_csv, schreibe_html, schreibe_vergleich
-from .daten import STANDARD_GEWICHTE, baue_schule, lade_kinder, lade_profil, lade_schule, profile, szenarien
+from .bericht import ordnername, schreibe_html, schreibe_vergleich
+from .daten import (STANDARD_GEWICHTE, baue_schule, lade_kinder, lade_profil, lade_schule, lese_konfiguration, profile,
+                    szenarien)
 from .export import exportiere_listen
 from .geo import geocodiere
 from .pruefung import referenzen, vorpruefung
+from .verlauf import schreibe_stand
 from .version import __version__
 
 BEFEHLE = ("rechnen", "pruefen", "export", "import", "kinder", "uebertritt", "raeume", "lehrpersonen", "vorlage",
@@ -79,6 +81,7 @@ def _parser() -> argparse.ArgumentParser:
                    help="IF/DaZ/IS in Klassenlisten aufnehmen (besonders schützenswerte Daten!)")
     r.add_argument("--geocodieren", action="store_true",
                    help="fehlende Koordinaten über geo.admin.ch aus der Adresse ermitteln")
+    r.add_argument("--schuljahr", help="Schuljahr statt Angabe in schule.yaml, z.B. 2028/29 nach 'skf uebertritt'")
 
     pr = sub.add_parser("pruefen", help="Daten prüfen, ohne zu rechnen")
     pr.add_argument("schule")
@@ -181,11 +184,15 @@ def _rechnen(args) -> None:
     ergebnisse = {}
     for name in gewuenscht:
         schule = lade_schule(args.schule, name, dict(args.gewicht))
+        schule.schuljahr = args.schuljahr or schule.schuljahr
         print(f"== Szenario {name}: {len(kinder)} Lernende, {len(schule.schulhaeuser)} Schulhäuser, "
               f"{len(schule.lehrpersonen)} Lehrpersonen, {len(schule.slots)} Zeitfenster/Woche")
         r = rechne(schule, kinder, zeitlimit=args.zeit, nur_klassen=args.nur_klassen)
         ordner = ausgabe / ordnername(name) if mehrere else ausgabe
-        schreibe_csv(ordner, r)
+        cfg = lese_konfiguration(args.schule, name, dict(args.gewicht))
+        cfg.pop("_szenario", None)
+        cfg["schuljahr"] = schule.schuljahr
+        schreibe_stand(ordner, r, cfg)  # JSON/CSV/Excel/LIESMICH – lesbar ohne dieses Programm
         schreibe_html(ordner / "bericht.html", r, "../vergleich.html" if mehrere else "")
         listen = exportiere_listen(r, ordner, args.mit_foerderdaten)
         if args.mit_foerderdaten:
@@ -276,7 +283,7 @@ def lese_entscheide(pfad: str | Path) -> dict[str, str]:
 def _uebertritt(args) -> None:
     import csv
 
-    from .uebertritt import schuljahreswechsel, zusammenfassung
+    from .uebertritt import naechstes_schuljahr, schuljahreswechsel, zusammenfassung
     schule = lade_schule(args.schule)
     kinder = lade_kinder(args.kinder, dict(args.spalte))
     if args.entscheide:
@@ -300,6 +307,8 @@ def _uebertritt(args) -> None:
         print(f"  {n:4}  {art}")
     offen = [s for s in protokoll if s.art == "Entscheid fehlt"]
     print(f"{len(kinder)} → {len(kinder_neu)} Lernende → {ziel}  (Protokoll: {prot.name})")
+    print(f"Planen: skf rechnen {args.schule} {ziel} -o ausgabe/ --schuljahr "
+          f"{naechstes_schuljahr(schule.schuljahr) or '<Jahr>'}")
     if offen:
         print(f"Achtung: {len(offen)} Entscheide fehlen (bleiben im bisherigen Jahrgang): "
               + ", ".join(f"{s.kind} ({s.hinweis})" for s in offen[:5]))

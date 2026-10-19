@@ -13,7 +13,7 @@
 # Dienststelle Volksschulbildung (DVS). Werte mit "pruefen" bitte vor Gebrauch verifizieren.
 
 profil:
-  name: Kanton Luzern – Volksschule (KG/Primar)
+  name: Kanton Luzern – Volksschule (KG, Primar, Sek)
   version: "2026.10.1"         # Profilstand JJJJ.MM(.n) – bei jeder inhaltlichen Änderung erhöhen
   stand: "Recherche Oktober 2026 – ohne Gewähr, aktuelle Fassungen prüfen"
   verbindlich: false

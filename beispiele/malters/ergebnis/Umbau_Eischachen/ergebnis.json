@@ -1,0 +1,247 @@
+{
+ "format": "skf-ergebnis",
+ "version": 1,
+ "programm": "0.1.0",
+ "profilversion": "2026.10.1",
+ "erstellt": "2026-10-19T15:05:07",
+ "schule": "Schule Malters – Volksschule (Beispiel)",
+ "schuljahr": "2027/28",
+ "szenario": "Umbau Eischachen",
+ "vollstaendig": false,
+ "kennzahlen": {
+  "Klassen": "–",
+  "Ø Klassengrösse": "–",
+  "Ø Schulweg": "–",
+  "Max. Schulweg": "–",
+  "Mehrjahrgangsklassen": "–",
+  "Lehrpersonen im Einsatz": "–",
+  "Förderlektionen": "–",
+  "Springstunden": "–",
+  "Wünsche erfüllt": "–",
+  "Fehler": "1",
+  "Warnungen": "1",
+  "Hinweise": "0",
+  "Rechenzeit": "10 s"
+ },
+ "loesungsguete": [],
+ "zeitfenster": [
+  {
+   "index": 0,
+   "tag": "Mo",
+   "halbtag": "VM",
+   "lektion": 1,
+   "beginn": "08:00"
+  },
+  {
+   "index": 1,
+   "tag": "Mo",
+   "halbtag": "VM",
+   "lektion": 2,
+   "beginn": "08:50"
+  },
+  {
+   "index": 2,
+   "tag": "Mo",
+   "halbtag": "VM",
+   "lektion": 3,
+   "beginn": "09:55"
+  },
+  {
+   "index": 3,
+   "tag": "Mo",
+   "halbtag": "VM",
+   "lektion": 4,
+   "beginn": "10:45"
+  },
+  {
+   "index": 4,
+   "tag": "Mo",
+   "halbtag": "NM",
+   "lektion": 1,
+   "beginn": "13:30"
+  },
+  {
+   "index": 5,
+   "tag": "Mo",
+   "halbtag": "NM",
+   "lektion": 2,
+   "beginn": "14:20"
+  },
+  {
+   "index": 6,
+   "tag": "Di",
+   "halbtag": "VM",
+   "lektion": 1,
+   "beginn": "08:00"
+  },
+  {
+   "index": 7,
+   "tag": "Di",
+   "halbtag": "VM",
+   "lektion": 2,
+   "beginn": "08:50"
+  },
+  {
+   "index": 8,
+   "tag": "Di",
+   "halbtag": "VM",
+   "lektion": 3,
+   "beginn": "09:55"
+  },
+  {
+   "index": 9,
+   "tag": "Di",
+   "halbtag": "VM",
+   "lektion": 4,
+   "beginn": "10:45"
+  },
+  {
+   "index": 10,
+   "tag": "Di",
+   "halbtag": "NM",
+   "lektion": 1,
+   "beginn": "13:30"
+  },
+  {
+   "index": 11,
+   "tag": "Di",
+   "halbtag": "NM",
+   "lektion": 2,
+   "beginn": "14:20"
+  },
+  {
+   "index": 12,
+   "tag": "Mi",
+   "halbtag": "VM",
+   "lektion": 1,
+   "beginn": "08:00"
+  },
+  {
+   "index": 13,
+   "tag": "Mi",
+   "halbtag": "VM",
+   "lektion": 2,
+   "beginn": "08:50"
+  },
+  {
+   "index": 14,
+   "tag": "Mi",
+   "halbtag": "VM",
+   "lektion": 3,
+   "beginn": "09:55"
+  },
+  {
+   "index": 15,
+   "tag": "Mi",
+   "halbtag": "VM",
+   "lektion": 4,
+   "beginn": "10:45"
+  },
+  {
+   "index": 16,
+   "tag": "Do",
+   "halbtag": "VM",
+   "lektion": 1,
+   "beginn": "08:00"
+  },
+  {
+   "index": 17,
+   "tag": "Do",
+   "halbtag": "VM",
+   "lektion": 2,
+   "beginn": "08:50"
+  },
+  {
+   "index": 18,
+   "tag": "Do",
+   "halbtag": "VM",
+   "lektion": 3,
+   "beginn": "09:55"
+  },
+  {
+   "index": 19,
+   "tag": "Do",
+   "halbtag": "VM",
+   "lektion": 4,
+   "beginn": "10:45"
+  },
+  {
+   "index": 20,
+   "tag": "Do",
+   "halbtag": "NM",
+   "lektion": 1,
+   "beginn": "13:30"
+  },
+  {
+   "index": 21,
+   "tag": "Do",
+   "halbtag": "NM",
+   "lektion": 2,
+   "beginn": "14:20"
+  },
+  {
+   "index": 22,
+   "tag": "Fr",
+   "halbtag": "VM",
+   "lektion": 1,
+   "beginn": "08:00"
+  },
+  {
+   "index": 23,
+   "tag": "Fr",
+   "halbtag": "VM",
+   "lektion": 2,
+   "beginn": "08:50"
+  },
+  {
+   "index": 24,
+   "tag": "Fr",
+   "halbtag": "VM",
+   "lektion": 3,
+   "beginn": "09:55"
+  },
+  {
+   "index": 25,
+   "tag": "Fr",
+   "halbtag": "VM",
+   "lektion": 4,
+   "beginn": "10:45"
+  },
+  {
+   "index": 26,
+   "tag": "Fr",
+   "halbtag": "NM",
+   "lektion": 1,
+   "beginn": "13:30"
+  },
+  {
+   "index": 27,
+   "tag": "Fr",
+   "halbtag": "NM",
+   "lektion": 2,
+   "beginn": "14:20"
+  }
+ ],
+ "klassen": [],
+ "zuteilung": {},
+ "lehrauftraege": [],
+ "stundenplan": [],
+ "meldungen": [
+  {
+   "schweregrad": "Warnung",
+   "bereich": "Daten",
+   "text": "4 Lernende wohnen weiter als der max. Schulweg von jedem Schulhaus (z.B. K0234, K0346, K0549, K0610)",
+   "bezug": "",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Fehler",
+   "bereich": "Solver",
+   "text": "Klassenbildung A (Schulhaus und Klassen): nachweislich keine Lösung möglich. Diese Regeln widersprechen sich (zusammen mit festen Vorgaben wie Räumen und Stundentafel): Max. Schulweg Jahrgang KG2 (4000 m); Max. Schulweg Jahrgang 2 (6000 m); Max. Schulweg Jahrgang 5 (6000 m); Max. Schulweg Jahrgang KG1 (4000 m); IS zählt 2-fach bei der Klassengrösse; Max. 2 IS-Lernende pro Klasse; Kapazität TTG-Zimmer in Bündtmättli (56 Lektionen/Woche); Kapazität Turnhalle in Bündtmättli (52 Lektionen/Woche); Kapazität TTG-Zimmer in Eischachen (28 Lektionen/Woche); Kapazität Turnhalle in Eischachen (28 Lektionen/Woche); Kapazität TTG-Zimmer in Oberstufe (56 Lektionen/Woche); Kapazität Turnhalle in Oberstufe (56 Lektionen/Woche); Höchstgrösse Klassen 1 (22) bzw. Raumgrösse; Höchstgrösse Klassen 2 (22) bzw. Raumgrösse; Höchstgrösse Klassen 3 (22) bzw. Raumgrösse; Höchstgrösse Klassen 4 (22) bzw. Raumgrösse; Höchstgrösse Klassen 5 (22) bzw. Raumgrösse; Höchstgrösse Klassen 6 (22) bzw. Raumgrösse; Höchstgrösse Klassen 1/2 (22) bzw. Raumgrösse; Höchstgrösse Klassen 3/4 (22) bzw. Raumgrösse; Höchstgrösse Klassen 5/6 (22) bzw. Raumgrösse; Höchstgrösse Klassen KG (22) bzw. Raumgrösse; Höchstgrösse Klassen Wald-KG (20) bzw. Raumgrösse; Höchstgrösse Klassen S1A (24) bzw. Raumgrösse; Höchstgrösse Klassen S1B (24) bzw. Raumgrösse; Höchstgrösse Klassen S1C (18) bzw. Raumgrösse; Höchstgrösse Klassen S1B/S1C (18) bzw. Raumgrösse; Höchstgrösse Klassen S2A (24) bzw. Raumgrösse; Höchstgrösse Klassen S2B (24) bzw. Raumgrösse; Höchstgrösse Klassen S2C (18) bzw. Raumgrösse; Höchstgrösse Klassen S2B/S2C (18) bzw. Raumgrösse; Höchstgrösse Klassen S3A (24) bzw. Raumgrösse; Höchstgrösse Klassen S3B (24) bzw. Raumgrösse; Höchstgrösse Klassen S3C (18) bzw. Raumgrösse; Höchstgrösse Klassen S3B/S3C (18) bzw. Raumgrösse; mind. 4 Lernende pro Jahrgang (7: Mehrjahrgangsklasse 3/4, Mehrjahrgangsklasse 5/6, Mehrjahrgangsklasse KG, Mehrjahrgangsklasse Wald-KG, Mehrjahrgangsklasse S1B/S1C, Mehrjahrgangsklasse S2B/S2C …); Mindestgrösse Klassen 3/4 (16); Mindestgrösse Klassen 5/6 (16); Mindestgrösse Klassen KG (16); Mindestgrösse Klassen Wald-KG (16); Mindestgrösse Klassen S1A (16); Mindestgrösse Klassen S1B (16); Mindestgrösse Klassen S1C (10); Mindestgrösse Klassen S1B/S1C (16); Mindestgrösse Klassen S2A (16); Mindestgrösse Klassen S2B (16); Mindestgrösse Klassen S2C (10); Mindestgrösse Klassen S2B/S2C (16); Mindestgrösse Klassen S3A (16); Mindestgrösse Klassen S3B (16); Mindestgrösse Klassen S3C (10); Mindestgrösse Klassen S3B/S3C (16). Mindestens eine davon lockern.",
+   "bezug": "",
+   "zeitfenster": null,
+   "quelle": ""
+  }
+ ]
+}

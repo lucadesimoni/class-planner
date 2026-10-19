@@ -5,7 +5,7 @@
 # Koordinaten, Raumzahlen, Lehrpersonen und Stundentafel sind ANNAHMEN für das
 # Beispiel – bitte mit den echten Daten der Schule ersetzen.
 
-name: Schule Malters – Kindergarten & Primar (Beispiel)
+name: Schule Malters – Volksschule (Beispiel)
 schuljahr: 2027/28
 basis_profil: luzern          # Kantonsprofil: Klassengrössen, Blockzeiten, IF/DaZ, Schulweg – mit Quellen
 profil:
@@ -180,6 +180,7 @@ lehrpersonen:
   - {name: TTG 1, faecher: [TTG], schulhaeuser: [Bündtmättli, Eischachen], pensum: [14, 26]}
   - {name: TTG 2, faecher: [TTG], schulhaeuser: [Bündtmättli, Eischachen], pensum: [14, 26], nicht_verfuegbar: [Mi]}
   - {name: Sport Fachlehrperson, faecher: [Bewegung und Sport], schulhaeuser: [Bündtmättli, Eischachen], pensum: [0, 20]}
+  - {name: Primar Springer, faecher: [Deutsch, Mathematik, NMG, BG, Musik, Bewegung und Sport], schulhaeuser: [Bündtmättli, Eischachen], pensum: [0, 26]}
   # --- Schulische Heilpädagogik (IF) und DaZ
   - {name: SHP BM 1, faecher: [IF], schulhaeuser: [Bündtmättli, Im Feld], pensum: [14, 28]}
   - {name: SHP BM 2, faecher: [IF], schulhaeuser: Bündtmättli, pensum: [14, 28]}
