@@ -17,7 +17,7 @@ from .daten import Kind, Schule
 from .geo import luftlinie_m
 from .mobilitaet import (bus_halbtag, buslinien_der_klassen, halbtage_der_klasse, lektionsort, wegzeit,
                          zu_knapp)
-from .klassen import Einteilung, geschwistergruppen
+from .klassen import Einteilung, geschwistergruppen, moegliche_schulhaeuser
 from .lehrauftrag import Block, qualifiziert, stundentafel
 from .stundenplan import Lektion, blockzeit_slots
 
@@ -136,6 +136,11 @@ def vorpruefung(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
         m.append(Meldung("Warnung", "Daten", f"{len(ohne_koord)} Lernende ohne Koordinaten (z.B. "
                          f"{', '.join(ohne_koord[:5])}) – werden ohne Schulweg eingeteilt (bisheriges Schulhaus, "
                          "Geschwister und Wünsche zählen weiter); lat/lon ergänzen oder --geocodieren"))
+    ohne_ort = sorted({k.jahrgang for k in kinder if k.jahrgang in schule.jahrgaenge
+                       and not moegliche_schulhaeuser(schule, k)})
+    for j in ohne_ort:
+        m.append(Meldung("Fehler", "Daten", f"Jahrgang {j}: kein Schulhaus führt diese Stufe mit passendem Klassentyp "
+                         "und Raum (Schulhaus 'stufen', Klassentypen, Räume prüfen)"))
     for k in kinder:
         if k.jahrgang not in schule.jahrgaenge:
             m.append(Meldung("Fehler", "Daten", f"{k.id}: unbekannter Jahrgang '{k.jahrgang}'", k.id))
@@ -263,6 +268,9 @@ def pruefe(schule: Schule, kinder: list[Kind], e: Einteilung,
             f.append(Meldung("Fehler", "Klassen", f"{k.id} ({k.jahrgang}) in falscher Stufe", e.klasse_von[k.id]))
         if k.schulhaus_fix and e.schulhaus_von[k.id] != k.schulhaus_fix:
             f.append(Meldung("Fehler", "Klassen", f"{k.id} nicht im fixen Schulhaus {k.schulhaus_fix}", k.id))
+        sh_k = schule.schulhaus(e.schulhaus_von[k.id]) if k.id in e.schulhaus_von else None
+        if sh_k and sh_k.stufen is not None and k.jahrgang not in sh_k.stufen:
+            f.append(Meldung("Fehler", "Klassen", f"{k.id}: Schulhaus {sh_k.name} führt Stufe {k.jahrgang} nicht", k.id))
         linie = schule.buslinie(k.bus) if k.bus else None
         if linie and e.schulhaus_von.get(k.id) not in linie.schulhaeuser and any(
                 k.jahrgang in v.jahrgaenge and (not v.schulhaeuser or sh in v.schulhaeuser)

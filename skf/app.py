@@ -123,7 +123,7 @@ GEWICHT_TEXT = {
 SPALTEN_TABELLEN = {
     "schulhaus": "Schulhaus", "name": "Name", "typ": "Raumtyp", "anzahl": "Anzahl", "plaetze": "Plätze",
     "nicht_verfuegbar": "Nicht verfügbar", "kuerzel": "Kürzel", "lat": "Breite (lat)", "lon": "Länge (lon)",
-    "nutzt": "Nutzt (Raumtyp=Schulhaus)", "faecher": "Fächer", "jahrgaenge": "Jahrgänge", "schulhaeuser": "Schulhäuser",
+    "nutzt": "Nutzt (Raumtyp=Schulhaus)", "stufen": "Stufen (z.B. KG1-6, S1-S3)", "faecher": "Fächer", "jahrgaenge": "Jahrgänge", "schulhaeuser": "Schulhäuser",
     "pensum_min": "Pensum min.", "pensum_max": "Pensum max.", "bisherige_klasse": "Bisherige Klasse",
     "bezeichnung": "Bezeichnung", "raumtyp": "Raumtyp", "min": "Min.", "max": "Max.", "ideal": "Ideal",
     "strafe": "Strafe", "min_pro_jahrgang": "Min. pro Jahrgang", "dauer": "Dauer (Lektionen)",
@@ -207,7 +207,8 @@ def _aktuelle_daten():
 
 SEITEN = {"start": ":material/home: Start", "daten": ":material/table_view: 1 · Daten",
           "pruefen": ":material/fact_check: 2 · Prüfen", "berechnen": ":material/calculate: 3 · Berechnen",
-          "ergebnis": ":material/insights: 4 · Ergebnis", "verlauf": ":material/history: Verlauf",
+          "ergebnis": ":material/insights: 4 · Ergebnis", "uebertritt": ":material/upgrade: Schuljahreswechsel",
+          "verlauf": ":material/history: Verlauf",
           "hilfe": ":material/help: Hilfe"}
 TITEL = {k: v.split(": ", 1)[1].split(" · ")[-1] for k, v in SEITEN.items()}
 
@@ -321,7 +322,8 @@ def seite_daten() -> None:
     hinweise = {
         1: "Nicht verfügbar z.B. `Mi; Fr-NM; Mo-VM-1`. Förderangebote unterrichten Lehrpersonen mit dem Fach "
            "`IF`, `DaZ Anfang`, `DaZ Aufbau`. *bisherige_klasse*: Klasse, die die Lehrperson weiterführt.",
-        2: "Koordinaten (lat/lon) z.B. aus map.geo.admin.ch oder OpenStreetMap (Rechtsklick → Koordinaten).",
+        2: "*stufen*: welche Stufen hier zur Schule gehen, z.B. `KG1-6` (Kindergarten und Primar), `S1-S3` (Oberstufe) "
+           "oder `5-S3`; leer = alle, für die es Räume gibt. Koordinaten (lat/lon) z.B. aus map.geo.admin.ch.",
         3: "Gleichartige Räume mit `anzahl` zusammenfassen. Nicht verfügbar z.B. `Fr-NM` (Vereinsnutzung).",
         4: "Erlaubte Klassen: Jahrgänge (`1; 2` = Mehrjahrgangsklasse), Mindest-/Höchstgrösse, Raumtyp.",
         6: "Ergänzt oder überschreibt die Förderangebote des Kantonsprofils (gleicher Name).",
@@ -782,6 +784,90 @@ def _stand_laden(ordner: Path) -> None:
     st.session_state.seite = "daten"
 
 
+def seite_uebertritt() -> None:
+    """Nächstes Schuljahr vorbereiten: jede Stufe → nächste Stufe, Entscheide, Neueintritte."""
+    from skf.uebertritt import extern, naechste, naechstes_schuljahr, schuljahreswechsel, zusammenfassung
+    _kopf("Schuljahreswechsel", "Lernende ins nächste Schuljahr übernehmen – Übertritte, Repetitionen, Austritte")
+    if "tabellen" not in st.session_state:
+        st.info("Zuerst die Daten des laufenden Schuljahres laden (Schritt 1).")
+        return
+    cfg, kinder = _aktuelle_daten()
+    schule = _schule_aus_cfg(cfg)
+    folge = naechste(schule)
+    r = st.session_state.get("ergebnis")
+    klasse_von = dict(r.einteilung.klasse_von) if r and r.einteilung else {}
+    schulhaus_von = dict(r.einteilung.schulhaus_von) if r and r.einteilung else {}
+    with st.expander("Stufenfolge – welche Stufe folgt worauf", icon=":material/account_tree:"):
+        st.dataframe(pd.DataFrame([{"Stufe": j, "nächste Stufe": " oder ".join(n)} for j, n in folge.items()]),
+                     hide_index=True, width="stretch")
+        st.caption("Ausserhalb der Schule (zählt wie ein Wegzug): " + ", ".join(extern(schule))
+                   + ". Anpassbar in der Konfiguration unter `uebertritte`.")
+    if not klasse_von:
+        st.warning("Tipp: zuerst das laufende Schuljahr berechnen (Schritt 3) – dann werden die aktuellen Klassen "
+                   "als „bisherige Klasse“ übernommen (Gspänli-Regel, Kontinuität).", icon=":material/info:")
+    st.markdown("**Entscheide** – leer = normal in die nächste Stufe. Wo es mehrere nächste Stufen gibt "
+                "(z.B. 6. Klasse → Sek A/B/C), ist ein Entscheid nötig.")
+    optionen = ["", "A", "B", "C", "repetiert", "überspringt"] + extern(schule)
+    wahl_noetig = {j for j, n in folge.items() if len(n) > 1}
+    nur = st.toggle("Nur Übertrittsstufen zeigen", value=True, key="ue_nur",
+                    help="Kindergarten 2, letzte Primarklasse und Oberstufe")
+    df = st.session_state.bearbeitet["Kinder"].copy()
+    if "uebertritt" not in df:
+        df["uebertritt"] = ""
+    df["uebertritt"] = df["uebertritt"].fillna("").astype(str)
+    df["klasse"] = df["id"].map(klasse_von).fillna(df.get("bisherige_klasse", ""))
+    sicht = df[df["jahrgang"].isin(wahl_noetig | {"KG2"} | {j for j in folge if j.startswith("S")})] if nur else df
+    ed = st.data_editor(
+        sicht[["id", "vorname", "nachname", "jahrgang", "klasse", "uebertritt"]], hide_index=True, width="stretch",
+        height=380, key=f"ed_ue_{st.session_state.version}", disabled=["id", "vorname", "nachname", "jahrgang", "klasse"],
+        column_config={"uebertritt": st.column_config.SelectboxColumn("Entscheid", options=optionen),
+                       "klasse": "Klasse jetzt", "jahrgang": "Jahrgang jetzt"})
+    geaendert = dict(zip(ed["id"], ed["uebertritt"].fillna("")))
+    basis = st.session_state.bearbeitet["Kinder"]
+    if "uebertritt" not in basis:
+        basis["uebertritt"] = ""
+    basis["uebertritt"] = [geaendert.get(i, u) for i, u in zip(basis["id"], basis["uebertritt"].fillna(""))]
+    neu_datei = st.file_uploader("Neueintritte (z.B. Kindergarten 1 von der Einwohnerkontrolle), CSV oder Excel",
+                                 type=["csv", "xlsx"], key="ue_neu")
+    neueintritte = []
+    if neu_datei:
+        with tempfile.TemporaryDirectory() as tmp:
+            pfad = Path(tmp) / neu_datei.name
+            pfad.write_bytes(neu_datei.getvalue())
+            neueintritte = lese_kinder(pfad)
+    kinder = _kinder_aus_df(basis)
+    kinder_neu, protokoll = schuljahreswechsel(schule, kinder, klasse_von, schulhaus_von, neueintritte)
+    st.subheader("Vorschau " + naechstes_schuljahr(cfg.get("schuljahr", "")))
+    z = dict(zusammenfassung(protokoll))
+    c = st.columns(4)
+    c[0].metric("Lernende neu", len(kinder_neu), len(kinder_neu) - len(kinder))
+    c[1].metric("Übertritte", sum(n for a, n in z.items() if a.startswith("Übertritt")))
+    c[2].metric("Austritte", sum(n for a, n in z.items() if a.startswith("Austritt") or a == "Abschluss"))
+    c[3].metric("Entscheid fehlt", z.get("Entscheid fehlt", 0))
+    st.dataframe(pd.DataFrame([{"Art": a, "Anzahl": n} for a, n in z.items()]), hide_index=True)
+    offen = [s for s in protokoll if s.art == "Entscheid fehlt"]
+    if offen:
+        st.error(f"{len(offen)} Entscheide fehlen – diese Lernenden blieben im bisherigen Jahrgang: "
+                 + ", ".join(f"{s.name or s.kind} ({s.von})" for s in offen[:8]) + (" …" if len(offen) > 8 else ""),
+                 icon=":material/error:")
+    with st.expander("Alle Schritte"):
+        st.dataframe(pd.DataFrame([{"ID": s.kind, "Name": s.name, "von": s.von, "nach": s.nach, "Art": s.art,
+                                    "Klasse jetzt": s.klasse_bisher, "Hinweis": s.hinweis} for s in protokoll]),
+                     hide_index=True, width="stretch", height=360)
+    st.button("Als neues Schuljahr übernehmen", type="primary", icon=":material/upgrade:", disabled=bool(offen),
+              on_click=_neues_schuljahr, args=(cfg, kinder_neu, r))
+
+
+def _neues_schuljahr(cfg: dict, kinder_neu, r) -> None:
+    from skf.uebertritt import naechstes_schuljahr
+    if r:  # laufendes Jahr bleibt im Verlauf erhalten
+        verlauf.speichere(r, cfg, "Stand vor dem Schuljahreswechsel")
+    cfg_neu = dict(cfg)
+    cfg_neu["schuljahr"] = naechstes_schuljahr(cfg.get("schuljahr", ""))
+    _laden(cfg_neu, kinder_neu)
+    st.session_state.seite = "daten"
+
+
 def seite_verlauf() -> None:
     _kopf("Verlauf", "Gespeicherte Berechnungen vergleichen und wiederherstellen")
     st.caption(f"Jede Berechnung wird mit Eingabedaten und Ergebnis gespeichert in `{verlauf.basis()}`.")
@@ -862,6 +948,9 @@ def seite_hilfe() -> None:
 - *Blockzeiten*: Unterricht an allen Vormittagen (Kanton Luzern: VBV § 3).
 - *Schulbus*: Kinder einer Buslinie kommen nur in angefahrene Schulhäuser; Unterricht beginnt nach der Ankunft und endet passend zu einer Abfahrt (Daten → Schulbus & Wege).
 - *Wegzeiten*: Lehrpersonen wechseln direkt nacheinander nur dann das Schulhaus, wenn die Pause für den Weg reicht.
+- *Schuljahreswechsel*: Jede Stufe hat eine nächste Stufe (KG1 → KG2 → 1 … 6 → Sek A/B/C). Kanti, Gymnasium oder
+  Wegzug zählen als Austritt. Die aktuelle Klasse wird zur „bisherigen Klasse“ (Gspänli-Regel).
+- *Oberstufe*: Jahrgang mit Niveau, z.B. `S1A` = 1. Sek Niveau A.
 
 **Datenschutz** – Alle Daten bleiben auf diesem Computer (Verlauf im Ordner *Klassenbildung* im Benutzerordner).
 Nur Kartenkacheln werden von OpenStreetMap geladen. Förderdaten erscheinen in Listen nur auf Wunsch.
@@ -895,7 +984,8 @@ def main() -> None:
                            f"{r.anzahl('Fehler')} Fehler")
     st.sidebar.caption(f"Version {__version__}")
     {"start": seite_start, "daten": seite_daten, "pruefen": seite_pruefen, "berechnen": seite_berechnen,
-     "ergebnis": seite_ergebnis, "verlauf": seite_verlauf, "hilfe": seite_hilfe}[st.session_state.seite]()
+     "ergebnis": seite_ergebnis, "uebertritt": seite_uebertritt, "verlauf": seite_verlauf,
+     "hilfe": seite_hilfe}[st.session_state.seite]()
 
 
 main()

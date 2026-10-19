@@ -111,3 +111,19 @@ def test_schulbus_und_wegzeiten_bleiben_beim_bearbeiten_erhalten():
     assert at.toggle(key="wegzeiten_an").value
     _seite(at, "pruefen")
     assert not at.exception
+
+
+def test_schuljahreswechsel_in_der_app(verlauf_ordner):
+    at = AppTest.from_file(APP, default_timeout=180)
+    at.run()
+    _vorlage(at)
+    vorher = len(at.session_state["bearbeitet"]["Kinder"])
+    _seite(at, "uebertritt")
+    assert not at.exception
+    assert [m.label for m in at.metric] == ["Lernende neu", "Übertritte", "Austritte", "Entscheid fehlt"]
+    next(b for b in at.button if b.label == "Als neues Schuljahr übernehmen").click().run()
+    assert not at.exception
+    assert at.session_state["seite"] == "daten"
+    assert at.session_state["extra"]["rest"]["schuljahr"] == "2028/29"
+    kinder = at.session_state["bearbeitet"]["Kinder"]
+    assert len(kinder) < vorher and "KG1" not in set(kinder["jahrgang"])  # KG1 → KG2, oberste Stufe tritt aus

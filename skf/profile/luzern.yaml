@@ -14,7 +14,7 @@
 
 profil:
   name: Kanton Luzern – Volksschule (KG/Primar)
-  version: "2026.10"           # Profilstand JJJJ.MM – bei jeder inhaltlichen Änderung erhöhen
+  version: "2026.10.1"         # Profilstand JJJJ.MM(.n) – bei jeder inhaltlichen Änderung erhöhen
   stand: "Recherche Oktober 2026 – ohne Gewähr, aktuelle Fassungen prüfen"
   verbindlich: false
   quellen:
@@ -76,6 +76,9 @@ profil:
     klassengroessen:
       Kindergarten: {jahrgaenge: [KG1, KG2], min: 16, max: 22, quelle: VBV-7}
       Primarschule: {jahrgaenge: ["1", "2", "3", "4", "5", "6"], min: 16, max: 22, quelle: VBV-7}
+      # Sekundarschule – ANNAHME, Werte vor Gebrauch mit VBV § 7 prüfen (Niveau C kleiner)
+      Sekundarschule A/B: {jahrgaenge: [S1A, S1B, S2A, S2B, S3A, S3B], min: 16, max: 24, quelle: VBV-7, pruefen: true}
+      Sekundarschule C: {jahrgaenge: [S1C, S2C, S3C], min: 10, max: 18, quelle: VBV-7, pruefen: true}
     blockzeiten: {pflicht: true, quelle: VBV-3}
     schulweg:
       zumutbar_minuten: 30
@@ -104,7 +107,7 @@ sonderpaedagogik:
     - name: DaZ Anfang
       merkmal: daz=anfang
       gruppierung: schulhaus
-      stufen: [[KG1, KG2], ["1", "2"], ["3", "4"], ["5", "6"]]
+      stufen: [[KG1, KG2], ["1", "2"], ["3", "4"], ["5", "6"], [S1, S2, S3]]
       max_gruppe: 8
       basis: {default: 4, KG1: 3, KG2: 3, "1": 3, "2": 3}
       frei_bis: 3
@@ -114,7 +117,7 @@ sonderpaedagogik:
     - name: DaZ Aufbau
       merkmal: daz=aufbau
       gruppierung: schulhaus
-      stufen: [[KG1, KG2], ["1", "2"], ["3", "4"], ["5", "6"]]
+      stufen: [[KG1, KG2], ["1", "2"], ["3", "4"], ["5", "6"], [S1, S2, S3]]
       max_gruppe: 8
       basis: 2
       frei_bis: 3

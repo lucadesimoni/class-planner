@@ -92,6 +92,7 @@
       "type": "object", "required": ["name", "lat", "lon"],
       "properties": {
         "name": {"type": "string"}, "kuerzel": {"type": "string"},
+        "stufen": {"$ref": "#/$defs/liste", "description": "Stufen, die hier zur Schule gehen, z.B. 'KG1-6', 'S1-S3', '5-S3'"},
         "lat": {"type": "number", "minimum": -90, "maximum": 90},
         "lon": {"type": "number", "minimum": -180, "maximum": 180},
         "nicht_verfuegbar": {"$ref": "#/$defs/verfuegbarkeit"},

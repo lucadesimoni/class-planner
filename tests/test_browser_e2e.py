@@ -110,6 +110,11 @@ def test_bedienung_im_browser(app_url):
         time.sleep(1)
         seite.get_by_role("button", name="Verschieben und prüfen").wait_for()
 
+        _navigiere(seite, "Schuljahreswechsel")
+        seite.get_by_text("Entscheid fehlt").first.wait_for(timeout=60_000)
+        time.sleep(1.5)
+        seite.screenshot(path=BILDER / "12b-schuljahreswechsel.png")
+
         _navigiere(seite, "Verlauf")
         seite.get_by_text("Zwei Stände vergleichen").wait_for(timeout=30_000)
         assert seite.get_by_text("Browser-Test").count() > 0  # Notiz des gespeicherten Standes

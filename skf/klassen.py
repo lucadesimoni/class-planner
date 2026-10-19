@@ -79,9 +79,11 @@ def schulwege(schule: Schule, kinder: list[Kind]) -> dict[tuple[str, str], float
 
 
 def moegliche_schulhaeuser(schule: Schule, k: Kind) -> list[str]:
-    """Schulhäuser mit einem Klassentyp für den Jahrgang des Kindes."""
+    """Schulhäuser mit einem Klassentyp für den Jahrgang des Kindes – und einem Raum dafür."""
     return [s.name for s in schule.schulhaeuser
-            if any(k.jahrgang in v.jahrgaenge and (not v.schulhaeuser or s.name in v.schulhaeuser)
+            if (s.stufen is None or k.jahrgang in s.stufen)
+            and any(k.jahrgang in v.jahrgaenge and (not v.schulhaeuser or s.name in v.schulhaeuser)
+                   and any(r.typ == v.raumtyp for r in s.raeume)
                    for v in schule.vorlagen)]
 
 
@@ -148,6 +150,8 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
             optionen = []
             for vi, v in enumerate(schule.vorlagen):
                 if v.raumtyp != raum.typ or (v.schulhaeuser and s.name not in v.schulhaeuser):
+                    continue
+                if s.stufen is not None and not set(v.jahrgaenge) & set(s.stufen):
                     continue
                 cap = min(v.max, raum.plaetze)
                 if cap < v.min:

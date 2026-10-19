@@ -104,7 +104,7 @@ def schritt(schule: Schule, k: Kind, klasse: str = "") -> Schritt:
         if k.jahrgang.startswith(("KG", "S")):
             return neu(ABSCHLUSS, "Abschluss")
         # Schule ohne Oberstufe: Übertritt in die Oberstufe einer anderen Schule (wie ein Wegzug)
-        return neu("Oberstufe", "Austritt: Oberstufe (andere Schule)", k.uebertritt)
+        return neu("andere Schule", "Austritt: Übertritt an andere Schule", k.uebertritt)
     if len(moeglich) == 1 and e in _NORMAL:
         return neu(moeglich[0], _art(k.jahrgang, moeglich[0]))
     # Auswahl: exakter Jahrgang ("S1B"), Niveau ("B", "Sek B", "Niveau B") oder Text

@@ -80,6 +80,7 @@ Für Fachleute: `uv run skf app` oder `pip install -e .` und dann `skf app`.
 | **3 · Berechnen** | Szenario, Rechenzeit, Notiz; jede Berechnung wird im Verlauf gespeichert | [Berechnen](docs/screenshots/3-berechnen.png) |
 | **4 · Ergebnis** | **Karte** (Klasse wählen → Einzugsgebiet mit Umriss; Farbe nach Schulhaus oder Jahrgang; **Geschwister verbinden**, getrennte Familien rot; Schulwege; Klick hebt Familie hervor) · Klassen und Klassenlisten mit Geschwistern und Vorjahresklasse · **Lernende** (Personenkarte mit Geschwistern, erfüllten und offenen Wünschen, KG-Gruppe, Verlauf) · **Anpassen** (Kind verschieben, sofort neu geprüft) · Stundenpläne · **Räume** (Auslastung, Wochenplan je Raum, Belegungsübersicht) · Wünsche und KG-Gruppen · Empfehlungen · Downloads | [Karte](docs/screenshots/4-ergebnis-karte.png), [Klassen](docs/screenshots/5-klassen.png), [Lernende](docs/screenshots/6-lernende.png), [Anpassen](docs/screenshots/7-anpassen.png), [Stundenplan](docs/screenshots/8-stundenplan.png), [Räume](docs/screenshots/8b-raeume.png), [Wünsche](docs/screenshots/9-wuensche.png), [Empfehlungen](docs/screenshots/10-empfehlungen.png), [Downloads](docs/screenshots/11-herunterladen.png) |
 | **Transparenz** (in 4 · Ergebnis) | alle harten Regeln mit Prüfstatus; Abwägungen (Messwert × Gewicht = Strafpunkte je Ziel); Lösungsgüte pro Rechenschritt; bei jedem Kind **„Warum hier?“** mit allen Schulhäusern, Wegen, freien Plätzen und Gründen | [Transparenz](docs/screenshots/6b-transparenz.png), [Begründung](docs/screenshots/6-lernende.png) |
+| **Schuljahreswechsel** | jede Stufe → nächste Stufe: Entscheide pro Kind (Sek A/B/C, Kanti, repetiert, Wegzug …), Neueintritte KG1 hochladen, Vorschau mit Übertritten/Austritten, dann als neues Schuljahr übernehmen (aktuelle Klassen werden „bisherige Klasse“) | [Schuljahreswechsel](docs/screenshots/12b-schuljahreswechsel.png) |
 | **Verlauf** | alle gespeicherten Stände mit Kennzahlen; zwei Stände vergleichen (wer wechselte wohin); Bericht/Listen eines Standes herunterladen; Eingabedaten wiederherstellen | [Verlauf](docs/screenshots/12-verlauf.png) |
 
 Die Screenshots erzeugt der automatische Browser-Test (`tests/test_browser_e2e.py`). Er
@@ -129,6 +130,52 @@ Dazu kommen Szenarien, einstellbare Gewichte, **Meldungen mit Schweregrad und Qu
 eine **Konfliktanalyse** bei Unlösbarkeit, **Empfehlungen** (Lehrpersonen,
 Verfügbarkeit, Räume, Ausbau), standardisierter **Import/Export** und druckfertige
 **Klassenlisten und Stundenpläne**.
+
+### Schulhäuser und Stufen
+
+Jedes Schulhaus nennt seine Räume und die **Stufen, die dort zur Schule gehen** –
+`stufen: KG1-6` (Kindergarten und Primar), `stufen: S1-S3` (Oberstufe), `stufen: 5-S3`
+(5./6. Klasse und Oberstufe) oder eine Liste. Ohne Angabe gehen alle Stufen dorthin, für
+die es einen Klassentyp und einen passenden Raum gibt. Ein Jahrgang, den kein Schulhaus
+führt, meldet die Prüfung vor dem Rechnen.
+
+### Schuljahreswechsel und Übertritte
+
+Jede Stufe hat eine **nächste Stufe**. Die Folge ergibt sich aus den Jahrgängen der
+Konfiguration:
+
+```
+KG1 → KG2 → 1 → 2 → 3 → 4 → 5 → 6 → Sek A | Sek B | Sek C   (Kanti, Gymnasium … = Austritt)
+S1A → S2A → S3A → Abschluss          S1B → S2B …            S1C → S2C …
+```
+
+- **Oberstufe** als Jahrgang mit Niveau: `S1A` = 1. Sek Niveau A (Schreibweisen wie „1. Sek A“
+  werden erkannt). Die Stundentafel gilt pro Stufe (`S1`) oder pro Niveau (`S1C`);
+  Klassentypen je Niveau, kombinierte B/C-Klassen sind möglich (kooperatives Modell).
+  Lehrpersonen können `jahrgaenge: [S1, S2]` für alle Niveaus angeben.
+- **Entscheid pro Kind** (Spalte `uebertritt`, in der App als Auswahl): leer = normal
+  weiter; wo es mehrere nächste Stufen gibt (6. Klasse → Sek A/B/C), ist ein Entscheid
+  nötig. Ausserdem `repetiert`, `überspringt`, ein Niveau für eine **Umstufung** in der
+  Sek (`B` führt S1A → S2B) und Ziele **ausserhalb der Schule** – Kanti,
+  Langzeit-/Kurzzeitgymnasium, Privatschule, Sonderschule, Wegzug, Berufslehre –, die
+  wie ein Wegzug zählen. Eine Schule ohne Oberstufe gibt die 6. Klasse als Übertritt an
+  eine andere Schule ab.
+- **Was übernommen wird:** die aktuelle Klasse und das aktuelle Schulhaus werden zu
+  „bisherige Klasse/Schulhaus“ (Gspänli-Regel, Kontinuität); Wünsche gelten nur ein
+  Jahr und werden geleert; **Neueintritte** (KG1) kommen als eigene Liste dazu. Fehlt ein
+  Entscheid, bleibt das Kind sichtbar markiert im bisherigen Jahrgang – nichts geht
+  verloren.
+- **Geschwister** zählen nur dort als „gemeinsam im Schulhaus“, wo das überhaupt möglich
+  ist (Primar und Oberstufe in getrennten Schulhäusern bleiben getrennte Gruppen).
+
+```bash
+skf uebertritt schule.yaml kinder.csv --zuteilung ausgabe/einteilung.csv \
+    --entscheide entscheide.csv --neu neueintritte_kg1.csv -o kinder_naechstes_jahr.csv
+```
+
+Das Protokoll (`…_uebertritte.csv`) listet jeden Schritt. In der App: Seite
+**Schuljahreswechsel** – Entscheide auswählen, Neueintritte hochladen, Vorschau prüfen,
+übernehmen; der Stand davor bleibt im Verlauf.
 
 ### Für Dörfer: Schulbus und Wegzeiten (optional)
 
@@ -200,12 +247,14 @@ Fächer nach Lehrplan 21 (*NMG*, *BG*, *TTG*, *Bewegung und Sport*), *Stellvertr
 skf rechnen beispiele/malters/schule.yaml beispiele/malters/kinder.csv -o ausgabe -s alle
 ```
 
-Das Beispiel bildet Kindergarten und Primarschule Malters (LU) nach: die Schulhäuser
-**Bündtmättli** und **Eischachen** (je mit Kindergärten) und den Waldkindergarten
-**Im Feld**. **Lernende, Adressen, Lehrpersonen, Raumzahlen, Koordinaten und
-Stundentafel sind fiktiv bzw. Annahmen.** `beispiele/malters/erzeuge_kinder.py` erzeugt
-644 Lernende reproduzierbar, inklusive IF/DaZ/IS, Vorjahresklassen, KG-Gruppen und
-Wünschen. Fertig gerechnete Ergebnisse aller Szenarien:
+Das Beispiel bildet die Volksschule Malters (LU) nach: die Primarschulhäuser
+**Bündtmättli** und **Eischachen** (je mit Kindergärten), den Waldkindergarten
+**Im Feld** und eine **Oberstufe** mit Sek A, B und C. **Lernende, Adressen, Lehrpersonen,
+Raumzahlen, Koordinaten, Lage der Oberstufe und Stundentafeln sind fiktiv bzw.
+Annahmen.** `beispiele/malters/erzeuge_kinder.py` erzeugt 884 Lernende reproduzierbar,
+inklusive IF/DaZ/IS, Vorjahresklassen, KG-Gruppen, Wünschen und Schulbus; mit
+`erzeuge_kinder.py uebertritt` zusätzlich Entscheide aus dem Übertrittsverfahren und
+Neueintritte für den Schuljahreswechsel ([`beispiele/malters/uebertritt/`](beispiele/malters/uebertritt/)). Fertig gerechnete Ergebnisse aller Szenarien:
 [`beispiele/malters/ergebnis/`](beispiele/malters/ergebnis/) (Einstieg: `vergleich.html`).
 
 ## Befehle
@@ -457,7 +506,7 @@ Eine Programmversion für alles, nach [Semantic Versioning](https://semver.org/l
 |---|---|---|
 | **Programmversion** (z.B. `0.1.0`) | `skf/version.py` – einzige Quelle; `pyproject.toml`, `uv.lock` und `CHANGELOG.md` werden mitgeführt | `skf --version`, App (Seitenleiste, Hilfe), Bericht, Druckversion, Klassenlisten, Stammdaten-Export, Verlauf, Windows-Pakete (Setup, MSIX, Dateieigenschaften von `Klassenbildung.exe`) |
 | **Format-Version** der Stammdaten (`1`) | `skf/austausch.py`, JSON-Schema | Export; ein Import aus einer neueren Format-Version wird mit Hinweis abgelehnt |
-| **Profilversion** des Kantonsprofils (`2026.10`, JJJJ.MM) | `skf/profile/luzern.yaml` | Bericht (Rechtsgrundlagen), `skf profile`, Verlauf |
+| **Profilversion** des Kantonsprofils (`2026.10.1`, JJJJ.MM, bei mehreren Änderungen im Monat .n) | `skf/profile/luzern.yaml` | Bericht (Rechtsgrundlagen), `skf profile`, Verlauf |
 | **Abhängigkeiten** | `uv.lock` (genaue Versionen) | Windows-Pakete, Startskripte, Tests |
 
 **Neue Version veröffentlichen:**

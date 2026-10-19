@@ -59,6 +59,36 @@ class Schulhaus:
     raeume: list[Raum]
     nutzt: dict[str, str] = field(default_factory=dict)  # Raumtyp -> anderes Schulhaus
     nicht_verfuegbar: set[int] = field(default_factory=set)  # Schulhaus geschlossen
+    stufen: list[str] | None = None  # Jahrgänge, die hier zur Schule gehen (None = alle mit passendem Raum)
+
+
+def stufen_liste(angabe, jahrgaenge: list[str]) -> list[str] | None:
+    """"KG1-6" / ["KG1-KG2", "1-6"] / "S1-S3" / "5-S3" → Jahrgänge in Schulfolge.
+    Eine Stufe ohne Niveau ("S1") steht für alle ihre Niveaus (S1A, S1B, S1C)."""
+    if angabe in (None, "", []):
+        return None
+    teile = [t.strip() for x in (angabe if isinstance(angabe, list) else [angabe])
+             for t in re.split(r"[;,]", str(x)) if t.strip()]
+    folge = list(dict.fromkeys(stamm(j) for j in jahrgaenge))
+
+    def jg(stufe: str) -> list[str]:
+        return [j for j in jahrgaenge if j == stufe or stamm(j) == stufe]
+
+    out: list[str] = []
+    for t in teile:
+        von, _, bis = t.partition("-")
+        von, bis = von.strip(), bis.strip()
+        if bis:
+            a, b = stamm(von), stamm(bis)
+            if a not in folge or b not in folge:
+                raise ValueError(f"Stufen '{t}': unbekannt (vorhanden: {', '.join(folge)})")
+            for s in folge[folge.index(a):folge.index(b) + 1]:
+                out += jg(s)
+        else:
+            if not jg(von):
+                raise ValueError(f"Stufe '{von}': unbekannt (vorhanden: {', '.join(folge)})")
+            out += jg(von)
+    return list(dict.fromkeys(out))
 
 
 @dataclass
@@ -406,7 +436,8 @@ def baue_schule(cfg: dict) -> Schule:
             name=sh["name"], kuerzel=sh.get("kuerzel", sh["name"][:2].upper()),
             lat=float(sh["lat"]), lon=float(sh["lon"]), raeume=raeume,
             nutzt=dict(sh.get("nutzt", {})),
-            nicht_verfuegbar=_slot_set(sh.get("nicht_verfuegbar", []), slots)))
+            nicht_verfuegbar=_slot_set(sh.get("nicht_verfuegbar", []), slots),
+            stufen=stufen_liste(sh.get("stufen"), [str(j) for j in cfg["jahrgaenge"]])))
 
     kb = cfg.get("klassenbildung", {})
     profil = cfg.get("profil", {}) or {}

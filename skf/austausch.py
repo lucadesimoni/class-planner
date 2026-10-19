@@ -254,7 +254,7 @@ def _zahl(v):
 
 
 BLAETTER = {
-    "Schulhaeuser": ["name", "kuerzel", "lat", "lon", "nicht_verfuegbar", "nutzt"],
+    "Schulhaeuser": ["name", "kuerzel", "lat", "lon", "stufen", "nicht_verfuegbar", "nutzt"],
     "Raeume": ["schulhaus", "name", "typ", "anzahl", "plaetze", "nicht_verfuegbar"],
     "Klassentypen": ["jahrgaenge", "bezeichnung", "raumtyp", "min", "max", "ideal", "strafe", "min_pro_jahrgang",
                      "schulhaeuser"],
@@ -341,7 +341,7 @@ def _cfg_aus_tabellen(t: dict[str, list[dict]], rest: dict, stundentafel: dict) 
     return cfg
 
 
-LISTENFELDER = {"nicht_verfuegbar", "jahrgaenge", "schulhaeuser", "faecher", "parallel_zu"}
+LISTENFELDER = {"nicht_verfuegbar", "jahrgaenge", "schulhaeuser", "faecher", "parallel_zu", "stufen"}
 ZAHLFELDER = {"lat", "lon", "anzahl", "plaetze", "min", "max", "ideal", "strafe", "min_pro_jahrgang", "dauer",
               "max_pro_tag", "pensum_min", "pensum_max", "pro_kind", "frei_bis"}
 

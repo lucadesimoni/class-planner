@@ -109,6 +109,8 @@ def _parser() -> argparse.ArgumentParser:
     ue.add_argument("--zuteilung", help="aktuelle Klassen: einteilung.csv einer Berechnung oder zuteilung.json "
                                         "aus dem Verlauf (sonst Spalte 'klasse')")
     ue.add_argument("--neu", help="Neueintritte (z.B. KG1 von der Einwohnerkontrolle), CSV/Excel")
+    ue.add_argument("--entscheide", help="Entscheide als eigene Liste (Spalten ID und Entscheid/Übertritt), "
+                                         "z.B. aus dem Übertrittsverfahren")
     ue.add_argument("--spalte", action="append", type=_spalte, default=[], metavar="FELD=SPALTE")
 
     for befehl, text in (("raeume", "Raumliste (CSV/Excel) in die Konfiguration übernehmen"),
@@ -257,12 +259,33 @@ def lese_zuteilung(pfad: str | Path) -> tuple[dict[str, str], dict[str, str]]:
     return {z["id"]: z["klasse"] for z in zeilen}, {z["id"]: z["schulhaus"] for z in zeilen}
 
 
+def lese_entscheide(pfad: str | Path) -> dict[str, str]:
+    """ID → Entscheid aus einer Liste mit tolerant erkannten Spalten (ID, Entscheid/Übertritt/Niveau …)."""
+    from .austausch import ALIASE, _norm, _zeilen
+    zeilen = _zeilen(pfad)
+    if not zeilen:
+        return {}
+    kopf = {_norm(k): k for k in zeilen[0]}
+    sid = next((kopf[a] for a in ALIASE["id"] if a in kopf), None)
+    sent = next((kopf[a] for a in ALIASE["uebertritt"] if a in kopf), None)
+    if not sid or not sent:
+        raise ValueError(f"{pfad}: Spalten für ID und Entscheid nicht gefunden (vorhanden: {', '.join(zeilen[0])})")
+    return {str(z[sid]).strip(): str(z[sent] or "").strip() for z in zeilen if str(z.get(sid) or "").strip()}
+
+
 def _uebertritt(args) -> None:
     import csv
 
     from .uebertritt import schuljahreswechsel, zusammenfassung
     schule = lade_schule(args.schule)
     kinder = lade_kinder(args.kinder, dict(args.spalte))
+    if args.entscheide:
+        entscheide = lese_entscheide(args.entscheide)
+        unbekannt = sorted(set(entscheide) - {k.id for k in kinder})
+        if unbekannt:
+            print(f"  Achtung: Entscheide für unbekannte IDs übergangen: {', '.join(unbekannt[:5])}")
+        for k in kinder:
+            k.uebertritt = entscheide.get(k.id, k.uebertritt)
     klasse_von, schulhaus_von = lese_zuteilung(args.zuteilung) if args.zuteilung else ({}, {})
     neu = lade_kinder(args.neu) if args.neu else []
     kinder_neu, protokoll = schuljahreswechsel(schule, kinder, klasse_von, schulhaus_von, neu)

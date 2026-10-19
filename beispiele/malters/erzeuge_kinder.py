@@ -63,6 +63,90 @@ def bisherige_klasse(schulhaus, jg):
     return f"{kuerzel} {int(jg) - 1}{random.choice('ab')}"
 
 
+# Oberstufe (Sek A/B/C): eigener Zufallsgenerator, damit KG und Primar unverändert bleiben
+# Lernende je Stufe und Niveau (nach Übertrittsverfahren; so gewählt, dass die Klassengrössen
+# des Kantonsprofils aufgehen – sonst meldet die Konfliktanalyse genau diesen Engpass)
+OBERSTUFE = {"S1": {"A": 34, "B": 32, "C": 15}, "S2": {"A": 33, "B": 22, "C": 24}, "S3": {"A": 32, "B": 33, "C": 15}}
+
+
+def oberstufe(primar):
+    rng = random.Random(6104)
+    out, nr = [], len(primar)
+    for stufe, je_niveau in OBERSTUFE.items():
+        niveaus = [n for n, anzahl in je_niveau.items() for _ in range(anzahl)]
+        rng.shuffle(niveaus)
+        for niveau in niveaus:
+            nr += 1
+            if rng.random() < 0.3:  # Geschwister eines Primarkindes
+                g = rng.choice(primar)
+                adresse, lat, lon, familie, nachname = g["adresse"], g["lat"], g["lon"], g["familie"], g["nachname"]
+                gebiet = next((x[0] for x in GEBIETE if x[0] in adresse), "")
+            else:
+                r, acc = rng.random(), 0.0
+                for gebiet, glat, glon, sigma, anteil in GEBIETE:
+                    acc += anteil
+                    if r <= acc:
+                        break
+                lat = round(glat + rng.gauss(0, sigma) / 111_320, 5)
+                lon = round(glon + rng.gauss(0, sigma) / (111_320 * 0.68), 5)
+                adresse = f"{rng.choice(STRASSEN)} {rng.randint(1, 60)}, {gebiet} (fiktiv)"
+                familie, nachname = f"FO{nr:04d}", rng.choice(NACHNAMEN)
+            w = rng.random() < 0.49
+            if stufe == "S1":  # Vorjahr: 6. Klasse in einem Primarschulhaus
+                sh = rng.choice(list(SCHULHAEUSER))
+                bisher = f"{SCHULHAEUSER[sh][0]} 6{rng.choice('ab')}"
+            else:
+                sh = "Oberstufe"
+                bisher = f"OS S{int(stufe[1]) - 1}{niveau}{rng.choice('ab') if niveau != 'C' else 'a'}"
+            out.append({
+                "id": f"K{nr:04d}", "vorname": rng.choice(VORNAMEN_W if w else VORNAMEN_M), "nachname": nachname,
+                "jahrgang": f"{stufe}{niveau}", "geschlecht": "w" if w else "m",
+                "adresse": adresse, "lat": lat, "lon": lon, "familie": familie,
+                "if": "ja" if rng.random() < 0.08 else "",
+                "daz": rng.choices(["", "anfang", "aufbau"], [0.93, 0.02, 0.05])[0],
+                "is": "ja" if rng.random() < 0.01 else "",
+                "schulhaus_fix": "", "bisheriges_schulhaus": sh, "bisherige_klasse": bisher,
+                "zusammen_mit": "", "nicht_mit": "", "wunsch_schulhaus": "",
+                "bus": "Schulbus Blatten" if gebiet == "Blatten" else "",
+                "bemerkung": "",
+            })
+    return out
+
+
+def uebertritt(kinder):
+    """Beispiel für den Schuljahreswechsel: Entscheide (Übertrittsverfahren, Repetitionen, Wegzüge)
+    und Neueintritte in den Kindergarten. Eigener Zufallsgenerator."""
+    rng = random.Random(6105)
+    entscheide = {}
+    sechste = [k for k in kinder if k["jahrgang"] == "6"]
+    wahl = ["A"] * 33 + ["B"] * 27 + ["C"] * 13 + ["Langzeitgymnasium"] * 8
+    rng.shuffle(wahl)
+    for k, w in zip(sechste, wahl):
+        entscheide[k["id"]] = w
+    for jg, e, n in (("S2A", "Kurzzeitgymnasium", 3), ("S1A", "B", 2), ("S1C", "B", 2), ("3", "repetiert", 2),
+                     ("KG2", "repetiert", 2)):
+        for k in rng.sample([k for k in kinder if k["jahrgang"] == jg and k["id"] not in entscheide], n):
+            entscheide[k["id"]] = e
+    for k in rng.sample([k for k in kinder if k["id"] not in entscheide], 7):
+        entscheide[k["id"]] = "Wegzug"
+    neu = []
+    for i in range(1, 80):
+        r, acc = rng.random(), 0.0
+        for gebiet, glat, glon, sigma, anteil in GEBIETE:
+            acc += anteil
+            if r <= acc:
+                break
+        w = rng.random() < 0.49
+        neu.append({"id": f"N{i:04d}", "vorname": rng.choice(VORNAMEN_W if w else VORNAMEN_M),
+                    "nachname": rng.choice(NACHNAMEN), "jahrgang": "KG1", "geschlecht": "w" if w else "m",
+                    "adresse": f"{rng.choice(STRASSEN)} {rng.randint(1, 60)}, {gebiet} (fiktiv)",
+                    "lat": round(glat + rng.gauss(0, sigma) / 111_320, 5),
+                    "lon": round(glon + rng.gauss(0, sigma) / (111_320 * 0.68), 5),
+                    "familie": f"FN{i:04d}", "daz": rng.choices(["", "anfang"], [0.9, 0.1])[0],
+                    "bus": "Schulbus Blatten" if gebiet == "Blatten" else ""})
+    return entscheide, neu
+
+
 def main():
     kinder = []
     reihenfolge = list(JAHRGAENGE)
@@ -116,6 +200,21 @@ def main():
         if kandidaten:
             a["zusammen_mit"] = random.choice(kandidaten)["id"]
 
+    kinder += oberstufe(kinder)
+    if len(sys.argv) > 1 and sys.argv[1] == "uebertritt":  # Beispieldaten für den Schuljahreswechsel
+        from pathlib import Path
+        ordner = Path(__file__).parent / "uebertritt"
+        ordner.mkdir(exist_ok=True)
+        entscheide, neu = uebertritt(kinder)
+        with open(ordner / "entscheide.csv", "w", newline="", encoding="utf-8") as f:
+            wr = csv.writer(f)
+            wr.writerow(["id", "entscheid"])
+            wr.writerows(sorted(entscheide.items()))
+        with open(ordner / "neueintritte_kg1.csv", "w", newline="", encoding="utf-8") as f:
+            wr = csv.DictWriter(f, fieldnames=list(neu[0]))
+            wr.writeheader()
+            wr.writerows(neu)
+        return
     wr = csv.DictWriter(sys.stdout, fieldnames=list(kinder[0]))
     wr.writeheader()
     wr.writerows(sorted(kinder, key=lambda k: k["id"]))

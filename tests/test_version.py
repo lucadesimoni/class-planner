@@ -54,4 +54,4 @@ def test_ausgaben_nennen_die_version(tmp_path):
     exportiere_listen(r, tmp_path)
     assert f"Stundenplan {skf.__version__}" in (tmp_path / "bericht.html").read_text(encoding="utf-8")
     assert f"Klassenbildung {skf.__version__}" in (tmp_path / "druck.html").read_text(encoding="utf-8")
-    assert "Profilversion 2026.10" in (tmp_path / "bericht.html").read_text(encoding="utf-8")
+    assert "Profilversion 2026.10.1" in (tmp_path / "bericht.html").read_text(encoding="utf-8")

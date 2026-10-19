@@ -64,7 +64,8 @@ def foerderbloecke(schule: Schule, klassen: list[Klasse], kinder: dict[str, Kind
                     for c in klassen:
                         if c.schulhaus != sh.name:
                             continue
-                        n = sum(1 for i in c.kinder if kinder[i].hat(a.merkmal) and kinder[i].jahrgang in stufe)
+                        n = sum(1 for i in c.kinder if kinder[i].hat(a.merkmal)
+                                and (kinder[i].jahrgang in stufe or stamm(kinder[i].jahrgang) in stufe))
                         if n:
                             pro_klasse.append((c, n))
                     total = sum(n for _, n in pro_klasse)
@@ -86,7 +87,8 @@ def foerderbloecke(schule: Schule, klassen: list[Klasse], kinder: dict[str, Kind
                 n = sum(kinder[i].hat(a.merkmal) for i in c.kinder if i in kinder)
                 gruppen.append(([c], n if a.merkmal != "alle" else len(c.kinder), c.jahrgaenge))
         for ks, anzahl, jg in gruppen:
-            lekt = a.lektionen([j for j in jg if any(j in c.jahrgaenge for c in ks)] or jg, anzahl)
+            lekt = a.lektionen([j for j in jg if any(j in c.jahrgaenge or j in map(stamm, c.jahrgaenge)
+                                                     for c in ks)] or jg, anzahl)
             if lekt <= 0:
                 continue
             namen = [c.name for c in ks]

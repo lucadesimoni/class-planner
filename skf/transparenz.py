@@ -18,7 +18,8 @@ from .ablauf import Ergebnis
 
 # Harte Regeln: (Name, Bereich, Schlüsselwörter in Fehlermeldungen)
 REGELN = [
-    ("Jedes Kind ist genau einer passenden Klasse zugeteilt", "Klassen", ("eingeteilt", "falscher Stufe")),
+    ("Jedes Kind ist genau einer passenden Klasse zugeteilt", "Klassen", ("eingeteilt", "falscher Stufe",
+                                                                            "führt Stufe")),
     ("Fixe Schulhaus-Zuteilungen eingehalten", "Klassen", ("fixen Schulhaus",)),
     ("Klassengrösse im erlaubten Rahmen und Raum gross genug", "Klassen", ("Grösse", "gewichtete Grösse")),
     ("Jedes Schulzimmer höchstens einer Klasse", "Klassen", ("Raum", "doppelt vergeben")),

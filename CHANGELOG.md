@@ -8,12 +8,21 @@ Neue Version: `python scripts/version.py 0.2.0`.
 ## [Unveröffentlicht]
 
 ### Geändert
+- Mögliche Schulhäuser eines Kindes berücksichtigen nun auch, ob ein passender Raum vorhanden ist.
+- Geschwisterregel nur unter Geschwistern, die im selben Schulhaus sein können.
+- Kantonsprofil Luzern 2026.10.1: Klassengrössen Sekundarschule (Annahme, zu prüfen), DaZ-Gruppen auch für die Oberstufe.
 - Lernende ohne Koordinaten werden ohne Schulweg eingeteilt (Warnung statt Abbruch).
 - Wünsche, die auf ein nicht (mehr) vorhandenes Kind verweisen, werden mit Warnung
   übergangen statt die Berechnung zu blockieren.
 - Leere Liste der Lernenden ergibt eine klare Fehlermeldung.
 
 ### Hinzugefügt
+- **Schuljahreswechsel und Übertritte:** jede Stufe hat eine nächste Stufe (KG → Primar → Sek A/B/C,
+  Kanti/Gymnasium/Wegzug als Austritt, Repetition, Überspringen, Umstufung), Entscheide pro Kind,
+  Neueintritte, Protokoll; `skf uebertritt` und App-Seite *Schuljahreswechsel*.
+- **Schulhäuser mit Stufen** (`stufen: KG1-6`, `S1-S3`, `5-S3`): welche Stufen wo zur Schule gehen.
+- **Oberstufe** mit Niveaus (`S1A` …), gemeinsame oder eigene Stundentafel je Niveau, kombinierte
+  B/C-Klassen; Beispiel Malters mit Oberstufe (Annahmen) und Übertrittsdaten.
 - Robustheits-Sweep `scripts/robustheit.py` (23 Grenz- und Zufallsfälle, bis 1288 Lernende).
 
 ## [0.1.0] – 2026-10-19

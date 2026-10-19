@@ -75,7 +75,7 @@ def test_schule_ohne_oberstufe(schule):
     cfg["jahrgaenge"] = cfg["jahrgaenge"] + ["3", "4", "5", "6"]
     primar = baue_schule(cfg)
     _, prot = schuljahreswechsel(primar, [kind("x", "6", "A"), kind("y", "6", "Kanti")])
-    assert [p.art for p in prot] == ["Austritt: Oberstufe (andere Schule)", "Austritt: Kanti"]
+    assert [p.art for p in prot] == ["Austritt: Übertritt an andere Schule", "Austritt: Kanti"]
 
 
 def test_jahrgang_schreibweisen():
@@ -112,3 +112,31 @@ def test_cli(tmp_path, capsys):
     assert neu["K1"]["jahrgang"] == "1" and neu["K1"]["bisherige_klasse"] == "A KGa"
     assert neu["K2"]["jahrgang"] == "1"
     assert (tmp_path / "neu_uebertritte.csv").exists()
+
+
+def test_schulhaus_stufen():
+    from skf.daten import stufen_liste
+    jg = ["KG1", "KG2", "1", "2", "3", "4", "5", "6"] + SEK
+    assert stufen_liste("KG1-6", jg) == jg[:8]
+    assert stufen_liste("S1-S3", jg) == SEK
+    assert stufen_liste("5-S1", jg) == ["5", "6", "S1A", "S1B", "S1C"]
+    assert stufen_liste(["KG1; KG2", "S2"], jg) == ["KG1", "KG2", "S2A", "S2B", "S2C"]
+    assert stufen_liste("", jg) is None
+    with pytest.raises(ValueError, match="unbekannt"):
+        stufen_liste("KG1-9", jg)
+
+
+def test_schulhaus_fuehrt_nur_seine_stufen(tmp_path):
+    from skf.daten import lade_kinder, lade_schule
+    from skf.klassen import teile_ein
+    from skf.pruefung import pruefe
+    cfg = yaml.safe_load((VORLAGE / "schule.yaml").read_text(encoding="utf-8"))
+    cfg["schulhaeuser"][1]["stufen"] = "KG1-KG2"  # Schulhaus B: nur Kindergarten
+    for sh in cfg["schulhaeuser"]:
+        sh.setdefault("raeume", []).append({"typ": "Klassenzimmer", "anzahl": 3, "plaetze": 24})
+    (tmp_path / "schule.yaml").write_text(yaml.safe_dump(cfg, allow_unicode=True), encoding="utf-8")
+    s = lade_schule(tmp_path / "schule.yaml")
+    kinder = lade_kinder(VORLAGE / "kinder.csv")
+    e = teile_ein(s, kinder, zeitlimit=20)
+    assert {c.schulhaus for c in e.klassen if c.vorlage.raumtyp == "Klassenzimmer"} == {"Schulhaus A"}
+    assert not [m for m in pruefe(s, kinder, e) if m.schwere == "Fehler"]

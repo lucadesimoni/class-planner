@@ -10,11 +10,13 @@ schuljahr: 2027/28
 basis_profil: luzern          # Kantonsprofil: Klassengrössen, Blockzeiten, IF/DaZ, Schulweg – mit Quellen
 profil:
   verbindlich: true           # Klassengrössen gemäss VBV § 7 als harte Grenzen
-jahrgaenge: [KG1, KG2, "1", "2", "3", "4", "5", "6"]
+# Oberstufe: S1A = 1. Sek Niveau A usw. – Stufenfolge für Übertritte: KG1 → KG2 → 1 … 6 → S1A/S1B/S1C → S2 → S3
+jahrgaenge: [KG1, KG2, "1", "2", "3", "4", "5", "6", S1A, S1B, S1C, S2A, S2B, S2C, S3A, S3B, S3C]
 
 schulhaeuser:
   - name: Bündtmättli
     kuerzel: BM
+    stufen: KG1-6             # welche Stufen hier zur Schule gehen
     lat: 47.0338
     lon: 8.1862
     raeume:
@@ -24,6 +26,7 @@ schulhaeuser:
       - {name: BM-TTG, typ: TTG-Zimmer, anzahl: 2, plaetze: 24}
   - name: Eischachen
     kuerzel: EI
+    stufen: KG1-6             # welche Stufen hier zur Schule gehen
     lat: 47.0402
     lon: 8.1765
     raeume:
@@ -33,11 +36,21 @@ schulhaeuser:
       - {name: EI-TTG, typ: TTG-Zimmer, plaetze: 24}
   - name: Im Feld
     kuerzel: IF
+    stufen: KG1-KG2             # welche Stufen hier zur Schule gehen
     lat: 47.0445
     lon: 8.1880
     raeume:
       - {name: Waldplatz, typ: Wald, plaetze: 20}
     nicht_verfuegbar: [Mo-NM, Di-NM, Do-NM, Fr-NM]   # Wald-KG nur vormittags
+  - name: Oberstufe            # ANNAHME: Sekundarschule (Lage, Name und Räume fiktiv)
+    kuerzel: OS
+    stufen: S1-S3             # welche Stufen hier zur Schule gehen
+    lat: 47.0372
+    lon: 8.1838
+    raeume:
+      - {name: OS-Zi, typ: Klassenzimmer, anzahl: 16, plaetze: 25}
+      - {name: OS-Halle, typ: Turnhalle, anzahl: 2, plaetze: 30}
+      - {name: OS-TTG, typ: TTG-Zimmer, anzahl: 2, plaetze: 24}
 
 # Optional: Schulbus für den Weiler Blatten. Buskinder kommen nur in angefahrene Schulhäuser;
 # ihr Unterricht beginnt nach der Ankunft und endet passend zu einer Abfahrt (max. Wartezeit).
@@ -45,7 +58,7 @@ schulbus:
   wartezeit_max: 15          # Minuten
   linien:
     - name: Schulbus Blatten
-      schulhaeuser: [Bündtmättli]
+      schulhaeuser: [Bündtmättli, Oberstufe]
       ankunft: {VM: "07:50", NM: "13:20"}
       abfahrt: {VM: "11:40", NM: ["14:25", "15:15"]}   # zwei Kurse am Nachmittag
 
@@ -71,6 +84,19 @@ klassenbildung:
     - {jahrgaenge: ["1", "2"], min: 16, max: 22, ideal: 20, strafe: 150}   # Mehrjahrgangsklassen (AdL)
     - {jahrgaenge: ["3", "4"], min: 16, max: 22, ideal: 20, strafe: 150}
     - {jahrgaenge: ["5", "6"], min: 16, max: 22, ideal: 20, strafe: 150}
+    # Oberstufe (kooperatives Modell): Stammklassen je Niveau; kleine Jahrgänge können B/C kombinieren
+    - {jahrgaenge: [S1A], min: 16, max: 24, ideal: 21}
+    - {jahrgaenge: [S1B], min: 16, max: 24, ideal: 21}
+    - {jahrgaenge: [S1C], min: 10, max: 18, ideal: 15}
+    - {jahrgaenge: [S1B, S1C], min: 12, max: 20, ideal: 18, strafe: 150, min_pro_jahrgang: 4}
+    - {jahrgaenge: [S2A], min: 16, max: 24, ideal: 21}
+    - {jahrgaenge: [S2B], min: 16, max: 24, ideal: 21}
+    - {jahrgaenge: [S2C], min: 10, max: 18, ideal: 15}
+    - {jahrgaenge: [S2B, S2C], min: 12, max: 20, ideal: 18, strafe: 150, min_pro_jahrgang: 4}
+    - {jahrgaenge: [S3A], min: 16, max: 24, ideal: 21}
+    - {jahrgaenge: [S3B], min: 16, max: 24, ideal: 21}
+    - {jahrgaenge: [S3C], min: 10, max: 18, ideal: 15}
+    - {jahrgaenge: [S3B, S3C], min: 12, max: 20, ideal: 18, strafe: 150, min_pro_jahrgang: 4}
 
 sonderpaedagogik:            # IF/DaZ-Angebote kommen aus dem Kantonsprofil (skf/profile/luzern.yaml)
   is_zaehlt_als: 2           # schulinterne Festlegung: IS-Kind zählt bei der Klassengrösse doppelt
@@ -96,6 +122,9 @@ faecher:
   Bewegung und Sport: {raumtyp: Turnhalle, max_pro_tag: 1}
   Kindergarten: {raumtyp: Klassenzimmer, max_pro_tag: 6}
   Wald: {raumtyp: Klassenzimmer, max_pro_tag: 6}
+  NT: {max_pro_tag: 2}                     # Natur und Technik (Oberstufe)
+  RZG: {max_pro_tag: 2}                    # Räume, Zeiten, Gesellschaften
+  Berufliche Orientierung: {max_pro_tag: 1}
 
 # Lektionen pro Woche – vereinfachte ANNAHME; verbindlich ist die WOST 2017 (Quelle "WOST" im Profil)
 stundentafel:
@@ -107,6 +136,11 @@ stundentafel:
   "4": {Deutsch: 5, Mathematik: 5, NMG: 5, Englisch: 2, BG: 2, TTG: 2, Musik: 2, Bewegung und Sport: 3}
   "5": {Deutsch: 5, Mathematik: 5, NMG: 5, Englisch: 2, Französisch: 3, BG: 2, TTG: 2, Musik: 1, Bewegung und Sport: 3}
   "6": {Deutsch: 5, Mathematik: 5, NMG: 5, Englisch: 2, Französisch: 3, BG: 2, TTG: 2, Musik: 1, Bewegung und Sport: 3}
+  # Oberstufe: gilt für alle Niveaus (eigene Tafel je Niveau möglich, z.B. "S1C"). Gekürzt auf die
+  # 28 Zeitfenster des Beispielrasters – die echte WOST-Sek-Tafel hat mehr Lektionen (dritte NM-Lektion).
+  S1: {Deutsch: 4, Französisch: 3, Englisch: 3, Mathematik: 5, NT: 3, RZG: 3, BG: 2, TTG: 2, Bewegung und Sport: 2}
+  S2: {Deutsch: 4, Französisch: 3, Englisch: 3, Mathematik: 5, NT: 3, RZG: 3, BG: 2, TTG: 2, Bewegung und Sport: 2}
+  S3: {Deutsch: 4, Französisch: 3, Englisch: 3, Mathematik: 5, NT: 3, RZG: 2, Berufliche Orientierung: 1, BG: 2, TTG: 2, Bewegung und Sport: 2}
 
 # Fiktive Lehrpersonen. Pensum = [min, max] Lektionen pro Woche.
 # nicht_verfuegbar: "Mi" (ganzer Tag), "Fr-NM" (Halbtag), "Mo-VM-1" (einzelne Lektion)
@@ -166,6 +200,34 @@ lehrpersonen:
   - {name: KG EI 3, faecher: [Kindergarten, Bewegung und Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
   - {name: KG EI 4, faecher: [Kindergarten, Bewegung und Sport], jahrgaenge: [KG1, KG2], schulhaeuser: Eischachen, pensum: [22, 24]}
   - {name: Wald-KG Im Feld, faecher: [Wald], schulhaeuser: Im Feld, pensum: [22, 24]}
+  # --- Oberstufe: Fachlehrpersonen
+  - {name: OS Deutsch 1, faecher: [Deutsch, RZG, Berufliche Orientierung], schulhaeuser: Oberstufe, pensum: [16, 27]}
+  - {name: OS Deutsch 2, faecher: [Deutsch, RZG, Berufliche Orientierung], schulhaeuser: Oberstufe, pensum: [16, 27]}
+  - {name: OS Deutsch 3, faecher: [Deutsch, RZG, Berufliche Orientierung], schulhaeuser: Oberstufe, pensum: [16, 27]}
+  - {name: OS Deutsch 4, faecher: [Deutsch, RZG], schulhaeuser: Oberstufe, pensum: [10, 24], nicht_verfuegbar: [Fr]}
+  - {name: OS Deutsch 5, faecher: [Deutsch, RZG, Englisch], schulhaeuser: Oberstufe, pensum: [10, 24]}
+  - {name: OS Sprachen 1, faecher: [Französisch, Englisch, Deutsch], schulhaeuser: Oberstufe, pensum: [16, 27]}
+  - {name: OS Sprachen 2, faecher: [Französisch, Englisch, Deutsch], schulhaeuser: Oberstufe, pensum: [16, 27]}
+  - {name: OS Sprachen 3, faecher: [Französisch, Englisch], schulhaeuser: Oberstufe, pensum: [16, 27]}
+  - {name: OS Sprachen 4, faecher: [Französisch, Englisch], schulhaeuser: Oberstufe, pensum: [10, 24], nicht_verfuegbar: [Mi]}
+  - {name: OS Mathematik 1, faecher: [Mathematik, NT], schulhaeuser: Oberstufe, pensum: [16, 27]}
+  - {name: OS Mathematik 2, faecher: [Mathematik, NT], schulhaeuser: Oberstufe, pensum: [16, 27]}
+  - {name: OS Mathematik 3, faecher: [Mathematik, NT], schulhaeuser: Oberstufe, pensum: [16, 27]}
+  - {name: OS Mathematik 4, faecher: [Mathematik, NT], schulhaeuser: Oberstufe, pensum: [16, 27]}
+  - {name: OS Mathematik 5, faecher: [Mathematik, NT, RZG], schulhaeuser: Oberstufe, pensum: [10, 24], nicht_verfuegbar: [Mo]}
+  - {name: OS Gestalten 1, faecher: [BG, TTG], schulhaeuser: Oberstufe, pensum: [12, 27]}
+  - {name: OS Gestalten 2, faecher: [BG, TTG], schulhaeuser: Oberstufe, pensum: [12, 27]}
+  - {name: OS Gestalten 3, faecher: [BG, TTG], schulhaeuser: Oberstufe, pensum: [8, 20], nicht_verfuegbar: [Do]}
+  - {name: OS Sport 1, faecher: [Bewegung und Sport, NT], schulhaeuser: Oberstufe, pensum: [10, 24]}
+  - {name: OS Sport 2, faecher: [Bewegung und Sport, Mathematik], schulhaeuser: Oberstufe, pensum: [10, 24]}
+  - {name: SHP OS 1, faecher: [IF], schulhaeuser: Oberstufe, pensum: [12, 28]}
+  - {name: SHP OS 2, faecher: [IF], schulhaeuser: Oberstufe, pensum: [12, 28]}
+  - {name: DaZ OS, faecher: [DaZ Anfang, DaZ Aufbau], schulhaeuser: Oberstufe, pensum: [0, 20]}
+
+# Schuljahreswechsel (skf uebertritt): die Stufenfolge kommt aus den Jahrgängen; hier nur die
+# Ziele ausserhalb der Gemeinde, die wie ein Wegzug zählen.
+uebertritte:
+  extern: [Kanti, Langzeitgymnasium, Kurzzeitgymnasium, Privatschule, Sonderschule, Wegzug, Berufslehre]
 
 # Prognose für Ausbau-Empfehlungen: Malters wuchs 2024/25 → 2025/26 von 879 auf 911 Lernende (+3.6%)
 planung:
