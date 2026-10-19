@@ -7,6 +7,7 @@
     skf export   schule.yaml kinder.csv -o daten.xlsx    Stammdaten exportieren (.xlsx oder .json)
     skf import   daten.xlsx -o ordner/                   Stammdaten importieren → schule.yaml + kinder.csv
     skf kinder   export_schulverwaltung.csv -o kinder.csv  Kinderliste normalisieren/umwandeln
+    skf uebertritt schule.yaml kinder.csv -o kinder_neu.csv  Schuljahreswechsel: nächste Stufe, Übertritte, Austritte
     skf raeume   schule.yaml raumliste.xlsx              Raumliste übernehmen (CSV/Excel, Spalten frei benannt)
     skf lehrpersonen schule.yaml personal.csv            Lehrpersonenliste übernehmen
     skf vorlage  -o ordner/                              Vorlagen zum Erfassen eigener Daten
@@ -31,7 +32,8 @@ from .geo import geocodiere
 from .pruefung import referenzen, vorpruefung
 from .version import __version__
 
-BEFEHLE = ("rechnen", "pruefen", "export", "import", "kinder", "raeume", "lehrpersonen", "vorlage", "profile", "app")
+BEFEHLE = ("rechnen", "pruefen", "export", "import", "kinder", "uebertritt", "raeume", "lehrpersonen", "vorlage",
+           "profile", "app")
 
 
 def _gewicht(text: str) -> tuple[str, int]:
@@ -99,6 +101,16 @@ def _parser() -> argparse.ArgumentParser:
     ki.add_argument("-o", "--ziel", required=True, help="Ziel .csv oder .xlsx")
     ki.add_argument("--spalte", action="append", type=_spalte, default=[], metavar="FELD=SPALTE")
 
+    ue = sub.add_parser("uebertritt", help="Schuljahreswechsel: jede Stufe → nächste Stufe (Übertritte, Austritte)")
+    ue.add_argument("schule", help="schule.yaml (Stufenfolge aus den Jahrgängen, anpassbar unter 'uebertritte')")
+    ue.add_argument("kinder", help="Lernende des laufenden Jahres; Spalte 'uebertritt' = Entscheid (A/B/C, Kanti, "
+                                   "repetiert, Wegzug …)")
+    ue.add_argument("-o", "--ziel", required=True, help="Lernende des nächsten Jahres (.csv/.xlsx)")
+    ue.add_argument("--zuteilung", help="aktuelle Klassen: einteilung.csv einer Berechnung oder zuteilung.json "
+                                        "aus dem Verlauf (sonst Spalte 'klasse')")
+    ue.add_argument("--neu", help="Neueintritte (z.B. KG1 von der Einwohnerkontrolle), CSV/Excel")
+    ue.add_argument("--spalte", action="append", type=_spalte, default=[], metavar="FELD=SPALTE")
+
     for befehl, text in (("raeume", "Raumliste (CSV/Excel) in die Konfiguration übernehmen"),
                          ("lehrpersonen", "Lehrpersonenliste (CSV/Excel) in die Konfiguration übernehmen")):
         li = sub.add_parser(befehl, help=text)
@@ -144,7 +156,7 @@ def main(argv: list[str] | None = None) -> None:
         return
     try:
         {"rechnen": _rechnen, "pruefen": _pruefen, "export": _export, "import": _import, "kinder": _kinder,
-         "raeume": _liste, "lehrpersonen": _liste, "vorlage": _vorlage, "profile": _profile, "app": _app}[args.befehl](args)
+         "uebertritt": _uebertritt, "raeume": _liste, "lehrpersonen": _liste, "vorlage": _vorlage, "profile": _profile, "app": _app}[args.befehl](args)
     except (ValueError, KeyError, FileNotFoundError) as fehler:
         sys.exit(f"Fehler: {fehler}")
 
@@ -230,6 +242,45 @@ def _kinder(args) -> None:
     ohne = sum(k.lat is None for k in kinder)
     print(f"{len(kinder)} Lernende → {args.ziel}" + (f" ({ohne} ohne Koordinaten: --geocodieren verwenden)" if ohne
                                                      else ""))
+
+
+def lese_zuteilung(pfad: str | Path) -> tuple[dict[str, str], dict[str, str]]:
+    """Aktuelle Klasse/Schulhaus je Kind aus einteilung.csv (Ausgabe) oder zuteilung.json (Verlauf)."""
+    import csv
+    import json
+    pfad = Path(pfad)
+    if pfad.suffix.lower() == ".json":
+        daten = json.loads(pfad.read_text(encoding="utf-8"))
+        return {k: v["klasse"] for k, v in daten.items()}, {k: v["schulhaus"] for k, v in daten.items()}
+    with open(pfad, encoding="utf-8-sig", newline="") as f:
+        zeilen = list(csv.DictReader(f))
+    return {z["id"]: z["klasse"] for z in zeilen}, {z["id"]: z["schulhaus"] for z in zeilen}
+
+
+def _uebertritt(args) -> None:
+    import csv
+
+    from .uebertritt import schuljahreswechsel, zusammenfassung
+    schule = lade_schule(args.schule)
+    kinder = lade_kinder(args.kinder, dict(args.spalte))
+    klasse_von, schulhaus_von = lese_zuteilung(args.zuteilung) if args.zuteilung else ({}, {})
+    neu = lade_kinder(args.neu) if args.neu else []
+    kinder_neu, protokoll = schuljahreswechsel(schule, kinder, klasse_von, schulhaus_von, neu)
+    schreibe_kinder(kinder_neu, args.ziel)
+    ziel = Path(args.ziel)
+    prot = ziel.with_name(ziel.stem + "_uebertritte.csv")
+    with open(prot, "w", newline="", encoding="utf-8") as f:
+        wr = csv.writer(f)
+        wr.writerow(["id", "name", "von", "nach", "art", "klasse_bisher", "hinweis"])
+        wr.writerows([s.kind, s.name, s.von, s.nach, s.art, s.klasse_bisher, s.hinweis] for s in protokoll)
+    for art, n in zusammenfassung(protokoll):
+        print(f"  {n:4}  {art}")
+    offen = [s for s in protokoll if s.art == "Entscheid fehlt"]
+    print(f"{len(kinder)} → {len(kinder_neu)} Lernende → {ziel}  (Protokoll: {prot.name})")
+    if offen:
+        print(f"Achtung: {len(offen)} Entscheide fehlen (bleiben im bisherigen Jahrgang): "
+              + ", ".join(f"{s.kind} ({s.hinweis})" for s in offen[:5]))
+        sys.exit(1)
 
 
 def _liste(args) -> None:

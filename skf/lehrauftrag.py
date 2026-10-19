@@ -18,7 +18,7 @@ from dataclasses import dataclass, field
 
 from ortools.sat.python import cp_model
 
-from .daten import Kind, Lehrperson, Schule
+from .daten import Kind, Lehrperson, Schule, stamm
 from .klassen import Klasse
 from .solver import KeineLoesung, Loesungsinfo, Regeln, loese_mit_regeln
 
@@ -106,9 +106,9 @@ def stundentafel(schule: Schule, klasse: Klasse) -> dict[str, int]:
         return dict(schule.stundentafel[klasse.vorlage.bezeichnung])
     tafel: dict[str, int] = {}
     for j in klasse.jahrgaenge:
-        if j not in schule.stundentafel:
+        if schule.tafel(j) is None:
             raise ValueError(f"Keine Stundentafel für Jahrgang {j}")
-        for fach, lekt in schule.stundentafel[j].items():
+        for fach, lekt in schule.tafel(j).items():
             tafel[fach] = max(tafel.get(fach, 0), lekt)
     return tafel
 
@@ -116,7 +116,8 @@ def stundentafel(schule: Schule, klasse: Klasse) -> dict[str, int]:
 def qualifiziert(lp: Lehrperson, klasse: Klasse, fach: str) -> bool:
     return (fach in lp.faecher
             and (lp.schulhaeuser is None or klasse.schulhaus in lp.schulhaeuser)
-            and (lp.jahrgaenge is None or all(j in lp.jahrgaenge for j in klasse.jahrgaenge)))
+            and (lp.jahrgaenge is None or all(j in lp.jahrgaenge or stamm(j) in lp.jahrgaenge
+                                              for j in klasse.jahrgaenge)))
 
 
 def gesperrte_slots(schule: Schule, klasse: Klasse, fach: str, lp: Lehrperson) -> set[int]:

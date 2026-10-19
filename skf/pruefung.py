@@ -17,7 +17,7 @@ from .daten import Kind, Schule
 from .geo import luftlinie_m
 from .mobilitaet import (bus_halbtag, buslinien_der_klassen, halbtage_der_klasse, lektionsort, wegzeit,
                          zu_knapp)
-from .klassen import Einteilung
+from .klassen import Einteilung, geschwistergruppen
 from .lehrauftrag import Block, qualifiziert, stundentafel
 from .stundenplan import Lektion, blockzeit_slots
 
@@ -71,7 +71,8 @@ def referenzen(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
         if v.min > v.max:
             fehler(f"Klassentyp {'/'.join(v.jahrgaenge)}: min {v.min} > max {v.max}")
     for stufe in schule.stundentafel:
-        if stufe not in schule.jahrgaenge and not any(v.bezeichnung == stufe for v in schule.vorlagen):
+        if (stufe not in schule.jahrgaenge and stufe not in schule.stufen()
+                and not any(v.bezeichnung == stufe for v in schule.vorlagen)):
             fehler(f"Stundentafel '{stufe}' gehört zu keinem Jahrgang und keinem Klassentyp")
     lp_namen = [lp.name for lp in schule.lehrpersonen]
     for d in _doppelte(lp_namen):
@@ -85,7 +86,7 @@ def referenzen(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
             if sh not in schulhaeuser:
                 fehler(f"{lp.name}: unbekanntes Schulhaus '{sh}'", lp.name)
         for j in lp.jahrgaenge or []:
-            if j not in schule.jahrgaenge:
+            if j not in schule.jahrgaenge and j not in schule.stufen():
                 fehler(f"{lp.name}: unbekannter Jahrgang '{j}'", lp.name)
         if lp.pensum_min > lp.pensum_max:
             fehler(f"{lp.name}: Mindestpensum {lp.pensum_min} > Maximalpensum {lp.pensum_max}", lp.name)
@@ -286,9 +287,10 @@ def pruefe(schule: Schule, kinder: list[Kind], e: Einteilung,
                              f"{schule.is_zaehlt_als:g}-fach) über {min(c.vorlage.max, c.raum.plaetze)}", c.name))
     if schule.geschwister == "hart":
         familien = defaultdict(set)
-        for k in kinder:
-            if k.familie:
-                familien[k.familie].add(e.schulhaus_von[k.id])
+        for fam, gruppen in geschwistergruppen(schule, kinder).items():
+            for n, ids in enumerate(gruppen):
+                for i in ids:
+                    familien[fam if len(gruppen) == 1 else f"{fam} ({n + 1})"].add(e.schulhaus_von[i])
         f += [Meldung("Fehler", "Klassen", f"Familie {fam}: Geschwister in {', '.join(sorted(sh))}")
               for fam, sh in familien.items() if len(sh) > 1]
     if bloecke is None or lektionen is None:

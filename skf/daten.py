@@ -10,6 +10,7 @@ Schul-Konfiguration überschreibt das Profil.
 from __future__ import annotations
 
 import math
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -120,6 +121,7 @@ class Kind:
     wunsch_schulhaus: str = ""       # Wunsch der Erziehungsberechtigten
     bemerkung: str = ""
     bus: str = ""                    # Schulbuslinie (optional)
+    uebertritt: str = ""             # Entscheid für das nächste Schuljahr (z.B. "A", "Kanti", "repetiert")
     vorname: str = ""
     nachname: str = ""
     zusatz: dict[str, str] = field(default_factory=dict)  # weitere Spalten (unverändert exportiert)
@@ -174,6 +176,22 @@ class Slot:
         return f"{self.tag} {self.zeit}"
 
 
+# Oberstufe: Jahrgang + Niveau, z.B. "S1A" = 1. Sek Niveau A. "S1" (Stamm) gilt für alle Niveaus.
+_SEK = re.compile(r"^(S\d+)([A-D])$")
+
+
+def stamm(jahrgang: str) -> str:
+    """"S1A" → "S1"; alle anderen Jahrgänge bleiben unverändert."""
+    m = _SEK.match(jahrgang)
+    return m.group(1) if m else jahrgang
+
+
+def niveau(jahrgang: str) -> str:
+    """"S2B" → "B"; ohne Niveau ""."""
+    m = _SEK.match(jahrgang)
+    return m.group(2) if m else ""
+
+
 @dataclass
 class Buslinie:
     """Schulbus (optional): bindet Unterrichtsbeginn und -schluss der Kinder dieser Linie."""
@@ -215,6 +233,15 @@ class Schule:
     buslinien: list[Buslinie] = field(default_factory=list)
     bus_wartezeit: int = 15                      # Minuten, die Kinder höchstens auf Bus/Unterricht warten
     wegzeiten: dict | None = None                # None = aus; sonst {"minuten": {(a, b): min}, "kmh": float}
+    uebertritte: dict = field(default_factory=dict)  # Konfiguration Schuljahreswechsel (siehe skf.uebertritt)
+
+    def tafel(self, jahrgang: str) -> dict[str, int] | None:
+        """Stundentafel eines Jahrgangs; Oberstufe: eigene Tafel je Niveau oder gemeinsame ("S1")."""
+        return self.stundentafel.get(jahrgang, self.stundentafel.get(stamm(jahrgang)))
+
+    def stufen(self) -> list[str]:
+        """Stufen in Schulfolge ohne Niveau, z.B. KG1, KG2, 1 … 6, S1, S2, S3."""
+        return list(dict.fromkeys(stamm(j) for j in self.jahrgaenge))
 
     def buslinie(self, name: str) -> Buslinie | None:
         return next((b for b in self.buslinien if b.name == name), None)
@@ -452,7 +479,7 @@ def baue_schule(cfg: dict) -> Schule:
         lektion_minuten=int(cfg["zeitraster"].get("lektion_minuten", 45)),
         buslinien=_buslinien(cfg.get("schulbus") or {}),
         bus_wartezeit=int((cfg.get("schulbus") or {}).get("wartezeit_max", 15)),
-        wegzeiten=_wegzeiten(cfg.get("wegzeiten")))
+        wegzeiten=_wegzeiten(cfg.get("wegzeiten")), uebertritte=dict(cfg.get("uebertritte") or {}))
 
 
 def minuten(zeit: str) -> int:

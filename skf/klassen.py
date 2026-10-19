@@ -61,7 +61,7 @@ def tafel_fuer_vorlage(schule: Schule, v: Vorlage) -> dict[str, int]:
         return dict(schule.stundentafel[v.bezeichnung])
     tafel: dict[str, int] = {}
     for j in v.jahrgaenge:
-        for fach, lekt in schule.stundentafel.get(j, {}).items():
+        for fach, lekt in (schule.tafel(j) or {}).items():
             tafel[fach] = max(tafel.get(fach, 0), lekt)
     return tafel
 
@@ -78,6 +78,32 @@ def schulwege(schule: Schule, kinder: list[Kind]) -> dict[tuple[str, str], float
     return d
 
 
+def moegliche_schulhaeuser(schule: Schule, k: Kind) -> list[str]:
+    """Schulhäuser mit einem Klassentyp für den Jahrgang des Kindes."""
+    return [s.name for s in schule.schulhaeuser
+            if any(k.jahrgang in v.jahrgaenge and (not v.schulhaeuser or s.name in v.schulhaeuser)
+                   for v in schule.vorlagen)]
+
+
+def geschwistergruppen(schule: Schule, kinder: list[Kind]) -> dict[str, list[list[str]]]:
+    """Familie → Gruppen von Geschwistern, die überhaupt im selben Schulhaus sein können
+    (z.B. Primar und Oberstufe in getrennten Schulhäusern bilden je eine eigene Gruppe)."""
+    familien = defaultdict(list)
+    for k in kinder:
+        if k.familie:
+            familien[k.familie].append(k)
+    out = {}
+    for fam, ks in familien.items():
+        gruppen: list[tuple[set[str], list[str]]] = []
+        for k in ks:
+            orte = set(moegliche_schulhaeuser(schule, k))
+            treffer = [g for g in gruppen if g[0] & orte]
+            neu = (orte.union(*(g[0] for g in treffer)), [k.id] + [i for g in treffer for i in g[1]])
+            gruppen = [g for g in gruppen if g not in treffer] + [neu]
+        out[fam] = [sorted(g[1]) for g in gruppen]
+    return out
+
+
 def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Einteilung:
     warnungen: list[str] = []
     dist = schulwege(schule, kinder)
@@ -90,9 +116,7 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
     for k in kinder:
         if k.jahrgang not in schule.jahrgaenge:
             raise ValueError(f"Kind {k.id}: unbekannter Jahrgang '{k.jahrgang}'")
-        moegliche = [s.name for s in schule.schulhaeuser
-                     if any(k.jahrgang in v.jahrgaenge and (not v.schulhaeuser or s.name in v.schulhaeuser)
-                            for v in schule.vorlagen)]
+        moegliche = moegliche_schulhaeuser(schule, k)
         linie = schule.buslinie(k.bus) if k.bus else None
         if linie:  # Schulbus ersetzt den Fussweg: nur Schulhäuser, die die Linie anfährt
             nah = [s for s in moegliche if s in linie.schulhaeuser]
@@ -228,11 +252,8 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
                 plaetze = [iv for (sn, _, _, jj), iv in is_n.items() if sn == sh.name and jj == j]
                 m.add(sum(is_sj) == sum(plaetze))
 
-    familien = defaultdict(list)
-    for k in kinder:
-        if k.familie:
-            familien[k.familie].append(k.id)
-    for fam, ids in familien.items():
+    for fam, ids in ((f"{f}_{n}", g) for f, gs in geschwistergruppen(schule, kinder).items()
+                     for n, g in enumerate(gs)):
         if len(ids) < 2 or schule.geschwister == "aus":
             continue
         e = {}
