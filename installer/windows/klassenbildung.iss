@@ -12,6 +12,10 @@
 AppId={{6E2B9F3A-6C1D-4E57-9A43-5D0B6A2C7E11}
 AppName=Klassenbildung & Stundenplan
 AppVersion={#Version}
+AppVerName=Klassenbildung & Stundenplan {#Version}
+VersionInfoVersion={#Version}.0
+VersionInfoProductVersion={#Version}
+VersionInfoCompany=Outthinkx for Communities
 AppPublisher=Outthinkx for Communities
 AppCopyright=© 2026 Outthinkx for Communities
 DefaultDirName={localappdata}\Programs\Klassenbildung

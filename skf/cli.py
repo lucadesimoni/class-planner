@@ -29,6 +29,7 @@ from .daten import STANDARD_GEWICHTE, baue_schule, lade_kinder, lade_profil, lad
 from .export import exportiere_listen
 from .geo import geocodiere
 from .pruefung import referenzen, vorpruefung
+from .version import __version__
 
 BEFEHLE = ("rechnen", "pruefen", "export", "import", "kinder", "raeume", "lehrpersonen", "vorlage", "profile", "app")
 
@@ -56,6 +57,7 @@ def _melde(meldungen, max_zeilen: int = 15) -> int:
 
 def _parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="skf", description="Klassenbildung und Stundenplan für die Volksschule")
+    p.add_argument("--version", action="version", version=f"Klassenbildung & Stundenplan {__version__}")
     p.add_argument("--gewichte-anzeigen", action="store_true", help="alle Gewichte mit Standardwert auflisten")
     sub = p.add_subparsers(dest="befehl")
 
@@ -252,7 +254,8 @@ def _vorlage(args) -> None:
 
 def _profile(args) -> None:
     for name in profile():
-        print(f"{name:12} {lade_profil(name)['profil']['name']}")
+        p = lade_profil(name)["profil"]
+        print(f"{name:12} {p['name']} (Profilversion {p.get('version', '–')})")
 
 
 def _app(args) -> None:

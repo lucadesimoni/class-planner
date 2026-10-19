@@ -431,7 +431,7 @@ werden als Luftlinie × `umweg_faktor` (Standard 1.3) geschätzt.
 
 ```bash
 pip install -e ".[test]"
-pytest                                   # 58 Tests: Modell, Recht, Import/Export, Verlauf, App, Browser
+pytest                                   # 62 Tests: Modell, Recht, Import/Export, Verlauf, App, Browser
 pytest tests/test_browser_e2e.py -s      # nur Browser-Test (erzeugt docs/screenshots/)
 ```
 
@@ -446,6 +446,36 @@ und erscheinen in Klassenlisten nur auf ausdrücklichen Wunsch.
 
 Kartendarstellung: [Leaflet](https://leafletjs.com) (BSD-2-Clause, im Paket enthalten),
 Kartendaten © [OpenStreetMap](https://www.openstreetmap.org/copyright)-Mitwirkende.
+
+## Versionierung
+
+Eine Programmversion für alles, nach [Semantic Versioning](https://semver.org/lang/de/):
+**MAJOR** – bestehende Konfigurationen oder Stammdaten müssen angepasst werden,
+**MINOR** – neue Funktionen, alte Daten laufen unverändert, **PATCH** – Fehlerkorrekturen.
+
+| Was | Wo festgelegt | Wo sichtbar |
+|---|---|---|
+| **Programmversion** (z.B. `0.1.0`) | `skf/version.py` – einzige Quelle; `pyproject.toml`, `uv.lock` und `CHANGELOG.md` werden mitgeführt | `skf --version`, App (Seitenleiste, Hilfe), Bericht, Druckversion, Klassenlisten, Stammdaten-Export, Verlauf, Windows-Pakete (Setup, MSIX, Dateieigenschaften von `Klassenbildung.exe`) |
+| **Format-Version** der Stammdaten (`1`) | `skf/austausch.py`, JSON-Schema | Export; ein Import aus einer neueren Format-Version wird mit Hinweis abgelehnt |
+| **Profilversion** des Kantonsprofils (`2026.10`, JJJJ.MM) | `skf/profile/luzern.yaml` | Bericht (Rechtsgrundlagen), `skf profile`, Verlauf |
+| **Abhängigkeiten** | `uv.lock` (genaue Versionen) | Windows-Pakete, Startskripte, Tests |
+
+**Neue Version veröffentlichen:**
+
+```bash
+python scripts/version.py 0.2.0      # setzt die Version überall, legt den CHANGELOG-Abschnitt an
+# CHANGELOG.md ergänzen, dann:
+git commit -am "Version 0.2.0"
+git tag -a v0.2.0 -m "Version 0.2.0"
+git push && git push --tags
+```
+
+Zu jedem Push laufen alle Tests (`.github/workflows/tests.yml`), inkl. Prüfung, dass alle
+Versionsangaben übereinstimmen. Ein Tag `vX.Y.Z` baut zusätzlich die Windows-Pakete und
+legt einen **Release-Entwurf** mit dem passenden CHANGELOG-Abschnitt an; passt der Tag
+nicht zur Programmversion, bricht der Bau ab. Der Entwurf wird erst sichtbar, wenn er auf
+GitHub veröffentlicht wird. Jeder gespeicherte Stand im Verlauf merkt sich Programm- und
+Profilversion, mit denen er berechnet wurde.
 
 ## Lizenz und Rechte
 

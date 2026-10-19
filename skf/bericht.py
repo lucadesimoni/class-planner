@@ -11,6 +11,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 from .icons import PFADE
+from .version import __version__
 from .ablauf import Ergebnis
 from .pruefung import SCHWEREGRADE, Meldung, springstunden, wuensche
 
@@ -161,8 +162,8 @@ def icon(name: str, klasse: str = "icon") -> str:
 ICON = {"Fehler": icon("x", "icon klein"), "Warnung": icon("warnung", "icon klein"), "Hinweis": icon("info", "icon klein")}
 
 
-FUSS = ("<p class='muted fuss'>Erstellt mit Klassenbildung &amp; Stundenplan · © 2026 Outthinkx for Communities · "
-        "Planungshilfsmittel – Entscheide trifft die Schulbehörde.</p>")
+FUSS = (f"<p class='muted fuss'>Erstellt mit Klassenbildung &amp; Stundenplan {__version__} · "
+        "© 2026 Outthinkx for Communities · Planungshilfsmittel – Entscheide trifft die Schulbehörde.</p>")
 
 
 def abschnitt(titel: str, inhalt: str, symbol: str, zusatz: str = "", offen: bool = False, anker: str = "",
@@ -628,7 +629,8 @@ def _rechtsgrundlagen(r: Ergebnis) -> str:
         f"<td>{esc(q.get('erlass', ''))}</td><td class='num'>{genutzt[k] or ''}</td>"
         f"<td><a href='{esc(q.get('url', '#'))}' target='_blank' rel='noopener'>Link</a></td></tr>"
         for k, q in quellen.items())
-    return (f"<p class='fg2'>{esc(profil.get('name', ''))} · "
+    return (f"<p class='fg2'>{esc(profil.get('name', ''))}"
+            f"{' · Profilversion ' + esc(str(profil['version'])) if profil.get('version') else ''} · "
             f"{esc(profil.get('stand', ''))} · Klassengrössen "
             f"{'verbindlich angewendet' if profil.get('verbindlich') else 'geprüft (nicht erzwungen)'}</p>"
             "<div class='scroll'><table><tr><th>Kürzel</th><th>Inhalt</th><th>Erlass</th><th class='num'>Meldungen</th>"
@@ -693,6 +695,7 @@ def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
         banner = f"<div class='banner ok'>{icon('ok')}<span><b>Alle harten Regeln erfüllt.</b></span></div>"
 
     teile = [f"""<!doctype html><html lang="de"><head><meta charset="utf-8">
+<meta name="generator" content="Klassenbildung & Stundenplan {__version__}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(schule.name)} – {esc(schule.szenario)}</title><style>{CSS}</style></head><body>
 <header class="app-header"><div class="logo">{icon('schule')}</div><div><h1>{esc(schule.name)}</h1>

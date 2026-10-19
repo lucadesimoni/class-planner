@@ -37,22 +37,39 @@ Copy-Item (Join-Path $wurzel "LICENSE") (Join-Path $build "LICENSE.txt")
 Copy-Item (Join-Path $wurzel "THIRD_PARTY_NOTICES.md") $build
 Get-ChildItem (Join-Path $build "python") -Recurse -Directory -Filter "__pycache__" | Remove-Item -Recurse -Force
 
-# 4. Starter Klassenbildung.exe (csc des .NET Framework – auf jedem Windows vorhanden)
+# 4. Version – einzige Quelle skf/version.py (mit pyproject.toml/uv.lock/CHANGELOG abgeglichen)
+& $py (Join-Path $wurzel "scripts\version.py")
+if ($LASTEXITCODE) { throw "Versionsangaben stimmen nicht überein" }
+$version = (Select-String -Path (Join-Path $wurzel "skf\version.py") -Pattern '^__version__ = "(.+)"').Matches[0].Groups[1].Value
+if ($env:GITHUB_REF -like "refs/tags/v*" -and $env:GITHUB_REF -ne "refs/tags/v$version") {
+  throw "Tag $env:GITHUB_REF passt nicht zur Programmversion $version"
+}
+
+# 5. Starter Klassenbildung.exe (csc des .NET Framework – auf jedem Windows vorhanden), mit Versionsangaben
+$info = Join-Path $build "VersionInfo.cs"
+@"
+using System.Reflection;
+[assembly: AssemblyTitle("Klassenbildung & Stundenplan")]
+[assembly: AssemblyProduct("Klassenbildung & Stundenplan")]
+[assembly: AssemblyCompany("Outthinkx for Communities")]
+[assembly: AssemblyCopyright("© 2026 Outthinkx for Communities")]
+[assembly: AssemblyVersion("$version.0")]
+[assembly: AssemblyFileVersion("$version.0")]
+[assembly: AssemblyInformationalVersion("$version")]
+"@ | Set-Content -Path $info -Encoding UTF8
 $csc = Join-Path $env:WINDIR "Microsoft.NET\Framework64\v4.0.30319\csc.exe"
-& $csc /nologo /target:exe /optimize+ "/win32icon:$PSScriptRoot\klassenbildung.ico" "/out:$build\Klassenbildung.exe" "$PSScriptRoot\Starter.cs"
+& $csc /nologo /target:exe /optimize+ "/win32icon:$PSScriptRoot\klassenbildung.ico" "/out:$build\Klassenbildung.exe" "$PSScriptRoot\Starter.cs" $info
 if ($LASTEXITCODE) { throw "Starter konnte nicht kompiliert werden" }
 Copy-Item "$PSScriptRoot\klassenbildung.ico" $build
-
-$version = (Select-String -Path (Join-Path $wurzel "pyproject.toml") -Pattern '^version = "(.+)"').Matches[0].Groups[1].Value
 $ausgabe = Join-Path $build "ausgabe"
 New-Item -ItemType Directory $ausgabe -Force | Out-Null
 
-# 5. Installationsprogramm (Inno Setup)
+# 6. Installationsprogramm (Inno Setup)
 $iscc = Join-Path ${env:ProgramFiles(x86)} "Inno Setup 6\ISCC.exe"
 & $iscc "/DVersion=$version" (Join-Path $PSScriptRoot "klassenbildung.iss")
 if ($LASTEXITCODE) { throw "Inno Setup fehlgeschlagen" }
 
-# 6. MSIX-Paket (für den Microsoft Store; der Store signiert es). Identität aus dem
+# 7. MSIX-Paket (für den Microsoft Store; der Store signiert es). Identität aus dem
 #    Partner Center über Umgebungsvariablen, sonst Platzhalter für Tests.
 $stufe = Join-Path $build "msix"
 New-Item -ItemType Directory $stufe | Out-Null

@@ -19,6 +19,7 @@ from datetime import date
 from pathlib import Path
 
 from .ablauf import Ergebnis
+from .version import __version__
 
 esc = html.escape
 
@@ -130,6 +131,7 @@ def klassenlisten_xlsx(r: Ergebnis, pfad: Path, mit_foerderdaten: bool = False) 
         tabelle(ws, kopf, zeilen, start=5)
         _druck(ws, kopfzeile=5)
         ws.oddHeader.right.text = f"Stand {date.today():%d.%m.%Y}"
+        ws.oddFooter.right.text = f"Klassenbildung {__version__}"
     wb.save(pfad)
 
 
@@ -225,7 +227,7 @@ def druck_html(r: Ergebnis, pfad: Path, mit_foerderdaten: bool = False) -> None:
     nach_id = {k.id: k for k in r.kinder}
     klp = _klassenlehrpersonen(r)
     tage, zeilen, idx = _raster(schule)
-    stand = f"Stand {date.today():%d.%m.%Y}"
+    stand = f"Stand {date.today():%d.%m.%Y} · Klassenbildung {__version__}"
 
     def plan(eintraege: dict[int, str], gesperrt: set[int]) -> str:
         out = ["<table class='plan'><tr><th></th>" + "".join(f"<th>{t}</th>" for t in tage) + "</tr>"]

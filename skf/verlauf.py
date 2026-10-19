@@ -19,6 +19,7 @@ from datetime import datetime
 from pathlib import Path
 
 from .ablauf import Ergebnis
+from .version import __version__
 
 
 def basis() -> Path:
@@ -37,7 +38,8 @@ def speichere(r: Ergebnis, cfg: dict, notiz: str = "", ordner: Path | None = Non
     (ziel / "meta.json").write_text(json.dumps({
         "zeit": jetzt.isoformat(timespec="seconds"), "szenario": r.schule.szenario, "schule": r.schule.name,
         "schuljahr": r.schule.schuljahr, "notiz": notiz, "kennzahlen": r.kennzahlen(),
-        "manuell": list(getattr(r, "manuell", [])),
+        "manuell": list(getattr(r, "manuell", [])), "programmversion": __version__,
+        "profilversion": (r.schule.profil or {}).get("version", ""),
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     if e:
         (ziel / "zuteilung.json").write_text(json.dumps(

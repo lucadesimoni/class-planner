@@ -14,6 +14,7 @@
 
 profil:
   name: Kanton Luzern – Volksschule (KG/Primar)
+  version: "2026.10"           # Profilstand JJJJ.MM – bei jeder inhaltlichen Änderung erhöhen
   stand: "Recherche Oktober 2026 – ohne Gewähr, aktuelle Fassungen prüfen"
   verbindlich: false
   quellen:

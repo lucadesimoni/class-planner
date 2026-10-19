@@ -8,6 +8,7 @@
   "properties": {
     "format": {"const": "skf-stammdaten"},
     "version": {"const": 1},
+    "programm": {"type": "string", "description": "Programmversion beim Export (Semantic Versioning)"},
     "exportiert": {"type": "string", "format": "date"},
     "schule": {"$ref": "#/$defs/schule"},
     "kinder": {"type": "array", "items": {"$ref": "#/$defs/kind"}}

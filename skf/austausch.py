@@ -22,9 +22,10 @@ from pathlib import Path
 import yaml
 
 from .daten import Kind
+from .version import __version__
 
 FORMAT = "skf-stammdaten"
-VERSION = 1
+FORMAT_VERSION = 1  # Version des Austauschformats (unabhängig von der Programmversion)
 JA = {"1", "ja", "j", "yes", "y", "true", "wahr", "x", "✓"}
 
 # Standardspalten der Kinderliste (Export) – Reihenfolge = Spaltenreihenfolge
@@ -343,7 +344,8 @@ def exportiere_stammdaten(cfg: dict, kinder: list[Kind], pfad: str | Path) -> No
     """Schule + Kinder als Excel-Arbeitsbuch (.xlsx) oder JSON (.json) speichern."""
     pfad = Path(pfad)
     if pfad.suffix.lower() == ".json":
-        pfad.write_text(json.dumps({"format": FORMAT, "version": VERSION, "exportiert": date.today().isoformat(),
+        pfad.write_text(json.dumps({"format": FORMAT, "version": FORMAT_VERSION, "programm": __version__,
+                                    "exportiert": date.today().isoformat(),
                                     "schule": cfg, "kinder": [kind_als_dict(k) for k in kinder]},
                                    ensure_ascii=False, indent=1), encoding="utf-8")
         return
@@ -351,7 +353,8 @@ def exportiere_stammdaten(cfg: dict, kinder: list[Kind], pfad: str | Path) -> No
     t, extra = _tabellen_aus_cfg(cfg)
     wb = neues_arbeitsbuch()
     info = wb.create_sheet("Info")
-    tabelle(info, ["Feld", "Wert"], [["Format", FORMAT], ["Version", VERSION], ["Schule", cfg.get("name", "")],
+    tabelle(info, ["Feld", "Wert"], [["Format", FORMAT], ["Version", FORMAT_VERSION], ["Programmversion", __version__],
+                                      ["Schule", cfg.get("name", "")],
                                       ["Exportiert", date.today().isoformat()],
                                       ["Hinweis", "Listen mit ; trennen. Verfügbarkeit z.B. Mi;Fr-NM;Mo-VM-1. "
                                                   "Blatt 'Einstellungen' enthält die übrigen Angaben als YAML."]])
@@ -381,6 +384,9 @@ def importiere_stammdaten(pfad: str | Path) -> tuple[dict, list[Kind]]:
         daten = json.loads(pfad.read_text(encoding="utf-8"))
         if daten.get("format") != FORMAT:
             raise ValueError(f"{pfad}: kein {FORMAT}-Format")
+        if int(daten.get("version", 1)) > FORMAT_VERSION:
+            raise ValueError(f"{pfad}: Format-Version {daten['version']} stammt aus einer neueren Programmversion "
+                             f"({daten.get('programm', '?')}) – bitte das Programm aktualisieren")
         tmp = pfad.with_suffix(".kinder.tmp.csv")
         try:
             with open(tmp, "w", newline="", encoding="utf-8") as f:

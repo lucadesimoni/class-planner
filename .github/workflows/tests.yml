@@ -1,0 +1,28 @@
+# SPDX-License-Identifier: LicenseRef-Proprietary
+# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+#
+# Alle Tests bei jedem Push und Pull Request (inkl. Browser-Test und Versionsabgleich).
+name: Tests
+
+on:
+  push:
+    branches: [main, ccr-aacc267d-zkqp1r]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
+      - name: Versionsangaben prüfen
+        run: python3 scripts/version.py
+      - name: Abhängigkeiten (genau nach uv.lock)
+        run: |
+          uv sync --frozen --extra test
+          uv run playwright install --with-deps chromium
+      - name: Tests
+        run: uv run pytest -q

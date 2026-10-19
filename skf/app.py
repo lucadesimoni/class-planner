@@ -30,6 +30,7 @@ from skf.daten import STANDARD_GEWICHTE, beispiel_ordner, lade_schule
 from skf.export import exportiere_listen
 from skf.pruefung import SCHWEREGRADE, vorpruefung
 from skf.transparenz import begruendung, regeln
+from skf.version import __version__
 
 BEISPIELE = beispiel_ordner()
 ICON = {"Fehler": ":material/cancel:", "Warnung": ":material/warning:", "Hinweis": ":material/info:"}
@@ -792,7 +793,8 @@ def seite_verlauf() -> None:
                              "Notiz": s.get("notiz", ""), "Klassen": s["kennzahlen"].get("Klassen"),
                              "Wünsche": s["kennzahlen"].get("Wünsche erfüllt"),
                              "Ø Schulweg": s["kennzahlen"].get("Ø Schulweg"), "Fehler": s["kennzahlen"].get("Fehler"),
-                             "manuell": len(s.get("manuell", []))} for s in staende])
+                             "manuell": len(s.get("manuell", [])),
+                             "Version": s.get("programmversion", "–")} for s in staende])
     st.dataframe(tabelle, width="stretch", hide_index=True)
     label = {s["name"]: f"{s['zeit'].replace('T', ' ')} · {s['szenario']}{' · ' + s['notiz'] if s.get('notiz') else ''}"
              for s in staende}
@@ -868,7 +870,8 @@ Nur Kartenkacheln werden von OpenStreetMap geladen. Förderdaten erscheinen in L
 *Prüfen* zuerst beheben.
 """)
     with st.expander("Über diese Software und Lizenzen", icon=":material/info:"):
-        st.markdown("**Klassenbildung & Stundenplan** · © 2026 Outthinkx for Communities · alle Rechte vorbehalten.  \n"
+        st.markdown(f"**Klassenbildung & Stundenplan {__version__}** · © 2026 Outthinkx for Communities · "
+                    "alle Rechte vorbehalten.  \n"
                     "Nutzung nur mit gültiger Lizenz. Verwendete Komponenten (Google OR-Tools, Streamlit, pandas, "
                     "openpyxl, PyYAML, Leaflet, Material Symbols u.a.) stehen unter freizügigen Lizenzen "
                     "(Apache-2.0, MIT, BSD); Kartendaten © OpenStreetMap-Mitwirkende. Details: "
@@ -890,6 +893,7 @@ def main() -> None:
         st.sidebar.caption(f":material/calculate: Berechnet: {r.schule.szenario} · "
                            f"{':green[:material/check_circle:]' if not r.anzahl('Fehler') else ':red[:material/cancel:]'} "
                            f"{r.anzahl('Fehler')} Fehler")
+    st.sidebar.caption(f"Version {__version__}")
     {"start": seite_start, "daten": seite_daten, "pruefen": seite_pruefen, "berechnen": seite_berechnen,
      "ergebnis": seite_ergebnis, "verlauf": seite_verlauf, "hilfe": seite_hilfe}[st.session_state.seite]()
 
