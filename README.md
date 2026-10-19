@@ -474,8 +474,8 @@ setzen (oder lokal `git tag -a v0.2.0 -m "Version 0.2.0" && git push --tags`).
 Zu jedem Push laufen alle Tests (`.github/workflows/tests.yml`), inkl. Prüfung, dass alle
 Versionsangaben übereinstimmen. Ein Release baut die Windows-Pakete, setzt den Tag `vX.Y.Z` und
 legt einen **Release-Entwurf** mit dem passenden CHANGELOG-Abschnitt an; ein von Hand
-gesetzter Tag, der nicht zur Programmversion passt, bricht den Bau ab. Der Entwurf wird erst sichtbar, wenn er auf
-GitHub veröffentlicht wird. Jeder gespeicherte Stand im Verlauf merkt sich Programm- und
+gesetzter Tag, der nicht zur Programmversion passt, bricht den Bau ab. Der Entwurf wird erst sichtbar – und der Tag
+erst gesetzt –, wenn er auf GitHub unter *Releases* veröffentlicht wird. Jeder gespeicherte Stand im Verlauf merkt sich Programm- und
 Profilversion, mit denen er berechnet wurde.
 
 ## Lizenz und Rechte
