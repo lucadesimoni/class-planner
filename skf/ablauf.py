@@ -41,7 +41,8 @@ class Ergebnis:
 
     def kennzahlen(self) -> dict[str, str]:
         e = self.einteilung
-        wege = list(e.schulweg_m.values()) if e else []
+        mit_adresse = {k.id for k in self.kinder if k.lat is not None}
+        wege = [w for kid, w in e.schulweg_m.items() if kid in mit_adresse] if e else []
         return {
             "Klassen": str(len(e.klassen)) if e else "–",
             "Ø Klassengrösse": f"{len(self.kinder) / len(e.klassen):.1f}" if e and e.klassen else "–",

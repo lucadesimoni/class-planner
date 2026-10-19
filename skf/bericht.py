@@ -271,7 +271,8 @@ def _plan(r: Ergebnis, eintraege: dict[int, str], zu: set[int], marken: dict[int
 
 
 def _karte(r: Ergebnis) -> str:
-    schule, e, kinder = r.schule, r.einteilung, r.kinder
+    schule, e = r.schule, r.einteilung
+    kinder = [k for k in r.kinder if k.lat is not None and k.lon is not None]
     punkte = [(k.lat, k.lon) for k in kinder] + [(s.lat, s.lon) for s in schule.schulhaeuser]
     lat0, lat1 = min(p[0] for p in punkte), max(p[0] for p in punkte)
     lon0, lon1 = min(p[1] for p in punkte), max(p[1] for p in punkte)

@@ -69,8 +69,10 @@ def tafel_fuer_vorlage(schule: Schule, v: Vorlage) -> dict[str, int]:
 def schulwege(schule: Schule, kinder: list[Kind]) -> dict[tuple[str, str], float]:
     d = {}
     for k in kinder:
-        if k.lat is None or k.lon is None:
-            raise ValueError(f"Kind {k.id} hat keine Koordinaten (Adresse geocodieren oder lat/lon angeben)")
+        if k.lat is None or k.lon is None:  # ohne Adresse: Schulweg spielt keine Rolle (Vorprüfung warnt)
+            for s in schule.schulhaeuser:
+                d[k.id, s.name] = 0.0
+            continue
         for s in schule.schulhaeuser:
             d[k.id, s.name] = luftlinie_m(k.lat, k.lon, s.lat, s.lon) * schule.umweg_faktor
     return d

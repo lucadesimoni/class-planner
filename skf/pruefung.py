@@ -104,8 +104,9 @@ def referenzen(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
             fehler("Kind ohne ID")
         for feld in ("nicht_mit", "zusammen_mit"):
             for anderer in getattr(k, feld):
-                if anderer not in ids_set:
-                    fehler(f"{k.id}: '{feld}' verweist auf unbekanntes Kind '{anderer}'", k.id)
+                if anderer not in ids_set:  # z.B. weggezogen: Wunsch entfällt, Rechnung läuft weiter
+                    m.append(Meldung("Warnung", "Daten", f"{k.id}: '{feld}' verweist auf unbekanntes Kind "
+                                     f"'{anderer}' – dieser Wunsch wird nicht berücksichtigt", k.id))
                 elif anderer == k.id:
                     fehler(f"{k.id}: '{feld}' verweist auf sich selbst", k.id)
         widerspruch = set(k.zusammen_mit) & set(k.nicht_mit)
@@ -127,10 +128,13 @@ def vorpruefung(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
     """Plausibilitätsprüfung vor dem Rechnen – findet die häufigsten Ursachen für 'keine Lösung'."""
     m: list[Meldung] = referenzen(schule, kinder)
     namen = {s.name for s in schule.schulhaeuser}
+    if not kinder:
+        m.append(Meldung("Fehler", "Daten", "Keine Lernenden – Liste der Lernenden laden oder erfassen"))
     ohne_koord = [k.id for k in kinder if k.lat is None or k.lon is None]
     if ohne_koord:
-        m.append(Meldung("Fehler", "Daten", f"{len(ohne_koord)} Kinder ohne Koordinaten "
-                         f"(z.B. {', '.join(ohne_koord[:5])}) – lat/lon ergänzen oder --geocodieren"))
+        m.append(Meldung("Warnung", "Daten", f"{len(ohne_koord)} Lernende ohne Koordinaten (z.B. "
+                         f"{', '.join(ohne_koord[:5])}) – werden ohne Schulweg eingeteilt (bisheriges Schulhaus, "
+                         "Geschwister und Wünsche zählen weiter); lat/lon ergänzen oder --geocodieren"))
     for k in kinder:
         if k.jahrgang not in schule.jahrgaenge:
             m.append(Meldung("Fehler", "Daten", f"{k.id}: unbekannter Jahrgang '{k.jahrgang}'", k.id))

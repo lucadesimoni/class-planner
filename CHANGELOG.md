@@ -7,6 +7,15 @@ Neue Version: `python scripts/version.py 0.2.0`.
 
 ## [Unveröffentlicht]
 
+### Geändert
+- Lernende ohne Koordinaten werden ohne Schulweg eingeteilt (Warnung statt Abbruch).
+- Wünsche, die auf ein nicht (mehr) vorhandenes Kind verweisen, werden mit Warnung
+  übergangen statt die Berechnung zu blockieren.
+- Leere Liste der Lernenden ergibt eine klare Fehlermeldung.
+
+### Hinzugefügt
+- Robustheits-Sweep `scripts/robustheit.py` (23 Grenz- und Zufallsfälle, bis 1288 Lernende).
+
 ## [0.1.0] – 2026-10-19
 
 Erste Version.
