@@ -24,10 +24,32 @@ dem eigenen Computer.
 Deinstallieren: *Einstellungen → Apps → Klassenbildung & Stundenplan*. Der Verlauf
 (Ordner *Klassenbildung* im Benutzerordner) bleibt erhalten.
 
-Das Installationsprogramm baut GitHub Actions automatisch auf einem Windows-Rechner
-(`.github/workflows/windows-installer.yml`, Inno Setup, gratis) und testet es dort:
-still installieren, das Beispiel rechnen, die Bedienoberfläche starten, deinstallieren.
-Download: im Lauf unter *Artifacts*, bei einem Versions-Tag (`v0.2.0`) als *Release*.
+### Windows: Microsoft Store (MSIX) – ohne Warnung, ohne Zertifikatskosten
+
+Dasselbe Programm gibt es als MSIX-Paket für den Microsoft Store. Der Store prüft und
+signiert es; die Schule installiert mit einem Klick, ohne SmartScreen-Warnung, und
+erhält Updates automatisch. Einrichten (einmalig):
+
+1. Im [Microsoft Partner Center](https://partner.microsoft.com/dashboard) ein
+   Entwicklerkonto anlegen und den App-Namen „Klassenbildung & Stundenplan“ reservieren.
+2. Unter *Produktidentität* stehen *Package/Identity/Name*, *Publisher* (`CN=…`) und
+   *PublisherDisplayName*. Diese drei Werte im GitHub-Repository unter *Settings → Secrets
+   and variables → Actions → Variables* als `MSIX_NAME`, `MSIX_PUBLISHER`,
+   `MSIX_PUBLISHER_NAME` eintragen.
+3. Den Workflow *Windows-Installer* laufen lassen und `Klassenbildung-<Version>.msix` im
+   Partner Center hochladen. Angaben für die Einreichung: Kategorie *Bildung*,
+   Datenschutzerklärung (die App überträgt keine Daten), Begründung für `runFullTrust`:
+   „Desktop-Anwendung mit lokalem Python-Rechenkern und lokaler Bedienoberfläche“.
+
+Nach der Installation gibt es im Startmenü „Klassenbildung“ und in der Kommandozeile
+`klassenbildung rechnen schule.yaml kinder.csv`.
+
+Beide Pakete baut GitHub Actions automatisch auf einem Windows-Rechner
+(`.github/workflows/windows-installer.yml`, Inno Setup und Windows SDK, gratis) und
+testet sie dort: Installationsprogramm still installieren, das Beispiel rechnen, die
+Bedienoberfläche starten, deinstallieren; MSIX mit einem Test-Zertifikat installieren,
+starten, entfernen. Download: im Lauf unter *Artifacts*, bei einem Versions-Tag
+(`v0.2.0`) als *Release*.
 
 ### Ohne Installationsprogramm (Windows, macOS, Linux)
 
