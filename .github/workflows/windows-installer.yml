@@ -1,8 +1,12 @@
 # SPDX-License-Identifier: LicenseRef-Proprietary
 # Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
 #
-# Baut und testet den Windows-Installer (gratis: GitHub Actions + Inno Setup).
-# Ergebnis: Artefakt "Klassenbildung-Setup" am Lauf; bei einem Tag v* zusätzlich als Release.
+# Baut und testet die Windows-Pakete (gratis: GitHub Actions, Inno Setup, Windows SDK):
+#   Klassenbildung-Setup-<Version>.exe  – Installationsprogramm zum Herunterladen
+#   Klassenbildung-<Version>.msix       – Paket für den Microsoft Store (der Store signiert es)
+# Ergebnis: Artefakt "Klassenbildung-Windows" am Lauf; bei einem Tag v* zusätzlich als Release.
+# Store-Identität aus dem Partner Center als Repository-Variablen: MSIX_NAME, MSIX_PUBLISHER,
+# MSIX_PUBLISHER_NAME (Settings → Secrets and variables → Actions → Variables).
 name: Windows-Installer
 
 on:
@@ -27,9 +31,14 @@ permissions:
 jobs:
   installer:
     runs-on: windows-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
+    env:
+      PYTHONUTF8: "1"
+      MSIX_NAME: ${{ vars.MSIX_NAME }}
+      MSIX_PUBLISHER: ${{ vars.MSIX_PUBLISHER }}
+      MSIX_PUBLISHER_NAME: ${{ vars.MSIX_PUBLISHER_NAME }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: astral-sh/setup-uv@v6
 
@@ -45,25 +54,27 @@ jobs:
       - name: Installer testen (still installieren, rechnen, App starten)
         shell: pwsh
         run: |
-          $setup = Get-ChildItem installer/build/ausgabe/*.exe | Select-Object -First 1
+          $setup = Get-ChildItem installer/build/ausgabe/*Setup*.exe | Select-Object -First 1
           $ziel = Join-Path $env:RUNNER_TEMP "Klassenbildung"
           Start-Process -Wait -FilePath $setup.FullName -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/DIR=$ziel"
           $py = Join-Path $ziel "python\python.exe"
-          if (-not (Test-Path $py)) { throw "Installation fehlt: $py" }
-          # Rechnen mit der mitgelieferten Vorlage – ohne Internet, ohne Quellcode
+          $exe = Join-Path $ziel "Klassenbildung.exe"
+          if (-not (Test-Path $exe)) { throw "Installation fehlt: $exe" }
+          # Rechnen mit der mitgelieferten Vorlage – über den Starter, ohne Internet, ohne Quellcode
           Set-Location $env:RUNNER_TEMP
           $vorlage = (& $py -c "from skf.daten import beispiel_ordner; print(beispiel_ordner() / 'vorlage')").Trim()
-          & $py -m skf rechnen "$vorlage\schule.yaml" "$vorlage\kinder.csv" -o ausgabe -t 30
+          & $exe rechnen "$vorlage\schule.yaml" "$vorlage\kinder.csv" -o "$env:RUNNER_TEMP\ausgabe" -t 30
           if ($LASTEXITCODE) { throw "Rechnen fehlgeschlagen" }
-          if (-not (Test-Path ausgabe\bericht.html)) { throw "Bericht fehlt" }
-          # Bedienoberfläche starten und abfragen
-          $app = Start-Process -FilePath $py -ArgumentList "-m", "skf", "app", "--ohne-browser" -PassThru
+          if (-not (Test-Path "$env:RUNNER_TEMP\ausgabe\bericht.html")) { throw "Bericht fehlt" }
+          # Bedienoberfläche über den Starter starten und abfragen
+          $app = Start-Process -FilePath $exe -ArgumentList "--ohne-browser" -PassThru
           $ok = $false
           foreach ($i in 1..60) {
             Start-Sleep -Seconds 2
             try { if ((Invoke-WebRequest http://localhost:8501/_stcore/health -UseBasicParsing).Content -eq "ok") { $ok = $true; break } } catch {}
           }
-          Stop-Process -Id $app.Id -Force
+          Get-Process python -ErrorAction SilentlyContinue | Stop-Process -Force
+          Stop-Process -Id $app.Id -Force -ErrorAction SilentlyContinue
           if (-not $ok) { throw "Bedienoberfläche antwortet nicht" }
           # Deinstallation
           Start-Process -Wait -FilePath (Join-Path $ziel "unins000.exe") -ArgumentList "/VERYSILENT", "/SUPPRESSMSGBOXES"
@@ -71,14 +82,49 @@ jobs:
           if (Test-Path $py) { throw "Deinstallation unvollständig" }
           "Installer-Test bestanden"
 
+      - name: MSIX testen (mit Test-Zertifikat signieren, installieren, starten, entfernen)
+        shell: pwsh
+        run: |
+          $msix = Get-ChildItem installer/build/ausgabe/*.msix | Select-Object -First 1
+          $test = Join-Path $env:RUNNER_TEMP "test.msix"
+          Copy-Item $msix.FullName $test
+          $publisher = if ($env:MSIX_PUBLISHER) { $env:MSIX_PUBLISHER } else { "CN=Outthinkx for Communities" }
+          $cert = New-SelfSignedCertificate -Type CodeSigningCert -Subject $publisher -CertStoreLocation Cert:\CurrentUser\My `
+            -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.3", "2.5.29.19={text}")
+          $pfx = Join-Path $env:RUNNER_TEMP "test.pfx"
+          $pw = ConvertTo-SecureString -String "nur-test" -Force -AsPlainText
+          Export-PfxCertificate -Cert $cert -FilePath $pfx -Password $pw | Out-Null
+          Import-PfxCertificate -FilePath $pfx -CertStoreLocation Cert:\LocalMachine\TrustedPeople -Password $pw | Out-Null
+          $signtool = Get-ChildItem "${env:ProgramFiles(x86)}\Windows Kits\10\bin\10.*\x64\signtool.exe" | Sort-Object FullName | Select-Object -Last 1
+          & $signtool.FullName sign /fd SHA256 /f $pfx /p nur-test $test
+          if ($LASTEXITCODE) { throw "Signieren fehlgeschlagen" }
+          Add-AppxPackage -Path $test
+          $paket = Get-AppxPackage | Where-Object { $_.Name -like "*Klassenbildung*" } | Select-Object -First 1
+          if (-not $paket) { throw "MSIX nicht installiert" }
+          "Installiert: $($paket.PackageFullName)"
+          Start-Process "shell:AppsFolder\$($paket.PackageFamilyName)!Klassenbildung"
+          $ok = $false
+          foreach ($i in 1..60) {
+            Start-Sleep -Seconds 2
+            try { if ((Invoke-WebRequest http://localhost:8501/_stcore/health -UseBasicParsing).Content -eq "ok") { $ok = $true; break } } catch {}
+          }
+          Get-Process python, Klassenbildung -ErrorAction SilentlyContinue | Stop-Process -Force
+          Remove-AppxPackage -Package $paket.PackageFullName
+          if (-not $ok) { throw "Bedienoberfläche aus dem MSIX antwortet nicht" }
+          "MSIX-Test bestanden"
+
       - uses: actions/upload-artifact@v4
         with:
-          name: Klassenbildung-Setup
-          path: installer/build/ausgabe/*.exe
+          name: Klassenbildung-Windows
+          path: |
+            installer/build/ausgabe/*.exe
+            installer/build/ausgabe/*.msix
           retention-days: 30
 
       - name: Release (nur bei Tag v*)
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          files: installer/build/ausgabe/*.exe
+          files: |
+            installer/build/ausgabe/*.exe
+            installer/build/ausgabe/*.msix

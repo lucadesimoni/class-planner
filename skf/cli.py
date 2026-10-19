@@ -118,7 +118,15 @@ def _parser() -> argparse.ArgumentParser:
     return p
 
 
+def _utf8_ausgabe() -> None:
+    """Windows schreibt in Umleitungen/Logs sonst cp1252 und bricht bei Zeichen wie „→“ ab."""
+    for strom in (sys.stdout, sys.stderr):
+        if hasattr(strom, "reconfigure") and (strom.encoding or "").lower().replace("-", "") != "utf8":
+            strom.reconfigure(encoding="utf-8", errors="replace")
+
+
 def main(argv: list[str] | None = None) -> None:
+    _utf8_ausgabe()
     argv = list(sys.argv[1:] if argv is None else argv)
     if argv and argv[0] not in BEFEHLE and not argv[0].startswith("-"):
         argv.insert(0, "rechnen")  # Kurzform: skf schule.yaml kinder.csv

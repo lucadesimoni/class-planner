@@ -37,9 +37,38 @@ Copy-Item (Join-Path $wurzel "LICENSE") (Join-Path $build "LICENSE.txt")
 Copy-Item (Join-Path $wurzel "THIRD_PARTY_NOTICES.md") $build
 Get-ChildItem (Join-Path $build "python") -Recurse -Directory -Filter "__pycache__" | Remove-Item -Recurse -Force
 
-# 4. Installer
+# 4. Starter Klassenbildung.exe (csc des .NET Framework – auf jedem Windows vorhanden)
+$csc = Join-Path $env:WINDIR "Microsoft.NET\Framework64\v4.0.30319\csc.exe"
+& $csc /nologo /target:exe /optimize+ "/win32icon:$PSScriptRoot\klassenbildung.ico" "/out:$build\Klassenbildung.exe" "$PSScriptRoot\Starter.cs"
+if ($LASTEXITCODE) { throw "Starter konnte nicht kompiliert werden" }
+Copy-Item "$PSScriptRoot\klassenbildung.ico" $build
+
 $version = (Select-String -Path (Join-Path $wurzel "pyproject.toml") -Pattern '^version = "(.+)"').Matches[0].Groups[1].Value
+$ausgabe = Join-Path $build "ausgabe"
+New-Item -ItemType Directory $ausgabe -Force | Out-Null
+
+# 5. Installationsprogramm (Inno Setup)
 $iscc = Join-Path ${env:ProgramFiles(x86)} "Inno Setup 6\ISCC.exe"
 & $iscc "/DVersion=$version" (Join-Path $PSScriptRoot "klassenbildung.iss")
 if ($LASTEXITCODE) { throw "Inno Setup fehlgeschlagen" }
-Get-ChildItem (Join-Path $build "ausgabe")
+
+# 6. MSIX-Paket (für den Microsoft Store; der Store signiert es). Identität aus dem
+#    Partner Center über Umgebungsvariablen, sonst Platzhalter für Tests.
+$stufe = Join-Path $build "msix"
+New-Item -ItemType Directory $stufe | Out-Null
+foreach ($teil in "python", "lizenzen", "Klassenbildung.exe", "LICENSE.txt", "THIRD_PARTY_NOTICES.md") {
+  Copy-Item (Join-Path $build $teil) $stufe -Recurse
+}
+Copy-Item "$PSScriptRoot\msix\Assets" $stufe -Recurse
+$name = if ($env:MSIX_NAME) { $env:MSIX_NAME } else { "OutthinkxforCommunities.Klassenbildung" }
+$publisher = if ($env:MSIX_PUBLISHER) { $env:MSIX_PUBLISHER } else { "CN=Outthinkx for Communities" }
+$anzeige = if ($env:MSIX_PUBLISHER_NAME) { $env:MSIX_PUBLISHER_NAME } else { "Outthinkx for Communities" }
+$manifest = Get-Content "$PSScriptRoot\msix\AppxManifest.xml" -Raw -Encoding UTF8
+$manifest = $manifest.Replace("__NAME__", $name).Replace("__VERSION__", "$version.0")
+$manifest = $manifest.Replace("__PUBLISHER_NAME__", [Security.SecurityElement]::Escape($anzeige))
+$manifest = $manifest.Replace("__PUBLISHER__", [Security.SecurityElement]::Escape($publisher))
+[IO.File]::WriteAllText((Join-Path $stufe "AppxManifest.xml"), $manifest, (New-Object Text.UTF8Encoding $false))
+$sdk = Get-ChildItem "${env:ProgramFiles(x86)}\Windows Kits\10\bin\10.*\x64\makeappx.exe" | Sort-Object FullName | Select-Object -Last 1
+& $sdk.FullName pack /o /h SHA256 /d $stufe /p (Join-Path $ausgabe "Klassenbildung-$version.msix")
+if ($LASTEXITCODE) { throw "makeappx fehlgeschlagen" }
+Get-ChildItem $ausgabe

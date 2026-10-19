@@ -41,15 +41,16 @@ Source: "..\build\python\*"; DestDir: "{app}\python"; Flags: recursesubdirs igno
 Source: "..\build\lizenzen\*"; DestDir: "{app}\lizenzen"; Flags: recursesubdirs ignoreversion
 Source: "..\build\LICENSE.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\build\THIRD_PARTY_NOTICES.md"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\build\Klassenbildung.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "klassenbildung.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
-Name: "{group}\Klassenbildung"; Filename: "{app}\python\python.exe"; Parameters: "-m skf app"; WorkingDir: "{app}"; IconFilename: "{app}\klassenbildung.ico"; Comment: "Klassenbildung & Stundenplan starten"
+Name: "{group}\Klassenbildung"; Filename: "{app}\Klassenbildung.exe"; IconFilename: "{app}\klassenbildung.ico"; Comment: "Klassenbildung & Stundenplan starten"
 Name: "{group}\Klassenbildung deinstallieren"; Filename: "{uninstallexe}"
-Name: "{autodesktop}\Klassenbildung"; Filename: "{app}\python\python.exe"; Parameters: "-m skf app"; WorkingDir: "{app}"; IconFilename: "{app}\klassenbildung.ico"; Tasks: desktop
+Name: "{autodesktop}\Klassenbildung"; Filename: "{app}\Klassenbildung.exe"; IconFilename: "{app}\klassenbildung.ico"; Tasks: desktop
 
 [Run]
-Filename: "{app}\python\python.exe"; Parameters: "-m skf app"; WorkingDir: "{app}"; Description: "Klassenbildung jetzt starten"; Flags: postinstall nowait skipifsilent
+Filename: "{app}\Klassenbildung.exe"; Description: "Klassenbildung jetzt starten"; Flags: postinstall nowait skipifsilent
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}\python"

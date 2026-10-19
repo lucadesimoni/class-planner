@@ -11,6 +11,26 @@ dem eigenen Computer.
 
 ## Installation und Start – ohne Vorkenntnisse
 
+### Windows: Installationsprogramm (empfohlen)
+
+1. `Klassenbildung-Setup-<Version>.exe` herunterladen und doppelklicken.
+2. Windows zeigt beim ersten Mal „Der Computer wurde durch Windows geschützt“ (das
+   Programm ist nicht kostenpflichtig signiert): **Weitere Informationen → Trotzdem
+   ausführen**.
+3. *Weiter → Installieren*. Keine Administratorrechte, kein Internet nötig – Python und
+   alle Bausteine sind enthalten. Danach liegt **„Klassenbildung“** im Startmenü und auf
+   dem Desktop.
+
+Deinstallieren: *Einstellungen → Apps → Klassenbildung & Stundenplan*. Der Verlauf
+(Ordner *Klassenbildung* im Benutzerordner) bleibt erhalten.
+
+Das Installationsprogramm baut GitHub Actions automatisch auf einem Windows-Rechner
+(`.github/workflows/windows-installer.yml`, Inno Setup, gratis) und testet es dort:
+still installieren, das Beispiel rechnen, die Bedienoberfläche starten, deinstallieren.
+Download: im Lauf unter *Artifacts*, bei einem Versions-Tag (`v0.2.0`) als *Release*.
+
+### Ohne Installationsprogramm (Windows, macOS, Linux)
+
 1. Auf GitHub **Code → Download ZIP** klicken und die ZIP-Datei entpacken (z.B. in *Dokumente*).
 2. Im entpackten Ordner doppelklicken:
    - **Windows**: `start-windows.bat`
