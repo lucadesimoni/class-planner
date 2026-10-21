@@ -265,6 +265,40 @@ wheels = [
 ]
 
 [[package]]
+name = "class-planner"
+version = "0.1.0"
+source = { editable = "." }
+dependencies = [
+    { name = "openpyxl" },
+    { name = "ortools" },
+    { name = "pandas", version = "2.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "pandas", version = "3.0.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "pyyaml" },
+    { name = "streamlit", version = "1.65.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "streamlit", version = "1.66.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+]
+
+[package.optional-dependencies]
+test = [
+    { name = "jsonschema" },
+    { name = "playwright" },
+    { name = "pytest" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "jsonschema", marker = "extra == 'test'", specifier = ">=4" },
+    { name = "openpyxl", specifier = ">=3.1" },
+    { name = "ortools", specifier = ">=9.10" },
+    { name = "pandas", specifier = ">=2" },
+    { name = "playwright", marker = "extra == 'test'", specifier = ">=1.40" },
+    { name = "pytest", marker = "extra == 'test'", specifier = ">=8" },
+    { name = "pyyaml", specifier = ">=6" },
+    { name = "streamlit", specifier = ">=1.40" },
+]
+provides-extras = ["test"]
+
+[[package]]
 name = "click"
 version = "8.5.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2039,40 +2073,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/35/a3/e1d5c76e9b09e7863
 wheels = [
     { url = "https://files.pythonhosted.org/packages/72/52/21e7af3e1611d10bccffcdec63d17c7a824a6388cf4714814afc36630545/streamlit-1.66.0-py3-none-any.whl", hash = "sha256:bae7c746f868c09431177df5ee7929839efe7d8fb2cedd553d2bb3c2e969822a", size = 10364953, upload-time = "2026-10-14T16:07:50.423Z" },
 ]
-
-[[package]]
-name = "stunden-klassen-fitter"
-version = "0.1.0"
-source = { editable = "." }
-dependencies = [
-    { name = "openpyxl" },
-    { name = "ortools" },
-    { name = "pandas", version = "2.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
-    { name = "pandas", version = "3.0.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
-    { name = "pyyaml" },
-    { name = "streamlit", version = "1.65.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
-    { name = "streamlit", version = "1.66.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
-]
-
-[package.optional-dependencies]
-test = [
-    { name = "jsonschema" },
-    { name = "playwright" },
-    { name = "pytest" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "jsonschema", marker = "extra == 'test'", specifier = ">=4" },
-    { name = "openpyxl", specifier = ">=3.1" },
-    { name = "ortools", specifier = ">=9.10" },
-    { name = "pandas", specifier = ">=2" },
-    { name = "playwright", marker = "extra == 'test'", specifier = ">=1.40" },
-    { name = "pytest", marker = "extra == 'test'", specifier = ">=8" },
-    { name = "pyyaml", specifier = ">=6" },
-    { name = "streamlit", specifier = ">=1.40" },
-]
-provides-extras = ["test"]
 
 [[package]]
 name = "toml"

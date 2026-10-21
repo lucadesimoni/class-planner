@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/lucadesimoni/stunden-klassen-fitter/schema/skf-ergebnis.schema.json",
+  "$id": "https://github.com/lucadesimoni/class-planner/schema/skf-ergebnis.schema.json",
   "title": "skf-ergebnis",
   "description": "Ergebnis einer Berechnung (Klassen, Zuteilung, Lehraufträge, Stundenplan, Meldungen). Erzeugt als ergebnis.json bei jeder Berechnung; Beschreibung in docs/datenformate.md.",
   "type": "object",

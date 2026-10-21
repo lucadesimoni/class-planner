@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "stunden-klassen-fitter"
+name = "class-planner"
 version = "0.1.0"
 description = "Klassenbildung und Stundenplan für die Volksschule mit mehreren Schulhäusern (exakte Optimierung mit OR-Tools CP-SAT)"
 readme = "README.md"

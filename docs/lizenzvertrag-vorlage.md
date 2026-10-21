@@ -11,7 +11,7 @@ Outthinkx for Communities, [Adresse] („Lizenzgeber“)
 
 ## 1 Gegenstand
 
-1.1 Gegenstand ist die Software „Klassenbildung & Stundenplan“ (stunden-klassen-fitter)
+1.1 Gegenstand ist die Software „Klassenbildung & Stundenplan“ (class-planner)
 in der Version [x.y] samt Dokumentation und Kantonsprofil [Luzern] („Software“).
 
 1.2 Die Software ist ein **Planungshilfsmittel** für Klassenbildung, Lehraufträge,

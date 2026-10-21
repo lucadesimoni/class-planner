@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/lucadesimoni/stunden-klassen-fitter/schema/skf-stammdaten.schema.json",
+  "$id": "https://github.com/lucadesimoni/class-planner/schema/skf-stammdaten.schema.json",
   "title": "skf-stammdaten",
-  "description": "Austauschformat für Schul-Konfiguration und Kinderliste (stunden-klassen-fitter). Erzeugen mit `skf export … -o daten.json`, einlesen mit `skf import daten.json -o ordner`.",
+  "description": "Austauschformat für Schul-Konfiguration und Kinderliste (class-planner). Erzeugen mit `skf export … -o daten.json`, einlesen mit `skf import daten.json -o ordner`.",
   "type": "object",
   "required": ["format", "version", "schule", "kinder"],
   "properties": {

@@ -85,5 +85,5 @@ Erste Version.
 - Proprietäre Lizenz, Rechteinhaber Outthinkx for Communities; Drittkomponenten mit
   freizügigen Lizenzen (THIRD_PARTY_NOTICES.md); Vertragsvorlagen.
 
-[Unveröffentlicht]: https://github.com/lucadesimoni/stunden-klassen-fitter/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/lucadesimoni/stunden-klassen-fitter/releases/tag/v0.1.0
+[Unveröffentlicht]: https://github.com/lucadesimoni/class-planner/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/lucadesimoni/class-planner/releases/tag/v0.1.0

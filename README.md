@@ -1,4 +1,4 @@
-# stunden-klassen-fitter
+# class-planner
 
 **Klassenbildung und Stundenplan für die Volksschule** (Kindergarten, Primar und Oberstufe) mit
 mehreren Schulhäusern. Für Schulleitungen und Lehrpersonen gibt es eine

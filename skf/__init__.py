@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: LicenseRef-Proprietary
 # Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
-"""stunden-klassen-fitter: Klassenbildung und Stundenplan als exakte Optimierung."""
+"""class-planner: Klassenbildung und Stundenplan als exakte Optimierung."""
 from .version import __version__
 from .daten import lade_kinder, lade_schule
 from .klassen import teile_ein

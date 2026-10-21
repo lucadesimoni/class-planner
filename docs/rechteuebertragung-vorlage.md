@@ -12,7 +12,7 @@
 Outthinkx for Communities, [Rechtsform, z.B. Verein nach Art. 60 ff. ZGB / GmbH], [Sitz] („Erwerberin“)
 
 1. **Gegenstand.** Die Software „Klassenbildung & Stundenplan“
-   (stunden-klassen-fitter) mit Quellcode, Dokumentation, Kantonsprofilen, Vorlagen,
+   (class-planner) mit Quellcode, Dokumentation, Kantonsprofilen, Vorlagen,
    Beispieldaten und Gestaltung, Stand Commit [Hash], sowie alle künftigen Beiträge des
    Urhebers dazu.
 2. **Übertragung.** Der Urheber überträgt der Erwerberin alle übertragbaren

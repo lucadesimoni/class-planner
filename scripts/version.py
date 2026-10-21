@@ -19,7 +19,7 @@ SEMVER = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 DATEIEN = {
     "skf/version.py": r'^__version__ = "([^"]+)"',
     "pyproject.toml": r'^version = "([^"]+)"',
-    "uv.lock": r'^name = "stunden-klassen-fitter"\nversion = "([^"]+)"',
+    "uv.lock": r'^name = "class-planner"\nversion = "([^"]+)"',
 }
 
 
@@ -51,7 +51,7 @@ def setze(neu: str) -> None:
     if "## [Unveröffentlicht]" not in text:
         sys.exit("CHANGELOG.md: Abschnitt '## [Unveröffentlicht]' fehlt")
     text = text.replace("## [Unveröffentlicht]", f"## [Unveröffentlicht]\n\n## [{neu}] – {date.today().isoformat()}", 1)
-    repo = "https://github.com/lucadesimoni/stunden-klassen-fitter"
+    repo = "https://github.com/lucadesimoni/class-planner"
     text = re.sub(r"^\[Unveröffentlicht\]: .*$", f"[Unveröffentlicht]: {repo}/compare/v{neu}...HEAD\n"
                   f"[{neu}]: {repo}/compare/v{alt}...v{neu}", text, count=1, flags=re.M)
     log.write_text(text, encoding="utf-8")
