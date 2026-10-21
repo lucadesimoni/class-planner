@@ -53,7 +53,8 @@ def test_app_ablauf_mit_vorlage(verlauf_ordner):
     assert not at.exception
     assert any("Alle harten Regeln erfüllt" in s.value for s in at.success)
     assert [m.label for m in at.metric][:2] == ["Klassen", "Ø Klassengrösse"]
-    # Raumplanung: Auslastung und Wochenplan je Raum
+    # Raumplanung im Reiter Stundenpläne: Auslastung und Wochenplan je Raum
+    next(x for x in at.radio if x.label == "Stundenplan für").set_value("Raum").run()
     assert "Räume" in [m.label for m in at.metric]
     assert at.selectbox(key="raum_wahl").value.startswith("Schulhaus A · ")
     assert {b.label for b in at.get("download_button")} >= {
@@ -77,8 +78,10 @@ def test_manuell_verschieben(verlauf_ordner):
     kind = next(k for k in r.kinder if k.jahrgang == "1")
     ziel = next(c.name for c in r.einteilung.klassen
                 if "1" in c.vorlage.jahrgaenge and c.name != r.einteilung.klasse_von[kind.id])
-    at.selectbox(key="anp_kind").set_value(kind.id).run()
-    at.selectbox(key="anp_ziel").set_value(ziel).run()
+    bisher = r.einteilung.klasse_von[kind.id]
+    at.selectbox(key="kl_wahl").set_value(bisher).run()
+    at.selectbox(key=f"anp_kind_{bisher}").set_value(kind.id).run()
+    at.selectbox(key=f"anp_ziel_{kind.id}").set_value(ziel).run()
     next(b for b in at.button if b.label == "Verschieben und prüfen").click().run()
     assert not at.exception
     r = at.session_state["ergebnis"]

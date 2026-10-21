@@ -94,21 +94,26 @@ def test_bedienung_im_browser(app_url):
         seite.screenshot(path=BILDER / "4-ergebnis-karte.png")
 
         for tab, datei in (("Klassen", "5-klassen.png"), ("Lernende", "6-lernende.png"),
-                           ("Transparenz", "6b-transparenz.png"),
-                           ("Anpassen", "7-anpassen.png"), ("Stundenpläne", "8-stundenplan.png"),
-                           ("Räume", "8b-raeume.png"),
+                           ("Prüfung", "6b-transparenz.png"), ("Stundenpläne", "8-stundenplan.png"),
                            ("Wünsche", "9-wuensche.png"), ("Empfehlungen", "10-empfehlungen.png"),
                            ("Herunterladen", "11-herunterladen.png")):
             seite.get_by_role("tab", name=tab).click()
             time.sleep(2.5)
             seite.screenshot(path=BILDER / datei)
+            if tab == "Stundenpläne":  # Räume: dritte Ansicht im Reiter Stundenpläne
+                seite.get_by_text("Raum", exact=True).click()
+                seite.get_by_text("Wochenplan für Raum").wait_for()
+                time.sleep(2)
+                seite.screenshot(path=BILDER / "8b-raeume.png")
         with seite.expect_download() as download:
             seite.get_by_role("button", name="Klassenlisten (Excel, druckfertig)").click()
         assert download.value.suggested_filename == "klassenlisten.xlsx"
 
-        seite.get_by_role("tab", name="Anpassen").click()
-        time.sleep(1)
+        seite.get_by_role("tab", name="Klassen").click()
+        seite.get_by_text("Kind in eine andere Klasse verschieben", exact=True).click()
         seite.get_by_role("button", name="Verschieben und prüfen").wait_for()
+        time.sleep(1)
+        seite.screenshot(path=BILDER / "7-anpassen.png")
 
         _navigiere(seite, "Schuljahreswechsel")
         seite.get_by_text("Entscheid fehlt").first.wait_for(timeout=60_000)

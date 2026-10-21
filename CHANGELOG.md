@@ -8,6 +8,8 @@ Neue Version: `python scripts/version.py 0.2.0`.
 ## [Unveröffentlicht]
 
 ### Geändert
+- Ergebnis übersichtlicher: 8 statt 11 Reiter – *Anpassen* direkt bei den Klassen (Kinder der gewählten
+  Klasse), *Räume* als dritte Ansicht der Stundenpläne, *Transparenz* und *Meldungen* zusammen unter *Prüfung*.
 - Mögliche Schulhäuser eines Kindes berücksichtigen nun auch, ob ein passender Raum vorhanden ist.
 - Geschwisterregel nur unter Geschwistern, die im selben Schulhaus sein können.
 - Kantonsprofil Luzern 2026.10.1: Klassengrössen Sekundarschule (Annahme, zu prüfen), DaZ-Gruppen auch für die Oberstufe.

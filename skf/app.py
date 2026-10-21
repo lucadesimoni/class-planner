@@ -671,6 +671,30 @@ def _kind_karte(r: Ergebnis, kid: str) -> None:
                      hide_index=True, width="stretch")
 
 
+def _anpassen(r: Ergebnis, nach_id: dict, klasse) -> None:
+    e = r.einteilung
+    st.caption(f"Ein Kind aus {klasse.name} in eine andere Klasse verschieben – danach wird alles neu geprüft "
+               "(Klassengrössen, Wünsche, Geschwister, Gspänli-Regel, Recht).")
+    a, b = st.columns(2)
+    kid = a.selectbox("Kind", sorted(klasse.kinder, key=lambda i: nach_id[i].name), key=f"anp_kind_{klasse.name}",
+                      format_func=lambda i: f"{nach_id[i].name} · {i}")
+    moeglich = [c.name for c in e.klassen if nach_id[kid].jahrgang in c.vorlage.jahrgaenge]
+    ziel = b.selectbox("Neue Klasse", moeglich, index=moeglich.index(e.klasse_von[kid]), key=f"anp_ziel_{kid}")
+    if st.button("Verschieben und prüfen", type="primary", disabled=ziel == e.klasse_von[kid]):
+        vorher = r.anzahl("Fehler"), r.anzahl("Warnung")
+        text = verschiebe(r, kid, ziel)
+        st.toast(text)
+        nachher = r.anzahl("Fehler"), r.anzahl("Warnung")
+        (st.error if nachher[0] > vorher[0] else st.success)(
+            f"{text}. Fehler {vorher[0]} → {nachher[0]}, Warnungen {vorher[1]} → {nachher[1]}.")
+    if r.manuell:
+        st.markdown("**Manuelle Anpassungen:**  \n" + "  \n".join(f"• {t}" for t in r.manuell))
+        if st.button("Angepassten Stand im Verlauf speichern"):
+            cfg, _ = _aktuelle_daten()
+            verlauf.speichere(r, cfg, "manuell angepasst")
+            st.toast("Im Verlauf gespeichert", icon=":material/history:")
+
+
 def seite_ergebnis() -> None:
     _kopf("Ergebnis", "Karte, Klassen, Begründungen, Stundenpläne, Empfehlungen und Downloads", "Schritt 4 von 4")
     r: Ergebnis | None = st.session_state.get("ergebnis")
@@ -678,7 +702,7 @@ def seite_ergebnis() -> None:
         st.info("Noch nichts berechnet (Schritt 3).")
         return
     if r.anzahl("Fehler"):
-        st.error(f"{r.anzahl('Fehler')} Fehler – das Ergebnis ist so nicht verwendbar. Details unter *Meldungen*.")
+        st.error(f"{r.anzahl('Fehler')} Fehler – das Ergebnis ist so nicht verwendbar. Details unter *Prüfung*.")
     else:
         st.success("Alle harten Regeln erfüllt." + (f" {r.anzahl('Warnung')} Warnungen bitte prüfen."
                                                        if r.anzahl("Warnung") else ""))
@@ -688,16 +712,24 @@ def seite_ergebnis() -> None:
                            "Springstunden"]):
         spalten[i].metric(k, kz[k])
     tabs = st.tabs([":material/map: Karte", ":material/groups: Klassen", ":material/person_search: Lernende",
-                    ":material/swap_horiz: Anpassen", ":material/calendar_month: Stundenpläne", ":material/meeting_room: Räume",
-                    ":material/favorite: Wünsche", ":material/lightbulb: Empfehlungen",
-                    ":material/visibility: Transparenz", ":material/list: Meldungen", ":material/download: Herunterladen"])
+                    ":material/calendar_month: Stundenpläne", ":material/favorite: Wünsche",
+                    ":material/lightbulb: Empfehlungen", ":material/verified: Prüfung", ":material/download: Herunterladen"])
     e = r.einteilung
-    with tabs[9]:
-        filt = st.multiselect("Anzeigen", SCHWEREGRADE, default=["Fehler", "Warnung"])
-        df = pd.DataFrame([{"Schweregrad": m.schwere, "Bereich": m.bereich, "Meldung": m.text,
-                            "Quelle": m.quelle} for m in sorted(r.meldungen, key=lambda m: SCHWEREGRADE.index(m.schwere))
-                           if m.schwere in filt])
-        st.dataframe(df, width="stretch", hide_index=True, height=420)
+    with tabs[6]:
+        if e:
+            rg = [x for x in regeln(r) if x["geprueft"]]
+            ok = sum(not x["verstoesse"] for x in rg)
+            (st.success if ok == len(rg) else st.error)(f"{ok} von {len(rg)} harten Regeln erfüllt – unabhängig "
+                                                        "nachgezählt.", icon=":material/verified:")
+        with st.expander(f"Meldungen ({len(r.meldungen)})", icon=":material/list:", expanded=not e or bool(
+                r.anzahl("Fehler"))):
+            filt = st.multiselect("Anzeigen", SCHWEREGRADE, default=["Fehler", "Warnung"])
+            df = pd.DataFrame([{"Schweregrad": m.schwere, "Bereich": m.bereich, "Meldung": m.text, "Quelle": m.quelle}
+                               for m in sorted(r.meldungen, key=lambda m: SCHWEREGRADE.index(m.schwere))
+                               if m.schwere in filt])
+            st.dataframe(df, width="stretch", hide_index=True, height=360)
+        if e:
+            _html(transparenz_html(r), 1100)
     if not e:
         return
     nach_id = {k.id: k for k in r.kinder}
@@ -729,37 +761,19 @@ def seite_ergebnis() -> None:
                                                f"nicht mit {', '.join(k.nicht_mit)}" if k.nicht_mit else ""])),
             "Weg km": round(e.schulweg_m[k.id] / 1000, 2)}
             for k in sorted((nach_id[i] for i in c.kinder), key=lambda k: k.name)]), width="stretch", hide_index=True)
+        with st.expander("Kind in eine andere Klasse verschieben", icon=":material/swap_horiz:",
+                         expanded=bool(r.manuell)):
+            _anpassen(r, nach_id, c)
     with tabs[2]:
         optionen = sorted(r.kinder, key=lambda k: k.name)
         kid = st.selectbox("Lernende suchen (Name oder ID tippen)", [k.id for k in optionen],
                            format_func=lambda i: f"{nach_id[i].name} · {i} · {nach_id[i].jahrgang}", key="kind_wahl")
         _kind_karte(r, kid)
     with tabs[3]:
-        st.write("Ein Kind in eine andere Klasse verschieben. Danach wird alles neu geprüft "
-                 "(Klassengrössen, Wünsche, Geschwister, Gspänli-Regel, Recht).")
-        a, b = st.columns(2)
-        kid = a.selectbox("Kind", [k.id for k in sorted(r.kinder, key=lambda k: k.name)], key="anp_kind",
-                          format_func=lambda i: f"{nach_id[i].name} · {i} · {e.klasse_von[i]}")
-        moeglich = [c.name for c in e.klassen if nach_id[kid].jahrgang in c.vorlage.jahrgaenge]
-        ziel = b.selectbox("Neue Klasse", moeglich, index=moeglich.index(e.klasse_von[kid]), key="anp_ziel")
-        if st.button("Verschieben und prüfen", type="primary", disabled=ziel == e.klasse_von[kid]):
-            vorher = r.anzahl("Fehler"), r.anzahl("Warnung")
-            text = verschiebe(r, kid, ziel)
-            st.toast(text)
-            nachher = r.anzahl("Fehler"), r.anzahl("Warnung")
-            (st.error if nachher[0] > vorher[0] else st.success)(
-                f"{text}. Fehler {vorher[0]} → {nachher[0]}, Warnungen {vorher[1]} → {nachher[1]}.")
-        if r.manuell:
-            st.markdown("**Manuelle Anpassungen:**  \n" + "  \n".join(f"• {t}" for t in r.manuell))
-            if st.button("Angepassten Stand im Verlauf speichern"):
-                cfg, _ = _aktuelle_daten()
-                verlauf.speichere(r, cfg, "manuell angepasst")
-                st.toast("Im Verlauf gespeichert", icon=":material/history:")
-    with tabs[4]:
         if not r.lektionen:
             st.info("Kein Stundenplan berechnet.")
         else:
-            art = st.radio("Stundenplan für", ["Klasse", "Lehrperson"], horizontal=True)
+            art = st.radio("Stundenplan für", ["Klasse", "Lehrperson", "Raum"], horizontal=True)
             if art == "Klasse":
                 wahl = st.selectbox("Klasse", [c.name for c in e.klassen], key="sp_klasse")
                 c = next(c for c in e.klassen if c.name == wahl)
@@ -770,7 +784,7 @@ def seite_ergebnis() -> None:
                             f"<b>{l.fach}</b><br>{l.lehrperson}<br><span class='muted'>{l.raum_label}</span>"
                             if l.art == "unterricht" else f"<br><i>+ {l.fach}: {l.lehrperson}</i>")
                 _html(_plan(r, eintr, r.schule.schulhaus(c.schulhaus).nicht_verfuegbar, {}), 440)
-            else:
+            elif art == "Lehrperson":
                 namen = sorted({b.lehrperson for b in r.bloecke})
                 wahl = st.selectbox("Lehrperson", namen, key="sp_lp")
                 lp = next(x for x in r.schule.lehrpersonen if x.name == wahl)
@@ -778,19 +792,13 @@ def seite_ergebnis() -> None:
                          for l in r.lektionen if l.lehrperson == wahl}
                 st.caption(f"{len(eintr)} Lektionen · Pensum {lp.pensum_min}–{lp.pensum_max}")
                 _html(_plan(r, eintr, lp.nicht_verfuegbar, {}), 440)
-    with tabs[5]:
-        _raeume_tab(r)
-    with tabs[6]:
+            if art == "Raum":
+                _raeume_tab(r)
+    with tabs[4]:
         _html(_wuensche_html(r), 560)
-    with tabs[7]:
+    with tabs[5]:
         _html(_empfehlungen_html(r) or "<p>Keine Empfehlungen.</p>", 720)
-    with tabs[8]:
-        rg = [x for x in regeln(r) if x["geprueft"]]
-        ok = sum(not x["verstoesse"] for x in rg)
-        (st.success if ok == len(rg) else st.error)(f"{ok} von {len(rg)} harten Regeln erfüllt – unabhängig "
-                                                    "nachgezählt.", icon=":material/verified:")
-        _html(transparenz_html(r), 1100)
-    with tabs[10]:
+    with tabs[7]:
         mit_foerder = st.toggle("IF/DaZ/IS in Klassenlisten aufnehmen (besonders schützenswerte Daten)")
         with tempfile.TemporaryDirectory() as tmp:
             ordner = Path(tmp)

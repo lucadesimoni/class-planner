@@ -78,8 +78,8 @@ Für Fachleute: `uv run skf app` oder `pip install -e .` und dann `skf app`.
 | **1 · Daten** | Lernende, Lehrpersonen, Schulhäuser, Räume, Klassentypen, Förderangebote direkt in Tabellen bearbeiten oder Excel hochladen; **Raum- und Lehrpersonenlisten** (CSV/Excel, Spalten frei benannt) übernehmen; Gewichtung mit Schiebereglern; als Excel speichern | [Daten](docs/screenshots/1-daten.png), [Gewichtung](docs/screenshots/1b-gewichtung.png), [Raumliste](docs/screenshots/1c-raeume-import.png) |
 | **2 · Prüfen** | fehlende oder widersprüchliche Angaben (Fehler, Warnung, Hinweis) | [Prüfen](docs/screenshots/2-pruefen.png) |
 | **3 · Berechnen** | Szenario, Rechenzeit, Notiz; jede Berechnung wird im Verlauf gespeichert | [Berechnen](docs/screenshots/3-berechnen.png) |
-| **4 · Ergebnis** | **Karte** (Klasse wählen → Einzugsgebiet mit Umriss; Farbe nach Schulhaus oder Jahrgang; **Geschwister verbinden**, getrennte Familien rot; Schulwege; Klick hebt Familie hervor) · Klassen und Klassenlisten mit Geschwistern und Vorjahresklasse · **Lernende** (Personenkarte mit Geschwistern, erfüllten und offenen Wünschen, KG-Gruppe, Verlauf) · **Anpassen** (Kind verschieben, sofort neu geprüft) · Stundenpläne · **Räume** (Auslastung, Wochenplan je Raum, Belegungsübersicht) · Wünsche und KG-Gruppen · Empfehlungen · Downloads | [Karte](docs/screenshots/4-ergebnis-karte.png), [Klassen](docs/screenshots/5-klassen.png), [Lernende](docs/screenshots/6-lernende.png), [Anpassen](docs/screenshots/7-anpassen.png), [Stundenplan](docs/screenshots/8-stundenplan.png), [Räume](docs/screenshots/8b-raeume.png), [Wünsche](docs/screenshots/9-wuensche.png), [Empfehlungen](docs/screenshots/10-empfehlungen.png), [Downloads](docs/screenshots/11-herunterladen.png) |
-| **Transparenz** (in 4 · Ergebnis) | alle harten Regeln mit Prüfstatus; Abwägungen (Messwert × Gewicht = Strafpunkte je Ziel); Lösungsgüte pro Rechenschritt; bei jedem Kind **„Warum hier?“** mit allen Schulhäusern, Wegen, freien Plätzen und Gründen | [Transparenz](docs/screenshots/6b-transparenz.png), [Begründung](docs/screenshots/6-lernende.png) |
+| **4 · Ergebnis** | **Karte** (Klasse wählen → Einzugsgebiet; Farbe nach Schulhaus oder Jahrgang; **Geschwister verbinden**, getrennte Familien rot; Schulwege) · **Klassen** mit Klassenlisten, Geschwistern, Vorjahresklasse und **Anpassen** (Kind verschieben, sofort neu geprüft) · **Lernende** (Personenkarte mit „Warum hier?“) · **Stundenpläne** je Klasse, Lehrperson oder **Raum** (Auslastung, Wochenplan) · Wünsche und KG-Gruppen · Empfehlungen · **Prüfung** (harte Regeln nachgezählt, Abwägungen, Meldungen) · Downloads | [Karte](docs/screenshots/4-ergebnis-karte.png), [Klassen](docs/screenshots/5-klassen.png), [Lernende](docs/screenshots/6-lernende.png), [Anpassen](docs/screenshots/7-anpassen.png), [Stundenplan](docs/screenshots/8-stundenplan.png), [Räume](docs/screenshots/8b-raeume.png), [Wünsche](docs/screenshots/9-wuensche.png), [Empfehlungen](docs/screenshots/10-empfehlungen.png), [Prüfung](docs/screenshots/6b-transparenz.png), [Downloads](docs/screenshots/11-herunterladen.png) |
+| **Prüfung** (in 4 · Ergebnis) | alle harten Regeln mit Prüfstatus; Abwägungen (Messwert × Gewicht = Strafpunkte je Ziel); Lösungsgüte pro Rechenschritt; bei jedem Kind **„Warum hier?“** mit allen Schulhäusern, Wegen, freien Plätzen und Gründen | [Transparenz](docs/screenshots/6b-transparenz.png), [Begründung](docs/screenshots/6-lernende.png) |
 | **Schuljahreswechsel** | jede Stufe → nächste Stufe: Entscheide pro Kind (Sek A/B/C, Kanti, repetiert, Wegzug …), Neueintritte KG1 hochladen, Vorschau mit Übertritten/Austritten, dann als neues Schuljahr übernehmen (aktuelle Klassen werden „bisherige Klasse“) | [Schuljahreswechsel](docs/screenshots/12b-schuljahreswechsel.png) |
 | **Verlauf** | alle gespeicherten Stände mit Kennzahlen; zwei Stände vergleichen (wer wechselte wohin); Bericht/Listen eines Standes herunterladen; Eingabedaten wiederherstellen | [Verlauf](docs/screenshots/12-verlauf.png) |
 
@@ -200,7 +200,7 @@ Geschwindigkeit). Turnhallen in einem anderen Schulhaus (`nutzt`) zählen als di
 
 Beides wird in der App unter *Daten → Schulbus & Wege* eingerichtet, gilt als harte
 Regel, wird nach der Berechnung unabhängig nachgezählt und erscheint in der
-Transparenz-Ansicht. Klassenlisten erhalten eine Spalte *Schulbus*. Das Beispiel Malters
+Prüfung (Ergebnis). Klassenlisten erhalten eine Spalte *Schulbus*. Das Beispiel Malters
 enthält eine Buslinie für den Weiler Blatten und eine Wegzeit Bündtmättli–Eischachen.
 
 ```yaml
@@ -392,7 +392,7 @@ des Raums, z.B. Vereinsnutzung `Fr-NM`, und des Schulhauses), auch in einem ande
 Schulhaus (`nutzt: {Turnhalle: Bündtmättli}`). Reichen die Räume nicht, nennt die
 Konfliktanalyse den Engpass; die Empfehlungen zeigen Raumreserven und Ausbaubedarf.
 
-**Ansehen:** In der App unter *Ergebnis → Räume*: Auslastung jedes Raums, ungenutzte und
+**Ansehen:** In der App unter *Ergebnis → Stundenpläne → Raum*: Auslastung jedes Raums, ungenutzte und
 fast volle Räume, Wochenplan je Raum und die Belegungsübersicht aller Räume; im Bericht
 unter *Raumbelegung*; in `stundenplaene.xlsx` ein Blatt je Spezialraum.
 
