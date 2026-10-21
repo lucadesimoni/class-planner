@@ -269,6 +269,7 @@ class Schule:
     kosten: dict = field(default_factory=dict)   # Kostenmodell CHF/Jahr (siehe skf.kosten), leer = nur Mengen
     hypothese: str = ""                          # Szenario: "Was wäre, wenn …" in Worten
     ziel: str = ""                               # Szenario: Kosten | Qualität | Planung
+    gebiete: list = field(default_factory=list)  # geografische Hypothesen (skf.gebiete.Gebiet)
 
     def tafel(self, jahrgang: str) -> dict[str, int] | None:
         """Stundentafel eines Jahrgangs; Oberstufe: eigene Tafel je Niveau oder gemeinsame ("S1")."""
@@ -566,7 +567,12 @@ def baue_schule(cfg: dict) -> Schule:
         bus_wartezeit=int((cfg.get("schulbus") or {}).get("wartezeit_max", 15)),
         wegzeiten=_wegzeiten(cfg.get("wegzeiten")), uebertritte=dict(cfg.get("uebertritte") or {}),
         kosten=_kosten(cfg.get("kosten")), hypothese=str(cfg.get("_hypothese", "")),
-        ziel=_ziel(cfg.get("_ziel")))
+        ziel=_ziel(cfg.get("_ziel")), gebiete=_gebiete(cfg.get("gebiete")))
+
+
+def _gebiete(roh) -> list:
+    from .gebiete import lese_gebiete  # gebiete importiert daten
+    return lese_gebiete(roh)
 
 
 def _zahl(wert, wo: str) -> float:

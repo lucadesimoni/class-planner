@@ -7,6 +7,7 @@ import time
 from dataclasses import dataclass, field
 
 from .daten import Kind, Schule
+from .gebiete import wende_an as wende_gebiete_an
 from .klassen import Einteilung, teile_ein
 from .lehrauftrag import Block, verteile_lehrauftraege
 from .planung import Planung, plane
@@ -86,7 +87,9 @@ def _wunschquote_text(w: dict) -> str:
 def rechne(schule: Schule, kinder: list[Kind], zeitlimit: float = 120, nur_klassen: bool = False,
            protokoll=print) -> Ergebnis:
     start = time.time()
+    kinder, hinweise = wende_gebiete_an(schule, kinder)  # geografische Hypothesen: nur Eingaben
     r = Ergebnis(schule, kinder, meldungen=vorpruefung(schule, kinder))
+    r.meldungen += [Meldung("Hinweis", "Hypothese", h) for h in hinweise]
     if r.anzahl("Fehler"):
         protokoll("Vorprüfung hat Fehler gefunden – es wird nicht gerechnet.")
         r.sekunden = time.time() - start

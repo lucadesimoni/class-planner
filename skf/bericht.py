@@ -548,8 +548,8 @@ def _empfehlungen_html(r: Ergebnis) -> str:
     annahme = (r.schule.kosten or {}).get("annahme", "")
     return (f"<div class='karten'>{karten}</div>"
             "<details open><summary>Langfristplanung: Lernende, Klassen, Stellen, Kosten</summary>"
-            f"<p class='muted'>{esc(annahmen_text(r.schule))}. Lektionen und Kosten wachsen mit der Zahl der "
-            "Klassen.</p>"
+            f"<p class='muted'>{esc(annahmen_text(r.schule))}. Erstes Jahr = berechnete Klassen; die Folgejahre "
+            "sind damit abgeglichen. Lektionen und Kosten wachsen mit der Zahl der Klassen.</p>"
             + tabelle(p.jahre, jahre_spalten, {"Kosten/Jahr (CHF)": lambda v: esc(chf(v))})
             + "</details>"
             + ("<details><summary>Kosten pro Jahr</summary>"

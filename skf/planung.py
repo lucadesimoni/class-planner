@@ -234,6 +234,10 @@ def _prognose(schule: Schule, kinder: list[Kind], r, p: Planung) -> None:
         for sh, n in heute[j].items():
             stand[j, sh] = float(n)
     zuzug = Counter()
+    # Kalibrierung: Jahr 0 = tatsächlich gebildete Klassen; dieselbe Korrektur gilt für die Folgejahre
+    # (die Schätzung pro Jahrgang kennt z.B. Mehrjahrgangsklassen nicht)
+    ist = Counter((c.schulhaus, c.raum.typ) for c in e.klassen)
+    korrektur: dict[tuple[str, str], int] = {}
     for n in range(jahre + 1):
         if n:
             alt, stand = stand, defaultdict(float)
@@ -271,6 +275,10 @@ def _prognose(schule: Schule, kinder: list[Kind], r, p: Planung) -> None:
                     klassen = math.ceil(lernende / max(x.max for x in v) - 1e-9) if lernende > 0.5 else 0
                 else:
                     klassen = sum(klassen_noetig(stand[j, sh.name], j) for j in stufen)
+                if ist:
+                    if n == 0:
+                        korrektur[sh.name, typ] = ist[sh.name, typ] - klassen
+                    klassen = max(0, klassen + korrektur.get((sh.name, typ), 0)) if lernende > 0.5 else 0
                 raeume = sum(1 for raum in sh.raeume if raum.typ == typ)
                 p.prognose.append({"Schuljahr": schuljahr, "Jahr": n, "Schulhaus": sh.name, "Raumtyp": typ,
                                    "Lernende": round(lernende), "Klassen (mind.)": klassen,
@@ -334,7 +342,7 @@ def _jahre_ergaenzen(schule: Schule, r, p: Planung, wachstum: float) -> None:
                     f"{j['Stellen (Vollpensum)']:.1f} Vollzeitstellen ({vollpensum:.0f} L). Die heutigen Lehrpersonen "
                     f"können höchstens {kapazitaet:.1f} Stellen leisten. Rekrutierung früh planen "
                     f"({annahmen_text(schule)}).", j["Jahr"] <= 1))
-        if posten:
+        if posten and lektionen0:  # ohne Lehraufträge wären die Kosten unvollständig
             lernend = j["Lernende"] / lernende0 if lernende0 else 1
             j["Kosten/Jahr (CHF)"] = round(variabel * faktor + fix + bus * lernend, -3)
 

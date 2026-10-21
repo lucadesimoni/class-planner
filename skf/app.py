@@ -665,6 +665,20 @@ def _szenarien_vergleich(ergebnisse: dict[str, Ergebnis]) -> None:
     st.session_state.ergebnis = ergebnisse[wahl]
 
 
+_GEBIETSKARTE = components.declare_component("gebietskarte", path=str(Path(__file__).parent / "static"))
+
+
+def _gebietskarte(cfg: dict):
+    """Karte zum Zeichnen eines Gebiets (skf/static/index.html) → [[lat, lon], …] oder None."""
+    from skf.bericht import _kacheln
+    url, quelle = _kacheln()
+    kinder = _aktuelle_daten()[1]
+    punkte = [[k.lat, k.lon] for k in kinder if k.lat is not None and k.lon is not None][:3000]
+    return _GEBIETSKARTE(kacheln=url, quelle=quelle, lernende=punkte, key="hyp_gebiet", default=None,
+                         schulhaeuser=[{"name": s["name"], "lat": s["lat"], "lon": s["lon"]}
+                                       for s in cfg.get("schulhaeuser") or [] if "lat" in s])
+
+
 def _hypothese_anlegen(cfg: dict) -> None:
     """Neues Szenario aus einfachen Hebeln – landet in den Einstellungen unter 'szenarien'."""
     with st.expander("Neue Hypothese als Szenario anlegen", icon=":material/add_circle:"):
@@ -690,11 +704,29 @@ def _hypothese_anlegen(cfg: dict) -> None:
                         "kinder_pro_wohnung": 0.3}
             st.caption("Annahme: 0.3 schulpflichtige Kinder pro Wohnung, verteilt über alle Stufen "
                        "(in den Einstellungen unter planung.quartiere anpassbar).")
+        gebiet = None
+        if st.toggle("Gebiet auf der Karte zeichnen (geografische Hypothese)", key="hyp_g"):
+            flaeche = _gebietskarte(cfg)
+            if flaeche:
+                from skf.gebiete import Gebiet, lernende_im_gebiet
+                im_gebiet = lernende_im_gebiet(Gebiet("x", [tuple(x) for x in flaeche]), _aktuelle_daten()[1])
+                st.caption(f"{len(im_gebiet)} heutige Lernende wohnen im gezeichneten Gebiet.")
+                c, d, e = st.columns(3)
+                g_name = c.text_input("Name des Gebiets", "Gebiet", key="hyp_g_name")
+                g_sh = d.selectbox("Alle Lernenden darin gehen nach", ["(wie bisher)"]
+                                   + [s["name"] for s in cfg.get("schulhaeuser") or []], key="hyp_g_sh")
+                g_neu = e.number_input("Zusätzliche Lernende (Annahme)", 0, 2000, 0, 5, key="hyp_g_neu")
+                if g_sh != "(wie bisher)" or g_neu:
+                    gebiet = {"name": g_name, "flaeche": flaeche, **({"schulhaus": g_sh} if g_sh != "(wie bisher)"
+                                                                     else {}), **({"neue_lernende": g_neu} if g_neu else {})}
         if st.button("Szenario anlegen", icon=":material/save:", key="hyp_speichern",
                      disabled=not (name and hypothese)):
             aendert_wachstum = wachstum != float(planung.get("wachstum_prozent", 0))
             patch = szenario_aus_hebeln(hypothese, hebel, wachstum if aendert_wachstum else None, quartier,
                                         lehrpersonen)
+            if gebiet:
+                patch["gebiete"] = [gebiet]
+                patch.setdefault("ziel", "Planung")
             rest = st.session_state.extra["rest"]
             rest.setdefault("szenarien", {})[name] = patch
             try:

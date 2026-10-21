@@ -1,0 +1,84 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: LicenseRef-Proprietary
+     Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+     Streamlit-Komponente "gebietskarte": ein Gebiet auf der Karte zeichnen (geografische Hypothese).
+     Ohne Build-Werkzeuge: spricht das Komponenten-Protokoll von Streamlit direkt (postMessage)
+     und nutzt das mitgelieferte Leaflet (leaflet/, BSD-2-Clause). -->
+<html lang="de"><head><meta charset="utf-8">
+<link rel="stylesheet" href="leaflet/leaflet.css">
+<style>
+  html, body { margin: 0; font: 13px/1.4 "Source Sans", system-ui, sans-serif; color: #1f2a24 }
+  #karte { height: 420px; border-radius: 8px; cursor: crosshair }
+  .leiste { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; padding: 8px 0 }
+  button { font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid #c9d3cd; background: #fff; cursor: pointer }
+  button.haupt { background: #2f5d50; border-color: #2f5d50; color: #fff }
+  button:disabled { opacity: .45; cursor: default }
+  .info { color: #5b6b62 }
+</style></head>
+<body>
+<div id="karte" role="application" aria-label="Karte: Punkte anklicken, um ein Gebiet zu zeichnen"></div>
+<div class="leiste">
+  <button id="fertig" class="haupt" disabled>Fläche abschliessen</button>
+  <button id="zurueck" disabled>Letzten Punkt entfernen</button>
+  <button id="neu">Neu zeichnen</button>
+  <span id="info" class="info">Punkte der Reihe nach auf die Karte klicken (mindestens 3).</span>
+</div>
+<script src="leaflet/leaflet.js"></script>
+<script>
+(function () {
+  const senden = (type, extra) => window.parent.postMessage(Object.assign({isStreamlitMessage: true, type}, extra), "*");
+  let karte, punkte = [], linie, flaeche, fertig = false, gezeichnet = false;
+  const $ = id => document.getElementById(id);
+
+  function zeichnen() {
+    if (linie) karte.removeLayer(linie);
+    if (flaeche) karte.removeLayer(flaeche);
+    linie = flaeche = null;
+    if (fertig && punkte.length >= 3) {
+      flaeche = L.polygon(punkte, {color: "#b5651d", weight: 2, fillOpacity: .18}).addTo(karte);
+    } else if (punkte.length) {
+      linie = L.polyline(punkte, {color: "#b5651d", weight: 2, dashArray: "4 4"}).addTo(karte);
+    }
+    $("fertig").disabled = fertig || punkte.length < 3;
+    $("zurueck").disabled = fertig || !punkte.length;
+    $("info").textContent = fertig ? `Gebiet mit ${punkte.length} Punkten gezeichnet.`
+      : punkte.length ? `${punkte.length} Punkt(e) – weiter klicken oder abschliessen.`
+      : "Punkte der Reihe nach auf die Karte klicken (mindestens 3).";
+  }
+  function melden() { senden("streamlit:setComponentValue", {value: fertig ? punkte : null, dataType: "json"}); }
+
+  function aufbauen(args) {
+    karte = L.map("karte", {scrollWheelZoom: true});
+    L.tileLayer(args.kacheln, {maxZoom: 19, attribution: args.quelle}).addTo(karte);
+    const grenzen = [];
+    (args.lernende || []).forEach(p => {
+      L.circleMarker(p, {radius: 2.5, weight: 0, fillColor: "#5b6b62", fillOpacity: .55, interactive: false}).addTo(karte);
+      grenzen.push(p);
+    });
+    (args.schulhaeuser || []).forEach(s => {
+      L.circleMarker([s.lat, s.lon], {radius: 7, color: "#fff", weight: 2, fillColor: "#2f5d50", fillOpacity: 1})
+        .bindTooltip(s.name, {permanent: true, direction: "right", offset: [8, 0]}).addTo(karte);
+      grenzen.push([s.lat, s.lon]);
+    });
+    if (args.flaeche && args.flaeche.length >= 3) { punkte = args.flaeche.slice(); fertig = true; }
+    karte.fitBounds(grenzen.length ? grenzen : [[47.0, 8.2], [47.1, 8.3]], {padding: [20, 20]});
+    karte.on("click", e => {
+      if (fertig) return;
+      punkte.push([+e.latlng.lat.toFixed(6), +e.latlng.lng.toFixed(6)]);
+      zeichnen();
+    });
+    $("fertig").onclick = () => { fertig = true; zeichnen(); melden(); };
+    $("zurueck").onclick = () => { punkte.pop(); zeichnen(); };
+    $("neu").onclick = () => { punkte = []; fertig = false; zeichnen(); melden(); };
+    zeichnen();
+  }
+
+  window.addEventListener("message", ev => {
+    if (!ev.data || ev.data.type !== "streamlit:render") return;
+    if (!gezeichnet) { gezeichnet = true; aufbauen(ev.data.args || {}); }
+    senden("streamlit:setFrameHeight", {height: document.body.scrollHeight});
+  });
+  senden("streamlit:componentReady", {apiVersion: 1});
+})();
+</script>
+</body></html>

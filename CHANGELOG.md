@@ -8,6 +8,8 @@ Neue Version: `python scripts/version.py 0.2.0`.
 ## [Unveröffentlicht]
 
 ### Behoben
+- Prognose am berechneten Ergebnis abgeglichen (Jahr 0 = tatsächliche Klassen, z.B. Mehrjahrgangsklassen).
+- Langfristkosten ohne Lehraufträge (unvollständig) werden nicht mehr ausgewiesen.
 - Prognose rückte Jahrgänge nach Listenposition nach (bei Sek-Niveaus falsch: S1C → S2A); jetzt nach Stufenfolge.
 - Programm startete unter Python 3.10/3.11 nicht (f-Strings nach Python 3.12); CI prüft nun die Syntax mit 3.10.
 
@@ -24,6 +26,9 @@ Neue Version: `python scripts/version.py 0.2.0`.
 - Leere Liste der Lernenden ergibt eine klare Fehlermeldung.
 
 ### Hinzugefügt
+- **Geografische Hypothesen:** Gebiet auf der Karte zeichnen (App) bzw. `gebiete` im Szenario – alle Lernenden
+  darin einem Schulhaus zuteilen (Einzugsgebiet) und/oder angenommene Lernende ergänzen; nur Eingaben, die
+  Optimierung bleibt unverändert.
 - **Kosten und Qualität:** optionales Kostenmodell (`kosten`: Lektion, Räume je Typ, Schulhaus, Schulbus) und
   Qualitätskennzahlen (Klassen nahe Idealgrösse, Lehrpersonen pro Klasse, Auslastung Schulzimmer) in
   Kennzahlen, Bericht, Szenarienvergleich und `ergebnis.json` – reine Auswertung, die Optimierung bleibt unverändert.

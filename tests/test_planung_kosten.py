@@ -186,3 +186,43 @@ def test_negatives_wachstum_und_null_lernende_sind_robust():
     assert [j["Lernende"] for j in p.jahre][:2] == [5, 9]
     p = _prognose_von(_cfg(), {"1": 3})
     assert p.jahre[-1]["Lernende"] == 0 and all(j["fehlende Räume"] == 0 for j in p.jahre)
+
+
+def test_ohne_lehrauftraege_keine_unvollstaendigen_kosten():
+    p = _prognose_von(_cfg(kosten={"lektion_chf": 4000, "schulhaus_chf": 50000}), {"KG1": 10, "1": 10})
+    assert all("Kosten/Jahr (CHF)" not in j and "Stellen (Vollpensum)" not in j for j in p.jahre)
+
+
+def test_prognose_ist_am_ergebnis_kalibriert():
+    """Jahr 0 entspricht den tatsächlich gebildeten Klassen (z.B. eine Mehrjahrgangsklasse statt zwei)."""
+    s = baue_schule(_cfg())
+    haus = s.schulhaeuser[0]
+    raum = next(x for x in haus.raeume if x.typ == "Klassenzimmer")
+    kinder = [Kind(f"k{i}", "", "1" if i < 9 else "2", "w", "", None, None) for i in range(18)]
+    klasse = SimpleNamespace(schulhaus=haus.name, raum=raum)
+    r = SimpleNamespace(einteilung=SimpleNamespace(schulhaus_von={k.id: haus.name for k in kinder}, klassen=[klasse]),
+                        bloecke=[], lektionen=[], kinder=kinder, schule=s)
+    p = Planung()
+    _prognose(s, kinder, r, p)
+    zeile = next(z for z in p.prognose if z["Jahr"] == 0 and z["Schulhaus"] == haus.name
+                 and z["Raumtyp"] == "Klassenzimmer")
+    assert zeile["Klassen (mind.)"] == 1   # ohne Abgleich 2 (je Jahrgang eine)
+
+
+def test_geografische_hypothese_gebiet():
+    from skf.gebiete import enthaelt, lese_gebiete, wende_an
+    quadrat = [(47.0, 8.0), (47.0, 8.1), (47.1, 8.1), (47.1, 8.0)]
+    assert enthaelt(quadrat, 47.05, 8.05) and not enthaelt(quadrat, 47.2, 8.05)
+    with pytest.raises(ValueError, match="3 Punkte"):
+        lese_gebiete([{"name": "X", "flaeche": [[47, 8]], "neue_lernende": 3}])
+    s = baue_schule(_cfg(gebiete=[{"name": "Nord", "flaeche": quadrat, "schulhaus": "Schulhaus B",
+                                   "neue_lernende": 10}]))
+    alt = [Kind("a", "", "1", "w", "", 47.05, 8.05), Kind("b", "", "1", "w", "", 47.3, 8.3)]
+    neu, hinweise = wende_an(s, alt)
+    assert len(neu) == 12 and len(hinweise) == 2
+    angenommen = [k for k in neu if k.id.startswith("H-")]
+    assert all(enthaelt(quadrat, k.lat, k.lon) for k in angenommen)
+    fix = {k.id: k.schulhaus_fix for k in neu}
+    assert fix["a"] == "Schulhaus B" and fix["b"] == ""
+    assert wende_an(s, alt)[0] == neu   # reproduzierbar
+    assert alt[0].schulhaus_fix == ""   # Eingabe unverändert

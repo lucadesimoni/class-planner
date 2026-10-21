@@ -263,6 +263,9 @@ def _planung_kosten(schule: Schule) -> list[Meldung]:
         if q["schulhaus"] and q["schulhaus"] not in namen:
             m.append(Meldung("Warnung", "Planung", f"Quartier '{q['name']}': unbekanntes Schulhaus "
                              f"'{q['schulhaus']}' – die Kinder werden wie heute auf die Schulhäuser verteilt"))
+    for g in schule.gebiete or []:
+        if g.schulhaus and g.schulhaus not in namen:
+            m.append(Meldung("Fehler", "Daten", f"Gebiet '{g.name}': unbekanntes Schulhaus '{g.schulhaus}'"))
     raumtypen = {r.typ for s in schule.schulhaeuser for r in s.raeume}
     for typ in sorted(set((schule.kosten or {}).get("raum_chf") or {}) - raumtypen):
         m.append(Meldung("Hinweis", "Kosten", f"Kostenansatz für Raumtyp '{typ}', den kein Schulhaus hat"))

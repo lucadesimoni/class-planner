@@ -527,6 +527,10 @@ szenarien:                                 # nur Änderungen gegenüber der Basi
 **In der App** legt *Berechnen → Neue Hypothese als Szenario anlegen* ein Szenario über
 einfache Hebel an: weniger, grössere Klassen; Klassen nahe Idealgrösse; wenige
 Lehrpersonen pro Klasse; kurze Schulwege; Wachstum; Quartier; unbesetzte Stellen.
+Mit *Gebiet auf der Karte zeichnen* entsteht eine **geografische Hypothese**: alle
+Lernenden im Gebiet gehen in ein bestimmtes Schulhaus (Einzugsgebiet) und/oder dort wohnen
+zusätzlich angenommene Lernende (IDs `H-…`, im Ergebnis als Annahme markiert). In der YAML:
+`gebiete: [{name, flaeche: [[lat, lon], …], schulhaus, neue_lernende}]` im Szenario.
 Werden mehrere Szenarien gewählt, rechnet die App sie nacheinander und stellt sie
 nebeneinander: Kennzahlen, Kosten und die Lage in vier Jahren. Auf der Kommandozeile
 geht das mit `skf rechnen … --szenario alle` (Seite `vergleich.html`).

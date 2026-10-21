@@ -26,6 +26,6 @@ packages = ["skf", "skf.beispiele"]
 "skf.beispiele" = "beispiele"
 
 [tool.setuptools.package-data]
-skf = ["profile/*.yaml", "static/leaflet/*", "static/leaflet/images/*", "static/material-symbols/*"]
+skf = ["profile/*.yaml", "static/index.html", "static/leaflet/*", "static/leaflet/images/*", "static/material-symbols/*"]
 "skf.beispiele" = ["malters/schule.yaml", "malters/kinder.csv", "malters/erzeuge_kinder.py", "vorlage/*"]
 
