@@ -29,7 +29,8 @@ from skf.austausch import (BLAETTER, KINDER_SPALTEN, LISTENFELDER, ZAHLFELDER, _
                            raumtypen, uebernehme_liste)
 from skf.bericht import (CSS, _empfehlungen_html, _osm_karte, _plan, _raumbelegung, _wuensche_html, schreibe_csv,
                          schreibe_html, transparenz_html)
-from skf.daten import STANDARD_GEWICHTE, beispiel_ordner, lade_schule
+from skf.daten import (GEWICHT_HEBEL, STANDARD_GEWICHTE, beispiel_ordner, lade_schule, szenario_aus_hebeln,
+                       szenario_infos)
 from skf.export import exportiere_listen
 from skf.pruefung import SCHWEREGRADE, vorpruefung
 from skf.transparenz import begruendung, regeln
@@ -273,7 +274,7 @@ def seite_start() -> None:
             ("1 Daten", "Lernende, Lehrpersonen, Schulhäuser erfassen oder Excel hochladen", hat_daten),
             ("2 Prüfen", "Fehlende oder widersprüchliche Angaben finden", hat_daten),
             ("3 Berechnen", "Klassen und Stundenplan berechnen lassen", hat_ergebnis),
-            ("4 Ergebnis", "Karte, Klassenlisten, Stundenpläne, Empfehlungen", hat_ergebnis)]):
+            ("4 Ergebnis", "Karte, Klassenlisten, Stundenpläne, Planung & Kosten", hat_ergebnis)]):
         with spalte.container(border=True):
             st.markdown(f"{':green[:material/check_circle:]' if fertig else ':gray[:material/radio_button_unchecked:]'} "
                         f"**{titel}**")
@@ -584,33 +585,127 @@ def seite_berechnen() -> None:
         st.info("Zuerst Daten laden (Schritt 1).")
         return
     cfg, kinder = _aktuelle_daten()
-    szenarien = ["Basis"] + list((cfg.get("szenarien") or {}).keys())
-    c1, c2 = st.columns(2)
-    szenario = c1.selectbox("Szenario", szenarien, help="Varianten (z.B. Umbau, Lehrpersonenmangel) sind in der "
-                                                      "Konfiguration unter 'szenarien' definiert.")
-    zeit = c2.select_slider("Rechenzeit", options=[30, 60, 120, 300, 600], value=120,
+    infos = szenario_infos(cfg)
+    gewaehlt = st.multiselect(
+        "Szenarien", list(infos), default=["Basis"],
+        format_func=lambda n: f"{n} · {infos[n]['ziel']}" if infos[n]["ziel"] else n,
+        help="Jedes Szenario ist eine Hypothese (\"Was wäre, wenn …\"). Mehrere wählen = nacheinander rechnen "
+             "und nebeneinander vergleichen.")
+    for n in gewaehlt:
+        if infos[n]["hypothese"]:
+            st.caption(f":material/lightbulb: **{n}:** {infos[n]['hypothese']}")
+    _hypothese_anlegen(cfg)
+    zeit = st.select_slider("Rechenzeit pro Szenario", options=[30, 60, 120, 300, 600], value=120,
                             format_func=lambda s: f"{s // 60} min" if s >= 60 else f"{s} s",
                             help="Mehr Zeit = näher am Optimum. Kleine Schulen sind in Sekunden fertig.")
     notiz = st.text_input("Notiz für den Verlauf (optional)", placeholder="z.B. Variante mit 2 Mehrjahrgangsklassen")
-    if st.button("Klassen und Stundenplan berechnen", type="primary", width="stretch", icon=":material/play_arrow:"):
-        try:
-            schule = _schule_aus_cfg(cfg, szenario)
-        except Exception as fehler:  # noqa: BLE001
-            st.error(f"Die Angaben sind fehlerhaft: {fehler}")
-            return
-        with st.status("Berechnung läuft – bitte warten …", expanded=True) as status:
-            r = rechne(schule, kinder, zeitlimit=zeit, protokoll=lambda t: st.write(t.strip()))
-            st.session_state.ergebnis = r
+    if st.button("Klassen und Stundenplan berechnen", type="primary", width="stretch", icon=":material/play_arrow:",
+                 disabled=not gewaehlt):
+        ergebnisse = {}
+        for szenario in gewaehlt:
             try:
-                st.session_state.stand = str(verlauf.speichere(r, cfg, notiz))
-                st.write(":material/history: Im Verlauf gespeichert.")
-            except OSError as fehler:
-                st.warning(f"Verlauf konnte nicht gespeichert werden: {fehler}")
-            ok = r.anzahl("Fehler") == 0 and r.vollstaendig
-            status.update(label="Fertig" if ok else "Fertig – mit Fehlern (siehe Ergebnis)",
-                          state="complete" if ok else "error")
+                schule = _schule_aus_cfg(cfg, szenario)
+            except Exception as fehler:  # noqa: BLE001
+                st.error(f"{szenario}: Die Angaben sind fehlerhaft: {fehler}")
+                continue
+            with st.status(f"{szenario}: Berechnung läuft – bitte warten …", expanded=len(gewaehlt) == 1) as status:
+                r = rechne(schule, kinder, zeitlimit=zeit, protokoll=lambda t: st.write(t.strip()))
+                ergebnisse[szenario] = r
+                try:
+                    st.session_state.stand = str(verlauf.speichere(r, cfg, notiz))
+                    st.write(":material/history: Im Verlauf gespeichert.")
+                except OSError as fehler:
+                    st.warning(f"Verlauf konnte nicht gespeichert werden: {fehler}")
+                ok = r.anzahl("Fehler") == 0 and r.vollstaendig
+                status.update(label=f"{szenario}: fertig" if ok else f"{szenario}: fertig – mit Fehlern",
+                              state="complete" if ok else "error")
+        if ergebnisse:
+            st.session_state.ergebnis = next(iter(ergebnisse.values()))
+            st.session_state.vergleich = ergebnisse if len(ergebnisse) > 1 else None
+    if st.session_state.get("vergleich"):
+        _szenarien_vergleich(st.session_state.vergleich)
     if st.session_state.get("ergebnis"):
         _weiter("ergebnis", "Zum Ergebnis")
+
+
+def _planung_tab(r: Ergebnis, kz: dict) -> None:
+    """Kosten, Qualität und Langfristplanung – Zahlen oben, Details und Empfehlungen darunter."""
+    jahre = r.planung.jahre
+    werte = [(k, kz[k]) for k in ("Kosten/Jahr", "Kosten pro Lernende", "Klassen nahe Idealgrösse",
+                                  "Lehrpersonen pro Klasse", "Auslastung Schulzimmer") if k in kz]
+    if jahre and len(jahre) > 1:
+        z = jahre[-1]
+        werte.append((f"Lernende {z['Schuljahr']}", f"{z['Lernende']}",))
+        werte.append((f"Fehlende Räume {z['Schuljahr']}", str(z["fehlende Räume"])))
+    if werte:
+        for spalte, (k, v) in zip(st.columns(len(werte)), werte):
+            spalte.metric(k, v)
+    if jahre and len(jahre) > 1:
+        df = pd.DataFrame(jahre).set_index("Schuljahr")[["Lernende", "Klassen (mind.)"]]
+        st.line_chart(df, height=220)
+    if not (r.schule.kosten or {}).get("lektion_chf"):
+        st.caption("Ohne Kostenmodell werden nur Mengen gezählt – Ansätze in den Einstellungen unter "
+                   "`kosten` ergänzen (siehe Hilfe).")
+    _html(_empfehlungen_html(r) or "<p>Keine Empfehlungen.</p>", 720)
+
+
+def _szenarien_vergleich(ergebnisse: dict[str, Ergebnis]) -> None:
+    st.subheader("Szenarien im Vergleich")
+    kz = {n: r.kennzahlen() for n, r in ergebnisse.items()}
+    for n, r in ergebnisse.items():
+        if r.planung.jahre:
+            letzt = r.planung.jahre[-1]
+            kz[n][f"Klassen {letzt['Schuljahr']}"] = str(letzt["Klassen (mind.)"])
+            kz[n][f"Fehlende Räume {letzt['Schuljahr']}"] = str(letzt["fehlende Räume"])
+    zeilen = list(dict.fromkeys(k for v in kz.values() for k in v))
+    df = pd.DataFrame({n: [ergebnisse[n].schule.hypothese or "Heutige Angaben"] + [kz[n].get(k, "–") for k in zeilen]
+                       for n in ergebnisse}, index=["Hypothese"] + zeilen)
+    st.dataframe(df, width="stretch")
+    wahl = st.radio("Im Ergebnis anzeigen", list(ergebnisse), horizontal=True, key="vergleich_wahl")
+    st.session_state.ergebnis = ergebnisse[wahl]
+
+
+def _hypothese_anlegen(cfg: dict) -> None:
+    """Neues Szenario aus einfachen Hebeln – landet in den Einstellungen unter 'szenarien'."""
+    with st.expander("Neue Hypothese als Szenario anlegen", icon=":material/add_circle:"):
+        name = st.text_input("Name", placeholder="z.B. Neubaugebiet Nord doppelt", key="hyp_name")
+        hypothese = st.text_input("Was wäre, wenn …", key="hyp_text",
+                                  placeholder="z.B. Was wäre, wenn 2030 ein Quartier mit 200 Wohnungen dazukommt?")
+        hebel = st.multiselect("Schwerpunkt (Kosten oder Qualität)", list(GEWICHT_HEBEL), key="hyp_hebel",
+                               format_func=lambda h: f"{h} · {GEWICHT_HEBEL[h][0]}")
+        a, b = st.columns(2)
+        planung = cfg.get("planung") or {}
+        wachstum = a.number_input("Wachstum Lernende % pro Jahr", -20.0, 20.0,
+                                  float(planung.get("wachstum_prozent", 0)), 0.5, key="hyp_wachstum")
+        lehrpersonen = b.multiselect("Stellen unbesetzt", [lp["name"] for lp in cfg.get("lehrpersonen") or []],
+                                     key="hyp_lp")
+        quartier = None
+        if st.toggle("Quartierentwicklung (Zuzug ab einem Schuljahr)", key="hyp_q"):
+            c, d, e, f = st.columns(4)
+            q_name = c.text_input("Quartier", "Neubaugebiet", key="hyp_q_name")
+            q_sh = d.selectbox("Schulhaus", [s["name"] for s in cfg.get("schulhaeuser") or []], key="hyp_q_sh")
+            q_ab = e.text_input("ab Schuljahr", key="hyp_q_ab", placeholder="2029/30")
+            q_wo = f.number_input("Wohnungen", 0, 5000, 100, 10, key="hyp_q_wo")
+            quartier = {"name": q_name, "schulhaus": q_sh, "ab": q_ab or "1", "wohnungen": q_wo,
+                        "kinder_pro_wohnung": 0.3}
+            st.caption("Annahme: 0.3 schulpflichtige Kinder pro Wohnung, verteilt über alle Stufen "
+                       "(in den Einstellungen unter planung.quartiere anpassbar).")
+        if st.button("Szenario anlegen", icon=":material/save:", key="hyp_speichern",
+                     disabled=not (name and hypothese)):
+            aendert_wachstum = wachstum != float(planung.get("wachstum_prozent", 0))
+            patch = szenario_aus_hebeln(hypothese, hebel, wachstum if aendert_wachstum else None, quartier,
+                                        lehrpersonen)
+            rest = st.session_state.extra["rest"]
+            rest.setdefault("szenarien", {})[name] = patch
+            try:
+                _schule_aus_cfg(_aktuelle_daten()[0], name)
+            except Exception as fehler:  # noqa: BLE001
+                rest["szenarien"].pop(name)
+                st.error(f"Szenario nicht angelegt: {fehler}")
+                return
+            st.toast(f"Szenario „{name}“ angelegt – jetzt oben auswählen. Es steht auch in den Einstellungen "
+                     "und wird mit den Daten gespeichert.", icon=":material/check_circle:")
+            st.rerun()
 
 
 def _kind_karte(r: Ergebnis, kid: str) -> None:
@@ -696,7 +791,7 @@ def _anpassen(r: Ergebnis, nach_id: dict, klasse) -> None:
 
 
 def seite_ergebnis() -> None:
-    _kopf("Ergebnis", "Karte, Klassen, Begründungen, Stundenpläne, Empfehlungen und Downloads", "Schritt 4 von 4")
+    _kopf("Ergebnis", "Karte, Klassen, Begründungen, Stundenpläne, Planung & Kosten und Downloads", "Schritt 4 von 4")
     r: Ergebnis | None = st.session_state.get("ergebnis")
     if not r:
         st.info("Noch nichts berechnet (Schritt 3).")
@@ -706,6 +801,9 @@ def seite_ergebnis() -> None:
     else:
         st.success("Alle harten Regeln erfüllt." + (f" {r.anzahl('Warnung')} Warnungen bitte prüfen."
                                                        if r.anzahl("Warnung") else ""))
+    if r.schule.hypothese:
+        st.caption(f":material/lightbulb: Szenario **{r.schule.szenario}**"
+                   f"{' · ' + r.schule.ziel if r.schule.ziel else ''}: {r.schule.hypothese}")
     kz = r.kennzahlen()
     spalten = st.columns(6)
     for i, k in enumerate(["Klassen", "Ø Klassengrösse", "Ø Schulweg", "Wünsche erfüllt", "Förderlektionen",
@@ -713,7 +811,7 @@ def seite_ergebnis() -> None:
         spalten[i].metric(k, kz[k])
     tabs = st.tabs([":material/map: Karte", ":material/groups: Klassen", ":material/person_search: Lernende",
                     ":material/calendar_month: Stundenpläne", ":material/favorite: Wünsche",
-                    ":material/lightbulb: Empfehlungen", ":material/verified: Prüfung", ":material/download: Herunterladen"])
+                    ":material/trending_up: Planung & Kosten", ":material/verified: Prüfung", ":material/download: Herunterladen"])
     e = r.einteilung
     with tabs[6]:
         if e:
@@ -797,7 +895,7 @@ def seite_ergebnis() -> None:
     with tabs[4]:
         _html(_wuensche_html(r), 560)
     with tabs[5]:
-        _html(_empfehlungen_html(r) or "<p>Keine Empfehlungen.</p>", 720)
+        _planung_tab(r, kz)
     with tabs[7]:
         mit_foerder = st.toggle("IF/DaZ/IS in Klassenlisten aufnehmen (besonders schützenswerte Daten)")
         with tempfile.TemporaryDirectory() as tmp:
@@ -980,7 +1078,7 @@ def seite_hilfe() -> None:
    :orange[:material/warning:] Warnung, :gray[:material/info:] Hinweis).
 3. **Berechnen** – Szenario und Rechenzeit wählen, starten. Jede Berechnung landet im Verlauf.
 4. **Ergebnis** – Karte, Klassen, Lernende (Personenkarte mit Geschwistern, Wünschen, Verlauf), manuell anpassen,
-   Stundenpläne, Wünsche, Empfehlungen, Downloads.
+   Stundenpläne, Wünsche, Planung & Kosten (Empfehlungen, Langfristplanung), Downloads.
 
 **Begriffe**
 - *Lernende*: Kinder und Jugendliche in Kindergarten, Primar und Oberstufe · *Erziehungsberechtigte*: Eltern bzw. Sorgeberechtigte.

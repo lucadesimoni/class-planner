@@ -39,6 +39,20 @@ class Ergebnis:
     def _wunschquote(self) -> str:
         return _wunschquote_text(wuensche(self.kinder, self.einteilung))
 
+    def _kosten_qualitaet(self) -> dict[str, str]:
+        from .kosten import chf, kosten, mengen, qualitaet
+
+        if not self.einteilung:
+            return {}
+        out = {"Lektionen/Woche": str(mengen(self)["Lektionen/Woche"])} if self.bloecke else {}
+        out.update(qualitaet(self))
+        posten = kosten(self)
+        if posten and self.bloecke:
+            total = posten[-1]["CHF"]
+            out["Kosten/Jahr"] = chf(total)
+            out["Kosten pro Lernende"] = chf(total / max(1, len(self.kinder)))
+        return out
+
     def kennzahlen(self) -> dict[str, str]:
         e = self.einteilung
         mit_adresse = {k.id for k in self.kinder if k.lat is not None}
@@ -55,6 +69,7 @@ class Ergebnis:
             if self.bloecke else "–",
             "Springstunden": str(sum("Springstunde" in m.text for m in self.meldungen)) if self.lektionen else "–",
             "Wünsche erfüllt": self._wunschquote() if e else "–",
+            **self._kosten_qualitaet(),
             "Fehler": str(self.anzahl("Fehler")),
             "Warnungen": str(self.anzahl("Warnung")),
             "Hinweise": str(self.anzahl("Hinweis")),

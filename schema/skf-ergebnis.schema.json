@@ -15,8 +15,20 @@
     "schule": {"type": "string"},
     "schuljahr": {"type": "string"},
     "szenario": {"type": "string"},
+    "hypothese": {"type": "string", "description": "Was wäre, wenn … (leer bei Basis)"},
+    "ziel": {"enum": ["", "Kosten", "Qualität", "Planung"]},
     "vollstaendig": {"type": "boolean", "description": "true = Klassen, Lehraufträge und Stundenplan berechnet"},
     "kennzahlen": {"type": "object", "additionalProperties": {"type": "string"}},
+    "kosten": {"type": "array", "description": "Kostenposten pro Jahr (leer ohne Kostenmodell); letzte Zeile Total",
+      "items": {"type": "object", "required": ["posten", "chf"], "properties": {
+        "posten": {"type": "string"}, "menge": {"type": "string"}, "chf": {"type": "number"}}}},
+    "langfristplanung": {"type": "array", "description": "Prognose pro Schuljahr (Jahr 0 = Planjahr)",
+      "items": {"type": "object", "required": ["Schuljahr", "Jahr", "Lernende"], "properties": {
+        "Schuljahr": {"type": "string"}, "Jahr": {"type": "integer"}, "Lernende": {"type": "integer"},
+        "davon Zuzug Quartiere": {"type": "integer"}, "Klassen (mind.)": {"type": "integer"},
+        "fehlende Räume": {"type": "integer"}, "Lektionen/Woche": {"type": "integer"},
+        "Stellen (Vollpensum)": {"type": "number"}, "Stellen fehlen": {"type": "number"},
+        "Kosten/Jahr (CHF)": {"type": "number"}}}},
     "loesungsguete": {"type": "array", "items": {"type": "object", "properties": {
       "schritt": {"type": "string"}, "status": {"enum": ["beweisbar optimal", "gute Lösung"]},
       "mindestens": {"type": "number", "description": "garantierte Mindestgüte in % des Optimums"},

@@ -1,0 +1,7010 @@
+{
+ "format": "skf-ergebnis",
+ "version": 1,
+ "programm": "0.1.0",
+ "profilversion": "2026.10.1",
+ "erstellt": "2026-10-21T12:44:14",
+ "schule": "Schule Malters – Volksschule (Beispiel)",
+ "schuljahr": "2027/28",
+ "szenario": "Qualität: kleinere Klassen",
+ "hypothese": "Was wäre, wenn die Klassen möglichst nahe an der Idealgrösse liegen?",
+ "ziel": "Qualität",
+ "vollstaendig": false,
+ "kennzahlen": {
+  "Klassen": "47",
+  "Ø Klassengrösse": "18.8",
+  "Ø Schulweg": "1.42 km",
+  "Max. Schulweg": "5.51 km",
+  "Mehrjahrgangsklassen": "6",
+  "Lehrpersonen im Einsatz": "–",
+  "Förderlektionen": "–",
+  "Springstunden": "–",
+  "Wünsche erfüllt": "64/84",
+  "Klassen nahe Idealgrösse": "34/47",
+  "Fehler": "1",
+  "Warnungen": "9",
+  "Hinweise": "76",
+  "Rechenzeit": "32 s"
+ },
+ "loesungsguete": [
+  {
+   "schritt": "Klassenbildung A (Schulhaus und Klassen)",
+   "status": "gute Lösung",
+   "mindestens": 97.2,
+   "sekunden": 18.0
+  },
+  {
+   "schritt": "Klassenbildung B (Zuteilung Bündtmättli)",
+   "status": "gute Lösung",
+   "mindestens": 87.2,
+   "sekunden": 3.0
+  },
+  {
+   "schritt": "Klassenbildung B (Zuteilung Eischachen)",
+   "status": "beweisbar optimal",
+   "mindestens": 100.0,
+   "sekunden": 0.9
+  },
+  {
+   "schritt": "Klassenbildung B (Zuteilung Im Feld)",
+   "status": "beweisbar optimal",
+   "mindestens": 100.0,
+   "sekunden": 0.0
+  },
+  {
+   "schritt": "Klassenbildung B (Zuteilung Oberstufe)",
+   "status": "beweisbar optimal",
+   "mindestens": 100.0,
+   "sekunden": 0.1
+  }
+ ],
+ "kosten": [
+  {
+   "posten": "Lehrpersonal",
+   "menge": "0 Lektionen/Woche",
+   "chf": 0.0
+  },
+  {
+   "posten": "Räume: Kindergarten",
+   "menge": "7",
+   "chf": 105000.0
+  },
+  {
+   "posten": "Räume: Klassenzimmer",
+   "menge": "39",
+   "chf": 585000.0
+  },
+  {
+   "posten": "Schulhausbetrieb",
+   "menge": "4",
+   "chf": 360000.0
+  },
+  {
+   "posten": "Schulbus",
+   "menge": "45 Lernende",
+   "chf": 54000.0
+  },
+  {
+   "posten": "Total",
+   "menge": "",
+   "chf": 1104000.0
+  }
+ ],
+ "langfristplanung": [
+  {
+   "Schuljahr": "2027/28",
+   "Jahr": 0,
+   "Lernende": 884,
+   "davon Zuzug Quartiere": 0,
+   "Klassen (mind.)": 48,
+   "fehlende Räume": 1,
+   "Kosten/Jahr (CHF)": 1104000.0
+  },
+  {
+   "Schuljahr": "2028/29",
+   "Jahr": 1,
+   "Lernende": 876,
+   "davon Zuzug Quartiere": 0,
+   "Klassen (mind.)": 49,
+   "fehlende Räume": 2,
+   "Kosten/Jahr (CHF)": 1118000.0
+  },
+  {
+   "Schuljahr": "2029/30",
+   "Jahr": 2,
+   "Lernende": 908,
+   "davon Zuzug Quartiere": 36,
+   "Klassen (mind.)": 52,
+   "fehlende Räume": 5,
+   "Kosten/Jahr (CHF)": 1163000.0
+  },
+  {
+   "Schuljahr": "2030/31",
+   "Jahr": 3,
+   "Lernende": 901,
+   "davon Zuzug Quartiere": 0,
+   "Klassen (mind.)": 52,
+   "fehlende Räume": 5,
+   "Kosten/Jahr (CHF)": 1163000.0
+  },
+  {
+   "Schuljahr": "2031/32",
+   "Jahr": 4,
+   "Lernende": 904,
+   "davon Zuzug Quartiere": 0,
+   "Klassen (mind.)": 52,
+   "fehlende Räume": 5,
+   "Kosten/Jahr (CHF)": 1163000.0
+  }
+ ],
+ "zeitfenster": [
+  {
+   "index": 0,
+   "tag": "Mo",
+   "halbtag": "VM",
+   "lektion": 1,
+   "beginn": "08:00"
+  },
+  {
+   "index": 1,
+   "tag": "Mo",
+   "halbtag": "VM",
+   "lektion": 2,
+   "beginn": "08:50"
+  },
+  {
+   "index": 2,
+   "tag": "Mo",
+   "halbtag": "VM",
+   "lektion": 3,
+   "beginn": "09:55"
+  },
+  {
+   "index": 3,
+   "tag": "Mo",
+   "halbtag": "VM",
+   "lektion": 4,
+   "beginn": "10:45"
+  },
+  {
+   "index": 4,
+   "tag": "Mo",
+   "halbtag": "NM",
+   "lektion": 1,
+   "beginn": "13:30"
+  },
+  {
+   "index": 5,
+   "tag": "Mo",
+   "halbtag": "NM",
+   "lektion": 2,
+   "beginn": "14:20"
+  },
+  {
+   "index": 6,
+   "tag": "Di",
+   "halbtag": "VM",
+   "lektion": 1,
+   "beginn": "08:00"
+  },
+  {
+   "index": 7,
+   "tag": "Di",
+   "halbtag": "VM",
+   "lektion": 2,
+   "beginn": "08:50"
+  },
+  {
+   "index": 8,
+   "tag": "Di",
+   "halbtag": "VM",
+   "lektion": 3,
+   "beginn": "09:55"
+  },
+  {
+   "index": 9,
+   "tag": "Di",
+   "halbtag": "VM",
+   "lektion": 4,
+   "beginn": "10:45"
+  },
+  {
+   "index": 10,
+   "tag": "Di",
+   "halbtag": "NM",
+   "lektion": 1,
+   "beginn": "13:30"
+  },
+  {
+   "index": 11,
+   "tag": "Di",
+   "halbtag": "NM",
+   "lektion": 2,
+   "beginn": "14:20"
+  },
+  {
+   "index": 12,
+   "tag": "Mi",
+   "halbtag": "VM",
+   "lektion": 1,
+   "beginn": "08:00"
+  },
+  {
+   "index": 13,
+   "tag": "Mi",
+   "halbtag": "VM",
+   "lektion": 2,
+   "beginn": "08:50"
+  },
+  {
+   "index": 14,
+   "tag": "Mi",
+   "halbtag": "VM",
+   "lektion": 3,
+   "beginn": "09:55"
+  },
+  {
+   "index": 15,
+   "tag": "Mi",
+   "halbtag": "VM",
+   "lektion": 4,
+   "beginn": "10:45"
+  },
+  {
+   "index": 16,
+   "tag": "Do",
+   "halbtag": "VM",
+   "lektion": 1,
+   "beginn": "08:00"
+  },
+  {
+   "index": 17,
+   "tag": "Do",
+   "halbtag": "VM",
+   "lektion": 2,
+   "beginn": "08:50"
+  },
+  {
+   "index": 18,
+   "tag": "Do",
+   "halbtag": "VM",
+   "lektion": 3,
+   "beginn": "09:55"
+  },
+  {
+   "index": 19,
+   "tag": "Do",
+   "halbtag": "VM",
+   "lektion": 4,
+   "beginn": "10:45"
+  },
+  {
+   "index": 20,
+   "tag": "Do",
+   "halbtag": "NM",
+   "lektion": 1,
+   "beginn": "13:30"
+  },
+  {
+   "index": 21,
+   "tag": "Do",
+   "halbtag": "NM",
+   "lektion": 2,
+   "beginn": "14:20"
+  },
+  {
+   "index": 22,
+   "tag": "Fr",
+   "halbtag": "VM",
+   "lektion": 1,
+   "beginn": "08:00"
+  },
+  {
+   "index": 23,
+   "tag": "Fr",
+   "halbtag": "VM",
+   "lektion": 2,
+   "beginn": "08:50"
+  },
+  {
+   "index": 24,
+   "tag": "Fr",
+   "halbtag": "VM",
+   "lektion": 3,
+   "beginn": "09:55"
+  },
+  {
+   "index": 25,
+   "tag": "Fr",
+   "halbtag": "VM",
+   "lektion": 4,
+   "beginn": "10:45"
+  },
+  {
+   "index": 26,
+   "tag": "Fr",
+   "halbtag": "NM",
+   "lektion": 1,
+   "beginn": "13:30"
+  },
+  {
+   "index": 27,
+   "tag": "Fr",
+   "halbtag": "NM",
+   "lektion": 2,
+   "beginn": "14:20"
+  }
+ ],
+ "klassen": [
+  {
+   "name": "BM 1/2a",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-Zi 4",
+   "klassentyp": "1/2",
+   "jahrgaenge": [
+    "1",
+    "2"
+   ],
+   "lernende": [
+    "K0007",
+    "K0067",
+    "K0070",
+    "K0153",
+    "K0237",
+    "K0273",
+    "K0280",
+    "K0315",
+    "K0320",
+    "K0435",
+    "K0479",
+    "K0532",
+    "K0537",
+    "K0546",
+    "K0557",
+    "K0564",
+    "K0594",
+    "K0614",
+    "K0619",
+    "K0620"
+   ],
+   "anzahl": 20,
+   "maedchen": 11,
+   "knaben": 9
+  },
+  {
+   "name": "BM 1a",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-Zi 5",
+   "klassentyp": "1",
+   "jahrgaenge": [
+    "1"
+   ],
+   "lernende": [
+    "K0002",
+    "K0114",
+    "K0150",
+    "K0215",
+    "K0255",
+    "K0265",
+    "K0266",
+    "K0303",
+    "K0350",
+    "K0405",
+    "K0419",
+    "K0438",
+    "K0453",
+    "K0486",
+    "K0517",
+    "K0579",
+    "K0583",
+    "K0607",
+    "K0609",
+    "K0615"
+   ],
+   "anzahl": 20,
+   "maedchen": 11,
+   "knaben": 9
+  },
+  {
+   "name": "BM 1b",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-Zi 8",
+   "klassentyp": "1",
+   "jahrgaenge": [
+    "1"
+   ],
+   "lernende": [
+    "K0029",
+    "K0049",
+    "K0089",
+    "K0154",
+    "K0162",
+    "K0194",
+    "K0195",
+    "K0241",
+    "K0277",
+    "K0283",
+    "K0440",
+    "K0448",
+    "K0490",
+    "K0494",
+    "K0531",
+    "K0545",
+    "K0547",
+    "K0555",
+    "K0576",
+    "K0605"
+   ],
+   "anzahl": 20,
+   "maedchen": 10,
+   "knaben": 10
+  },
+  {
+   "name": "BM 1/2b",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-Zi 13",
+   "klassentyp": "1/2",
+   "jahrgaenge": [
+    "1",
+    "2"
+   ],
+   "lernende": [
+    "K0003",
+    "K0042",
+    "K0077",
+    "K0081",
+    "K0098",
+    "K0100",
+    "K0141",
+    "K0159",
+    "K0262",
+    "K0284",
+    "K0321",
+    "K0372",
+    "K0412",
+    "K0462",
+    "K0485",
+    "K0487",
+    "K0588",
+    "K0595",
+    "K0598",
+    "K0623"
+   ],
+   "anzahl": 20,
+   "maedchen": 9,
+   "knaben": 11
+  },
+  {
+   "name": "BM 2a",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-Zi 1",
+   "klassentyp": "2",
+   "jahrgaenge": [
+    "2"
+   ],
+   "lernende": [
+    "K0017",
+    "K0032",
+    "K0037",
+    "K0066",
+    "K0163",
+    "K0179",
+    "K0185",
+    "K0216",
+    "K0263",
+    "K0274",
+    "K0302",
+    "K0313",
+    "K0329",
+    "K0374",
+    "K0408",
+    "K0426",
+    "K0476",
+    "K0503",
+    "K0508",
+    "K0524"
+   ],
+   "anzahl": 20,
+   "maedchen": 8,
+   "knaben": 12
+  },
+  {
+   "name": "BM 3a",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-Zi 6",
+   "klassentyp": "3",
+   "jahrgaenge": [
+    "3"
+   ],
+   "lernende": [
+    "K0018",
+    "K0038",
+    "K0055",
+    "K0101",
+    "K0102",
+    "K0186",
+    "K0223",
+    "K0288",
+    "K0319",
+    "K0344",
+    "K0375",
+    "K0385",
+    "K0413",
+    "K0449",
+    "K0463",
+    "K0491",
+    "K0492",
+    "K0509",
+    "K0563",
+    "K0566"
+   ],
+   "anzahl": 20,
+   "maedchen": 12,
+   "knaben": 8
+  },
+  {
+   "name": "BM 3/4a",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-Zi 10",
+   "klassentyp": "3/4",
+   "jahrgaenge": [
+    "3",
+    "4"
+   ],
+   "lernende": [
+    "K0031",
+    "K0043",
+    "K0045",
+    "K0068",
+    "K0104",
+    "K0109",
+    "K0115",
+    "K0127",
+    "K0165",
+    "K0169",
+    "K0222",
+    "K0386",
+    "K0388",
+    "K0397",
+    "K0409",
+    "K0441",
+    "K0480",
+    "K0504",
+    "K0518",
+    "K0530",
+    "K0551"
+   ],
+   "anzahl": 21,
+   "maedchen": 12,
+   "knaben": 9
+  },
+  {
+   "name": "BM 3b",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-Zi 12",
+   "klassentyp": "3",
+   "jahrgaenge": [
+    "3"
+   ],
+   "lernende": [
+    "K0004",
+    "K0010",
+    "K0046",
+    "K0060",
+    "K0106",
+    "K0130",
+    "K0151",
+    "K0164",
+    "K0256",
+    "K0258",
+    "K0294",
+    "K0299",
+    "K0306",
+    "K0314",
+    "K0330",
+    "K0338",
+    "K0403",
+    "K0452",
+    "K0482",
+    "K0548"
+   ],
+   "anzahl": 20,
+   "maedchen": 12,
+   "knaben": 8
+  },
+  {
+   "name": "BM 4a",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-Zi 3",
+   "klassentyp": "4",
+   "jahrgaenge": [
+    "4"
+   ],
+   "lernende": [
+    "K0019",
+    "K0030",
+    "K0053",
+    "K0078",
+    "K0121",
+    "K0175",
+    "K0189",
+    "K0218",
+    "K0281",
+    "K0295",
+    "K0304",
+    "K0322",
+    "K0332",
+    "K0401",
+    "K0450",
+    "K0467",
+    "K0506",
+    "K0514",
+    "K0552",
+    "K0558"
+   ],
+   "anzahl": 20,
+   "maedchen": 8,
+   "knaben": 12
+  },
+  {
+   "name": "BM 5a",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-Zi 7",
+   "klassentyp": "5",
+   "jahrgaenge": [
+    "5"
+   ],
+   "lernende": [
+    "K0020",
+    "K0136",
+    "K0142",
+    "K0160",
+    "K0180",
+    "K0210",
+    "K0224",
+    "K0290",
+    "K0305",
+    "K0309",
+    "K0323",
+    "K0333",
+    "K0342",
+    "K0360",
+    "K0420",
+    "K0421",
+    "K0427",
+    "K0451",
+    "K0515",
+    "K0519"
+   ],
+   "anzahl": 20,
+   "maedchen": 11,
+   "knaben": 9
+  },
+  {
+   "name": "BM 5b",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-Zi 11",
+   "klassentyp": "5",
+   "jahrgaenge": [
+    "5"
+   ],
+   "lernende": [
+    "K0015",
+    "K0016",
+    "K0039",
+    "K0059",
+    "K0062",
+    "K0099",
+    "K0108",
+    "K0123",
+    "K0229",
+    "K0231",
+    "K0285",
+    "K0293",
+    "K0339",
+    "K0392",
+    "K0398",
+    "K0417",
+    "K0460",
+    "K0499",
+    "K0500",
+    "K0520"
+   ],
+   "anzahl": 20,
+   "maedchen": 11,
+   "knaben": 9
+  },
+  {
+   "name": "BM 6a",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-Zi 2",
+   "klassentyp": "6",
+   "jahrgaenge": [
+    "6"
+   ],
+   "lernende": [
+    "K0044",
+    "K0047",
+    "K0054",
+    "K0187",
+    "K0191",
+    "K0192",
+    "K0289",
+    "K0291",
+    "K0317",
+    "K0335",
+    "K0345",
+    "K0373",
+    "K0379",
+    "K0380",
+    "K0381",
+    "K0425",
+    "K0442",
+    "K0475",
+    "K0489",
+    "K0553"
+   ],
+   "anzahl": 20,
+   "maedchen": 8,
+   "knaben": 12
+  },
+  {
+   "name": "BM 6b",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-Zi 9",
+   "klassentyp": "6",
+   "jahrgaenge": [
+    "6"
+   ],
+   "lernende": [
+    "K0001",
+    "K0023",
+    "K0035",
+    "K0061",
+    "K0091",
+    "K0110",
+    "K0131",
+    "K0146",
+    "K0161",
+    "K0261",
+    "K0267",
+    "K0331",
+    "K0340",
+    "K0389",
+    "K0390",
+    "K0468",
+    "K0498",
+    "K0521",
+    "K0541",
+    "K0544"
+   ],
+   "anzahl": 20,
+   "maedchen": 8,
+   "knaben": 12
+  },
+  {
+   "name": "BM KGa",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-KG 1",
+   "klassentyp": "KG",
+   "jahrgaenge": [
+    "KG1",
+    "KG2"
+   ],
+   "lernende": [
+    "K0140",
+    "K0158",
+    "K0173",
+    "K0264",
+    "K0346",
+    "K0351",
+    "K0418",
+    "K0430",
+    "K0577",
+    "K0578",
+    "K0593",
+    "K0597",
+    "K0599",
+    "K0601",
+    "K0604",
+    "K0611",
+    "K0612",
+    "K0637",
+    "K0638",
+    "K0642"
+   ],
+   "anzahl": 20,
+   "maedchen": 10,
+   "knaben": 10
+  },
+  {
+   "name": "BM KGb",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-KG 2",
+   "klassentyp": "KG",
+   "jahrgaenge": [
+    "KG1",
+    "KG2"
+   ],
+   "lernende": [
+    "K0234",
+    "K0272",
+    "K0282",
+    "K0357",
+    "K0363",
+    "K0364",
+    "K0369",
+    "K0377",
+    "K0404",
+    "K0416",
+    "K0432",
+    "K0469",
+    "K0484",
+    "K0505",
+    "K0512",
+    "K0523",
+    "K0556",
+    "K0575",
+    "K0628"
+   ],
+   "anzahl": 19,
+   "maedchen": 10,
+   "knaben": 9
+  },
+  {
+   "name": "BM KGc",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-KG 3",
+   "klassentyp": "KG",
+   "jahrgaenge": [
+    "KG1",
+    "KG2"
+   ],
+   "lernende": [
+    "K0024",
+    "K0025",
+    "K0048",
+    "K0058",
+    "K0088",
+    "K0103",
+    "K0152",
+    "K0177",
+    "K0257",
+    "K0298",
+    "K0378",
+    "K0384",
+    "K0434",
+    "K0437",
+    "K0465",
+    "K0466",
+    "K0516",
+    "K0559",
+    "K0574"
+   ],
+   "anzahl": 19,
+   "maedchen": 10,
+   "knaben": 9
+  },
+  {
+   "name": "BM KGd",
+   "schulhaus": "Bündtmättli",
+   "raum": "BM-KG 4",
+   "klassentyp": "KG",
+   "jahrgaenge": [
+    "KG1",
+    "KG2"
+   ],
+   "lernende": [
+    "K0096",
+    "K0116",
+    "K0184",
+    "K0193",
+    "K0228",
+    "K0312",
+    "K0370",
+    "K0383",
+    "K0393",
+    "K0402",
+    "K0458",
+    "K0522",
+    "K0554",
+    "K0584",
+    "K0603",
+    "K0618",
+    "K0631",
+    "K0632",
+    "K0636"
+   ],
+   "anzahl": 19,
+   "maedchen": 10,
+   "knaben": 9
+  },
+  {
+   "name": "EI 1a",
+   "schulhaus": "Eischachen",
+   "raum": "EI-Zi 2",
+   "klassentyp": "1",
+   "jahrgaenge": [
+    "1"
+   ],
+   "lernende": [
+    "K0052",
+    "K0074",
+    "K0243",
+    "K0249",
+    "K0279",
+    "K0296",
+    "K0336",
+    "K0341",
+    "K0406",
+    "K0428",
+    "K0444",
+    "K0493",
+    "K0550",
+    "K0562",
+    "K0565",
+    "K0569",
+    "K0580",
+    "K0581",
+    "K0591",
+    "K0592",
+    "K0613",
+    "K0622"
+   ],
+   "anzahl": 22,
+   "maedchen": 12,
+   "knaben": 10
+  },
+  {
+   "name": "EI 2a",
+   "schulhaus": "Eischachen",
+   "raum": "EI-Zi 5",
+   "klassentyp": "2",
+   "jahrgaenge": [
+    "2"
+   ],
+   "lernende": [
+    "K0021",
+    "K0026",
+    "K0069",
+    "K0079",
+    "K0082",
+    "K0168",
+    "K0170",
+    "K0204",
+    "K0221",
+    "K0233",
+    "K0239",
+    "K0286",
+    "K0316",
+    "K0356",
+    "K0391",
+    "K0407",
+    "K0429",
+    "K0454",
+    "K0456",
+    "K0507",
+    "K0526"
+   ],
+   "anzahl": 21,
+   "maedchen": 10,
+   "knaben": 11
+  },
+  {
+   "name": "EI 2b",
+   "schulhaus": "Eischachen",
+   "raum": "EI-Zi 9",
+   "klassentyp": "2",
+   "jahrgaenge": [
+    "2"
+   ],
+   "lernende": [
+    "K0009",
+    "K0064",
+    "K0083",
+    "K0111",
+    "K0134",
+    "K0137",
+    "K0178",
+    "K0181",
+    "K0190",
+    "K0198",
+    "K0230",
+    "K0244",
+    "K0254",
+    "K0259",
+    "K0297",
+    "K0366",
+    "K0488",
+    "K0511",
+    "K0560",
+    "K0561",
+    "K0567"
+   ],
+   "anzahl": 21,
+   "maedchen": 10,
+   "knaben": 11
+  },
+  {
+   "name": "EI 3/4a",
+   "schulhaus": "Eischachen",
+   "raum": "EI-Zi 4",
+   "klassentyp": "3/4",
+   "jahrgaenge": [
+    "3",
+    "4"
+   ],
+   "lernende": [
+    "K0065",
+    "K0075",
+    "K0080",
+    "K0090",
+    "K0095",
+    "K0122",
+    "K0148",
+    "K0172",
+    "K0176",
+    "K0200",
+    "K0206",
+    "K0208",
+    "K0214",
+    "K0242",
+    "K0246",
+    "K0260",
+    "K0324",
+    "K0337",
+    "K0353",
+    "K0470"
+   ],
+   "anzahl": 20,
+   "maedchen": 9,
+   "knaben": 11
+  },
+  {
+   "name": "EI 3a",
+   "schulhaus": "Eischachen",
+   "raum": "EI-Zi 8",
+   "klassentyp": "3",
+   "jahrgaenge": [
+    "3"
+   ],
+   "lernende": [
+    "K0092",
+    "K0171",
+    "K0183",
+    "K0196",
+    "K0211",
+    "K0219",
+    "K0310",
+    "K0348",
+    "K0365",
+    "K0376",
+    "K0414",
+    "K0443",
+    "K0447",
+    "K0471",
+    "K0497",
+    "K0536",
+    "K0543",
+    "K0568",
+    "K0570",
+    "K0573"
+   ],
+   "anzahl": 20,
+   "maedchen": 7,
+   "knaben": 13
+  },
+  {
+   "name": "EI 4a",
+   "schulhaus": "Eischachen",
+   "raum": "EI-Zi 7",
+   "klassentyp": "4",
+   "jahrgaenge": [
+    "4"
+   ],
+   "lernende": [
+    "K0011",
+    "K0072",
+    "K0113",
+    "K0124",
+    "K0167",
+    "K0201",
+    "K0205",
+    "K0212",
+    "K0227",
+    "K0271",
+    "K0278",
+    "K0352",
+    "K0361",
+    "K0424",
+    "K0445",
+    "K0459",
+    "K0495",
+    "K0533",
+    "K0534",
+    "K0539"
+   ],
+   "anzahl": 20,
+   "maedchen": 10,
+   "knaben": 10
+  },
+  {
+   "name": "EI 4b",
+   "schulhaus": "Eischachen",
+   "raum": "EI-Zi 10",
+   "klassentyp": "4",
+   "jahrgaenge": [
+    "4"
+   ],
+   "lernende": [
+    "K0006",
+    "K0013",
+    "K0027",
+    "K0040",
+    "K0050",
+    "K0112",
+    "K0138",
+    "K0156",
+    "K0174",
+    "K0251",
+    "K0287",
+    "K0292",
+    "K0300",
+    "K0325",
+    "K0334",
+    "K0358",
+    "K0371",
+    "K0431",
+    "K0461",
+    "K0472",
+    "K0529"
+   ],
+   "anzahl": 21,
+   "maedchen": 10,
+   "knaben": 11
+  },
+  {
+   "name": "EI 5a",
+   "schulhaus": "Eischachen",
+   "raum": "EI-Zi 6",
+   "klassentyp": "5",
+   "jahrgaenge": [
+    "5"
+   ],
+   "lernende": [
+    "K0012",
+    "K0033",
+    "K0036",
+    "K0093",
+    "K0105",
+    "K0119",
+    "K0135",
+    "K0157",
+    "K0188",
+    "K0247",
+    "K0253",
+    "K0268",
+    "K0301",
+    "K0422",
+    "K0455",
+    "K0477",
+    "K0513"
+   ],
+   "anzahl": 17,
+   "maedchen": 11,
+   "knaben": 6
+  },
+  {
+   "name": "EI 5b",
+   "schulhaus": "Eischachen",
+   "raum": "EI-Zi 11",
+   "klassentyp": "5",
+   "jahrgaenge": [
+    "5"
+   ],
+   "lernende": [
+    "K0034",
+    "K0041",
+    "K0094",
+    "K0126",
+    "K0129",
+    "K0132",
+    "K0209",
+    "K0236",
+    "K0240",
+    "K0276",
+    "K0307",
+    "K0308",
+    "K0359",
+    "K0367",
+    "K0396",
+    "K0411",
+    "K0423",
+    "K0474",
+    "K0483",
+    "K0527"
+   ],
+   "anzahl": 20,
+   "maedchen": 12,
+   "knaben": 8
+  },
+  {
+   "name": "EI 6a",
+   "schulhaus": "Eischachen",
+   "raum": "EI-Zi 1",
+   "klassentyp": "6",
+   "jahrgaenge": [
+    "6"
+   ],
+   "lernende": [
+    "K0014",
+    "K0057",
+    "K0086",
+    "K0097",
+    "K0107",
+    "K0133",
+    "K0145",
+    "K0149",
+    "K0202",
+    "K0220",
+    "K0225",
+    "K0245",
+    "K0270",
+    "K0311",
+    "K0349",
+    "K0354",
+    "K0368",
+    "K0382",
+    "K0410",
+    "K0478",
+    "K0540"
+   ],
+   "anzahl": 21,
+   "maedchen": 11,
+   "knaben": 10
+  },
+  {
+   "name": "EI 6b",
+   "schulhaus": "Eischachen",
+   "raum": "EI-Zi 3",
+   "klassentyp": "6",
+   "jahrgaenge": [
+    "6"
+   ],
+   "lernende": [
+    "K0056",
+    "K0073",
+    "K0084",
+    "K0120",
+    "K0125",
+    "K0139",
+    "K0147",
+    "K0155",
+    "K0207",
+    "K0235",
+    "K0250",
+    "K0252",
+    "K0326",
+    "K0327",
+    "K0328",
+    "K0436",
+    "K0457",
+    "K0464",
+    "K0525",
+    "K0535"
+   ],
+   "anzahl": 20,
+   "maedchen": 10,
+   "knaben": 10
+  },
+  {
+   "name": "EI KGa",
+   "schulhaus": "Eischachen",
+   "raum": "EI-KG 1",
+   "klassentyp": "KG",
+   "jahrgaenge": [
+    "KG1",
+    "KG2"
+   ],
+   "lernende": [
+    "K0071",
+    "K0118",
+    "K0144",
+    "K0199",
+    "K0232",
+    "K0238",
+    "K0275",
+    "K0343",
+    "K0347",
+    "K0395",
+    "K0415",
+    "K0439",
+    "K0596",
+    "K0600",
+    "K0608",
+    "K0621",
+    "K0625",
+    "K0626",
+    "K0629",
+    "K0634",
+    "K0640"
+   ],
+   "anzahl": 21,
+   "maedchen": 11,
+   "knaben": 10
+  },
+  {
+   "name": "EI KGb",
+   "schulhaus": "Eischachen",
+   "raum": "EI-KG 2",
+   "klassentyp": "KG",
+   "jahrgaenge": [
+    "KG1",
+    "KG2"
+   ],
+   "lernende": [
+    "K0022",
+    "K0076",
+    "K0085",
+    "K0087",
+    "K0143",
+    "K0166",
+    "K0182",
+    "K0197",
+    "K0203",
+    "K0269",
+    "K0318",
+    "K0355",
+    "K0400",
+    "K0496",
+    "K0538",
+    "K0542",
+    "K0572",
+    "K0582",
+    "K0586",
+    "K0630",
+    "K0633",
+    "K0635"
+   ],
+   "anzahl": 22,
+   "maedchen": 11,
+   "knaben": 11
+  },
+  {
+   "name": "EI KGc",
+   "schulhaus": "Eischachen",
+   "raum": "EI-KG 3",
+   "klassentyp": "KG",
+   "jahrgaenge": [
+    "KG1",
+    "KG2"
+   ],
+   "lernende": [
+    "K0005",
+    "K0008",
+    "K0051",
+    "K0063",
+    "K0117",
+    "K0128",
+    "K0248",
+    "K0362",
+    "K0394",
+    "K0399",
+    "K0433",
+    "K0446",
+    "K0481",
+    "K0501",
+    "K0549",
+    "K0587",
+    "K0602",
+    "K0610",
+    "K0616",
+    "K0624",
+    "K0627",
+    "K0644"
+   ],
+   "anzahl": 22,
+   "maedchen": 14,
+   "knaben": 8
+  },
+  {
+   "name": "IF Wald-KGa",
+   "schulhaus": "Im Feld",
+   "raum": "Waldplatz",
+   "klassentyp": "Wald-KG",
+   "jahrgaenge": [
+    "KG1",
+    "KG2"
+   ],
+   "lernende": [
+    "K0028",
+    "K0213",
+    "K0217",
+    "K0226",
+    "K0387",
+    "K0473",
+    "K0502",
+    "K0510",
+    "K0528",
+    "K0571",
+    "K0585",
+    "K0589",
+    "K0590",
+    "K0606",
+    "K0617",
+    "K0639",
+    "K0641",
+    "K0643"
+   ],
+   "anzahl": 18,
+   "maedchen": 8,
+   "knaben": 10
+  },
+  {
+   "name": "OS S1Aa",
+   "schulhaus": "Oberstufe",
+   "raum": "OS-Zi 3",
+   "klassentyp": "S1A",
+   "jahrgaenge": [
+    "S1A"
+   ],
+   "lernende": [
+    "K0645",
+    "K0651",
+    "K0657",
+    "K0669",
+    "K0670",
+    "K0677",
+    "K0680",
+    "K0682",
+    "K0692",
+    "K0694",
+    "K0695",
+    "K0701",
+    "K0704",
+    "K0711",
+    "K0712",
+    "K0716"
+   ],
+   "anzahl": 16,
+   "maedchen": 9,
+   "knaben": 7
+  },
+  {
+   "name": "OS S1Ab",
+   "schulhaus": "Oberstufe",
+   "raum": "OS-Zi 10",
+   "klassentyp": "S1A",
+   "jahrgaenge": [
+    "S1A"
+   ],
+   "lernende": [
+    "K0650",
+    "K0659",
+    "K0662",
+    "K0665",
+    "K0666",
+    "K0668",
+    "K0673",
+    "K0681",
+    "K0697",
+    "K0700",
+    "K0702",
+    "K0703",
+    "K0705",
+    "K0708",
+    "K0710",
+    "K0714",
+    "K0721",
+    "K0724"
+   ],
+   "anzahl": 18,
+   "maedchen": 10,
+   "knaben": 8
+  },
+  {
+   "name": "OS S1Ba",
+   "schulhaus": "Oberstufe",
+   "raum": "OS-Zi 4",
+   "klassentyp": "S1B",
+   "jahrgaenge": [
+    "S1B"
+   ],
+   "lernende": [
+    "K0652",
+    "K0656",
+    "K0658",
+    "K0663",
+    "K0664",
+    "K0674",
+    "K0676",
+    "K0678",
+    "K0679",
+    "K0683",
+    "K0686",
+    "K0687",
+    "K0690",
+    "K0691",
+    "K0693",
+    "K0696",
+    "K0698",
+    "K0713"
+   ],
+   "anzahl": 18,
+   "maedchen": 6,
+   "knaben": 12
+  },
+  {
+   "name": "OS S1B/S1Ca",
+   "schulhaus": "Oberstufe",
+   "raum": "OS-Zi 11",
+   "klassentyp": "S1B/S1C",
+   "jahrgaenge": [
+    "S1B",
+    "S1C"
+   ],
+   "lernende": [
+    "K0646",
+    "K0647",
+    "K0648",
+    "K0649",
+    "K0653",
+    "K0654",
+    "K0660",
+    "K0661",
+    "K0671",
+    "K0672",
+    "K0685",
+    "K0689",
+    "K0706",
+    "K0709",
+    "K0715",
+    "K0717",
+    "K0722",
+    "K0723"
+   ],
+   "anzahl": 18,
+   "maedchen": 6,
+   "knaben": 12
+  },
+  {
+   "name": "OS S1Ca",
+   "schulhaus": "Oberstufe",
+   "raum": "OS-Zi 12",
+   "klassentyp": "S1C",
+   "jahrgaenge": [
+    "S1C"
+   ],
+   "lernende": [
+    "K0655",
+    "K0667",
+    "K0675",
+    "K0684",
+    "K0688",
+    "K0699",
+    "K0707",
+    "K0718",
+    "K0719",
+    "K0720",
+    "K0725"
+   ],
+   "anzahl": 11,
+   "maedchen": 4,
+   "knaben": 7
+  },
+  {
+   "name": "OS S2Aa",
+   "schulhaus": "Oberstufe",
+   "raum": "OS-Zi 5",
+   "klassentyp": "S2A",
+   "jahrgaenge": [
+    "S2A"
+   ],
+   "lernende": [
+    "K0728",
+    "K0743",
+    "K0747",
+    "K0749",
+    "K0761",
+    "K0764",
+    "K0770",
+    "K0772",
+    "K0775",
+    "K0778",
+    "K0781",
+    "K0785",
+    "K0789",
+    "K0795",
+    "K0796",
+    "K0797"
+   ],
+   "anzahl": 16,
+   "maedchen": 8,
+   "knaben": 8
+  },
+  {
+   "name": "OS S2Ab",
+   "schulhaus": "Oberstufe",
+   "raum": "OS-Zi 6",
+   "klassentyp": "S2A",
+   "jahrgaenge": [
+    "S2A"
+   ],
+   "lernende": [
+    "K0726",
+    "K0736",
+    "K0744",
+    "K0745",
+    "K0748",
+    "K0753",
+    "K0754",
+    "K0757",
+    "K0758",
+    "K0760",
+    "K0765",
+    "K0766",
+    "K0771",
+    "K0782",
+    "K0784",
+    "K0800",
+    "K0802"
+   ],
+   "anzahl": 17,
+   "maedchen": 8,
+   "knaben": 9
+  },
+  {
+   "name": "OS S2Ba",
+   "schulhaus": "Oberstufe",
+   "raum": "OS-Zi 13",
+   "klassentyp": "S2B",
+   "jahrgaenge": [
+    "S2B"
+   ],
+   "lernende": [
+    "K0727",
+    "K0731",
+    "K0732",
+    "K0734",
+    "K0737",
+    "K0738",
+    "K0739",
+    "K0746",
+    "K0756",
+    "K0759",
+    "K0763",
+    "K0767",
+    "K0768",
+    "K0773",
+    "K0776",
+    "K0777",
+    "K0783",
+    "K0791",
+    "K0794",
+    "K0801",
+    "K0803",
+    "K0804"
+   ],
+   "anzahl": 22,
+   "maedchen": 11,
+   "knaben": 11
+  },
+  {
+   "name": "OS S2Ca",
+   "schulhaus": "Oberstufe",
+   "raum": "OS-Zi 1",
+   "klassentyp": "S2C",
+   "jahrgaenge": [
+    "S2C"
+   ],
+   "lernende": [
+    "K0729",
+    "K0740",
+    "K0762",
+    "K0769",
+    "K0774",
+    "K0779",
+    "K0780",
+    "K0786",
+    "K0788",
+    "K0790",
+    "K0792",
+    "K0793",
+    "K0798",
+    "K0799"
+   ],
+   "anzahl": 14,
+   "maedchen": 8,
+   "knaben": 6
+  },
+  {
+   "name": "OS S2Cb",
+   "schulhaus": "Oberstufe",
+   "raum": "OS-Zi 2",
+   "klassentyp": "S2C",
+   "jahrgaenge": [
+    "S2C"
+   ],
+   "lernende": [
+    "K0730",
+    "K0733",
+    "K0735",
+    "K0741",
+    "K0742",
+    "K0750",
+    "K0751",
+    "K0752",
+    "K0755",
+    "K0787"
+   ],
+   "anzahl": 10,
+   "maedchen": 5,
+   "knaben": 5
+  },
+  {
+   "name": "OS S3Aa",
+   "schulhaus": "Oberstufe",
+   "raum": "OS-Zi 7",
+   "klassentyp": "S3A",
+   "jahrgaenge": [
+    "S3A"
+   ],
+   "lernende": [
+    "K0807",
+    "K0809",
+    "K0816",
+    "K0817",
+    "K0823",
+    "K0831",
+    "K0833",
+    "K0836",
+    "K0843",
+    "K0850",
+    "K0862",
+    "K0864",
+    "K0869",
+    "K0871",
+    "K0873",
+    "K0877"
+   ],
+   "anzahl": 16,
+   "maedchen": 9,
+   "knaben": 7
+  },
+  {
+   "name": "OS S3Ab",
+   "schulhaus": "Oberstufe",
+   "raum": "OS-Zi 15",
+   "klassentyp": "S3A",
+   "jahrgaenge": [
+    "S3A"
+   ],
+   "lernende": [
+    "K0805",
+    "K0808",
+    "K0812",
+    "K0822",
+    "K0842",
+    "K0845",
+    "K0846",
+    "K0847",
+    "K0855",
+    "K0857",
+    "K0860",
+    "K0866",
+    "K0867",
+    "K0868",
+    "K0874",
+    "K0879"
+   ],
+   "anzahl": 16,
+   "maedchen": 10,
+   "knaben": 6
+  },
+  {
+   "name": "OS S3B/S3Ca",
+   "schulhaus": "Oberstufe",
+   "raum": "OS-Zi 8",
+   "klassentyp": "S3B/S3C",
+   "jahrgaenge": [
+    "S3B",
+    "S3C"
+   ],
+   "lernende": [
+    "K0806",
+    "K0815",
+    "K0818",
+    "K0819",
+    "K0820",
+    "K0821",
+    "K0824",
+    "K0826",
+    "K0835",
+    "K0837",
+    "K0839",
+    "K0849",
+    "K0872",
+    "K0876",
+    "K0881",
+    "K0882"
+   ],
+   "anzahl": 16,
+   "maedchen": 7,
+   "knaben": 9
+  },
+  {
+   "name": "OS S3Ba",
+   "schulhaus": "Oberstufe",
+   "raum": "OS-Zi 9",
+   "klassentyp": "S3B",
+   "jahrgaenge": [
+    "S3B"
+   ],
+   "lernende": [
+    "K0810",
+    "K0811",
+    "K0813",
+    "K0814",
+    "K0828",
+    "K0830",
+    "K0834",
+    "K0838",
+    "K0844",
+    "K0848",
+    "K0852",
+    "K0853",
+    "K0854",
+    "K0856",
+    "K0858",
+    "K0859",
+    "K0861",
+    "K0865",
+    "K0870",
+    "K0878",
+    "K0880"
+   ],
+   "anzahl": 21,
+   "maedchen": 9,
+   "knaben": 12
+  },
+  {
+   "name": "OS S3Ca",
+   "schulhaus": "Oberstufe",
+   "raum": "OS-Zi 14",
+   "klassentyp": "S3C",
+   "jahrgaenge": [
+    "S3C"
+   ],
+   "lernende": [
+    "K0825",
+    "K0827",
+    "K0829",
+    "K0832",
+    "K0840",
+    "K0841",
+    "K0851",
+    "K0863",
+    "K0875",
+    "K0883",
+    "K0884"
+   ],
+   "anzahl": 11,
+   "maedchen": 5,
+   "knaben": 6
+  }
+ ],
+ "zuteilung": {
+  "K0007": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 555
+  },
+  "K0067": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 1704
+  },
+  "K0070": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 960
+  },
+  "K0153": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 812
+  },
+  "K0237": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 817
+  },
+  "K0273": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 192
+  },
+  "K0280": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 4087
+  },
+  "K0315": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 488
+  },
+  "K0320": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 2208
+  },
+  "K0435": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 3268
+  },
+  "K0479": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 987
+  },
+  "K0532": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 332
+  },
+  "K0537": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 321
+  },
+  "K0546": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 3219
+  },
+  "K0557": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 480
+  },
+  "K0564": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 1279
+  },
+  "K0594": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 571
+  },
+  "K0614": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 1576
+  },
+  "K0619": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 420
+  },
+  "K0620": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2a",
+   "schulweg_m": 420
+  },
+  "K0002": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 434
+  },
+  "K0114": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 770
+  },
+  "K0150": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 661
+  },
+  "K0215": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 1438
+  },
+  "K0255": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 995
+  },
+  "K0265": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 5257
+  },
+  "K0266": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 1281
+  },
+  "K0303": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 455
+  },
+  "K0350": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 1554
+  },
+  "K0405": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 253
+  },
+  "K0419": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 1754
+  },
+  "K0438": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 1254
+  },
+  "K0453": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 1443
+  },
+  "K0486": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 637
+  },
+  "K0517": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 516
+  },
+  "K0579": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 1798
+  },
+  "K0583": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 1480
+  },
+  "K0607": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 738
+  },
+  "K0609": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 2145
+  },
+  "K0615": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1a",
+   "schulweg_m": 744
+  },
+  "K0029": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 747
+  },
+  "K0049": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 452
+  },
+  "K0089": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 164
+  },
+  "K0154": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 332
+  },
+  "K0162": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 1791
+  },
+  "K0194": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 3870
+  },
+  "K0195": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 1135
+  },
+  "K0241": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 392
+  },
+  "K0277": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 978
+  },
+  "K0283": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 371
+  },
+  "K0440": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 1244
+  },
+  "K0448": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 1124
+  },
+  "K0490": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 4897
+  },
+  "K0494": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 277
+  },
+  "K0531": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 1500
+  },
+  "K0545": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 3219
+  },
+  "K0547": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 987
+  },
+  "K0555": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 1336
+  },
+  "K0576": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 886
+  },
+  "K0605": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1b",
+   "schulweg_m": 2314
+  },
+  "K0003": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 434
+  },
+  "K0042": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 101
+  },
+  "K0077": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 681
+  },
+  "K0081": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 750
+  },
+  "K0098": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 4123
+  },
+  "K0100": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 881
+  },
+  "K0141": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 3658
+  },
+  "K0159": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 820
+  },
+  "K0262": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 969
+  },
+  "K0284": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 544
+  },
+  "K0321": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 2208
+  },
+  "K0372": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 583
+  },
+  "K0412": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 3114
+  },
+  "K0462": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 1632
+  },
+  "K0485": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 791
+  },
+  "K0487": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 637
+  },
+  "K0588": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 4630
+  },
+  "K0595": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 358
+  },
+  "K0598": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 266
+  },
+  "K0623": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 1/2b",
+   "schulweg_m": 3627
+  },
+  "K0017": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 477
+  },
+  "K0032": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 274
+  },
+  "K0037": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 1555
+  },
+  "K0066": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 959
+  },
+  "K0163": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 1342
+  },
+  "K0179": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 5078
+  },
+  "K0185": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 1019
+  },
+  "K0216": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 1744
+  },
+  "K0263": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 997
+  },
+  "K0274": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 192
+  },
+  "K0302": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 576
+  },
+  "K0313": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 786
+  },
+  "K0329": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 1257
+  },
+  "K0374": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 1234
+  },
+  "K0408": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 671
+  },
+  "K0426": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 1215
+  },
+  "K0476": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 287
+  },
+  "K0503": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 1039
+  },
+  "K0508": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 666
+  },
+  "K0524": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 2a",
+   "schulweg_m": 3520
+  },
+  "K0018": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 477
+  },
+  "K0038": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 1555
+  },
+  "K0055": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 1380
+  },
+  "K0101": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 881
+  },
+  "K0102": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 881
+  },
+  "K0186": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 357
+  },
+  "K0223": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 511
+  },
+  "K0288": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 1161
+  },
+  "K0319": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 984
+  },
+  "K0344": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 3572
+  },
+  "K0375": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 1234
+  },
+  "K0385": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 722
+  },
+  "K0413": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 3114
+  },
+  "K0449": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 1124
+  },
+  "K0463": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 1632
+  },
+  "K0491": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 4897
+  },
+  "K0492": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 4897
+  },
+  "K0509": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 666
+  },
+  "K0563": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 1593
+  },
+  "K0566": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3a",
+   "schulweg_m": 612
+  },
+  "K0031": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 1333
+  },
+  "K0043": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 432
+  },
+  "K0045": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 213
+  },
+  "K0068": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 1704
+  },
+  "K0104": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 925
+  },
+  "K0109": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 1058
+  },
+  "K0115": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 770
+  },
+  "K0127": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 4466
+  },
+  "K0165": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 1342
+  },
+  "K0169": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 268
+  },
+  "K0222": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 1446
+  },
+  "K0386": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 722
+  },
+  "K0388": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 257
+  },
+  "K0397": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 724
+  },
+  "K0409": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 671
+  },
+  "K0441": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 1389
+  },
+  "K0480": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 987
+  },
+  "K0504": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 1039
+  },
+  "K0518": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 835
+  },
+  "K0530": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 765
+  },
+  "K0551": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3/4a",
+   "schulweg_m": 1410
+  },
+  "K0004": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 1016
+  },
+  "K0010": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 1600
+  },
+  "K0046": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 1289
+  },
+  "K0060": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 264
+  },
+  "K0106": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 367
+  },
+  "K0130": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 3878
+  },
+  "K0151": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 661
+  },
+  "K0164": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 1342
+  },
+  "K0256": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 995
+  },
+  "K0258": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 126
+  },
+  "K0294": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 978
+  },
+  "K0299": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 4652
+  },
+  "K0306": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 1576
+  },
+  "K0314": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 3454
+  },
+  "K0330": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 1257
+  },
+  "K0338": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 525
+  },
+  "K0403": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 498
+  },
+  "K0452": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 467
+  },
+  "K0482": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 1664
+  },
+  "K0548": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 3b",
+   "schulweg_m": 987
+  },
+  "K0019": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 1344
+  },
+  "K0030": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 747
+  },
+  "K0053": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 486
+  },
+  "K0078": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 681
+  },
+  "K0121": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 632
+  },
+  "K0175": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 435
+  },
+  "K0189": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 392
+  },
+  "K0218": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 1251
+  },
+  "K0281": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 4087
+  },
+  "K0295": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 978
+  },
+  "K0304": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 455
+  },
+  "K0322": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 135
+  },
+  "K0332": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 959
+  },
+  "K0401": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 1030
+  },
+  "K0450": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 3659
+  },
+  "K0467": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 1446
+  },
+  "K0506": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 1453
+  },
+  "K0514": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 1771
+  },
+  "K0552": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 2463
+  },
+  "K0558": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 4a",
+   "schulweg_m": 581
+  },
+  "K0020": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 1344
+  },
+  "K0136": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 3052
+  },
+  "K0142": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 618
+  },
+  "K0160": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 1433
+  },
+  "K0180": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 5078
+  },
+  "K0210": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 786
+  },
+  "K0224": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 511
+  },
+  "K0290": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 856
+  },
+  "K0305": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 2100
+  },
+  "K0309": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 985
+  },
+  "K0323": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 135
+  },
+  "K0333": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 959
+  },
+  "K0342": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 521
+  },
+  "K0360": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 3997
+  },
+  "K0420": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 3267
+  },
+  "K0421": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 3797
+  },
+  "K0427": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 1646
+  },
+  "K0451": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 3492
+  },
+  "K0515": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 1771
+  },
+  "K0519": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5a",
+   "schulweg_m": 835
+  },
+  "K0015": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 1217
+  },
+  "K0016": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 1184
+  },
+  "K0039": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 3977
+  },
+  "K0059": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 613
+  },
+  "K0062": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 264
+  },
+  "K0099": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 618
+  },
+  "K0108": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 806
+  },
+  "K0123": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 520
+  },
+  "K0229": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 1107
+  },
+  "K0231": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 1002
+  },
+  "K0285": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 544
+  },
+  "K0293": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 4156
+  },
+  "K0339": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 474
+  },
+  "K0392": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 773
+  },
+  "K0398": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 724
+  },
+  "K0417": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 1016
+  },
+  "K0460": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 758
+  },
+  "K0499": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 4000
+  },
+  "K0500": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 1439
+  },
+  "K0520": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 5b",
+   "schulweg_m": 1429
+  },
+  "K0044": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 432
+  },
+  "K0047": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 1289
+  },
+  "K0054": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 486
+  },
+  "K0187": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 357
+  },
+  "K0191": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 686
+  },
+  "K0192": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 402
+  },
+  "K0289": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 1161
+  },
+  "K0291": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 856
+  },
+  "K0317": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 1158
+  },
+  "K0335": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 365
+  },
+  "K0345": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 3493
+  },
+  "K0373": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 3804
+  },
+  "K0379": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 4202
+  },
+  "K0380": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 542
+  },
+  "K0381": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 684
+  },
+  "K0425": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 3267
+  },
+  "K0442": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 1389
+  },
+  "K0475": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 1512
+  },
+  "K0489": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 4230
+  },
+  "K0553": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6a",
+   "schulweg_m": 2463
+  },
+  "K0001": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 1087
+  },
+  "K0023": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 1071
+  },
+  "K0035": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 340
+  },
+  "K0061": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 264
+  },
+  "K0091": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 342
+  },
+  "K0110": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 3878
+  },
+  "K0131": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 3878
+  },
+  "K0146": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 3375
+  },
+  "K0161": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 1433
+  },
+  "K0261": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 327
+  },
+  "K0267": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 804
+  },
+  "K0331": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 1257
+  },
+  "K0340": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 474
+  },
+  "K0389": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 257
+  },
+  "K0390": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 257
+  },
+  "K0468": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 951
+  },
+  "K0498": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 4054
+  },
+  "K0521": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 1429
+  },
+  "K0541": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 1219
+  },
+  "K0544": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM 6b",
+   "schulweg_m": 661
+  },
+  "K0140": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 3658
+  },
+  "K0158": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 820
+  },
+  "K0173": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 657
+  },
+  "K0264": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 3952
+  },
+  "K0346": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 4010
+  },
+  "K0351": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 3256
+  },
+  "K0418": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 1754
+  },
+  "K0430": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 1500
+  },
+  "K0577": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 737
+  },
+  "K0578": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 1798
+  },
+  "K0593": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 954
+  },
+  "K0597": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 266
+  },
+  "K0599": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 362
+  },
+  "K0601": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 479
+  },
+  "K0604": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 538
+  },
+  "K0611": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 3710
+  },
+  "K0612": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 855
+  },
+  "K0637": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 3478
+  },
+  "K0638": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 1169
+  },
+  "K0642": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGa",
+   "schulweg_m": 804
+  },
+  "K0234": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 5511
+  },
+  "K0272": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 192
+  },
+  "K0282": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 371
+  },
+  "K0357": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 3315
+  },
+  "K0363": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 993
+  },
+  "K0364": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 493
+  },
+  "K0369": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 3519
+  },
+  "K0377": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 771
+  },
+  "K0404": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 253
+  },
+  "K0416": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 612
+  },
+  "K0432": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 703
+  },
+  "K0469": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 1408
+  },
+  "K0484": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 791
+  },
+  "K0505": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 1825
+  },
+  "K0512": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 1067
+  },
+  "K0523": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 902
+  },
+  "K0556": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 480
+  },
+  "K0575": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 1174
+  },
+  "K0628": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGb",
+   "schulweg_m": 1091
+  },
+  "K0024": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 543
+  },
+  "K0025": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 652
+  },
+  "K0048": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 452
+  },
+  "K0058": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 503
+  },
+  "K0088": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 164
+  },
+  "K0103": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 925
+  },
+  "K0152": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 812
+  },
+  "K0177": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 3879
+  },
+  "K0257": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 126
+  },
+  "K0298": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 856
+  },
+  "K0378": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 771
+  },
+  "K0384": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 722
+  },
+  "K0434": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 3268
+  },
+  "K0437": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 1254
+  },
+  "K0465": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 464
+  },
+  "K0466": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 482
+  },
+  "K0516": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 516
+  },
+  "K0559": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 572
+  },
+  "K0574": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGc",
+   "schulweg_m": 729
+  },
+  "K0096": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 564
+  },
+  "K0116": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 754
+  },
+  "K0184": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 1019
+  },
+  "K0193": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 3870
+  },
+  "K0228": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 734
+  },
+  "K0312": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 786
+  },
+  "K0370": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 3519
+  },
+  "K0383": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 789
+  },
+  "K0393": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 1868
+  },
+  "K0402": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 498
+  },
+  "K0458": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 683
+  },
+  "K0522": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 902
+  },
+  "K0554": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 1336
+  },
+  "K0584": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 1154
+  },
+  "K0603": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 604
+  },
+  "K0618": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 420
+  },
+  "K0631": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 272
+  },
+  "K0632": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 405
+  },
+  "K0636": {
+   "schulhaus": "Bündtmättli",
+   "klasse": "BM KGd",
+   "schulweg_m": 638
+  },
+  "K0052": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 2247
+  },
+  "K0074": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 674
+  },
+  "K0243": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 1034
+  },
+  "K0249": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 1576
+  },
+  "K0279": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 449
+  },
+  "K0296": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 3817
+  },
+  "K0336": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 185
+  },
+  "K0341": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 3608
+  },
+  "K0406": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 3725
+  },
+  "K0428": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 451
+  },
+  "K0444": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 414
+  },
+  "K0493": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 473
+  },
+  "K0550": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 4153
+  },
+  "K0562": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 772
+  },
+  "K0565": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 3229
+  },
+  "K0569": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 821
+  },
+  "K0580": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 2458
+  },
+  "K0581": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 406
+  },
+  "K0591": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 3356
+  },
+  "K0592": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 3329
+  },
+  "K0613": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 203
+  },
+  "K0622": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 1a",
+   "schulweg_m": 3171
+  },
+  "K0021": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 2610
+  },
+  "K0026": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 4135
+  },
+  "K0069": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 878
+  },
+  "K0079": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 632
+  },
+  "K0082": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 1015
+  },
+  "K0168": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 3943
+  },
+  "K0170": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 405
+  },
+  "K0204": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 3747
+  },
+  "K0221": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 848
+  },
+  "K0233": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 577
+  },
+  "K0239": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 1097
+  },
+  "K0286": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 3648
+  },
+  "K0316": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 1096
+  },
+  "K0356": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 533
+  },
+  "K0391": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 470
+  },
+  "K0407": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 3725
+  },
+  "K0429": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 451
+  },
+  "K0454": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 667
+  },
+  "K0456": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 3226
+  },
+  "K0507": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 459
+  },
+  "K0526": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2a",
+   "schulweg_m": 1262
+  },
+  "K0009": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 142
+  },
+  "K0064": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 641
+  },
+  "K0083": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 3087
+  },
+  "K0111": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 370
+  },
+  "K0134": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 241
+  },
+  "K0137": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 287
+  },
+  "K0178": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 377
+  },
+  "K0181": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 646
+  },
+  "K0190": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 1006
+  },
+  "K0198": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 3563
+  },
+  "K0230": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 422
+  },
+  "K0244": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 1270
+  },
+  "K0254": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 504
+  },
+  "K0259": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 472
+  },
+  "K0297": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 1094
+  },
+  "K0366": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 1837
+  },
+  "K0488": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 656
+  },
+  "K0511": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 342
+  },
+  "K0560": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 1024
+  },
+  "K0561": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 1354
+  },
+  "K0567": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 2b",
+   "schulweg_m": 1015
+  },
+  "K0065": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 641
+  },
+  "K0075": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 674
+  },
+  "K0080": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 632
+  },
+  "K0090": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 975
+  },
+  "K0095": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 1708
+  },
+  "K0122": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 855
+  },
+  "K0148": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 3677
+  },
+  "K0172": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 405
+  },
+  "K0176": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 483
+  },
+  "K0200": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 3896
+  },
+  "K0206": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 3994
+  },
+  "K0208": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 917
+  },
+  "K0214": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 486
+  },
+  "K0242": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 1498
+  },
+  "K0246": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 3379
+  },
+  "K0260": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 472
+  },
+  "K0324": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 1498
+  },
+  "K0337": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 746
+  },
+  "K0353": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 3133
+  },
+  "K0470": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3/4a",
+   "schulweg_m": 2970
+  },
+  "K0092": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 292
+  },
+  "K0171": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 405
+  },
+  "K0183": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 1532
+  },
+  "K0196": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 625
+  },
+  "K0211": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 381
+  },
+  "K0219": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 3486
+  },
+  "K0310": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 528
+  },
+  "K0348": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 789
+  },
+  "K0365": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 729
+  },
+  "K0376": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 3654
+  },
+  "K0414": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 2020
+  },
+  "K0443": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 1354
+  },
+  "K0447": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 1455
+  },
+  "K0471": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 561
+  },
+  "K0497": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 533
+  },
+  "K0536": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 1585
+  },
+  "K0543": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 3276
+  },
+  "K0568": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 1162
+  },
+  "K0570": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 251
+  },
+  "K0573": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 3a",
+   "schulweg_m": 2679
+  },
+  "K0011": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 592
+  },
+  "K0072": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 2914
+  },
+  "K0113": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 370
+  },
+  "K0124": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 1456
+  },
+  "K0167": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 1223
+  },
+  "K0201": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 3896
+  },
+  "K0205": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 3747
+  },
+  "K0212": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 381
+  },
+  "K0227": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 372
+  },
+  "K0271": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 290
+  },
+  "K0278": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 3535
+  },
+  "K0352": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 706
+  },
+  "K0361": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 634
+  },
+  "K0424": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 766
+  },
+  "K0445": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 414
+  },
+  "K0459": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 870
+  },
+  "K0495": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 409
+  },
+  "K0533": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 3082
+  },
+  "K0534": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 2463
+  },
+  "K0539": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4a",
+   "schulweg_m": 237
+  },
+  "K0006": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 142
+  },
+  "K0013": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 982
+  },
+  "K0027": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 4135
+  },
+  "K0040": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 1340
+  },
+  "K0050": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 3243
+  },
+  "K0112": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 370
+  },
+  "K0138": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 287
+  },
+  "K0156": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 406
+  },
+  "K0174": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 904
+  },
+  "K0251": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 710
+  },
+  "K0287": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 3648
+  },
+  "K0292": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 1009
+  },
+  "K0300": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 450
+  },
+  "K0325": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 627
+  },
+  "K0334": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 1512
+  },
+  "K0358": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 927
+  },
+  "K0371": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 3537
+  },
+  "K0431": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 770
+  },
+  "K0461": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 422
+  },
+  "K0472": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 561
+  },
+  "K0529": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 4b",
+   "schulweg_m": 944
+  },
+  "K0012": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 592
+  },
+  "K0033": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 3571
+  },
+  "K0036": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 1602
+  },
+  "K0093": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 292
+  },
+  "K0105": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 623
+  },
+  "K0119": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 418
+  },
+  "K0135": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 241
+  },
+  "K0157": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 406
+  },
+  "K0188": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 1042
+  },
+  "K0247": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 1255
+  },
+  "K0253": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 1844
+  },
+  "K0268": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 369
+  },
+  "K0301": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 450
+  },
+  "K0422": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 1087
+  },
+  "K0455": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 667
+  },
+  "K0477": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 668
+  },
+  "K0513": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5a",
+   "schulweg_m": 140
+  },
+  "K0034": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 1284
+  },
+  "K0041": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 1340
+  },
+  "K0094": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 447
+  },
+  "K0126": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 663
+  },
+  "K0129": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 1144
+  },
+  "K0132": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 1322
+  },
+  "K0209": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 917
+  },
+  "K0236": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 920
+  },
+  "K0240": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 69
+  },
+  "K0276": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 3222
+  },
+  "K0307": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 1295
+  },
+  "K0308": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 1295
+  },
+  "K0359": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 927
+  },
+  "K0367": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 517
+  },
+  "K0396": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 514
+  },
+  "K0411": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 3944
+  },
+  "K0423": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 362
+  },
+  "K0474": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 1633
+  },
+  "K0483": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 387
+  },
+  "K0527": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 5b",
+   "schulweg_m": 1262
+  },
+  "K0014": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 982
+  },
+  "K0057": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 193
+  },
+  "K0086": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 3081
+  },
+  "K0097": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 3498
+  },
+  "K0107": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 1055
+  },
+  "K0133": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 1322
+  },
+  "K0145": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 247
+  },
+  "K0149": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 883
+  },
+  "K0202": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 2056
+  },
+  "K0220": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 3486
+  },
+  "K0225": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 3145
+  },
+  "K0245": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 843
+  },
+  "K0270": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 829
+  },
+  "K0311": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 1388
+  },
+  "K0349": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 789
+  },
+  "K0354": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 3133
+  },
+  "K0368": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 517
+  },
+  "K0382": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 596
+  },
+  "K0410": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 223
+  },
+  "K0478": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 668
+  },
+  "K0540": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6a",
+   "schulweg_m": 237
+  },
+  "K0056": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 699
+  },
+  "K0073": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 2914
+  },
+  "K0084": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 701
+  },
+  "K0120": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 418
+  },
+  "K0125": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 1456
+  },
+  "K0139": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 287
+  },
+  "K0147": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 3916
+  },
+  "K0155": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 1244
+  },
+  "K0207": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 3994
+  },
+  "K0235": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 904
+  },
+  "K0250": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 4177
+  },
+  "K0252": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 710
+  },
+  "K0326": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 627
+  },
+  "K0327": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 627
+  },
+  "K0328": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 1003
+  },
+  "K0436": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 716
+  },
+  "K0457": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 2478
+  },
+  "K0464": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 3142
+  },
+  "K0525": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 3355
+  },
+  "K0535": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI 6b",
+   "schulweg_m": 205
+  },
+  "K0071": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 2133
+  },
+  "K0118": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 648
+  },
+  "K0144": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 990
+  },
+  "K0199": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 3896
+  },
+  "K0232": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 577
+  },
+  "K0238": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 1097
+  },
+  "K0275": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 2274
+  },
+  "K0343": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 737
+  },
+  "K0347": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 789
+  },
+  "K0395": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 514
+  },
+  "K0415": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 453
+  },
+  "K0439": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 1401
+  },
+  "K0596": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 255
+  },
+  "K0600": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 770
+  },
+  "K0608": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 3184
+  },
+  "K0621": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 3171
+  },
+  "K0625": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 581
+  },
+  "K0626": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 581
+  },
+  "K0629": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 1342
+  },
+  "K0634": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 3386
+  },
+  "K0640": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGa",
+   "schulweg_m": 2954
+  },
+  "K0022": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 1046
+  },
+  "K0076": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 1074
+  },
+  "K0085": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 3668
+  },
+  "K0087": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 1405
+  },
+  "K0143": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 279
+  },
+  "K0166": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 795
+  },
+  "K0182": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 1532
+  },
+  "K0197": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 3563
+  },
+  "K0203": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 3747
+  },
+  "K0269": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 373
+  },
+  "K0318": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 3130
+  },
+  "K0355": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 533
+  },
+  "K0400": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 466
+  },
+  "K0496": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 533
+  },
+  "K0538": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 1483
+  },
+  "K0542": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 3276
+  },
+  "K0572": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 915
+  },
+  "K0582": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 477
+  },
+  "K0586": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 435
+  },
+  "K0630": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 3355
+  },
+  "K0633": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 781
+  },
+  "K0635": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGb",
+   "schulweg_m": 183
+  },
+  "K0005": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 909
+  },
+  "K0008": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 142
+  },
+  "K0051": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 2247
+  },
+  "K0063": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 641
+  },
+  "K0117": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 648
+  },
+  "K0128": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 1446
+  },
+  "K0248": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 1576
+  },
+  "K0362": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 699
+  },
+  "K0394": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 514
+  },
+  "K0399": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 466
+  },
+  "K0433": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 444
+  },
+  "K0446": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 1455
+  },
+  "K0481": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 1788
+  },
+  "K0501": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 533
+  },
+  "K0549": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 4153
+  },
+  "K0587": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 435
+  },
+  "K0602": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 250
+  },
+  "K0610": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 4097
+  },
+  "K0616": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 1126
+  },
+  "K0624": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 1948
+  },
+  "K0627": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 2942
+  },
+  "K0644": {
+   "schulhaus": "Eischachen",
+   "klasse": "EI KGc",
+   "schulweg_m": 2621
+  },
+  "K0028": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 488
+  },
+  "K0213": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 86
+  },
+  "K0217": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 903
+  },
+  "K0226": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 563
+  },
+  "K0387": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 683
+  },
+  "K0473": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 202
+  },
+  "K0502": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 831
+  },
+  "K0510": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 514
+  },
+  "K0528": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 477
+  },
+  "K0571": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 888
+  },
+  "K0585": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 745
+  },
+  "K0589": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 414
+  },
+  "K0590": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 414
+  },
+  "K0606": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 612
+  },
+  "K0617": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 203
+  },
+  "K0639": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 1174
+  },
+  "K0641": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 795
+  },
+  "K0643": {
+   "schulhaus": "Im Feld",
+   "klasse": "IF Wald-KGa",
+   "schulweg_m": 537
+  },
+  "K0645": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 1566
+  },
+  "K0651": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 689
+  },
+  "K0657": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 1041
+  },
+  "K0669": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 500
+  },
+  "K0670": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 1185
+  },
+  "K0677": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 739
+  },
+  "K0680": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 1372
+  },
+  "K0682": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 2197
+  },
+  "K0692": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 143
+  },
+  "K0694": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 3862
+  },
+  "K0695": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 231
+  },
+  "K0701": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 887
+  },
+  "K0704": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 934
+  },
+  "K0711": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 992
+  },
+  "K0712": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 1132
+  },
+  "K0716": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Aa",
+   "schulweg_m": 1337
+  },
+  "K0650": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 2066
+  },
+  "K0659": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 4172
+  },
+  "K0662": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 786
+  },
+  "K0665": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 999
+  },
+  "K0666": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 3173
+  },
+  "K0668": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 579
+  },
+  "K0673": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 1685
+  },
+  "K0681": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 3561
+  },
+  "K0697": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 1217
+  },
+  "K0700": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 1175
+  },
+  "K0702": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 537
+  },
+  "K0703": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 368
+  },
+  "K0705": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 856
+  },
+  "K0708": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 1258
+  },
+  "K0710": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 1036
+  },
+  "K0714": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 1661
+  },
+  "K0721": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 304
+  },
+  "K0724": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ab",
+   "schulweg_m": 3828
+  },
+  "K0652": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 997
+  },
+  "K0656": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 759
+  },
+  "K0658": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 3227
+  },
+  "K0663": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 355
+  },
+  "K0664": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 1431
+  },
+  "K0674": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 590
+  },
+  "K0676": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 517
+  },
+  "K0678": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 813
+  },
+  "K0679": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 705
+  },
+  "K0683": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 207
+  },
+  "K0686": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 4131
+  },
+  "K0687": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 1738
+  },
+  "K0690": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 1285
+  },
+  "K0691": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 1170
+  },
+  "K0693": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 755
+  },
+  "K0696": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 528
+  },
+  "K0698": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 1076
+  },
+  "K0713": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ba",
+   "schulweg_m": 602
+  },
+  "K0646": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 907
+  },
+  "K0647": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 997
+  },
+  "K0648": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 1470
+  },
+  "K0649": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 1581
+  },
+  "K0653": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 3282
+  },
+  "K0654": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 1522
+  },
+  "K0660": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 623
+  },
+  "K0661": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 1211
+  },
+  "K0671": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 1591
+  },
+  "K0672": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 1464
+  },
+  "K0685": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 1020
+  },
+  "K0689": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 498
+  },
+  "K0706": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 979
+  },
+  "K0709": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 1240
+  },
+  "K0715": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 832
+  },
+  "K0717": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 218
+  },
+  "K0722": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 983
+  },
+  "K0723": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1B/S1Ca",
+   "schulweg_m": 1125
+  },
+  "K0655": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ca",
+   "schulweg_m": 457
+  },
+  "K0667": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ca",
+   "schulweg_m": 3961
+  },
+  "K0675": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ca",
+   "schulweg_m": 1034
+  },
+  "K0684": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ca",
+   "schulweg_m": 4104
+  },
+  "K0688": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ca",
+   "schulweg_m": 289
+  },
+  "K0699": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ca",
+   "schulweg_m": 1658
+  },
+  "K0707": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ca",
+   "schulweg_m": 406
+  },
+  "K0718": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ca",
+   "schulweg_m": 1063
+  },
+  "K0719": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ca",
+   "schulweg_m": 1133
+  },
+  "K0720": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ca",
+   "schulweg_m": 557
+  },
+  "K0725": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S1Ca",
+   "schulweg_m": 737
+  },
+  "K0728": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 1243
+  },
+  "K0743": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 4326
+  },
+  "K0747": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 842
+  },
+  "K0749": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 2131
+  },
+  "K0761": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 3326
+  },
+  "K0764": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 1026
+  },
+  "K0770": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 943
+  },
+  "K0772": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 872
+  },
+  "K0775": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 394
+  },
+  "K0778": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 1373
+  },
+  "K0781": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 4106
+  },
+  "K0785": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 1560
+  },
+  "K0789": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 1092
+  },
+  "K0795": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 4674
+  },
+  "K0796": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 1086
+  },
+  "K0797": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Aa",
+   "schulweg_m": 1300
+  },
+  "K0726": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 2962
+  },
+  "K0736": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 663
+  },
+  "K0744": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 1799
+  },
+  "K0745": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 495
+  },
+  "K0748": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 4291
+  },
+  "K0753": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 852
+  },
+  "K0754": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 1759
+  },
+  "K0757": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 1739
+  },
+  "K0758": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 1260
+  },
+  "K0760": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 3874
+  },
+  "K0765": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 221
+  },
+  "K0766": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 1942
+  },
+  "K0771": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 921
+  },
+  "K0782": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 650
+  },
+  "K0784": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 891
+  },
+  "K0800": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 1106
+  },
+  "K0802": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ab",
+   "schulweg_m": 733
+  },
+  "K0727": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 926
+  },
+  "K0731": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 819
+  },
+  "K0732": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 3513
+  },
+  "K0734": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 774
+  },
+  "K0737": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 960
+  },
+  "K0738": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 509
+  },
+  "K0739": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 927
+  },
+  "K0746": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 1802
+  },
+  "K0756": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 559
+  },
+  "K0759": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 871
+  },
+  "K0763": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 292
+  },
+  "K0767": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 3684
+  },
+  "K0768": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 1132
+  },
+  "K0773": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 1361
+  },
+  "K0776": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 534
+  },
+  "K0777": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 629
+  },
+  "K0783": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 1702
+  },
+  "K0791": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 387
+  },
+  "K0794": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 1026
+  },
+  "K0801": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 1330
+  },
+  "K0803": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 3375
+  },
+  "K0804": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ba",
+   "schulweg_m": 138
+  },
+  "K0729": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ca",
+   "schulweg_m": 1373
+  },
+  "K0740": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ca",
+   "schulweg_m": 1052
+  },
+  "K0762": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ca",
+   "schulweg_m": 881
+  },
+  "K0769": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ca",
+   "schulweg_m": 935
+  },
+  "K0774": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ca",
+   "schulweg_m": 1249
+  },
+  "K0779": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ca",
+   "schulweg_m": 1876
+  },
+  "K0780": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ca",
+   "schulweg_m": 3039
+  },
+  "K0786": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ca",
+   "schulweg_m": 4265
+  },
+  "K0788": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ca",
+   "schulweg_m": 1268
+  },
+  "K0790": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ca",
+   "schulweg_m": 1960
+  },
+  "K0792": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ca",
+   "schulweg_m": 4127
+  },
+  "K0793": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ca",
+   "schulweg_m": 1434
+  },
+  "K0798": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ca",
+   "schulweg_m": 1188
+  },
+  "K0799": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Ca",
+   "schulweg_m": 959
+  },
+  "K0730": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Cb",
+   "schulweg_m": 1373
+  },
+  "K0733": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Cb",
+   "schulweg_m": 1218
+  },
+  "K0735": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Cb",
+   "schulweg_m": 556
+  },
+  "K0741": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Cb",
+   "schulweg_m": 711
+  },
+  "K0742": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Cb",
+   "schulweg_m": 2287
+  },
+  "K0750": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Cb",
+   "schulweg_m": 1515
+  },
+  "K0751": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Cb",
+   "schulweg_m": 953
+  },
+  "K0752": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Cb",
+   "schulweg_m": 633
+  },
+  "K0755": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Cb",
+   "schulweg_m": 169
+  },
+  "K0787": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S2Cb",
+   "schulweg_m": 3787
+  },
+  "K0807": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 941
+  },
+  "K0809": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 3933
+  },
+  "K0816": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 4031
+  },
+  "K0817": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 1529
+  },
+  "K0823": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 3263
+  },
+  "K0831": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 339
+  },
+  "K0833": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 1866
+  },
+  "K0836": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 385
+  },
+  "K0843": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 95
+  },
+  "K0850": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 3594
+  },
+  "K0862": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 1464
+  },
+  "K0864": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 823
+  },
+  "K0869": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 4756
+  },
+  "K0871": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 1170
+  },
+  "K0873": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 3740
+  },
+  "K0877": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Aa",
+   "schulweg_m": 1335
+  },
+  "K0805": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 3860
+  },
+  "K0808": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 750
+  },
+  "K0812": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 860
+  },
+  "K0822": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 793
+  },
+  "K0842": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 1249
+  },
+  "K0845": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 1216
+  },
+  "K0846": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 867
+  },
+  "K0847": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 1042
+  },
+  "K0855": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 482
+  },
+  "K0857": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 824
+  },
+  "K0860": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 1093
+  },
+  "K0866": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 2417
+  },
+  "K0867": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 3554
+  },
+  "K0868": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 629
+  },
+  "K0874": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 4220
+  },
+  "K0879": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ab",
+   "schulweg_m": 4389
+  },
+  "K0806": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 1739
+  },
+  "K0815": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 982
+  },
+  "K0818": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 1535
+  },
+  "K0819": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 2457
+  },
+  "K0820": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 3356
+  },
+  "K0821": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 750
+  },
+  "K0824": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 1507
+  },
+  "K0826": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 4733
+  },
+  "K0835": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 3735
+  },
+  "K0837": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 1320
+  },
+  "K0839": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 662
+  },
+  "K0849": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 219
+  },
+  "K0872": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 292
+  },
+  "K0876": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 1526
+  },
+  "K0881": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 743
+  },
+  "K0882": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3B/S3Ca",
+   "schulweg_m": 923
+  },
+  "K0810": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 920
+  },
+  "K0811": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 3433
+  },
+  "K0813": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 1586
+  },
+  "K0814": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 1105
+  },
+  "K0828": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 321
+  },
+  "K0830": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 139
+  },
+  "K0834": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 3758
+  },
+  "K0838": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 607
+  },
+  "K0844": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 5031
+  },
+  "K0848": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 1287
+  },
+  "K0852": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 4032
+  },
+  "K0853": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 1837
+  },
+  "K0854": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 1182
+  },
+  "K0856": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 1104
+  },
+  "K0858": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 1117
+  },
+  "K0859": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 1219
+  },
+  "K0861": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 430
+  },
+  "K0865": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 1317
+  },
+  "K0870": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 1000
+  },
+  "K0878": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 3103
+  },
+  "K0880": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ba",
+   "schulweg_m": 277
+  },
+  "K0825": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ca",
+   "schulweg_m": 1256
+  },
+  "K0827": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ca",
+   "schulweg_m": 2889
+  },
+  "K0829": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ca",
+   "schulweg_m": 643
+  },
+  "K0832": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ca",
+   "schulweg_m": 864
+  },
+  "K0840": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ca",
+   "schulweg_m": 3573
+  },
+  "K0841": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ca",
+   "schulweg_m": 4621
+  },
+  "K0851": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ca",
+   "schulweg_m": 464
+  },
+  "K0863": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ca",
+   "schulweg_m": 2637
+  },
+  "K0875": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ca",
+   "schulweg_m": 1853
+  },
+  "K0883": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ca",
+   "schulweg_m": 528
+  },
+  "K0884": {
+   "schulhaus": "Oberstufe",
+   "klasse": "OS S3Ca",
+   "schulweg_m": 529
+  }
+ },
+ "lehrauftraege": [],
+ "stundenplan": [],
+ "meldungen": [
+  {
+   "schweregrad": "Warnung",
+   "bereich": "Daten",
+   "text": "4 Lernende wohnen weiter als der max. Schulweg von jedem Schulhaus (z.B. K0234, K0346, K0549, K0610)",
+   "bezug": "",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Warnung",
+   "bereich": "Klassen",
+   "text": "K0234: kein Schulhaus innerhalb max. Schulweg – nächstes (Bündtmättli) zugelassen",
+   "bezug": "K0234",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Warnung",
+   "bereich": "Klassen",
+   "text": "K0346: kein Schulhaus innerhalb max. Schulweg – nächstes (Bündtmättli) zugelassen",
+   "bezug": "K0346",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Warnung",
+   "bereich": "Klassen",
+   "text": "K0549: kein Schulhaus innerhalb max. Schulweg – nächstes (Eischachen) zugelassen",
+   "bezug": "K0549",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Warnung",
+   "bereich": "Klassen",
+   "text": "K0610: kein Schulhaus innerhalb max. Schulweg – nächstes (Eischachen) zugelassen",
+   "bezug": "K0610",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Fehler",
+   "bereich": "Solver",
+   "text": "Lehraufträge: nachweislich keine Lösung möglich. Diese Regeln widersprechen sich (zusammen mit festen Vorgaben wie Räumen und Stundentafel): Verfügbarkeit (4: TTG 2 (24 Zeitfenster), OS Deutsch 4 (22 Zeitfenster), OS Mathematik 5 (22 Zeitfenster), SHP BM 3 (24 Zeitfenster)); Maximalpensum BM Lehrperson 01 (28 L); Maximalpensum BM Lehrperson 02 (28 L); Maximalpensum BM Lehrperson 03 (28 L); Maximalpensum BM Lehrperson 04 (28 L); Maximalpensum BM Lehrperson 05 (28 L); Maximalpensum BM Lehrperson 06 (28 L); Maximalpensum BM Lehrperson 07 (28 L); Maximalpensum BM Lehrperson 08 (28 L); Maximalpensum BM Lehrperson 09 (28 L); Maximalpensum BM Lehrperson 10 (28 L); Maximalpensum BM Lehrperson 11 (28 L); Maximalpensum BM Lehrperson 12 (28 L); Maximalpensum BM Lehrperson 13 (16 L); Maximalpensum BM Lehrperson 14 (14 L); Maximalpensum BM Unterstufe Teilzeit (12 L); Maximalpensum Primar Springer (26 L); Maximalpensum TTG 1 (26 L); Maximalpensum TTG 2 (26 L); Maximalpensum Sport Fachlehrperson (20 L); Maximalpensum Englisch BM (24 L); Maximalpensum Französisch BM (24 L); Maximalpensum KG BM 1 (24 L); Maximalpensum KG BM 2 (24 L); Maximalpensum KG BM 3 (24 L); Maximalpensum KG BM 4 (24 L); Maximalpensum EI Lehrperson 01 (28 L); Maximalpensum EI Lehrperson 02 (28 L); Maximalpensum EI Lehrperson 03 (28 L); Maximalpensum EI Lehrperson 04 (28 L); Maximalpensum EI Lehrperson 05 (28 L); Maximalpensum EI Lehrperson 06 (28 L); Maximalpensum EI Lehrperson 07 (28 L); Maximalpensum EI Lehrperson 08 (28 L); Maximalpensum EI Lehrperson 09 (28 L); Maximalpensum EI Lehrperson 10 (20 L); Maximalpensum EI Lehrperson 11 (14 L); Maximalpensum Englisch/Französisch EI (28 L); Maximalpensum KG EI 1 (24 L); Maximalpensum KG EI 2 (24 L); Maximalpensum KG EI 3 (24 L); Maximalpensum KG EI 4 (24 L); Maximalpensum Wald-KG Im Feld (24 L); Maximalpensum OS Deutsch 1 (27 L); Maximalpensum OS Deutsch 2 (27 L); Maximalpensum OS Deutsch 3 (27 L); Maximalpensum OS Deutsch 4 (24 L); Maximalpensum OS Deutsch 5 (24 L); Maximalpensum OS Sprachen 1 (27 L); Maximalpensum OS Sprachen 2 (27 L); Maximalpensum OS Sprachen 3 (27 L); Maximalpensum OS Sprachen 4 (24 L); Maximalpensum OS Mathematik 1 (27 L); Maximalpensum OS Mathematik 2 (27 L); Maximalpensum OS Mathematik 3 (27 L); Maximalpensum OS Mathematik 4 (27 L); Maximalpensum OS Mathematik 5 (24 L); Maximalpensum OS Sport 2 (24 L); Maximalpensum OS Sport 1 (24 L); Maximalpensum OS Gestalten 1 (27 L); Maximalpensum OS Gestalten 2 (27 L); Maximalpensum OS Gestalten 3 (20 L); Maximalpensum SHP BM 1 (28 L); Maximalpensum SHP BM 2 (28 L); Maximalpensum SHP BM 3 (28 L); Maximalpensum SHP EI 1 (28 L); Maximalpensum SHP EI 2 (28 L); Maximalpensum SHP EI 3 (20 L); Maximalpensum SHP OS 1 (28 L); Maximalpensum SHP OS 2 (28 L); Maximalpensum DaZ BM (28 L); Maximalpensum DaZ Teilzeit (12 L); Maximalpensum DaZ EI (28 L); Maximalpensum DaZ OS (20 L); Blockzeiten (30: BM 1/2b, EI 6a, BM 5a, EI KGa, OS S1Ca, OS S3Ba …). Mindestens eine davon lockern.",
+   "bezug": "",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Warnung",
+   "bereich": "Klassen",
+   "text": "BM KGa: 1 Kind(er) mit Schulweg über Maximum (K0346)",
+   "bezug": "BM KGa",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Warnung",
+   "bereich": "Klassen",
+   "text": "BM KGb: 1 Kind(er) mit Schulweg über Maximum (K0234)",
+   "bezug": "BM KGb",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Warnung",
+   "bereich": "Klassen",
+   "text": "EI KGc: 2 Kind(er) mit Schulweg über Maximum (K0549, K0610)",
+   "bezug": "EI KGc",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "EI 2a: 7 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0021 (45 min), K0026 (71 min), K0168 (68 min), K0204 (64 min), K0286 (63 min), K0407 (64 min), K0456 (55 min)",
+   "bezug": "EI 2a",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "EI 4b: 4 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0027 (62 min), K0050 (49 min), K0287 (55 min), K0371 (53 min)",
+   "bezug": "EI 4b",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "EI 5a: 1 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0033 (54 min)",
+   "bezug": "EI 5a",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM 5b: 3 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0039 (60 min), K0293 (62 min), K0499 (60 min)",
+   "bezug": "BM 5b",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "EI KGc: 8 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0051 (45 min), K0248 (32 min), K0481 (36 min), K0549 (83 min), K0610 (82 min), K0624 (39 min), K0627 (59 min), K0644 (52 min)",
+   "bezug": "EI KGc",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "EI 1a: 10 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0052 (39 min), K0296 (65 min), K0341 (62 min), K0406 (64 min), K0550 (71 min), K0565 (55 min), K0580 (42 min), K0591 (58 min), K0592 (57 min), K0622 (54 min)",
+   "bezug": "EI 1a",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "EI KGa: 7 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0071 (43 min), K0199 (78 min), K0275 (45 min), K0608 (64 min), K0621 (63 min), K0634 (68 min), K0640 (59 min)",
+   "bezug": "EI KGa",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "EI 4a: 6 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0072 (44 min), K0201 (58 min), K0205 (56 min), K0278 (53 min), K0533 (46 min), K0534 (37 min)",
+   "bezug": "EI 4a",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "EI 6b: 7 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0073 (44 min), K0147 (59 min), K0207 (60 min), K0250 (63 min), K0457 (37 min), K0464 (47 min), K0525 (50 min)",
+   "bezug": "EI 6b",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "EI 2b: 3 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0083 (53 min), K0198 (61 min), K0366 (31 min)",
+   "bezug": "EI 2b",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "EI KGb: 7 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0085 (73 min), K0182 (31 min), K0197 (71 min), K0203 (75 min), K0318 (63 min), K0542 (66 min), K0630 (67 min)",
+   "bezug": "EI KGb",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "EI 6a: 6 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0086 (46 min), K0097 (52 min), K0202 (31 min), K0220 (52 min), K0225 (47 min), K0354 (47 min)",
+   "bezug": "EI 6a",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM 1/2b: 6 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0098 (71 min), K0141 (63 min), K0321 (38 min), K0412 (53 min), K0588 (79 min), K0623 (62 min)",
+   "bezug": "BM 1/2b",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM 6b: 4 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0110 (58 min), K0131 (58 min), K0146 (51 min), K0498 (61 min)",
+   "bezug": "BM 6b",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM 3/4a: 1 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0127 (67 min)",
+   "bezug": "BM 3/4a",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM 3b: 3 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0130 (58 min), K0299 (70 min), K0314 (52 min)",
+   "bezug": "BM 3b",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM 5a: 7 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0136 (46 min), K0180 (76 min), K0305 (31 min), K0360 (60 min), K0420 (49 min), K0421 (57 min), K0451 (52 min)",
+   "bezug": "BM 5a",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM KGa: 9 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0140 (73 min), K0264 (79 min), K0346 (80 min), K0351 (65 min), K0418 (35 min), K0430 (30 min), K0578 (36 min), K0611 (74 min), K0637 (70 min)",
+   "bezug": "BM KGa",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "EI 3/4a: 6 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0148 (55 min), K0200 (58 min), K0206 (60 min), K0246 (51 min), K0353 (47 min), K0470 (45 min)",
+   "bezug": "EI 3/4a",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM 1b: 5 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0162 (31 min), K0194 (66 min), K0490 (84 min), K0545 (55 min), K0605 (40 min)",
+   "bezug": "BM 1b",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM KGc: 2 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0177 (78 min), K0434 (65 min)",
+   "bezug": "BM KGc",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM 2a: 2 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0179 (87 min), K0524 (60 min)",
+   "bezug": "BM 2a",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM KGd: 3 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0193 (77 min), K0370 (70 min), K0393 (37 min)",
+   "bezug": "BM KGd",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "EI 3a: 5 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0219 (52 min), K0376 (55 min), K0414 (30 min), K0543 (49 min), K0573 (40 min)",
+   "bezug": "EI 3a",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM KGb: 4 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0234 (110 min), K0357 (66 min), K0369 (70 min), K0505 (36 min)",
+   "bezug": "BM KGb",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM 1a: 4 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0265 (90 min), K0419 (30 min), K0579 (31 min), K0609 (37 min)",
+   "bezug": "BM 1a",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "EI 5b: 2 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0276 (48 min), K0411 (59 min)",
+   "bezug": "EI 5b",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM 1/2a: 4 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0280 (70 min), K0320 (38 min), K0435 (56 min), K0546 (55 min)",
+   "bezug": "BM 1/2a",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM 4a: 3 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0281 (61 min), K0450 (55 min), K0552 (37 min)",
+   "bezug": "BM 4a",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM 3a: 4 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0344 (54 min), K0413 (47 min), K0491 (73 min), K0492 (73 min)",
+   "bezug": "BM 3a",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "BM 6a: 6 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0345 (52 min), K0373 (57 min), K0379 (63 min), K0425 (49 min), K0489 (63 min), K0553 (37 min)",
+   "bezug": "BM 6a",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "OS S1Ab: 5 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0650 (31 min), K0659 (63 min), K0666 (48 min), K0681 (53 min), K0724 (57 min)",
+   "bezug": "OS S1Ab",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "OS S1B/S1Ca: 1 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0653 (49 min)",
+   "bezug": "OS S1B/S1Ca",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "OS S1Ba: 2 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0658 (48 min), K0686 (62 min)",
+   "bezug": "OS S1Ba",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "OS S1Ca: 2 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0667 (59 min), K0684 (62 min)",
+   "bezug": "OS S1Ca",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "OS S1Aa: 2 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0682 (33 min), K0694 (58 min)",
+   "bezug": "OS S1Aa",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "OS S2Ab: 3 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0726 (44 min), K0748 (64 min), K0760 (58 min)",
+   "bezug": "OS S2Ab",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "OS S2Ba: 3 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0732 (53 min), K0767 (55 min), K0803 (51 min)",
+   "bezug": "OS S2Ba",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "OS S2Cb: 2 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0742 (34 min), K0787 (57 min)",
+   "bezug": "OS S2Cb",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "OS S2Aa: 5 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0743 (65 min), K0749 (32 min), K0761 (50 min), K0781 (62 min), K0795 (70 min)",
+   "bezug": "OS S2Aa",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "OS S2Ca: 3 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0780 (46 min), K0786 (64 min), K0792 (62 min)",
+   "bezug": "OS S2Ca",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "OS S3Ab: 5 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0805 (58 min), K0866 (36 min), K0867 (53 min), K0874 (63 min), K0879 (66 min)",
+   "bezug": "OS S3Ab",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "OS S3Aa: 6 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0809 (59 min), K0816 (60 min), K0823 (49 min), K0850 (54 min), K0869 (71 min), K0873 (56 min)",
+   "bezug": "OS S3Aa",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "OS S3Ba: 5 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0811 (51 min), K0834 (56 min), K0844 (75 min), K0852 (60 min), K0878 (47 min)",
+   "bezug": "OS S3Ba",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "OS S3B/S3Ca: 4 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0819 (37 min), K0820 (50 min), K0826 (71 min), K0835 (56 min)",
+   "bezug": "OS S3B/S3Ca",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Recht",
+   "text": "OS S3Ca: 4 Kind(er) mit Fussweg über 30 min – Zumutbarkeit prüfen, ggf. Schultransport: K0827 (43 min), K0840 (54 min), K0841 (69 min), K0863 (40 min)",
+   "bezug": "OS S3Ca",
+   "zeitfenster": null,
+   "quelle": "DVS-Schulweg"
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "Wunsch 'zusammen mit' nicht erfüllt: K0044 (BM 6a) und K0139 (EI 6b)",
+   "bezug": "BM 6a",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "Wunsch 'zusammen mit' nicht erfüllt: K0147 (EI 6b) und K0317 (BM 6a)",
+   "bezug": "EI 6b",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "Wunsch 'zusammen mit' nicht erfüllt: K0198 (EI 2b) und K0503 (BM 2a)",
+   "bezug": "EI 2b",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Warnung",
+   "bereich": "Wünsche",
+   "text": "Wunsch 'nicht zusammen mit' nicht erfüllt: K0279 und K0296 in EI 1a",
+   "bezug": "EI 1a",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0070: Wunsch-Schulhaus Eischachen nicht erfüllt (zugeteilt: Bündtmättli)",
+   "bezug": "BM 1/2a",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0143: Wunsch-Schulhaus Bündtmättli nicht erfüllt (zugeteilt: Eischachen)",
+   "bezug": "EI KGb",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0159: Wunsch-Schulhaus Eischachen nicht erfüllt (zugeteilt: Bündtmättli)",
+   "bezug": "BM 1/2b",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0164: Wunsch-Schulhaus Eischachen nicht erfüllt (zugeteilt: Bündtmättli)",
+   "bezug": "BM 3b",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0208: Wunsch-Schulhaus Bündtmättli nicht erfüllt (zugeteilt: Eischachen)",
+   "bezug": "EI 3/4a",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0351: Wunsch-Schulhaus Eischachen nicht erfüllt (zugeteilt: Bündtmättli)",
+   "bezug": "BM KGa",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0353: Wunsch-Schulhaus Bündtmättli nicht erfüllt (zugeteilt: Eischachen)",
+   "bezug": "EI 3/4a",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0355: Wunsch-Schulhaus Bündtmättli nicht erfüllt (zugeteilt: Eischachen)",
+   "bezug": "EI KGb",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0381: Wunsch-Schulhaus Eischachen nicht erfüllt (zugeteilt: Bündtmättli)",
+   "bezug": "BM 6a",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0410: Wunsch-Schulhaus Bündtmättli nicht erfüllt (zugeteilt: Eischachen)",
+   "bezug": "EI 6a",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0417: Wunsch-Schulhaus Eischachen nicht erfüllt (zugeteilt: Bündtmättli)",
+   "bezug": "BM 5b",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0420: Wunsch-Schulhaus Eischachen nicht erfüllt (zugeteilt: Bündtmättli)",
+   "bezug": "BM 5a",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0473: Wunsch-Schulhaus Bündtmättli nicht erfüllt (zugeteilt: Im Feld)",
+   "bezug": "IF Wald-KGa",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0516: Wunsch-Schulhaus Eischachen nicht erfüllt (zugeteilt: Bündtmättli)",
+   "bezug": "BM KGc",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0555: Wunsch-Schulhaus Eischachen nicht erfüllt (zugeteilt: Bündtmättli)",
+   "bezug": "BM 1b",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0584: Wunsch-Schulhaus Eischachen nicht erfüllt (zugeteilt: Bündtmättli)",
+   "bezug": "BM KGd",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0170 kommt als einziges Kind aus BM 1b in EI 2a",
+   "bezug": "EI 2a",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0347 kommt als einziges Kind aus BM KGa in EI KGa",
+   "bezug": "EI KGa",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0473 kommt als einziges Kind aus EI KGd in IF Wald-KGa",
+   "bezug": "IF Wald-KGa",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0042 kommt als einziges Kind aus EI 1a in BM 1/2b",
+   "bezug": "BM 1/2b",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0110 kommt als einziges Kind aus EI 5b in BM 6b",
+   "bezug": "BM 6b",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0262 kommt als einziges Kind aus EI 1b in BM 1/2b",
+   "bezug": "BM 1/2b",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0300 kommt als einziges Kind aus BM 3b in EI 4b",
+   "bezug": "EI 4b",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0327 kommt als einziges Kind aus BM 5a in EI 6b",
+   "bezug": "EI 6b",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0413 kommt als einziges Kind aus EI 2a in BM 3a",
+   "bezug": "BM 3a",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Wünsche",
+   "text": "K0226 kommt als einziges Kind aus EI KGb in IF Wald-KGa",
+   "bezug": "IF Wald-KGa",
+   "zeitfenster": null,
+   "quelle": ""
+  },
+  {
+   "schweregrad": "Hinweis",
+   "bereich": "Solver",
+   "text": "Klassenbildung B (Zuteilung Bündtmättli): Lösung ist bis zu 13% vom Optimum entfernt – mehr Rechenzeit (-t) kann sie verbessern",
+   "bezug": "",
+   "zeitfenster": null,
+   "quelle": ""
+  }
+ ]
+}

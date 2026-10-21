@@ -82,8 +82,9 @@ erkannt (z.B. *Schüler-Nr*, *Stufe*, *KG-Gruppe*, *Buslinie*, *Entscheid*).
 ### `schule.yaml`
 
 Die Schul-Konfiguration als lesbarer Text – Schulhäuser (mit Stufen und Räumen),
-Klassentypen, Zeitraster, Fächer, Stundentafel, Lehrpersonen, Gewichte, Szenarien,
-optional Schulbus, Wegzeiten und Übertritte. Aufbau und Beispiele: README und
+Klassentypen, Zeitraster, Fächer, Stundentafel, Lehrpersonen, Gewichte, Szenarien
+(mit `hypothese` und `ziel`), optional Schulbus, Wegzeiten, Übertritte, Langfristplanung
+(`planung`) und Kostenmodell (`kosten`). Aufbau und Beispiele: README und
 [`beispiele/malters/schule.yaml`](../beispiele/malters/schule.yaml).
 
 ## Ergebnisse
@@ -96,8 +97,10 @@ alles, was berechnet wurde, in einer Datei:
 | Feld | Inhalt |
 |---|---|
 | `format`, `version`, `programm`, `profilversion`, `erstellt` | Herkunft |
-| `schule`, `schuljahr`, `szenario`, `vollstaendig` | Rahmen |
-| `kennzahlen` | wie in der App (Klassen, Ø Klassengrösse, Ø Schulweg …) |
+| `schule`, `schuljahr`, `szenario`, `hypothese`, `ziel`, `vollstaendig` | Rahmen |
+| `kennzahlen` | wie in der App (Klassen, Ø Klassengrösse, Ø Schulweg, Qualität, Kosten …) |
+| `kosten` | Kostenposten pro Jahr: `posten`, `menge`, `chf`; letzte Zeile Total (leer ohne Kostenmodell) |
+| `langfristplanung` | pro Schuljahr: Lernende, Zuzug Quartiere, Klassen, fehlende Räume, Lektionen, Stellen, Kosten |
 | `loesungsguete` | je Rechenschritt: `beweisbar optimal` oder Mindestgüte in % |
 | `zeitfenster` | Index → Tag, Halbtag, Lektion, Beginn |
 | `klassen` | Name, Schulhaus, Raum, Klassentyp, Jahrgänge, IDs der Lernenden, Anzahl |

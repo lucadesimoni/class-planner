@@ -2,7 +2,7 @@
  "format": "skf-stammdaten",
  "version": 1,
  "programm": "0.1.0",
- "exportiert": "2026-10-19",
+ "exportiert": "2026-10-21",
  "schule": {
   "profil": {
    "name": "Kanton Luzern – Volksschule (KG, Primar, Sek)",
@@ -1892,13 +1892,40 @@
    ]
   },
   "planung": {
-   "wachstum_prozent": 3
+   "wachstum_prozent": 3,
+   "vollpensum_lektionen": 28,
+   "austritt_prozent": {
+    "6": 10
+   },
+   "quartiere": [
+    {
+     "name": "Neubaugebiet Nord",
+     "schulhaus": "Bündtmättli",
+     "ab": "2029/30",
+     "wohnungen": 120,
+     "kinder_pro_wohnung": 0.3
+    }
+   ]
+  },
+  "kosten": {
+   "annahme": "Richtwerte für das Beispiel, nicht die Zahlen der Gemeinde Malters",
+   "lektion_chf": 4000,
+   "raum_chf": {
+    "Klassenzimmer": 15000,
+    "Kindergarten": 15000,
+    "Turnhalle": 45000,
+    "TTG-Zimmer": 12000
+   },
+   "schulhaus_chf": 90000,
+   "transport_chf_pro_kind": 1200
   },
   "gewichte": {
    "schulweg_pro_km": 100,
    "klasse": 400,
    "lehrperson_pro_klasse": 200
-  }
+  },
+  "_hypothese": "Was wäre, wenn zwei Stellen unbesetzt bleiben und eine Lehrperson nur Mo–Mi arbeitet?",
+  "_ziel": "Planung"
  },
  "kinder": [
   {

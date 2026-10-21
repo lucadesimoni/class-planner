@@ -78,6 +78,16 @@ def test_bedienung_im_browser(app_url):
         seite.screenshot(path=BILDER / "2-pruefen.png")
 
         seite.get_by_role("button", name="Weiter: Berechnen").click()
+        # Hypothese als Szenario anlegen (wird nicht gerechnet, nur angelegt und auswählbar)
+        seite.get_by_text("Neue Hypothese als Szenario anlegen").click()
+        seite.get_by_placeholder("z.B. Neubaugebiet Nord doppelt").fill("Neues Quartier")
+        seite.get_by_placeholder("z.B. Was wäre, wenn 2030").fill("Was wäre, wenn 200 Wohnungen dazukommen?")
+        seite.get_by_text("Quartierentwicklung (Zuzug ab einem Schuljahr)").click()
+        seite.get_by_placeholder("2029/30").fill("2030/31")
+        time.sleep(1)
+        seite.screenshot(path=BILDER / "3a-hypothese.png")
+        seite.get_by_role("button", name="Szenario anlegen").click()
+        seite.get_by_text("Szenario „Neues Quartier“ angelegt").first.wait_for(timeout=30_000)
         seite.get_by_placeholder("z.B. Variante").fill("Browser-Test")
         seite.get_by_role("button", name="Klassen und Stundenplan berechnen").click()
         seite.get_by_role("button", name="Zum Ergebnis").wait_for(timeout=600_000)
@@ -95,7 +105,7 @@ def test_bedienung_im_browser(app_url):
 
         for tab, datei in (("Klassen", "5-klassen.png"), ("Lernende", "6-lernende.png"),
                            ("Prüfung", "6b-transparenz.png"), ("Stundenpläne", "8-stundenplan.png"),
-                           ("Wünsche", "9-wuensche.png"), ("Empfehlungen", "10-empfehlungen.png"),
+                           ("Wünsche", "9-wuensche.png"), ("Planung & Kosten", "10-planung.png"),
                            ("Herunterladen", "11-herunterladen.png")):
             seite.get_by_role("tab", name=tab).click()
             time.sleep(2.5)

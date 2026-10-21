@@ -233,6 +233,18 @@ uebertritte:
 # Prognose für Ausbau-Empfehlungen: Malters wuchs 2024/25 → 2025/26 von 879 auf 911 Lernende (+3.6%)
 planung:
   wachstum_prozent: 3
+  vollpensum_lektionen: 28         # Lektionen einer Vollzeitstelle
+  austritt_prozent: {"6": 10}      # Annahme: nach der 6. Klasse ins Langzeitgymnasium
+  quartiere:                       # Quartierentwicklung (Annahme, fiktiv): Zuzug ab einem Schuljahr
+    - {name: Neubaugebiet Nord, schulhaus: Bündtmättli, ab: 2029/30, wohnungen: 120, kinder_pro_wohnung: 0.3}
+
+# Kosten pro Jahr in CHF (Annahme, gerundete Richtwerte – mit den eigenen Zahlen ersetzen)
+kosten:
+  annahme: Richtwerte für das Beispiel, nicht die Zahlen der Gemeinde Malters
+  lektion_chf: 4000                # eine Wochenlektion ein Schuljahr lang, inkl. Sozialleistungen
+  raum_chf: {Klassenzimmer: 15000, Kindergarten: 15000, Turnhalle: 45000, TTG-Zimmer: 12000}
+  schulhaus_chf: 90000             # Betrieb und Hauswartung je Schulhaus mit Klassen
+  transport_chf_pro_kind: 1200     # Schulbus je Kind
 
 # Gewichte: was ist wie wichtig? (alle Gewichte: python -m skf --gewichte-anzeigen)
 gewichte:
@@ -243,18 +255,47 @@ gewichte:
 # Szenarien: kleine Änderungen gegenüber der Basis. Listen mit 'name' werden pro
 # Eintrag gemischt; 'entfernen: true' löscht einen Eintrag.
 # Rechnen: python -m skf schule.yaml kinder.csv -s alle
+# Szenarien: jede Variante ist eine Hypothese ("Was wäre, wenn …") mit Ziel Kosten, Qualität
+# oder Planung. Nur die geänderten Angaben stehen hier; alles andere gilt wie oben.
 szenarien:
   Kurze Schulwege:
+    ziel: Qualität
+    hypothese: Was wäre, wenn kurze Schulwege wichtiger sind als volle Klassen?
     gewichte: {schulweg_pro_km: 400, klasse: 300}
+  "Kosten: grössere Klassen":
+    ziel: Kosten
+    hypothese: Was wäre, wenn wir weniger, dafür grössere Klassen bilden?
+    gewichte: {klasse: 1500, groessen_abweichung: 5}
+  "Qualität: kleinere Klassen":
+    ziel: Qualität
+    hypothese: Was wäre, wenn die Klassen möglichst nahe an der Idealgrösse liegen?
+    gewichte: {klasse: 150, groessen_abweichung: 60}
+  "Qualität: Lehrpersonal":
+    ziel: Qualität
+    hypothese: Was wäre, wenn wenige Lehrpersonen pro Klasse, Kontinuität und kompakte Pensen Vorrang haben?
+    gewichte: {lehrperson_pro_klasse: 500, lehrperson_kontinuitaet: 600, springstunde: 40, praesenz_halbtag: 25}
+  "Planung: Wachstum 5 %":
+    ziel: Planung
+    hypothese: Was wäre, wenn die Gemeinde 5 % pro Jahr wächst und das Neubaugebiet doppelt so gross wird?
+    planung:
+      wachstum_prozent: 5
+      quartiere:
+        - {name: Neubaugebiet Nord, wohnungen: 240}
   Umbau Eischachen:          # 2 Schulzimmer und eine Turnhalle im Schuljahr nicht nutzbar
+    ziel: Planung
+    hypothese: Was wäre, wenn in Eischachen während eines Umbaus 2 Zimmer und eine Turnhalle fehlen?
     schulhaeuser:
       - name: Eischachen
         raeume:
           - {name: EI-Zi, anzahl: 8}
           - {name: EI-Halle, anzahl: 1}
   Geschwister zwingend:      # Geschwister immer im selben Schulhaus
+    ziel: Qualität
+    hypothese: Was wäre, wenn Geschwister immer ins selbe Schulhaus müssen?
     klassenbildung: {geschwister: hart}
   Lehrpersonenmangel:        # zwei Stellen unbesetzt, eine Lehrperson nur Mo–Mi
+    ziel: Planung
+    hypothese: Was wäre, wenn zwei Stellen unbesetzt bleiben und eine Lehrperson nur Mo–Mi arbeitet?
     lehrpersonen:
       - {name: BM Lehrperson 12, entfernen: true}
       - {name: EI Lehrperson 09, entfernen: true}

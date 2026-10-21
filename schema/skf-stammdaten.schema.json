@@ -85,7 +85,22 @@
         "stundentafel": {"type": "object", "additionalProperties": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}},
         "lehrpersonen": {"type": "array", "items": {"$ref": "#/$defs/lehrperson"}},
         "gewichte": {"type": "object", "additionalProperties": {"type": "integer"}},
-        "szenarien": {"type": "object", "additionalProperties": {"type": "object"}}
+        "szenarien": {"type": "object", "description": "Name → Änderungen; optional 'hypothese' (Was wäre, wenn …) und 'ziel' (Kosten | Qualität | Planung)",
+          "additionalProperties": {"type": "object", "properties": {
+            "hypothese": {"type": "string"}, "ziel": {"enum": ["Kosten", "Qualität", "Planung"]}}}},
+        "kosten": {"type": "object", "description": "Kostenmodell CHF pro Jahr", "additionalProperties": false, "properties": {
+          "annahme": {"type": "string"}, "lektion_chf": {"type": "number", "minimum": 0},
+          "raum_chf": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0}},
+          "schulhaus_chf": {"type": "number", "minimum": 0}, "transport_chf_pro_kind": {"type": "number", "minimum": 0}}},
+        "planung": {"type": "object", "description": "Annahmen der Langfristplanung", "properties": {
+          "wachstum_prozent": {"type": "number", "minimum": -50, "maximum": 50},
+          "neue_kg1_pro_jahr": {"type": "number", "minimum": 0}, "jahre": {"type": "integer", "minimum": 0},
+          "vollpensum_lektionen": {"type": "number", "exclusiveMinimum": 0},
+          "austritt_prozent": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0, "maximum": 100}},
+          "quartiere": {"type": "array", "items": {"type": "object", "properties": {
+            "name": {"type": "string"}, "schulhaus": {"type": "string"}, "ab": {"type": ["string", "integer"]},
+            "wohnungen": {"type": "number", "minimum": 0}, "kinder_pro_wohnung": {"type": "number", "minimum": 0},
+            "kinder": {"type": "number", "minimum": 0}}}}}}
       }
     },
     "schulhaus": {

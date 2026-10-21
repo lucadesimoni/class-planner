@@ -9,8 +9,8 @@ nachvollziehbar (Zählungen, keine Blackbox):
 * Stellvertretungsreserve: verfügbare, aber nicht unterrichtende Lehrpersonen pro Halbtag
 * Verfügbarkeiten: welche Teilzeit-Lehrperson an knappen Halbtagen fehlt
 * Raumauslastung: Schulzimmer und Spezialräume
-* Prognose: Lernende und benötigte Klassen/Schulzimmer der nächsten Schuljahre
-  (Jahrgänge rücken nach, neue KG1-Jahrgänge aus Durchschnitt und Wachstum)
+* Langfristplanung: Lernende, Klassen, Schulzimmer, Stellen und Kosten der nächsten
+  Schuljahre (Kohorten nach Stufenfolge, Austritte, Wachstum, Quartierentwicklung)
 """
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ import re
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 
-from .daten import Kind, Schule
+from .daten import Kind, Schule, stamm
 
 
 @dataclass
@@ -36,7 +36,8 @@ class Planung:
     pensenbilanz: list[dict] = field(default_factory=list)
     reserve: list[dict] = field(default_factory=list)
     raeume: list[dict] = field(default_factory=list)
-    prognose: list[dict] = field(default_factory=list)
+    prognose: list[dict] = field(default_factory=list)   # pro Jahr, Schulhaus und Raumtyp
+    jahre: list[dict] = field(default_factory=list)      # pro Jahr: Lernende, Klassen, Stellen, Kosten
 
 
 def _schuljahr_plus(schuljahr: str, n: int) -> str:
@@ -157,47 +158,126 @@ def _raeume(schule: Schule, r, p: Planung) -> None:
                     "(Raum oder Mitbenutzung eines anderen Schulhauses) prüfen.", quote >= 0.95))
 
 
-def _prognose(schule: Schule, kinder: list[Kind], r, p: Planung, jahre: int = 4) -> None:
-    """Jahrgänge rücken nach; neuer KG1-Jahrgang = Durchschnitt aller Jahrgänge x (1 + Wachstum)^n."""
+def _fuehrt(schule: Schule, sh, j: str) -> bool:
+    """Geht Jahrgang j in diesem Schulhaus zur Schule (Stufen und passender Raum)?"""
+    if sh.stufen is not None:
+        return j in sh.stufen
+    typen = {raum.typ for raum in sh.raeume}
+    return any(j in v.jahrgaenge and v.raumtyp in typen and (not v.schulhaeuser or sh.name in v.schulhaeuser)
+               for v in schule.vorlagen)
+
+
+def _ab_jahr(schule: Schule, ab: str) -> int:
+    """"2029/30" → Jahre ab dem Planjahr; "2" → 2 Jahre (mindestens 1)."""
+    m, heute = re.match(r"\s*(\d{4})", ab), re.match(r"\s*(\d{4})", schule.schuljahr or "")
+    if m:
+        return max(1, int(m.group(1)) - int(heute.group(1))) if heute else 1
+    try:
+        return max(1, int(float(ab)))
+    except ValueError:
+        return 1
+
+
+def _prognose(schule: Schule, kinder: list[Kind], r, p: Planung) -> None:
+    """Kohortenmodell: jede Stufe rückt in ihre nächste(n) Stufe(n) nach (skf.uebertritt.naechste).
+
+    * Verzweigungen (6 → S1A/S1B/S1C) im heutigen Verhältnis der Zielstufen
+    * Austritte nach einer Stufe (Kanti, Privatschule …): planung.austritt_prozent
+    * neuer jüngster Jahrgang: heutige Grösse (oder planung.neue_kg1_pro_jahr) × (1 + Wachstum)^n
+    * Quartierentwicklung: zuziehende Kinder ab einem Schuljahr, gleichmässig über alle Stufen
+    * Schulhaus: bleibt, wenn es die nächste Stufe führt, sonst Verteilung wie heute
+    """
+    from .uebertritt import (
+        naechste,  # uebertritt importiert daten → hier lokal, ohne Zyklus
+    )
+
     e = r.einteilung
-    planung = getattr(schule, "planung", {}) or {}
+    planung = schule.planung or {}
     wachstum = float(planung.get("wachstum_prozent", 0)) / 100
-    jg = schule.jahrgaenge
+    jahre = int(planung.get("jahre", 4))
+    austritt = planung.get("austritt_prozent") or {}
+    quartiere = planung.get("quartiere") or []
+    jg, folge = schule.jahrgaenge, naechste(schule)
     anzahl = Counter(k.jahrgang for k in kinder)
-    basis = planung.get("neue_kg1_pro_jahr") or anzahl[jg[0]]  # neuer jüngster Jahrgang wie heute
-    anteil = defaultdict(Counter)  # Jahrgang -> Schulhaus -> Anteil (heutige Zuteilung)
+    basis = float(planung.get("neue_kg1_pro_jahr") or anzahl[jg[0]])
+    heute: dict[str, Counter] = defaultdict(Counter)  # Jahrgang → Schulhaus → Lernende (Zuteilung)
     for k in kinder:
-        anteil[k.jahrgang][e.schulhaus_von[k.id]] += 1
+        if k.id in e.schulhaus_von:
+            heute[k.jahrgang][e.schulhaus_von[k.id]] += 1
+
+    def verteile(j: str) -> dict[str, float]:
+        if heute[j]:
+            gesamt = sum(heute[j].values())
+            return {sh: n / gesamt for sh, n in heute[j].items()}
+        orte = [sh.name for sh in schule.schulhaeuser if _fuehrt(schule, sh, j)]
+        return {sh: 1 / len(orte) for sh in orte}
+
+    def dazu(stand, j: str, sh: str | None, n: float) -> None:
+        if sh and _fuehrt(schule, schule.schulhaus(sh), j):
+            stand[j, sh] += n
+        else:
+            for ort, a in verteile(j).items():
+                stand[j, ort] += n * a
+
+    def anteile(ziele: list[str]) -> dict[str, float]:
+        gesamt = sum(anzahl[z] for z in ziele)
+        return {z: (anzahl[z] / gesamt if gesamt else 1 / len(ziele)) for z in ziele}
 
     def klassen_noetig(n: float, j: str) -> int:
         v = [v for v in schule.vorlagen if j in v.jahrgaenge and len(v.jahrgaenge) == 1] or \
             [v for v in schule.vorlagen if j in v.jahrgaenge]
-        return math.ceil(n / max(x.max for x in v)) if v and n > 0 else 0
+        return math.ceil(n / max(x.max for x in v) - 1e-9) if v and n > 0.5 else 0
 
-    stand = {j: float(anzahl[j]) for j in jg}
+    namen = {sh.name for sh in schule.schulhaeuser}
+    stand: dict[tuple[str, str], float] = defaultdict(float)
+    for j in jg:
+        for sh, n in heute[j].items():
+            stand[j, sh] = float(n)
+    zuzug = Counter()
     for n in range(jahre + 1):
         if n:
-            stand = {jg[0]: basis * (1 + wachstum) ** n, **{jg[i]: stand[jg[i - 1]] for i in range(1, len(jg))}}
+            alt, stand = stand, defaultdict(float)
+            for (j, sh), m in alt.items():
+                ziele = [z for z in folge.get(j, []) if z in jg]
+                if not ziele or m <= 0:
+                    continue  # Abschluss
+                bleibt = m * (1 - float(austritt.get(j, austritt.get(stamm(j), 0))) / 100)
+                for z, a in anteile(ziele).items():
+                    dazu(stand, z, sh, bleibt * a)
+            for sh, a in verteile(jg[0]).items():
+                stand[jg[0], sh] += basis * (1 + wachstum) ** n * a
+            for q in quartiere:
+                if _ab_jahr(schule, q["ab"]) == n:
+                    total = q["kinder"] if q["kinder"] is not None else q["wohnungen"] * q["kinder_pro_wohnung"]
+                    zuzug[n] += total
+                    stufen = schule.stufen()
+                    for st in stufen:
+                        teil = [j for j in jg if stamm(j) == st]
+                        for j, a in anteile(teil).items():
+                            dazu(stand, j, q["schulhaus"] if q["schulhaus"] in namen else None,
+                                 total / len(stufen) * a)
+        schuljahr = schule.schuljahr if n == 0 and schule.schuljahr else _schuljahr_plus(schule.schuljahr, n)
         for sh in schule.schulhaeuser:
             raumtypen = {raum.typ for raum in sh.raeume} & {v.raumtyp for v in schule.vorlagen
                                                            if not v.schulhaeuser or sh.name in v.schulhaeuser}
             for typ in sorted(raumtypen):
-                stufen = [j for j in jg if any(j in v.jahrgaenge and v.raumtyp == typ for v in schule.vorlagen)]
-                lernende = 0.0
-                klassen = 0
-                for j in stufen:
-                    gesamt = sum(anteil[j].values()) or 1
-                    n_sh = stand[j] * anteil[j][sh.name] / gesamt
-                    lernende += n_sh
-                    klassen += klassen_noetig(n_sh, j) if len(stufen) > 2 else 0
+                stufen = [j for j in jg if any(j in v.jahrgaenge and v.raumtyp == typ for v in schule.vorlagen)
+                          and _fuehrt(schule, sh, j)]
+                if not stufen:
+                    continue
+                lernende = sum(stand[j, sh.name] for j in stufen)
                 if len(stufen) <= 2:  # KG: Jahrgänge gemischt
                     v = [v for v in schule.vorlagen if v.raumtyp == typ]
-                    klassen = math.ceil(lernende / max(x.max for x in v)) if lernende else 0
+                    klassen = math.ceil(lernende / max(x.max for x in v) - 1e-9) if lernende > 0.5 else 0
+                else:
+                    klassen = sum(klassen_noetig(stand[j, sh.name], j) for j in stufen)
                 raeume = sum(1 for raum in sh.raeume if raum.typ == typ)
-                p.prognose.append({"Schuljahr": schule.schuljahr if n == 0 and schule.schuljahr else
-                                   _schuljahr_plus(schule.schuljahr, n), "Jahr": n, "Schulhaus": sh.name,
-                                   "Raumtyp": typ, "Lernende": round(lernende), "Klassen (mind.)": klassen,
+                p.prognose.append({"Schuljahr": schuljahr, "Jahr": n, "Schulhaus": sh.name, "Raumtyp": typ,
+                                   "Lernende": round(lernende), "Klassen (mind.)": klassen,
                                    "Räume": raeume, "Differenz": raeume - klassen})
+        p.jahre.append({"Schuljahr": schuljahr, "Jahr": n, "Lernende": round(sum(stand.values())),
+                        "davon Zuzug Quartiere": round(zuzug[n]) if zuzug[n] else 0})
+    _jahre_ergaenzen(schule, r, p, wachstum)
     gemeldet = set()
     for zeile in p.prognose:
         schluessel = (zeile["Schulhaus"], zeile["Raumtyp"])
@@ -207,9 +287,56 @@ def _prognose(schule: Schule, kinder: list[Kind], r, p: Planung, jahre: int = 4)
                 "Ausbau", f"{zeile['Schulhaus']}: ab {zeile['Schuljahr']} fehlen {typ_text(zeile)}",
                 f"Prognose {zeile['Lernende']} Lernende → mindestens {zeile['Klassen (mind.)']} Klassen, aber nur "
                 f"{zeile['Räume']} {'Raum' if zeile['Räume'] == 1 else 'Räume'} vom Typ {zeile['Raumtyp']}. "
-                "Ausbau, Provisorium oder Umverteilung auf andere "
-                f"Schulhäuser prüfen (Annahme: {wachstum * 100:.1f}% Wachstum pro Jahr, Einzugsgebiete wie heute).",
-                zeile["Jahr"] <= 2))
+                "Ausbau, Provisorium oder Umverteilung auf andere Schulhäuser prüfen "
+                f"({annahmen_text(schule)}).", zeile["Jahr"] <= 2))
+
+
+def annahmen_text(schule: Schule) -> str:
+    """Die Annahmen der Prognose in einem Satz."""
+    pl = schule.planung or {}
+    teile = [f"Wachstum {float(pl.get('wachstum_prozent', 0)):.1f} % pro Jahr"]
+    if pl.get("austritt_prozent"):
+        teile.append("Austritte nach " + ", ".join(f"{j}: {v:g} %" for j, v in pl["austritt_prozent"].items()))
+    for q in pl.get("quartiere") or []:
+        kinder = q["kinder"] if q["kinder"] is not None else q["wohnungen"] * q["kinder_pro_wohnung"]
+        teile.append(f"{q['name']} ab {q['ab']}: +{kinder:.0f} Lernende")
+    return "Annahmen: " + "; ".join(teile) + "; Einzugsgebiete wie heute"
+
+
+def _jahre_ergaenzen(schule: Schule, r, p: Planung, wachstum: float) -> None:
+    """Pro Jahr: Klassen, Lektionen, Stellen und Kosten – skaliert mit der Zahl der Klassen."""
+    from .kosten import kosten
+
+    vollpensum = float((schule.planung or {}).get("vollpensum_lektionen", 28))
+    lektionen0 = sum(b.lektionen for b in r.bloecke)
+    kapazitaet = sum(lp.pensum_max for lp in schule.lehrpersonen) / vollpensum
+    posten = {z["Posten"]: z["CHF"] for z in kosten(r)}
+    variabel = sum(v for k, v in posten.items() if k == "Lehrpersonal" or k.startswith("Räume"))
+    fix = posten.get("Schulhausbetrieb", 0)
+    bus = posten.get("Schulbus", 0)
+    klassen0 = sum(z["Klassen (mind.)"] for z in p.prognose if z["Jahr"] == 0) or 1
+    lernende0 = p.jahre[0]["Lernende"] if p.jahre else 0
+    fehlt_gemeldet = False
+    for j in p.jahre:
+        klassen = sum(z["Klassen (mind.)"] for z in p.prognose if z["Jahr"] == j["Jahr"])
+        faktor = klassen / klassen0
+        j["Klassen (mind.)"] = klassen
+        j["fehlende Räume"] = sum(-z["Differenz"] for z in p.prognose if z["Jahr"] == j["Jahr"] and z["Differenz"] < 0)
+        if lektionen0:
+            j["Lektionen/Woche"] = round(lektionen0 * faktor)
+            j["Stellen (Vollpensum)"] = round(lektionen0 * faktor / vollpensum, 1)
+            j["Stellen fehlen"] = round(max(0.0, lektionen0 * faktor / vollpensum - kapazitaet), 1)
+            if j["Stellen fehlen"] >= 0.5 and not fehlt_gemeldet:
+                fehlt_gemeldet = True
+                p.empfehlungen.append(Empfehlung(
+                    "Lehrpersonen", f"Ab {j['Schuljahr']} fehlen rund {j['Stellen fehlen']:.1f} Stellen",
+                    f"Prognose {klassen} Klassen ≈ {j['Lektionen/Woche']} Lektionen pro Woche = "
+                    f"{j['Stellen (Vollpensum)']:.1f} Vollzeitstellen ({vollpensum:.0f} L). Die heutigen Lehrpersonen "
+                    f"können höchstens {kapazitaet:.1f} Stellen leisten. Rekrutierung früh planen "
+                    f"({annahmen_text(schule)}).", j["Jahr"] <= 1))
+        if posten:
+            lernend = j["Lernende"] / lernende0 if lernende0 else 1
+            j["Kosten/Jahr (CHF)"] = round(variabel * faktor + fix + bus * lernend, -3)
 
 
 def typ_text(zeile: dict) -> str:

@@ -251,6 +251,25 @@ def vorpruefung(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
         if len(schule.slots) - len(lp.nicht_verfuegbar) < lp.pensum_min:
             m.append(Meldung("Warnung", "Lehraufträge", f"{lp.name}: Mindestpensum {lp.pensum_min} grösser "
                              f"als verfügbare Zeitfenster", lp.name))
+    m += _planung_kosten(schule)
+    return m
+
+
+def _planung_kosten(schule: Schule) -> list[Meldung]:
+    """Bezüge in Langfristplanung und Kostenmodell (die Werte selbst prüft schon das Einlesen)."""
+    m = []
+    namen = {s.name for s in schule.schulhaeuser}
+    for q in (schule.planung or {}).get("quartiere") or []:
+        if q["schulhaus"] and q["schulhaus"] not in namen:
+            m.append(Meldung("Warnung", "Planung", f"Quartier '{q['name']}': unbekanntes Schulhaus "
+                             f"'{q['schulhaus']}' – die Kinder werden wie heute auf die Schulhäuser verteilt"))
+    raumtypen = {r.typ for s in schule.schulhaeuser for r in s.raeume}
+    for typ in sorted(set((schule.kosten or {}).get("raum_chf") or {}) - raumtypen):
+        m.append(Meldung("Hinweis", "Kosten", f"Kostenansatz für Raumtyp '{typ}', den kein Schulhaus hat"))
+    for j in sorted(set((schule.planung or {}).get("austritt_prozent") or {})
+                    - set(schule.jahrgaenge) - set(schule.stufen())):
+        m.append(Meldung("Warnung", "Planung", f"Austritte nach '{j}': unbekannte Stufe (vorhanden: "
+                         f"{', '.join(schule.stufen())})"))
     return m
 
 

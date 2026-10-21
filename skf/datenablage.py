@@ -29,6 +29,7 @@ def datenordner() -> Path:
 
 def ergebnis_als_dict(r) -> dict:
     """Ergebnis einer Berechnung als einfache, stabile Struktur (siehe skf-ergebnis.schema.json)."""
+    from .kosten import kosten
     from .transparenz import guete
     s, e = r.schule, r.einteilung
     nach_id = {k.id: k for k in r.kinder}
@@ -37,7 +38,10 @@ def ergebnis_als_dict(r) -> dict:
         "profilversion": str((s.profil or {}).get("version", "")),
         "erstellt": datetime.now().isoformat(timespec="seconds"),
         "schule": s.name, "schuljahr": s.schuljahr, "szenario": s.szenario,
+        "hypothese": s.hypothese, "ziel": s.ziel,
         "vollstaendig": bool(r.vollstaendig), "kennzahlen": r.kennzahlen(), "loesungsguete": guete(r),
+        "kosten": [{"posten": z["Posten"], "menge": z["Menge"], "chf": z["CHF"]} for z in kosten(r)],
+        "langfristplanung": [dict(j) for j in r.planung.jahre],
         "zeitfenster": [{"index": t.index, "tag": t.tag, "halbtag": t.halbtag, "lektion": t.nr + 1, "beginn": t.zeit}
                         for t in s.slots],
         "klassen": [], "zuteilung": {}, "lehrauftraege": [], "stundenplan": [],

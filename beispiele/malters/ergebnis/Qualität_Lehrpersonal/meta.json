@@ -1,0 +1,31 @@
+{
+ "zeit": "2026-10-21T12:46:07",
+ "szenario": "Qualität: Lehrpersonal",
+ "schule": "Schule Malters – Volksschule (Beispiel)",
+ "schuljahr": "2027/28",
+ "notiz": "",
+ "kennzahlen": {
+  "Klassen": "47",
+  "Ø Klassengrösse": "18.8",
+  "Ø Schulweg": "1.41 km",
+  "Max. Schulweg": "5.51 km",
+  "Mehrjahrgangsklassen": "4",
+  "Lehrpersonen im Einsatz": "68",
+  "Förderlektionen": "274",
+  "Springstunden": "1",
+  "Wünsche erfüllt": "65/84",
+  "Lektionen/Woche": "1475",
+  "Klassen nahe Idealgrösse": "30/47",
+  "Lehrpersonen pro Klasse": "3.4",
+  "Auslastung Schulzimmer": "77 %",
+  "Kosten/Jahr": "CHF 7’334’000",
+  "Kosten pro Lernende": "CHF 8’296",
+  "Fehler": "0",
+  "Warnungen": "12",
+  "Hinweise": "104",
+  "Rechenzeit": "112 s"
+ },
+ "manuell": [],
+ "programmversion": "0.1.0",
+ "profilversion": "2026.10.1"
+}

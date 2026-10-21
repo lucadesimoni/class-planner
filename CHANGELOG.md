@@ -7,7 +7,12 @@ Neue Version: `python scripts/version.py 0.2.0`.
 
 ## [Unveröffentlicht]
 
+### Behoben
+- Prognose rückte Jahrgänge nach Listenposition nach (bei Sek-Niveaus falsch: S1C → S2A); jetzt nach Stufenfolge.
+- Programm startete unter Python 3.10/3.11 nicht (f-Strings nach Python 3.12); CI prüft nun die Syntax mit 3.10.
+
 ### Geändert
+- Eingaben für Kosten und Planung werden beim Einlesen geprüft (Zahlen, Bereiche, bekannte Angaben, Bezüge).
 - Ergebnis übersichtlicher: 8 statt 11 Reiter – *Anpassen* direkt bei den Klassen (Kinder der gewählten
   Klasse), *Räume* als dritte Ansicht der Stundenpläne, *Transparenz* und *Meldungen* zusammen unter *Prüfung*.
 - Mögliche Schulhäuser eines Kindes berücksichtigen nun auch, ob ein passender Raum vorhanden ist.
@@ -19,6 +24,15 @@ Neue Version: `python scripts/version.py 0.2.0`.
 - Leere Liste der Lernenden ergibt eine klare Fehlermeldung.
 
 ### Hinzugefügt
+- **Kosten und Qualität:** optionales Kostenmodell (`kosten`: Lektion, Räume je Typ, Schulhaus, Schulbus) und
+  Qualitätskennzahlen (Klassen nahe Idealgrösse, Lehrpersonen pro Klasse, Auslastung Schulzimmer) in
+  Kennzahlen, Bericht, Szenarienvergleich und `ergebnis.json` – reine Auswertung, die Optimierung bleibt unverändert.
+- **Langfristplanung als Kohortenmodell:** Stufen rücken nach der Stufenfolge nach (Sek-Niveaus,
+  Austritte nach einer Stufe), Wachstum, **Quartierentwicklung** (Zuzug ab einem Schuljahr); pro Jahr Lernende,
+  Klassen, fehlende Räume, Lektionen, Stellen und Kosten; App-Reiter *Planung & Kosten*.
+- **Szenarien als Hypothesen** (`hypothese`, `ziel`: Kosten/Qualität/Planung); in der App neue Hypothesen über
+  einfache Hebel anlegen und mehrere Szenarien nacheinander rechnen und vergleichen. Beispiel Malters mit
+  Szenarien für Kosten, Qualität und Planung.
 - **Schuljahreswechsel und Übertritte:** jede Stufe hat eine nächste Stufe (KG → Primar → Sek A/B/C,
   Kanti/Gymnasium/Wegzug als Austritt, Repetition, Überspringen, Umstufung), Entscheide pro Kind,
   Neueintritte, Protokoll; `skf uebertritt` und App-Seite *Schuljahreswechsel*.

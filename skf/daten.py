@@ -9,6 +9,8 @@ Schul-Konfiguration überschreibt das Profil.
 """
 from __future__ import annotations
 
+from collections import Counter
+
 import math
 import re
 from dataclasses import dataclass, field
@@ -264,6 +266,9 @@ class Schule:
     bus_wartezeit: int = 15                      # Minuten, die Kinder höchstens auf Bus/Unterricht warten
     wegzeiten: dict | None = None                # None = aus; sonst {"minuten": {(a, b): min}, "kmh": float}
     uebertritte: dict = field(default_factory=dict)  # Konfiguration Schuljahreswechsel (siehe skf.uebertritt)
+    kosten: dict = field(default_factory=dict)   # Kostenmodell CHF/Jahr (siehe skf.kosten), leer = nur Mengen
+    hypothese: str = ""                          # Szenario: "Was wäre, wenn …" in Worten
+    ziel: str = ""                               # Szenario: Kosten | Qualität | Planung
 
     def tafel(self, jahrgang: str) -> dict[str, int] | None:
         """Stundentafel eines Jahrgangs; Oberstufe: eigene Tafel je Niveau oder gemeinsame ("S1")."""
@@ -368,6 +373,52 @@ def szenarien(pfad: str | Path) -> list[str]:
     return ["Basis"] + list((cfg.get("szenarien") or {}).keys())
 
 
+SZENARIO_ZIELE = ("Kosten", "Qualität", "Planung")
+_SZENARIO_INFO = ("hypothese", "ziel")  # Beschreibung eines Szenarios, keine Änderung der Daten
+
+
+# Hebel für Hypothesen: verständliche Namen → Gewichte (gleiche Werte wie im Beispiel Malters)
+GEWICHT_HEBEL = {
+    "Weniger, grössere Klassen": ("Kosten", {"klasse": 1500, "groessen_abweichung": 5}),
+    "Klassen nahe Idealgrösse": ("Qualität", {"klasse": 150, "groessen_abweichung": 60}),
+    "Wenige Lehrpersonen pro Klasse, kompakte Pensen": (
+        "Qualität", {"lehrperson_pro_klasse": 500, "lehrperson_kontinuitaet": 600, "springstunde": 40,
+                     "praesenz_halbtag": 25}),
+    "Kurze Schulwege": ("Qualität", {"schulweg_pro_km": 400, "klasse": 300}),
+}
+
+
+def szenario_aus_hebeln(hypothese: str, hebel: list[str] = (), wachstum_prozent: float | None = None,
+                        quartier: dict | None = None, ohne_lehrpersonen: list[str] = ()) -> dict:
+    """Ein Szenario (Patch wie unter 'szenarien') aus einfachen Hebeln – für App und Skripte."""
+    patch: dict = {"hypothese": hypothese}
+    ziele = []
+    for h in hebel:
+        ziel, gewichte = GEWICHT_HEBEL[h]
+        ziele.append(ziel)
+        patch.setdefault("gewichte", {}).update(gewichte)
+    if wachstum_prozent is not None or quartier:
+        ziele.append("Planung")
+        patch["planung"] = {}
+        if wachstum_prozent is not None:
+            patch["planung"]["wachstum_prozent"] = float(wachstum_prozent)
+        if quartier:
+            patch["planung"]["quartiere"] = [quartier]
+    if ohne_lehrpersonen:
+        ziele.append("Planung")
+        patch["lehrpersonen"] = [{"name": n, "entfernen": True} for n in ohne_lehrpersonen]
+    if ziele:
+        patch["ziel"] = Counter(ziele).most_common(1)[0][0]
+    return patch
+
+
+def szenario_infos(cfg: dict) -> dict[str, dict[str, str]]:
+    """Szenario → {"hypothese", "ziel"} (leer, wenn nicht angegeben) – für Auswahl und Vergleich."""
+    return {"Basis": {"hypothese": "Heutige Angaben ohne Änderung", "ziel": ""},
+            **{str(n): {k: str((v or {}).get(k) or "") for k in _SZENARIO_INFO}
+               for n, v in (cfg.get("szenarien") or {}).items()}}
+
+
 PROFIL_ORDNER = Path(__file__).parent / "profile"
 
 
@@ -400,7 +451,10 @@ def lese_konfiguration(pfad: str | Path, szenario: str = "Basis",
     if szenario != "Basis":
         if szenario not in alle:
             raise ValueError(f"Unbekanntes Szenario '{szenario}'. Vorhanden: {', '.join(alle) or '-'}")
-        cfg = _mische(cfg, alle[szenario] or {})
+        patch = dict(alle[szenario] or {})
+        info = {k: str(patch.pop(k) or "") for k in _SZENARIO_INFO if k in patch}
+        cfg = _mische(cfg, patch)
+        cfg["_hypothese"], cfg["_ziel"] = info.get("hypothese", ""), info.get("ziel", "")
     if gewichte:
         cfg["gewichte"] = {**cfg.get("gewichte", {}), **gewichte}
     unbekannt = set(cfg.get("gewichte", {})) - set(STANDARD_GEWICHTE)
@@ -506,11 +560,93 @@ def baue_schule(cfg: dict) -> Schule:
         geschwister=str(kb.get("geschwister", "weich")),
         is_zaehlt_als=float(sp.get("is_zaehlt_als", 1)), max_is_pro_klasse=sp.get("max_is_pro_klasse"),
         ausgleich=tuple(sp.get("ausgleich", MERKMALE)), foerderangebote=angebote, profil=profil,
-        schuljahr=str(cfg.get("schuljahr", "")), planung=dict(cfg.get("planung") or {}),
+        schuljahr=str(cfg.get("schuljahr", "")), planung=_planung(cfg.get("planung")),
         lektion_minuten=int(cfg["zeitraster"].get("lektion_minuten", 45)),
         buslinien=_buslinien(cfg.get("schulbus") or {}),
         bus_wartezeit=int((cfg.get("schulbus") or {}).get("wartezeit_max", 15)),
-        wegzeiten=_wegzeiten(cfg.get("wegzeiten")), uebertritte=dict(cfg.get("uebertritte") or {}))
+        wegzeiten=_wegzeiten(cfg.get("wegzeiten")), uebertritte=dict(cfg.get("uebertritte") or {}),
+        kosten=_kosten(cfg.get("kosten")), hypothese=str(cfg.get("_hypothese", "")),
+        ziel=_ziel(cfg.get("_ziel")))
+
+
+def _zahl(wert, wo: str) -> float:
+    try:
+        x = float(wert)
+    except (TypeError, ValueError):
+        raise ValueError(f"{wo}: Zahl erwartet, nicht '{wert}'") from None
+    if x < 0 or x != x:
+        raise ValueError(f"{wo}: darf nicht negativ sein ({wert})")
+    return x
+
+
+def _kosten(roh) -> dict:
+    """Kostenmodell prüfen: alle Ansätze Zahlen ≥ 0, Raumansätze je Raumtyp."""
+    if not roh:
+        return {}
+    if not isinstance(roh, dict):
+        raise ValueError("kosten: Angaben als Liste 'Posten: Betrag' erwarten")
+    erlaubt = {"lektion_chf", "raum_chf", "schulhaus_chf", "transport_chf_pro_kind", "annahme"}
+    fremd = set(roh) - erlaubt
+    if fremd:
+        raise ValueError(f"kosten: unbekannte Angabe {', '.join(sorted(fremd))}. Erlaubt: {', '.join(sorted(erlaubt))}")
+    out = {k: _zahl(v, f"kosten.{k}") for k, v in roh.items() if k not in ("raum_chf", "annahme")}
+    out["raum_chf"] = {str(t): _zahl(v, f"kosten.raum_chf.{t}") for t, v in (roh.get("raum_chf") or {}).items()}
+    if roh.get("annahme"):
+        out["annahme"] = str(roh["annahme"])
+    return out
+
+
+def _planung(roh) -> dict:
+    """Annahmen der Langfristplanung prüfen (siehe skf.planung)."""
+    if not roh:
+        return {}
+    if not isinstance(roh, dict):
+        raise ValueError("planung: Angaben als 'Name: Wert' erwarten")
+    out = dict(roh)
+    if "wachstum_prozent" in roh:
+        w = roh["wachstum_prozent"]
+        try:
+            w = float(w)
+        except (TypeError, ValueError):
+            raise ValueError(f"planung.wachstum_prozent: Zahl erwartet, nicht '{w}'") from None
+        if not -50 <= w <= 50:
+            raise ValueError(f"planung.wachstum_prozent: {w} liegt ausserhalb von -50 bis 50 % pro Jahr")
+        out["wachstum_prozent"] = w
+    for k in ("neue_kg1_pro_jahr", "vollpensum_lektionen", "jahre"):
+        if roh.get(k) is not None:
+            out[k] = _zahl(roh[k], f"planung.{k}")
+    if out.get("vollpensum_lektionen") == 0:
+        raise ValueError("planung.vollpensum_lektionen: muss grösser als 0 sein")
+    out["austritt_prozent"] = {}
+    for j, v in (roh.get("austritt_prozent") or {}).items():
+        x = _zahl(v, f"planung.austritt_prozent.{j}")
+        if x > 100:
+            raise ValueError(f"planung.austritt_prozent.{j}: höchstens 100 %")
+        out["austritt_prozent"][str(j)] = x
+    quartiere = []
+    for i, q in enumerate(roh.get("quartiere") or []):
+        if not isinstance(q, dict):
+            raise ValueError(f"planung.quartiere[{i + 1}]: Angaben als 'name, schulhaus, ab, wohnungen' erwarten")
+        name = str(q.get("name") or f"Quartier {i + 1}")
+        wo = f"planung.quartiere '{name}'"
+        if q.get("kinder") is None and q.get("wohnungen") is None:
+            raise ValueError(f"{wo}: 'wohnungen' (mit kinder_pro_wohnung) oder 'kinder' angeben")
+        quartiere.append({"name": name, "schulhaus": str(q.get("schulhaus") or ""), "ab": str(q.get("ab") or 1),
+                          "wohnungen": _zahl(q.get("wohnungen") or 0, f"{wo}.wohnungen"),
+                          "kinder_pro_wohnung": _zahl(q.get("kinder_pro_wohnung", 0.3), f"{wo}.kinder_pro_wohnung"),
+                          "kinder": None if q.get("kinder") is None else _zahl(q["kinder"], f"{wo}.kinder")})
+    out["quartiere"] = quartiere
+    return out
+
+
+def _ziel(wert) -> str:
+    if not wert:
+        return ""
+    ziel = next((z for z in SZENARIO_ZIELE if z.lower() == str(wert).strip().lower()
+                 or (z == "Qualität" and str(wert).strip().lower() == "qualitaet")), None)
+    if ziel is None:
+        raise ValueError(f"Szenario-Ziel '{wert}' unbekannt. Erlaubt: {', '.join(SZENARIO_ZIELE)}")
+    return ziel
 
 
 def minuten(zeit: str) -> int:

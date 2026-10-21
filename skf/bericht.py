@@ -502,8 +502,10 @@ def _wuensche_html(r: Ergebnis) -> str:
             continue
         verteilung = ", ".join(f"{esc(k)} ({len(v)})" for k, v in sorted(neue.items(), key=lambda t: -len(t[1])))
         einzeln = [k for k, v in neue.items() if len(v) == 1]
+        hinweis = (f"<span class='badge sev-h'>{ICON['Hinweis']} allein in {esc(', '.join(einzeln))}</span>"
+                   if einzeln else "")
         zeilen.append(f"<tr><td>{esc(bisher)}</td><td class='num'>{sum(len(v) for v in neue.values())}</td>"
-                      f"<td>{verteilung}</td><td>{'<span class="badge sev-h">' + ICON['Hinweis'] + ' allein in ' + esc(', '.join(einzeln)) + '</span>' if einzeln else ''}</td></tr>")
+                      f"<td>{verteilung}</td><td>{hinweis}</td></tr>")
     tabelle = ("<details open><summary>Bisherige Klassen und Kindergartengruppen → neue Klassen</summary><div class='scroll'>"
                "<table><tr><th>bisher</th><th class='num'>Lernende</th><th>neu (Anzahl)</th><th></th></tr>"
                + "".join(zeilen) + "</table></div></details>") if zeilen else ""
@@ -517,6 +519,8 @@ def _empfehlungen_html(r: Ergebnis) -> str:
     p = r.planung
     if not (p.empfehlungen or p.prognose):
         return ""
+    from .kosten import chf, kosten
+    from .planung import annahmen_text
     karten = "".join(
         f"<div class='panel {'dringlich' if x.dringlich else 'rein'}'><h3>{icon('warnung', 'icon klein') + ' ' if x.dringlich else ''}"
         f"{esc(x.titel)}</h3><div class='fg2'>{esc(x.bereich)}</div><p>{esc(x.text)}</p></div>"
@@ -537,14 +541,29 @@ def _empfehlungen_html(r: Ergebnis) -> str:
     def differenz(v):
         return f"<span class='{'neg' if v < 0 else 'pos'}'>{v:+d}</span>"
     prognose = [z for z in p.prognose]
+    posten = kosten(r)
+    jahre_spalten = [sp for sp in ("Schuljahr", "Lernende", "davon Zuzug Quartiere", "Klassen (mind.)",
+                                   "fehlende Räume", "Lektionen/Woche", "Stellen (Vollpensum)", "Stellen fehlen",
+                                   "Kosten/Jahr (CHF)") if p.jahre and sp in p.jahre[0]]
+    annahme = (r.schule.kosten or {}).get("annahme", "")
     return (f"<div class='karten'>{karten}</div>"
-            "<details><summary>Pensenbilanz pro Schulhaus und Fach</summary>"
+            "<details open><summary>Langfristplanung: Lernende, Klassen, Stellen, Kosten</summary>"
+            f"<p class='muted'>{esc(annahmen_text(r.schule))}. Lektionen und Kosten wachsen mit der Zahl der "
+            "Klassen.</p>"
+            + tabelle(p.jahre, jahre_spalten, {"Kosten/Jahr (CHF)": lambda v: esc(chf(v))})
+            + "</details>"
+            + ("<details><summary>Kosten pro Jahr</summary>"
+               + (f"<p class='muted'>{esc(annahme)}</p>" if annahme else "")
+               + tabelle(posten, ["Posten", "Menge", "Ansatz", "CHF"], {"CHF": lambda v: esc(chf(v))})
+               + "</details>" if posten else "")
+            + "<details><summary>Pensenbilanz pro Schulhaus und Fach</summary>"
             + tabelle(p.pensenbilanz, ["Schulhaus", "Fach", "Bedarf (L)", "Lehrpersonen", "freie Pensen (L)"])
             + "</details><details><summary>Raumauslastung</summary>"
             + tabelle(p.raeume, ["Schulhaus", "Raumtyp", "Räume", "genutzt", "Auslastung"], {"Auslastung": balken})
             + "</details><details><summary>Prognose Lernende und Schulraum</summary>"
-            "<p class='muted'>Jahrgänge rücken nach; neuer KG1-Jahrgang wie heute bzw. gemäss <code>planung</code>; "
-            "Einzugsgebiete wie in der aktuellen Zuteilung.</p>"
+            "<p class='muted'>Jede Stufe rückt in ihre nächste Stufe nach (Sek-Niveaus im heutigen Verhältnis); "
+            "neuer KG1-Jahrgang, Austritte und Quartiere gemäss <code>planung</code>; Schulhäuser wie in der "
+            "aktuellen Zuteilung.</p>"
             + tabelle(prognose, ["Schuljahr", "Schulhaus", "Raumtyp", "Lernende", "Klassen (mind.)", "Räume",
                                  "Differenz"], {"Differenz": differenz})
             + "</details><details><summary>Stellvertretungsreserve pro Halbtag</summary>"
@@ -704,7 +723,8 @@ def schreibe_html(pfad: Path, r: Ergebnis, vergleich_link: str = "") -> None:
 <header class="app-header"><div class="logo">{icon('schule')}</div><div><h1>{esc(schule.name)}</h1>
 <p class="sub">Klassenbildung & Stundenplan · Szenario <b>{esc(schule.szenario)}</b>{' · ' + esc(schule.schuljahr) if schule.schuljahr else ''}
  · {len(r.kinder)} Lernende · {len(schule.schulhaeuser)} Schulhäuser · {len(schule.lehrpersonen)} Lehrpersonen
-{f' · <a href="{vergleich_link}">Szenarienvergleich</a>' if vergleich_link else ''}</p></div></header>
+{f' · <a href="{vergleich_link}">Szenarienvergleich</a>' if vergleich_link else ''}</p>
+{f'<p class="sub">{esc(schule.ziel + ": ") if schule.ziel else ""}<i>{esc(schule.hypothese)}</i></p>' if schule.hypothese else ''}</div></header>
 {banner}<div class="kacheln">"""]
     teile += [f"<div class='kachel'><b>{esc(v)}</b><span>{esc(k)}</span></div>" for k, v in r.kennzahlen().items()]
     teile.append("</div>")
@@ -828,11 +848,23 @@ def schreibe_vergleich(pfad: Path, ergebnisse: dict[str, Ergebnis]) -> None:
     """Eine Seite, die alle Szenarien nebeneinander stellt."""
     namen = list(ergebnisse)
     kennzahlen = {n: r.kennzahlen() for n, r in ergebnisse.items()}
-    zeilen = []
-    for k in next(iter(kennzahlen.values())):
+    for n, r in ergebnisse.items():
+        letzt = r.planung.jahre[-1] if r.planung and r.planung.jahre else {}
+        if letzt:
+            kennzahlen[n][f"Klassen {letzt['Schuljahr']}"] = str(letzt["Klassen (mind.)"])
+            kennzahlen[n][f"Fehlende Räume {letzt['Schuljahr']}"] = str(letzt["fehlende Räume"])
+            if "Kosten/Jahr (CHF)" in letzt:
+                from .kosten import chf
+                kennzahlen[n][f"Kosten/Jahr {letzt['Schuljahr']}"] = chf(letzt["Kosten/Jahr (CHF)"])
+    alle = list(dict.fromkeys(k for kz in kennzahlen.values() for k in kz))
+    hypothese = {n: r.schule.hypothese or ("Heutige Angaben" if r.schule.szenario == "Basis" else "")
+                 for n, r in ergebnisse.items()}
+    zeilen = ["<tr><th>Ziel</th>" + "".join(f"<td>{esc(ergebnisse[n].schule.ziel)}</td>" for n in namen) + "</tr>",
+              "<tr><th>Hypothese</th>" + "".join(f"<td>{esc(hypothese[n])}</td>" for n in namen) + "</tr>"]
+    for k in alle:
         zellen = []
         for n in namen:
-            v = kennzahlen[n][k]
+            v = kennzahlen[n].get(k, "–")
             if k in ("Fehler", "Warnungen", "Hinweise") and v not in ("0", "–"):
                 s = {"Fehler": "Fehler", "Warnungen": "Warnung", "Hinweise": "Hinweis"}[k]
                 v = f"<span class='badge {KLASSE[s]}'>{ICON[s]} {v}</span>"

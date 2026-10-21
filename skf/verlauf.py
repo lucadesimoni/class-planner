@@ -56,7 +56,7 @@ def speichere(r: Ergebnis, cfg: dict, notiz: str = "", ordner: Path | None = Non
     from .bericht import schreibe_html
     from .export import exportiere_listen
     jetzt = datetime.now()
-    name = f"{jetzt:%Y-%m-%d_%H%M%S}_{re.sub(r'[^\w-]+', '_', r.schule.szenario)}"
+    name = f"{jetzt:%Y-%m-%d_%H%M%S}_" + re.sub(r"[^\w-]+", "_", r.schule.szenario)
     ziel = (ordner or basis()) / name
     schreibe_stand(ziel, r, cfg, notiz, jetzt)
     schreibe_html(ziel / "bericht.html", r)

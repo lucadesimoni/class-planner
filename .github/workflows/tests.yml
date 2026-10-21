@@ -20,6 +20,8 @@ jobs:
       - uses: astral-sh/setup-uv@v6
       - name: Versionsangaben prüfen
         run: python3 scripts/version.py
+      - name: Syntax für die älteste unterstützte Python-Version (requires-python)
+        run: uv run --no-project --python 3.10 python -m compileall -q skf
       - name: Abhängigkeiten (genau nach uv.lock)
         run: |
           uv sync --frozen --extra test

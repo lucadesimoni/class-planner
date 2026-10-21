@@ -1,6 +1,6 @@
 Klassenbildung & Stundenplan 0.1.0 – gespeicherter Stand
 =============================================================
-Schule: Schule Malters – Volksschule (Beispiel)   Schuljahr: 2027/28   Szenario: Umbau Eischachen   Zeitpunkt: 19.10.2026 15:05
+Schule: Schule Malters – Volksschule (Beispiel)   Schuljahr: 2027/28   Szenario: Umbau Eischachen   Zeitpunkt: 21.10.2026 12:48
 
 Alle Dateien sind offen lesbar – auch ohne dieses Programm.
 

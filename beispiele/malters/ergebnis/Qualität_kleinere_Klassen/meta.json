@@ -1,0 +1,26 @@
+{
+ "zeit": "2026-10-21T12:44:13",
+ "szenario": "Qualität: kleinere Klassen",
+ "schule": "Schule Malters – Volksschule (Beispiel)",
+ "schuljahr": "2027/28",
+ "notiz": "",
+ "kennzahlen": {
+  "Klassen": "47",
+  "Ø Klassengrösse": "18.8",
+  "Ø Schulweg": "1.42 km",
+  "Max. Schulweg": "5.51 km",
+  "Mehrjahrgangsklassen": "6",
+  "Lehrpersonen im Einsatz": "–",
+  "Förderlektionen": "–",
+  "Springstunden": "–",
+  "Wünsche erfüllt": "64/84",
+  "Klassen nahe Idealgrösse": "34/47",
+  "Fehler": "1",
+  "Warnungen": "9",
+  "Hinweise": "76",
+  "Rechenzeit": "32 s"
+ },
+ "manuell": [],
+ "programmversion": "0.1.0",
+ "profilversion": "2026.10.1"
+}

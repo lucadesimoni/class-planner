@@ -77,8 +77,8 @@ Für Fachleute: `uv run skf app` oder `pip install -e .` und dann `skf app`.
 | **Start** | Überblick, Fortschritt, Beispiel oder Vorlage mit einem Klick | [Start](docs/screenshots/0-start.png) |
 | **1 · Daten** | Lernende, Lehrpersonen, Schulhäuser, Räume, Klassentypen, Förderangebote direkt in Tabellen bearbeiten oder Excel hochladen; **Raum- und Lehrpersonenlisten** (CSV/Excel, Spalten frei benannt) übernehmen; Gewichtung mit Schiebereglern; als Excel speichern | [Daten](docs/screenshots/1-daten.png), [Gewichtung](docs/screenshots/1b-gewichtung.png), [Raumliste](docs/screenshots/1c-raeume-import.png) |
 | **2 · Prüfen** | fehlende oder widersprüchliche Angaben (Fehler, Warnung, Hinweis) | [Prüfen](docs/screenshots/2-pruefen.png) |
-| **3 · Berechnen** | Szenario, Rechenzeit, Notiz; jede Berechnung wird im Verlauf gespeichert | [Berechnen](docs/screenshots/3-berechnen.png) |
-| **4 · Ergebnis** | **Karte** (Klasse wählen → Einzugsgebiet; Farbe nach Schulhaus oder Jahrgang; **Geschwister verbinden**, getrennte Familien rot; Schulwege) · **Klassen** mit Klassenlisten, Geschwistern, Vorjahresklasse und **Anpassen** (Kind verschieben, sofort neu geprüft) · **Lernende** (Personenkarte mit „Warum hier?“) · **Stundenpläne** je Klasse, Lehrperson oder **Raum** (Auslastung, Wochenplan) · Wünsche und KG-Gruppen · Empfehlungen · **Prüfung** (harte Regeln nachgezählt, Abwägungen, Meldungen) · Downloads | [Karte](docs/screenshots/4-ergebnis-karte.png), [Klassen](docs/screenshots/5-klassen.png), [Lernende](docs/screenshots/6-lernende.png), [Anpassen](docs/screenshots/7-anpassen.png), [Stundenplan](docs/screenshots/8-stundenplan.png), [Räume](docs/screenshots/8b-raeume.png), [Wünsche](docs/screenshots/9-wuensche.png), [Empfehlungen](docs/screenshots/10-empfehlungen.png), [Prüfung](docs/screenshots/6b-transparenz.png), [Downloads](docs/screenshots/11-herunterladen.png) |
+| **3 · Berechnen** | Szenarien als Hypothesen (Ziel Kosten, Qualität oder Planung) wählen oder über einfache Hebel neu anlegen, mehrere nacheinander rechnen und vergleichen; jede Berechnung wird im Verlauf gespeichert | [Berechnen](docs/screenshots/3-berechnen.png), [Hypothese](docs/screenshots/3a-hypothese.png) |
+| **4 · Ergebnis** | **Karte** (Klasse wählen → Einzugsgebiet; Farbe nach Schulhaus oder Jahrgang; **Geschwister verbinden**, getrennte Familien rot; Schulwege) · **Klassen** mit Klassenlisten, Geschwistern, Vorjahresklasse und **Anpassen** (Kind verschieben, sofort neu geprüft) · **Lernende** (Personenkarte mit „Warum hier?“) · **Stundenpläne** je Klasse, Lehrperson oder **Raum** (Auslastung, Wochenplan) · Wünsche und KG-Gruppen · **Planung & Kosten** (Empfehlungen, Kosten, Langfristplanung) · **Prüfung** (harte Regeln nachgezählt, Abwägungen, Meldungen) · Downloads | [Karte](docs/screenshots/4-ergebnis-karte.png), [Klassen](docs/screenshots/5-klassen.png), [Lernende](docs/screenshots/6-lernende.png), [Anpassen](docs/screenshots/7-anpassen.png), [Stundenplan](docs/screenshots/8-stundenplan.png), [Räume](docs/screenshots/8b-raeume.png), [Wünsche](docs/screenshots/9-wuensche.png), [Planung & Kosten](docs/screenshots/10-planung.png), [Prüfung](docs/screenshots/6b-transparenz.png), [Downloads](docs/screenshots/11-herunterladen.png) |
 | **Prüfung** (in 4 · Ergebnis) | alle harten Regeln mit Prüfstatus; Abwägungen (Messwert × Gewicht = Strafpunkte je Ziel); Lösungsgüte pro Rechenschritt; bei jedem Kind **„Warum hier?“** mit allen Schulhäusern, Wegen, freien Plätzen und Gründen | [Transparenz](docs/screenshots/6b-transparenz.png), [Begründung](docs/screenshots/6-lernende.png) |
 | **Schuljahreswechsel** | jede Stufe → nächste Stufe: Entscheide pro Kind (Sek A/B/C, Kanti, repetiert, Wegzug …), Neueintritte KG1 hochladen, Vorschau mit Übertritten/Austritten, dann als neues Schuljahr übernehmen (aktuelle Klassen werden „bisherige Klasse“) | [Schuljahreswechsel](docs/screenshots/12b-schuljahreswechsel.png) |
 | **Verlauf** | alle gespeicherten Stände mit Kennzahlen; zwei Stände vergleichen (wer wechselte wohin); Bericht/Listen eines Standes herunterladen; Eingabedaten wiederherstellen | [Verlauf](docs/screenshots/12-verlauf.png) |
@@ -233,9 +233,41 @@ KG-Gruppen auf die 1. Klassen verteilen.
   nennt die Teilzeit-Lehrpersonen, deren zusätzliche Verfügbarkeit am meisten bringen
   würde.
 - **Räume**: Auslastung von Schulzimmern, Turnhallen und TTG-Zimmern.
-- **Ausbau**: Prognose der Lernenden und benötigten Schulzimmer für die nächsten vier
-  Schuljahre. Die Jahrgänge rücken nach; Wachstum einstellbar mit
-  `planung: {wachstum_prozent: 3}`.
+- **Ausbau und Stellen**: Langfristplanung für die nächsten vier Schuljahre, siehe unten.
+
+### Kosten, Qualität und Langfristplanung
+
+Alles hier sind **Auswertungen des berechneten Ergebnisses**: einfache, nachvollziehbare
+Zählungen. Sie verändern die Optimierung nicht. Welche Klassen, Lehraufträge und
+Stundenpläne entstehen, steuern weiterhin nur die Daten, Regeln und Gewichte.
+
+- **Qualität** (immer): Klassen nahe Idealgrösse, Lehrpersonen pro Klasse, Auslastung der
+  Schulzimmer, Ø Schulweg, erfüllte Wünsche, Springstunden.
+- **Kosten** (mit Kostenmodell): Lehrpersonal (Lektionen × Ansatz), genutzte Räume je
+  Raumtyp, Schulhausbetrieb, Schulbus. Daraus Kosten pro Jahr und pro Lernende.
+- **Langfristplanung**: Die Stufen rücken nach der Stufenfolge des Schuljahreswechsels
+  nach: KG → Primar → Sek A/B/C im heutigen Verhältnis, Austritte nach einer Stufe (Kanti),
+  ein neuer KG1-Jahrgang mit Wachstum, dazu **Quartierentwicklung** (Zuzug ab einem
+  Schuljahr). Pro Jahr ergeben sich Lernende, Klassen, fehlende Räume, Lektionen,
+  Vollzeitstellen (im Vergleich zum Pensum der heutigen Lehrpersonen) und Kosten. Ab wann
+  Räume oder Stellen fehlen, erscheint als Empfehlung mit den Annahmen im Text.
+
+```yaml
+planung:
+  wachstum_prozent: 3              # neuer KG1-Jahrgang pro Jahr (negativ = Rückgang)
+  vollpensum_lektionen: 28
+  austritt_prozent: {"6": 10}      # nach der 6. Klasse ins Langzeitgymnasium
+  quartiere:                       # Zuzug ab einem Schuljahr, gleichmässig über alle Stufen
+    - {name: Neubaugebiet Nord, schulhaus: Bündtmättli, ab: 2029/30, wohnungen: 120, kinder_pro_wohnung: 0.3}
+kosten:                            # CHF pro Jahr – eigene Ansätze einsetzen
+  lektion_chf: 4000
+  raum_chf: {Klassenzimmer: 15000, Turnhalle: 45000}
+  schulhaus_chf: 90000
+  transport_chf_pro_kind: 1200
+```
+
+In der App steht das unter *Ergebnis → Planung & Kosten*, im Bericht unter *Empfehlungen*,
+in `ergebnis.json` unter `kosten` und `langfristplanung`.
 
 ### Begriffe
 
@@ -463,8 +495,23 @@ in der die meisten ihrer bisherigen Kinder sind.
 python -m skf rechnen schule.yaml kinder.csv -g schulweg_pro_km=400 -g lehrperson_kontinuitaet=600
 ```
 
+Ein **Szenario ist eine Hypothese**: „Was wäre, wenn …“. Es hat ein Ziel (*Kosten*,
+*Qualität* oder *Planung*) und enthält nur die Änderungen gegenüber der Basis. Hypothese
+und Ziel erscheinen bei der Auswahl, im Bericht, im Szenarienvergleich und in
+`ergebnis.json`.
+
 ```yaml
 szenarien:                                 # nur Änderungen gegenüber der Basis
+  "Kosten: grössere Klassen":
+    ziel: Kosten
+    hypothese: Was wäre, wenn wir weniger, dafür grössere Klassen bilden?
+    gewichte: {klasse: 1500, groessen_abweichung: 5}
+  "Planung: Wachstum 5 %":
+    ziel: Planung
+    hypothese: Was wäre, wenn die Gemeinde 5 % pro Jahr wächst und das Neubaugebiet doppelt so gross wird?
+    planung:
+      wachstum_prozent: 5
+      quartiere: [{name: Neubaugebiet Nord, wohnungen: 240}]
   Kurze Schulwege:
     gewichte: {schulweg_pro_km: 400}
   Umbau Eischachen:
@@ -476,6 +523,13 @@ szenarien:                                 # nur Änderungen gegenüber der Basi
     lehrpersonen:
       - {name: BM Lehrperson 12, entfernen: true}
 ```
+
+**In der App** legt *Berechnen → Neue Hypothese als Szenario anlegen* ein Szenario über
+einfache Hebel an: weniger, grössere Klassen; Klassen nahe Idealgrösse; wenige
+Lehrpersonen pro Klasse; kurze Schulwege; Wachstum; Quartier; unbesetzte Stellen.
+Werden mehrere Szenarien gewählt, rechnet die App sie nacheinander und stellt sie
+nebeneinander: Kennzahlen, Kosten und die Lage in vier Jahren. Auf der Kommandozeile
+geht das mit `skf rechnen … --szenario alle` (Seite `vergleich.html`).
 
 ## Wie es rechnet
 

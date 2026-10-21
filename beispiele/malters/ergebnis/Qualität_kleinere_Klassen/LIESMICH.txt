@@ -1,0 +1,27 @@
+Klassenbildung & Stundenplan 0.1.0 – gespeicherter Stand
+=============================================================
+Schule: Schule Malters – Volksschule (Beispiel)   Schuljahr: 2027/28   Szenario: Qualität: kleinere Klassen   Zeitpunkt: 21.10.2026 12:44
+
+Alle Dateien sind offen lesbar – auch ohne dieses Programm.
+
+Für Menschen
+  bericht.html          Übersicht mit Karte, Klassen, Stundenplänen, Meldungen (im Browser öffnen)
+  klassenlisten.xlsx    Klassenlisten zum Drucken (Excel/LibreOffice)
+  stundenplaene.xlsx    Stundenpläne je Klasse, Lehrperson und Spezialraum
+  druck.html            Druckversion (im Browser drucken oder als PDF speichern)
+  stammdaten.xlsx       alle Eingabedaten, ein Blatt pro Tabelle – bearbeiten und wieder einlesen
+
+Für Programme (UTF-8)
+  ergebnis.json         vollständiges Ergebnis (Format skf-ergebnis, Schema skf-ergebnis.schema.json)
+  stammdaten.json       Eingabedaten (Format skf-stammdaten, Schema skf-stammdaten.schema.json)
+  meta.json             Zeitpunkt, Kennzahlen, Programm- und Profilversion dieses Standes
+  zuteilung.json        Lernende → Schulhaus und Klasse
+  einteilung.csv, klassen.csv, lehrauftraege.csv, stundenplan.csv, meldungen.csv
+                        dieselben Daten als Tabellen (Komma-getrennt, Kopfzeile)
+
+Wieder einlesen: in der App „Verlauf → Eingabedaten dieses Standes laden“ oder
+  skf import stammdaten.json -o ordner/
+Beschreibung aller Felder: docs/datenformate.md im Programmordner.
+
+Enthält Personendaten von Lernenden (teils besonders schützenswert: IF/DaZ/IS).
+Nur auf Geräten der Schule speichern und nach der kantonalen Aufbewahrungsfrist löschen.
