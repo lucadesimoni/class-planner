@@ -55,9 +55,12 @@
       L.circleMarker(p, {radius: 2.5, weight: 0, fillColor: "#5b6b62", fillOpacity: .55, interactive: false}).addTo(karte);
       grenzen.push(p);
     });
-    (args.schulhaeuser || []).forEach(s => {
+    // Namen von Nord nach Süd abwechselnd rechts und links – nahe Schulhäuser überdecken sich so nicht
+    (args.schulhaeuser || []).slice().sort((a, b) => b.lat - a.lat).forEach((s, i) => {
+      const rechts = i % 2 === 0;
       L.circleMarker([s.lat, s.lon], {radius: 7, color: "#fff", weight: 2, fillColor: "#2f5d50", fillOpacity: 1})
-        .bindTooltip(s.name, {permanent: true, direction: "right", offset: [8, 0]}).addTo(karte);
+        .bindTooltip(s.name, {permanent: true, direction: rechts ? "right" : "left", offset: [rechts ? 8 : -8, 0]})
+        .addTo(karte);
       grenzen.push([s.lat, s.lon]);
     });
     if (args.flaeche && args.flaeche.length >= 3) { punkte = args.flaeche.slice(); fertig = true; }
@@ -73,10 +76,17 @@
     zeichnen();
   }
 
+  // Höhe nie 0 melden (in einem zugeklappten Bereich misst das Dokument 0) und bei
+  // jeder Grössenänderung neu melden; Leaflet muss seine Grösse danach nachführen.
+  function hoehe() {
+    senden("streamlit:setFrameHeight", {height: Math.max(document.body.scrollHeight, 480)});
+    if (karte) karte.invalidateSize();
+  }
+  window.addEventListener("resize", hoehe);
   window.addEventListener("message", ev => {
     if (!ev.data || ev.data.type !== "streamlit:render") return;
     if (!gezeichnet) { gezeichnet = true; aufbauen(ev.data.args || {}); }
-    senden("streamlit:setFrameHeight", {height: document.body.scrollHeight});
+    hoehe();
   });
   senden("streamlit:componentReady", {apiVersion: 1});
 })();

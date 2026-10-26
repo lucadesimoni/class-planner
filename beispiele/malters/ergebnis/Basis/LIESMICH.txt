@@ -1,6 +1,6 @@
 Klassenbildung & Stundenplan 0.1.0 – gespeicherter Stand
 =============================================================
-Schule: Schule Malters – Volksschule (Beispiel)   Schuljahr: 2027/28   Szenario: Basis   Zeitpunkt: 21.10.2026 12:39
+Schule: Schule Malters – Volksschule (Beispiel)   Schuljahr: 2027/28   Szenario: Basis   Zeitpunkt: 26.10.2026 15:59
 
 Alle Dateien sind offen lesbar – auch ohne dieses Programm.
 

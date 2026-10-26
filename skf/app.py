@@ -587,7 +587,7 @@ def seite_berechnen() -> None:
     cfg, kinder = _aktuelle_daten()
     infos = szenario_infos(cfg)
     gewaehlt = st.multiselect(
-        "Szenarien", list(infos), default=["Basis"],
+        "Szenarien", list(infos), default=["Basis"], placeholder="Szenario wählen",
         format_func=lambda n: f"{n} · {infos[n]['ziel']}" if infos[n]["ziel"] else n,
         help="Jedes Szenario ist eine Hypothese (\"Was wäre, wenn …\"). Mehrere wählen = nacheinander rechnen "
              "und nebeneinander vergleichen.")
@@ -732,13 +732,14 @@ def _hypothese_anlegen(cfg: dict) -> None:
         hypothese = st.text_input("Was wäre, wenn …", key="hyp_text",
                                   placeholder="z.B. Was wäre, wenn 2030 ein Quartier mit 200 Wohnungen dazukommt?")
         hebel = st.multiselect("Schwerpunkt (Kosten oder Qualität)", list(GEWICHT_HEBEL), key="hyp_hebel",
+                               placeholder="Auswählen …",
                                format_func=lambda h: f"{h} · {GEWICHT_HEBEL[h][0]}")
         a, b = st.columns(2)
         planung = cfg.get("planung") or {}
         wachstum = a.number_input("Wachstum Lernende % pro Jahr", -20.0, 20.0,
                                   float(planung.get("wachstum_prozent", 0)), 0.5, key="hyp_wachstum")
         lehrpersonen = b.multiselect("Stellen unbesetzt", [lp["name"] for lp in cfg.get("lehrpersonen") or []],
-                                     key="hyp_lp")
+                                     placeholder="keine", key="hyp_lp")
         quartier = None
         if st.toggle("Quartierentwicklung (Zuzug ab einem Schuljahr)", key="hyp_q"):
             c, d, e, f = st.columns(4)
@@ -886,7 +887,7 @@ def seite_ergebnis() -> None:
                                                         "nachgezählt.", icon=":material/verified:")
         with st.expander(f"Meldungen ({len(r.meldungen)})", icon=":material/list:", expanded=not e or bool(
                 r.anzahl("Fehler"))):
-            filt = st.multiselect("Anzeigen", SCHWEREGRADE, default=["Fehler", "Warnung"])
+            filt = st.multiselect("Anzeigen", SCHWEREGRADE, default=["Fehler", "Warnung"], placeholder="Schweregrad wählen")
             df = pd.DataFrame([{"Schweregrad": m.schwere, "Bereich": m.bereich, "Meldung": m.text, "Quelle": m.quelle}
                                for m in sorted(r.meldungen, key=lambda m: SCHWEREGRADE.index(m.schwere))
                                if m.schwere in filt])

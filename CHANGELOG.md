@@ -8,6 +8,12 @@ Neue Version: `python scripts/version.py 0.2.0`.
 ## [Unveröffentlicht]
 
 ### Behoben
+- Rückkopplung Klassenbildung ↔ Lehraufträge: Statt „nachweislich keine Lösung“ für eine einzelne
+  Klasseneinteilung zu melden, wird mit anderen Einteilungen weitergerechnet (bis zu 3). Im Beispiel Malters
+  sind damit alle Szenarien ausser dem absichtlich unlösbaren *Umbau Eischachen* planbar.
+- Kartenkomponente: unsichtbar, wenn sie in einem zugeklappten Bereich geladen wurde (Höhe 0); Namen nahe
+  beieinander liegender Schulhäuser überdecken sich nicht mehr.
+- Auswahlfelder mit deutschem Platzhalter statt „Choose options“.
 - Zeitraster: Halbtage werden nach Beginn geordnet. Stand der Nachmittag in der Konfiguration vor dem Vormittag,
   galten die Blockzeiten für den Nachmittag (falsche „keine Lösung“).
 - Prognose am berechneten Ergebnis abgeglichen (Jahr 0 = tatsächliche Klassen, z.B. Mehrjahrgangsklassen).

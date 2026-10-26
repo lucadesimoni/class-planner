@@ -264,3 +264,14 @@ def test_halbtage_reihenfolge_egal(tmp_path):
     a = baue_schule(lese_konfiguration(_schreibe(tmp_path, cfg)))
     b = baue_schule(lese_konfiguration(VORLAGE / "schule.yaml"))
     assert a.slots == b.slots and a.vormittag() == "VM"
+
+
+def test_klassenbildung_rueckkopplung_waehlt_andere_einteilung():
+    """Härtung: mit andere_als darf dasselbe Klassenmuster nicht noch einmal gewählt werden."""
+    from skf.klassen import klassenmuster, teile_ein
+    s = baue_schule(lese_konfiguration(VORLAGE / "schule.yaml"))
+    k = lade_kinder(VORLAGE / "kinder.csv")
+    erste = teile_ein(s, k, zeitlimit=20)
+    zweite = teile_ein(s, k, zeitlimit=20, andere_als=[klassenmuster(s, erste)])
+    assert klassenmuster(s, zweite) != klassenmuster(s, erste)
+    assert sorted(zweite.schulhaus_von) == sorted(erste.schulhaus_von)   # alle Lernenden zugeteilt

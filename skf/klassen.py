@@ -106,7 +106,12 @@ def geschwistergruppen(schule: Schule, kinder: list[Kind]) -> dict[str, list[lis
     return out
 
 
-def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Einteilung:
+def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60,
+              andere_als: list[dict[tuple[str, int], int]] | None = None) -> Einteilung:
+    """Klassen bilden und Lernende zuteilen.
+
+    ``andere_als``: Klassenmuster (Anzahl Klassen je Schulhaus und Klassentyp), die nicht noch
+    einmal gewählt werden dürfen – Rückkopplung, wenn mit einem Muster keine Lehraufträge möglich sind."""
     warnungen: list[str] = []
     dist = schulwege(schule, kinder)
     w = schule.gewichte
@@ -281,6 +286,15 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60) -> Eint
             kosten.append(w["geschwister_getrennt"] * (sum(e.values()) - 1))
 
     m.minimize(sum(kosten))
+    for muster in andere_als or []:  # mindestens eine Anzahl (Schulhaus, Klassentyp) muss sich ändern
+        abweichung = []
+        for (sn, vi), anzahl in {**{(sn, vi): 0 for sn, _, vi in y}, **muster}.items():
+            terme = [yv for (s2, _, v2), yv in y.items() if s2 == sn and v2 == vi]
+            if terme:
+                b = m.new_bool_var(f"anders_{sn}_{vi}")
+                m.add(sum(terme) != anzahl).only_enforce_if(b)
+                abweichung.append(b)
+        regeln.nur_wenn(m.add_bool_or(abweichung), "Andere Klasseneinteilung als die bereits geprüften")
     sol, info_a = loese_mit_regeln(m, regeln, "Klassenbildung A (Schulhaus und Klassen)", zeitlimit * 0.6)
 
     schulhaus_von = {kid: s for (kid, s), xv in x.items() if sol.value(xv)}
@@ -421,3 +435,12 @@ def _wunschpaare(kinder: list[Kind]) -> list[tuple[str, str]]:
             if anderer in ids and anderer != k.id:
                 paare.add(tuple(sorted((k.id, anderer))))
     return sorted(paare)
+
+
+def klassenmuster(schule: Schule, e: Einteilung) -> dict[tuple[str, int], int]:
+    """Anzahl Klassen je (Schulhaus, Klassentyp-Index) – für ``teile_ein(andere_als=…)``."""
+    muster: dict[tuple[str, int], int] = {}
+    for c in e.klassen:
+        schluessel = (c.schulhaus, schule.vorlagen.index(c.vorlage))
+        muster[schluessel] = muster.get(schluessel, 0) + 1
+    return muster

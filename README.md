@@ -566,6 +566,13 @@ geht das mit `skf rechnen … --szenario alle` (Seite `vergleich.html`).
 6. **Prüfung**: Die harten Regeln werden unabhängig nachgezählt, dazu kommen
    Qualitätshinweise und die Rechtsprüfung.
 
+**Rückkopplung zwischen den Schritten:** Ist der Stundenplan mit den Lehraufträgen unlösbar,
+werden die Lehraufträge der beteiligten Lehrpersonen neu verteilt (bis zu 4 Versuche). Sind
+Lehraufträge oder Stundenplan mit einer Klasseneinteilung nachweislich unlösbar, wird die
+Klassenbildung mit einer anderen Einteilung wiederholt: mindestens eine Anzahl Klassen je
+Schulhaus und Klassentyp muss sich ändern (bis zu 3 Einteilungen). Erst wenn auch das nicht
+geht, meldet das Programm einen Fehler, mit der Zahl der geprüften Einteilungen.
+
 Jeder Schritt meldet, ob die Lösung **beweisbar optimal** ist oder wie weit sie höchstens
 vom Optimum entfernt ist. Mehr Rechenzeit (`-t`) verkleinert diese Lücke. Schulwege
 werden als Luftlinie × `umweg_faktor` (Standard 1.3) geschätzt.

@@ -1,6 +1,6 @@
 Klassenbildung & Stundenplan 0.1.0 – gespeicherter Stand
 =============================================================
-Schule: Schule Malters – Volksschule (Beispiel)   Schuljahr: 2027/28   Szenario: Qualität: Lehrpersonal   Zeitpunkt: 21.10.2026 12:46
+Schule: Schule Malters – Volksschule (Beispiel)   Schuljahr: 2027/28   Szenario: Qualität: Lehrpersonal   Zeitpunkt: 26.10.2026 16:08
 
 Alle Dateien sind offen lesbar – auch ohne dieses Programm.
 
