@@ -288,7 +288,7 @@ def blockzeit_slots(schule: Schule, schulhaus: str) -> list[int]:
     """Slots, die bei Blockzeiten besetzt sein müssen (offene Vormittagslektionen)."""
     if not schule.blockzeiten:
         return []
-    vm = schule.slots[0].halbtag
+    vm = schule.vormittag()
     return [s.index for s in schule.offene_slots(schulhaus) if s.halbtag == vm]
 
 

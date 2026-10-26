@@ -679,6 +679,52 @@ def _gebietskarte(cfg: dict):
                                        for s in cfg.get("schulhaeuser") or [] if "lat" in s])
 
 
+def _gebiet_eingeben(cfg: dict) -> dict | None:
+    """Gezeichnetes Gebiet mit Annahmen: Aufteilung nach Schulhaus, Schulbus (z.B. Dorfzone), Zuzug.
+    Wahlweise dauerhaft für alle Berechnungen speichern (Konfiguration 'gebiete')."""
+    flaeche = _gebietskarte(cfg)
+    if not flaeche:
+        return None
+    from skf.gebiete import Gebiet, lernende_im_gebiet
+    im_gebiet = lernende_im_gebiet(Gebiet("x", [tuple(x) for x in flaeche]), _aktuelle_daten()[1])
+    st.caption(f"{len(im_gebiet)} heutige Lernende wohnen im gezeichneten Gebiet.")
+    c, d, e = st.columns(3)
+    name = c.text_input("Name des Gebiets", "Gebiet", key="hyp_g_name")
+    linien = [l.get("name") for l in (cfg.get("schulbus") or {}).get("linien") or [] if l.get("name")]
+    bus = d.selectbox("Schulbus im Gebiet", ["wie bisher", "kein Schulbus (z.B. Dorfzone)", *linien], key="hyp_g_bus")
+    neu = e.number_input("Zusätzliche Lernende (Annahme)", 0, 2000, 0, 5, key="hyp_g_neu")
+    st.markdown("**Gewünschte Aufteilung nach Schulhaus** (%, leer = wie bisher)")
+    haeuser = [s["name"] for s in cfg.get("schulhaeuser") or []]
+    spalten = st.columns(max(1, len(haeuser)))
+    aufteilung = {sh: spalten[i].number_input(sh, 0, 100, 0, 5, key=f"hyp_g_auf_{i}") for i, sh in enumerate(haeuser)}
+    aufteilung = {sh: v for sh, v in aufteilung.items() if v}
+    verbindlich = st.toggle("Aufteilung verbindlich (sonst als Wunsch, gewichtet wie das Wunsch-Schulhaus)",
+                            key="hyp_g_fest")
+    gebiet = {"name": name, "flaeche": flaeche}
+    if bus != "wie bisher":
+        gebiet["schulbus"] = False if bus.startswith("kein") else bus
+    if aufteilung:
+        gebiet.update(aufteilung=aufteilung, verbindlich=verbindlich)
+    if neu:
+        gebiet["neue_lernende"] = neu
+    if len(gebiet) == 2:
+        return None
+    if st.button("Als dauerhaften Bereich speichern (alle Berechnungen)", icon=":material/push_pin:",
+                 key="hyp_g_dauerhaft"):
+        rest = st.session_state.extra["rest"]
+        alt = list(rest.get("gebiete") or [])
+        rest["gebiete"] = [x for x in alt if x.get("name") != name] + [gebiet]
+        try:
+            _schule_aus_cfg(_aktuelle_daten()[0])
+        except Exception as fehler:  # noqa: BLE001
+            rest["gebiete"] = alt
+            st.error(f"Bereich nicht gespeichert: {fehler}")
+            return gebiet
+        st.toast(f"Bereich „{name}“ gilt jetzt für alle Berechnungen (Einstellungen: gebiete).",
+                 icon=":material/check_circle:")
+    return gebiet
+
+
 def _hypothese_anlegen(cfg: dict) -> None:
     """Neues Szenario aus einfachen Hebeln – landet in den Einstellungen unter 'szenarien'."""
     with st.expander("Neue Hypothese als Szenario anlegen", icon=":material/add_circle:"):
@@ -704,21 +750,8 @@ def _hypothese_anlegen(cfg: dict) -> None:
                         "kinder_pro_wohnung": 0.3}
             st.caption("Annahme: 0.3 schulpflichtige Kinder pro Wohnung, verteilt über alle Stufen "
                        "(in den Einstellungen unter planung.quartiere anpassbar).")
-        gebiet = None
-        if st.toggle("Gebiet auf der Karte zeichnen (geografische Hypothese)", key="hyp_g"):
-            flaeche = _gebietskarte(cfg)
-            if flaeche:
-                from skf.gebiete import Gebiet, lernende_im_gebiet
-                im_gebiet = lernende_im_gebiet(Gebiet("x", [tuple(x) for x in flaeche]), _aktuelle_daten()[1])
-                st.caption(f"{len(im_gebiet)} heutige Lernende wohnen im gezeichneten Gebiet.")
-                c, d, e = st.columns(3)
-                g_name = c.text_input("Name des Gebiets", "Gebiet", key="hyp_g_name")
-                g_sh = d.selectbox("Alle Lernenden darin gehen nach", ["(wie bisher)"]
-                                   + [s["name"] for s in cfg.get("schulhaeuser") or []], key="hyp_g_sh")
-                g_neu = e.number_input("Zusätzliche Lernende (Annahme)", 0, 2000, 0, 5, key="hyp_g_neu")
-                if g_sh != "(wie bisher)" or g_neu:
-                    gebiet = {"name": g_name, "flaeche": flaeche, **({"schulhaus": g_sh} if g_sh != "(wie bisher)"
-                                                                     else {}), **({"neue_lernende": g_neu} if g_neu else {})}
+        gebiet = _gebiet_eingeben(cfg) if st.toggle("Gebiet auf der Karte zeichnen (geografische Hypothese)",
+                                                     key="hyp_g") else None
         if st.button("Szenario anlegen", icon=":material/save:", key="hyp_speichern",
                      disabled=not (name and hypothese)):
             aendert_wachstum = wachstum != float(planung.get("wachstum_prozent", 0))

@@ -8,6 +8,8 @@ Neue Version: `python scripts/version.py 0.2.0`.
 ## [Unveröffentlicht]
 
 ### Behoben
+- Zeitraster: Halbtage werden nach Beginn geordnet. Stand der Nachmittag in der Konfiguration vor dem Vormittag,
+  galten die Blockzeiten für den Nachmittag (falsche „keine Lösung“).
 - Prognose am berechneten Ergebnis abgeglichen (Jahr 0 = tatsächliche Klassen, z.B. Mehrjahrgangsklassen).
 - Langfristkosten ohne Lehraufträge (unvollständig) werden nicht mehr ausgewiesen.
 - Prognose rückte Jahrgänge nach Listenposition nach (bei Sek-Niveaus falsch: S1C → S2A); jetzt nach Stufenfolge.
@@ -26,6 +28,8 @@ Neue Version: `python scripts/version.py 0.2.0`.
 - Leere Liste der Lernenden ergibt eine klare Fehlermeldung.
 
 ### Hinzugefügt
+- **Bereiche** (dauerhaft oder im Szenario): Dorfzone ohne Schulbus (`schulbus: false`) und gewünschte Aufteilung
+  nach Schulhaus (`aufteilung` in %, als Wunsch oder verbindlich; Geschwister zusammen, Nähe zuerst).
 - **Geografische Hypothesen:** Gebiet auf der Karte zeichnen (App) bzw. `gebiete` im Szenario – alle Lernenden
   darin einem Schulhaus zuteilen (Einzugsgebiet) und/oder angenommene Lernende ergänzen; nur Eingaben, die
   Optimierung bleibt unverändert.

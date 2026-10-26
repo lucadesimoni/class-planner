@@ -275,6 +275,10 @@ class Schule:
         """Stundentafel eines Jahrgangs; Oberstufe: eigene Tafel je Niveau oder gemeinsame ("S1")."""
         return self.stundentafel.get(jahrgang, self.stundentafel.get(stamm(jahrgang)))
 
+    def vormittag(self) -> str:
+        """Halbtag mit der frühesten Lektion (Blockzeiten) – unabhängig von der Reihenfolge in der Konfiguration."""
+        return min(self.slots, key=lambda s: minuten(s.zeit)).halbtag
+
     def stufen(self) -> list[str]:
         """Stufen in Schulfolge ohne Niveau, z.B. KG1, KG2, 1 … 6, S1, S2, S3."""
         return list(dict.fromkeys(stamm(j) for j in self.jahrgaenge))
@@ -308,7 +312,9 @@ class Schule:
 
 def _parse_slots(raster: dict) -> list[Slot]:
     tage = raster.get("tage", ["Mo", "Di", "Mi", "Do", "Fr"])
-    bloecke: dict[str, list[str]] = raster["halbtage"]
+    # Halbtage nach Beginn ordnen (VM vor NM), egal in welcher Reihenfolge sie notiert sind
+    bloecke: dict[str, list[str]] = dict(sorted(raster["halbtage"].items(),
+                                                key=lambda t: minuten(t[1][0]) if t[1] else 0))
     frei = set(raster.get("frei", []))
     slots: list[Slot] = []
     for tag in tage:

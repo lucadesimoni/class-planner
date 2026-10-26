@@ -84,7 +84,8 @@ erkannt (z.B. *Schüler-Nr*, *Stufe*, *KG-Gruppe*, *Buslinie*, *Entscheid*).
 Die Schul-Konfiguration als lesbarer Text – Schulhäuser (mit Stufen und Räumen),
 Klassentypen, Zeitraster, Fächer, Stundentafel, Lehrpersonen, Gewichte, Szenarien
 (mit `hypothese` und `ziel`), optional Schulbus, Wegzeiten, Übertritte, Langfristplanung
-(`planung`) und Kostenmodell (`kosten`). Aufbau und Beispiele: README und
+(`planung`), Kostenmodell (`kosten`) und Bereiche auf der Karte (`gebiete`: Dorfzone ohne
+Schulbus, Aufteilung nach Schulhaus, angenommene Lernende). Aufbau und Beispiele: README und
 [`beispiele/malters/schule.yaml`](../beispiele/malters/schule.yaml).
 
 ## Ergebnisse

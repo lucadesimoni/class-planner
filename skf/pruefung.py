@@ -244,7 +244,7 @@ def vorpruefung(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
                 m.append(Meldung("Warnung", "Stundenplan", f"{s.name} hat keinen Raum '{typ}' für {f} "
                                  f"(Raum ergänzen oder 'nutzt' setzen)", s.name))
         if schule.blockzeiten and s.nicht_verfuegbar & {sl.index for sl in schule.slots
-                                                        if sl.halbtag == schule.slots[0].halbtag}:
+                                                        if sl.halbtag == schule.vormittag()}:
             m.append(Meldung("Hinweis", "Stundenplan", f"{s.name} ist an Vormittagen teilweise geschlossen – "
                              "Blockzeiten gelten dort nur für die offenen Lektionen", s.name))
     for lp in schule.lehrpersonen:
@@ -263,9 +263,12 @@ def _planung_kosten(schule: Schule) -> list[Meldung]:
         if q["schulhaus"] and q["schulhaus"] not in namen:
             m.append(Meldung("Warnung", "Planung", f"Quartier '{q['name']}': unbekanntes Schulhaus "
                              f"'{q['schulhaus']}' – die Kinder werden wie heute auf die Schulhäuser verteilt"))
+    linien = {l.name for l in schule.buslinien}
     for g in schule.gebiete or []:
-        if g.schulhaus and g.schulhaus not in namen:
-            m.append(Meldung("Fehler", "Daten", f"Gebiet '{g.name}': unbekanntes Schulhaus '{g.schulhaus}'"))
+        for sh in sorted(set(g.aufteilung or {}) - namen):
+            m.append(Meldung("Fehler", "Daten", f"Gebiet '{g.name}': unbekanntes Schulhaus '{sh}'"))
+        if g.schulbus and g.schulbus not in linien:
+            m.append(Meldung("Fehler", "Daten", f"Gebiet '{g.name}': unbekannte Schulbuslinie '{g.schulbus}'"))
     raumtypen = {r.typ for s in schule.schulhaeuser for r in s.raeume}
     for typ in sorted(set((schule.kosten or {}).get("raum_chf") or {}) - raumtypen):
         m.append(Meldung("Hinweis", "Kosten", f"Kostenansatz für Raumtyp '{typ}', den kein Schulhaus hat"))

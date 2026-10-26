@@ -602,7 +602,7 @@ def _raumbelegung(r: Ergebnis) -> str:
         if not sh.raeume:
             continue
         kopf = "".join(f"<th class='{'tag' if s.nr == 0 and (s.index == 0 or schule.slots[s.index - 1].tag != s.tag) else ''}'"
-                       f" title='{s.label}'>{s.tag if s.nr == 0 and s.halbtag == schule.slots[0].halbtag else ''}</th>"
+                       f" title='{s.label}'>{s.tag if s.nr == 0 and s.halbtag == schule.vormittag() else ''}</th>"
                        for s in schule.slots)
         zeilen = []
         for raum in sh.raeume:

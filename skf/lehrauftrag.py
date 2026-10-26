@@ -207,7 +207,7 @@ def verteile_lehrauftraege(schule: Schule, klassen: list[Klasse], zeitlimit: flo
     # Lehrpersonen müssen die Vormittage aller Klassen gemeinsam abdecken können,
     # wobei jede Lehrperson nur so viele Lektionen gibt, wie sie am Vormittag da ist.
     if schule.blockzeiten:
-        vm = schule.slots[0].halbtag
+        vm = schule.vormittag()
         anz_vm = sum(s.halbtag == vm for s in schule.slots)
         voll = {c.name for c in klassen
                 if sum(b.lektionen for b in bloecke if b.klasse == c.name and b.art == "unterricht") >= anz_vm}

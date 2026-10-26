@@ -531,6 +531,23 @@ Mit *Gebiet auf der Karte zeichnen* entsteht eine **geografische Hypothese**: al
 Lernenden im Gebiet gehen in ein bestimmtes Schulhaus (Einzugsgebiet) und/oder dort wohnen
 zusätzlich angenommene Lernende (IDs `H-…`, im Ergebnis als Annahme markiert). In der YAML:
 `gebiete: [{name, flaeche: [[lat, lon], …], schulhaus, neue_lernende}]` im Szenario.
+Dieselben **Bereiche** gelten auch dauerhaft (`gebiete` auf oberster Ebene, in der App
+*Als dauerhaften Bereich speichern*):
+
+```yaml
+gebiete:
+  - name: Dorfzone
+    flaeche: [[47.0812, 8.1876], [47.0841, 8.1950], [47.0790, 8.1983]]
+    schulbus: false                # kein Schulbus, zu Fuss (oder Name einer Linie)
+  - name: Feld
+    flaeche: [...]
+    aufteilung: {Bündtmättli: 60, Eischachen: 40}   # gewünschte Aufteilung in %
+    verbindlich: false             # false = Wunsch-Schulhaus (gewichtet), true = feste Zuteilung
+```
+
+Die Aufteilung hält Geschwister zusammen; wer deutlich näher an einem Schulhaus wohnt,
+kommt eher dorthin. Was im Gebiet geschah, steht unter *Prüfung* als Hinweis (Bereich
+*Hypothese*).
 Werden mehrere Szenarien gewählt, rechnet die App sie nacheinander und stellt sie
 nebeneinander: Kennzahlen, Kosten und die Lage in vier Jahren. Auf der Kommandozeile
 geht das mit `skf rechnen … --szenario alle` (Seite `vergleich.html`).

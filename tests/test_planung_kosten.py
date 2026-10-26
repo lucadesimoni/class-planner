@@ -226,3 +226,41 @@ def test_geografische_hypothese_gebiet():
     assert fix["a"] == "Schulhaus B" and fix["b"] == ""
     assert wende_an(s, alt)[0] == neu   # reproduzierbar
     assert alt[0].schulhaus_fix == ""   # Eingabe unverändert
+
+
+def test_bereich_dorfzone_und_aufteilung():
+    from skf.gebiete import wende_an
+    flaeche = [(47.0, 8.25), (47.0, 8.35), (47.1, 8.35), (47.1, 8.25)]
+    s = baue_schule(_cfg(gebiete=[
+        {"name": "Dorfzone", "flaeche": flaeche, "schulbus": False},
+        {"name": "Feld", "flaeche": flaeche, "aufteilung": {"Schulhaus A": 60, "Schulhaus B": 40}}]))
+    a, b = s.schulhaeuser[0], s.schulhaeuser[1]
+    kinder = [Kind(f"a{i}", "", "1", "w", "", a.lat + 0.001 * i, a.lon, bus="Linie 1") for i in range(5)]
+    kinder += [Kind(f"b{i}", "", "1", "m", "", b.lat + 0.001 * i, b.lon) for i in range(2)]
+    kinder += [Kind("g1", "", "1", "w", "", b.lat, b.lon, familie="F"), Kind("g2", "", "2", "m", "", b.lat, b.lon,
+                                                                              familie="F")]
+    neu, hinweise = wende_an(s, kinder)
+    assert all(k.bus == "" for k in neu) and "ohne Schulbus" in hinweise[0]
+    wunsch = {k.id: k.wunsch_schulhaus for k in neu}
+    assert sum(v == a.name for v in wunsch.values()) == 5 and sum(v == b.name for v in wunsch.values()) == 4
+    assert wunsch["g1"] == wunsch["g2"]                       # Geschwister zusammen
+    assert all(wunsch[f"b{i}"] == b.name for i in range(2))   # wer nahe B wohnt, kommt nach B
+    assert all(not k.schulhaus_fix for k in neu)              # nur Wunsch, nicht verbindlich
+
+
+def test_bereich_wird_geprueft():
+    with pytest.raises(ValueError, match="aufteilung"):
+        baue_schule(_cfg(gebiete=[{"name": "X", "flaeche": [[47, 8], [47, 8.1], [47.1, 8]]}]))
+    s = baue_schule(_cfg(gebiete=[{"name": "X", "flaeche": [[47, 8], [47, 8.1], [47.1, 8]], "schulbus": "Linie 9",
+                                   "aufteilung": {"Gibtsnicht": 100}}]))
+    texte = " ".join(m.text for m in vorpruefung(s, []))
+    assert "Gibtsnicht" in texte and "Linie 9" in texte
+
+
+def test_halbtage_reihenfolge_egal(tmp_path):
+    """Härtung: steht NM in der Konfiguration vor VM, bleibt der Vormittag der Vormittag (Blockzeiten)."""
+    cfg = _cfg()
+    cfg["zeitraster"]["halbtage"] = dict(reversed(list(cfg["zeitraster"]["halbtage"].items())))
+    a = baue_schule(lese_konfiguration(_schreibe(tmp_path, cfg)))
+    b = baue_schule(lese_konfiguration(VORLAGE / "schule.yaml"))
+    assert a.slots == b.slots and a.vormittag() == "VM"
