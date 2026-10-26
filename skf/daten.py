@@ -62,6 +62,7 @@ class Schulhaus:
     nutzt: dict[str, str] = field(default_factory=dict)  # Raumtyp -> anderes Schulhaus
     nicht_verfuegbar: set[int] = field(default_factory=set)  # Schulhaus geschlossen
     stufen: list[str] | None = None  # Jahrgänge, die hier zur Schule gehen (None = alle mit passendem Raum)
+    adresse: str = ""                # Postadresse (Anzeige; Schulwege rechnen mit lat/lon)
 
 
 def stufen_liste(angabe, jahrgaenge: list[str]) -> list[str] | None:
@@ -494,7 +495,7 @@ def baue_schule(cfg: dict) -> Schule:
                 raeume.append(Raum(name, r["typ"], int(r.get("plaetze", 25)),
                                    _slot_set(r.get("nicht_verfuegbar", []), slots)))
         schulhaeuser.append(Schulhaus(
-            name=sh["name"], kuerzel=sh.get("kuerzel", sh["name"][:2].upper()),
+            name=sh["name"], kuerzel=sh.get("kuerzel", sh["name"][:2].upper()), adresse=str(sh.get("adresse") or ""),
             lat=float(sh["lat"]), lon=float(sh["lon"]), raeume=raeume,
             nutzt=dict(sh.get("nutzt", {})),
             nicht_verfuegbar=_slot_set(sh.get("nicht_verfuegbar", []), slots),

@@ -372,7 +372,8 @@ KARTE_JS = r"""
     }
     for (const s of D.schulhaeuser) L.circleMarker([s.lat, s.lon], {radius: 11, color: "#0b0b0b", weight: 3,
       fillColor: s.farbe, fillOpacity: 1}).bindTooltip("<b>" + s.name + "</b>", {permanent: true, direction: "right"})
-      .bindPopup("<b>" + s.name + "</b><br>" + s.klassen.join(", ")).addTo(kinder);
+      .bindPopup("<b>" + s.name + "</b>" + (s.adresse ? "<br>" + s.adresse.replace(/</g, "&lt;") : "")
+                 + "<br>" + s.klassen.join(", ")).addTo(kinder);
     legende();
   }
   function legende() {
@@ -443,7 +444,7 @@ def karten_daten(r: Ergebnis) -> dict:
             geschwister_text[k.id] = ", ".join(f"{g.id} {g.vorname or g.name} ({e.klasse_von[g.id]})"
                                                for g in ks if g.id != k.id)
     return {
-        "schulhaeuser": [{"name": s.name, "lat": s.lat, "lon": s.lon, "farbe": farbe[s.name],
+        "schulhaeuser": [{"name": s.name, "adresse": s.adresse, "lat": s.lat, "lon": s.lon, "farbe": farbe[s.name],
                           "klassen": [c.name for c in e.klassen if c.schulhaus == s.name]}
                          for s in schule.schulhaeuser],
         "klassen": {c.name: c.schulhaus for c in e.klassen},

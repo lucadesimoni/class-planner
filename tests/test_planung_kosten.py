@@ -275,3 +275,20 @@ def test_klassenbildung_rueckkopplung_waehlt_andere_einteilung():
     zweite = teile_ein(s, k, zeitlimit=20, andere_als=[klassenmuster(s, erste)])
     assert klassenmuster(s, zweite) != klassenmuster(s, erste)
     assert sorted(zweite.schulhaus_von) == sorted(erste.schulhaus_von)   # alle Lernenden zugeteilt
+
+
+def test_schulhaus_adresse_und_koordinatenpruefung(monkeypatch, tmp_path):
+    """Adresse wird gelesen; die Prüfung meldet Koordinaten fern der Adresse (ohne Netz: Suche ersetzt)."""
+    from skf import geo
+    s = baue_schule(lese_konfiguration(BEISPIELE / "malters" / "schule.yaml"))
+    adressen = {sh.name: sh.adresse for sh in s.schulhaeuser}
+    assert adressen["Eischachen"] == "Hellbühlstrasse 52, 6102 Malters"
+    assert "Muoshofstrasse 26" in adressen["Oberstufe"]
+    bm = s.schulhaus("Bündtmättli")
+    orte = {bm.adresse: [bm.lat, bm.lon]}   # Bündtmättli stimmt, alle anderen liegen 1 km daneben
+    monkeypatch.setattr(geo, "_suche", lambda a, cache: orte.get(a, [47.0, 8.0]) if a == bm.adresse
+                        else [s.schulhaus(next(n for n, x in adressen.items() if x == a)).lat + 0.009,
+                              s.schulhaus(next(n for n, x in adressen.items() if x == a)).lon])
+    meldungen = geo.pruefe_schulhaeuser(s, tmp_path / "cache.json")
+    assert {m.split(":")[0] for m in meldungen} == {"Eischachen", "Oberstufe"}   # Im Feld: c/o, übersprungen
+    assert all("übernehmen" in m for m in meldungen)

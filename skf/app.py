@@ -127,7 +127,7 @@ GEWICHT_TEXT = {
 # Lesbare Spaltentitel der Stammdaten-Tabellen (die Daten behalten ihre Feldnamen)
 SPALTEN_TABELLEN = {
     "schulhaus": "Schulhaus", "name": "Name", "typ": "Raumtyp", "anzahl": "Anzahl", "plaetze": "Plätze",
-    "nicht_verfuegbar": "Nicht verfügbar", "kuerzel": "Kürzel", "lat": "Breite (lat)", "lon": "Länge (lon)",
+    "nicht_verfuegbar": "Nicht verfügbar", "kuerzel": "Kürzel", "adresse": "Adresse", "lat": "Breite (lat)", "lon": "Länge (lon)",
     "nutzt": "Nutzt (Raumtyp=Schulhaus)", "stufen": "Stufen (z.B. KG1-6, S1-S3)", "faecher": "Fächer", "jahrgaenge": "Jahrgänge", "schulhaeuser": "Schulhäuser",
     "pensum_min": "Pensum min.", "pensum_max": "Pensum max.", "bisherige_klasse": "Bisherige Klasse",
     "bezeichnung": "Bezeichnung", "raumtyp": "Raumtyp", "min": "Min.", "max": "Max.", "ideal": "Ideal",

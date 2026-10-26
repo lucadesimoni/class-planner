@@ -29,7 +29,7 @@ from .bericht import ordnername, schreibe_html, schreibe_vergleich
 from .daten import (STANDARD_GEWICHTE, baue_schule, lade_kinder, lade_profil, lade_schule, lese_konfiguration, profile,
                     szenarien)
 from .export import exportiere_listen
-from .geo import geocodiere
+from .geo import geocodiere, pruefe_schulhaeuser
 from .pruefung import referenzen, vorpruefung
 from .verlauf import schreibe_stand
 from .version import __version__
@@ -80,7 +80,8 @@ def _parser() -> argparse.ArgumentParser:
     r.add_argument("--mit-foerderdaten", action="store_true",
                    help="IF/DaZ/IS in Klassenlisten aufnehmen (besonders schützenswerte Daten!)")
     r.add_argument("--geocodieren", action="store_true",
-                   help="fehlende Koordinaten über geo.admin.ch aus der Adresse ermitteln")
+                   help="fehlende Koordinaten über geo.admin.ch aus der Adresse ermitteln und die Koordinaten "
+                        "der Schulhäuser mit ihrer Adresse vergleichen")
     r.add_argument("--schuljahr", help="Schuljahr statt Angabe in schule.yaml, z.B. 2028/29 nach 'skf uebertritt'")
 
     pr = sub.add_parser("pruefen", help="Daten prüfen, ohne zu rechnen")
@@ -179,6 +180,8 @@ def _rechnen(args) -> None:
     if args.geocodieren:
         for f in geocodiere(kinder, ausgabe / "geocache.json"):
             print(f"  Adresse nicht gefunden: {f}")
+        for m in pruefe_schulhaeuser(lade_schule(args.schule), ausgabe / "geocache.json"):
+            print(f"  Schulhaus {m}")
 
     mehrere = len(gewuenscht) > 1
     ergebnisse = {}

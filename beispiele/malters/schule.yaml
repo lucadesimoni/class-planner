@@ -1,9 +1,10 @@
 # Beispiel: Kindergarten und Primarschule Malters (LU)
 #
-# Standorte nach öffentlichen Angaben (Schuljahr 2025/26): Primarschulhäuser
-# Bündtmättli und Eischachen (je 4 Kindergärten), Wald-Kindergarten "Im Feld".
-# Koordinaten, Raumzahlen, Lehrpersonen und Stundentafel sind ANNAHMEN für das
-# Beispiel – bitte mit den echten Daten der Schule ersetzen.
+# Standorte und Adressen nach den Angaben der Schulen Malters (schulen-malters.ch, Stand 2026):
+# Primarschulhäuser Bündtmättli und Eischachen (je 4 Kindergärten), Naturkindergarten
+# "Im Feld", Sekundarschule im Schulhaus Muoshof. Die Koordinaten sind ungefähr und noch
+# nicht aus den Adressen bestimmt (geo.admin.ch); Raumzahlen, Lehrpersonen und
+# Stundentafel sind ANNAHMEN für das Beispiel – bitte mit den echten Daten ersetzen.
 
 name: Schule Malters – Volksschule (Beispiel)
 schuljahr: 2027/28
@@ -16,6 +17,7 @@ jahrgaenge: [KG1, KG2, "1", "2", "3", "4", "5", "6", S1A, S1B, S1C, S2A, S2B, S2
 schulhaeuser:
   - name: Bündtmättli
     kuerzel: BM
+    adresse: Schwarzenbergstrasse 14, 6102 Malters   # Bündtmättli 2; Bündtmättli 1: Nr. 16
     stufen: KG1-6             # welche Stufen hier zur Schule gehen
     lat: 47.0338
     lon: 8.1862
@@ -26,6 +28,7 @@ schulhaeuser:
       - {name: BM-TTG, typ: TTG-Zimmer, anzahl: 2, plaetze: 24}
   - name: Eischachen
     kuerzel: EI
+    adresse: Hellbühlstrasse 52, 6102 Malters        # Kindergarten: Nr. 52a
     stufen: KG1-6             # welche Stufen hier zur Schule gehen
     lat: 47.0402
     lon: 8.1765
@@ -36,14 +39,16 @@ schulhaeuser:
       - {name: EI-TTG, typ: TTG-Zimmer, plaetze: 24}
   - name: Im Feld
     kuerzel: IF
+    adresse: Naturkindergarten Im Feld, c/o Schulhaus Eischachen, Hellbühlstrasse 52, 6102 Malters  # Postadresse
     stufen: KG1-KG2             # welche Stufen hier zur Schule gehen
     lat: 47.0445
     lon: 8.1880
     raeume:
       - {name: Waldplatz, typ: Wald, plaetze: 20}
     nicht_verfuegbar: [Mo-NM, Di-NM, Do-NM, Fr-NM]   # Wald-KG nur vormittags
-  - name: Oberstufe            # ANNAHME: Sekundarschule (Lage, Name und Räume fiktiv)
+  - name: Oberstufe            # Sekundarschule im Schulhaus Muoshof (Räume: ANNAHME)
     kuerzel: OS
+    adresse: Schulhaus Muoshof, Muoshofstrasse 26, 6102 Malters
     stufen: S1-S3             # welche Stufen hier zur Schule gehen
     lat: 47.0372
     lon: 8.1838

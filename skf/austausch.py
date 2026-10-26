@@ -254,7 +254,7 @@ def _zahl(v):
 
 
 BLAETTER = {
-    "Schulhaeuser": ["name", "kuerzel", "lat", "lon", "stufen", "nicht_verfuegbar", "nutzt"],
+    "Schulhaeuser": ["name", "kuerzel", "adresse", "lat", "lon", "stufen", "nicht_verfuegbar", "nutzt"],
     "Raeume": ["schulhaus", "name", "typ", "anzahl", "plaetze", "nicht_verfuegbar"],
     "Klassentypen": ["jahrgaenge", "bezeichnung", "raumtyp", "min", "max", "ideal", "strafe", "min_pro_jahrgang",
                      "schulhaeuser"],

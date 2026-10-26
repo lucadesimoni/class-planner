@@ -22,6 +22,19 @@ def luftlinie_m(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
     return 2 * r * math.asin(math.sqrt(a))
 
 
+def _suche(adresse: str, cache: dict[str, list[float]]) -> list[float] | None:
+    """Koordinaten einer Adresse (geo.admin.ch), mit Zwischenspeicher."""
+    if adresse not in cache:
+        query = urllib.parse.urlencode({"searchText": adresse, "type": "locations", "limit": 1})
+        with urllib.request.urlopen(f"{GEOADMIN_URL}?{query}", timeout=15) as resp:
+            treffer = json.load(resp).get("results", [])
+        if not treffer:
+            return None
+        attrs = treffer[0]["attrs"]
+        cache[adresse] = [attrs["lat"], attrs["lon"]]
+    return cache[adresse]
+
+
 def geocodiere(kinder: list[Kind], cache_pfad: str | Path) -> list[str]:
     """Ergänzt fehlende Koordinaten über die Suche von geo.admin.ch.
 
@@ -37,15 +50,31 @@ def geocodiere(kinder: list[Kind], cache_pfad: str | Path) -> list[str]:
         if not k.adresse:
             fehlend.append(f"{k.id}: keine Adresse")
             continue
-        if k.adresse not in cache:
-            query = urllib.parse.urlencode({"searchText": k.adresse, "type": "locations", "limit": 1})
-            with urllib.request.urlopen(f"{GEOADMIN_URL}?{query}", timeout=15) as resp:
-                treffer = json.load(resp).get("results", [])
-            if not treffer:
-                fehlend.append(f"{k.id}: {k.adresse}")
-                continue
-            attrs = treffer[0]["attrs"]
-            cache[k.adresse] = [attrs["lat"], attrs["lon"]]
-        k.lat, k.lon = cache[k.adresse]
+        punkt = _suche(k.adresse, cache)
+        if punkt is None:
+            fehlend.append(f"{k.id}: {k.adresse}")
+            continue
+        k.lat, k.lon = punkt
     cache_pfad.write_text(json.dumps(cache, ensure_ascii=False, indent=1))
     return fehlend
+
+
+def pruefe_schulhaeuser(schule, cache_pfad: str | Path, toleranz_m: float = 150) -> list[str]:
+    """Vergleicht die Koordinaten der Schulhäuser mit ihrer Adresse (geo.admin.ch).
+
+    Ändert nichts – meldet Abweichungen über ``toleranz_m`` mit den Werten aus der Adresse,
+    zum Übernehmen in die Konfiguration. Postadressen "c/o …" werden übersprungen."""
+    cache_pfad = Path(cache_pfad)
+    cache: dict[str, list[float]] = json.loads(cache_pfad.read_text()) if cache_pfad.exists() else {}
+    meldungen = []
+    for sh in schule.schulhaeuser:
+        if not sh.adresse or "c/o" in sh.adresse:
+            continue
+        punkt = _suche(sh.adresse, cache)
+        if punkt is None:
+            meldungen.append(f"{sh.name}: Adresse nicht gefunden ({sh.adresse})")
+        elif (d := luftlinie_m(sh.lat, sh.lon, *punkt)) > toleranz_m:
+            meldungen.append(f"{sh.name}: Koordinaten {d:.0f} m neben der Adresse – lat: {punkt[0]:.5f}, "
+                             f"lon: {punkt[1]:.5f} übernehmen")
+    cache_pfad.write_text(json.dumps(cache, ensure_ascii=False, indent=1))
+    return meldungen

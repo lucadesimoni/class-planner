@@ -376,7 +376,9 @@ K0002,Noah,Beispiel,KG2,m,"Ahornweg 4, 6102 Malters",47.0349,8.1971,F001,,anfang
 ```
 
 Pflicht sind `id` und `jahrgang`, dazu Koordinaten oder eine Adresse mit `--geocodieren`
-(geo.admin.ch, mit Cache). Der Import ist tolerant und versteht unter anderem:
+(geo.admin.ch, mit Cache). Dabei werden auch die Schulhäuser mit `adresse` geprüft: Liegen
+ihre Koordinaten mehr als 150 m neben der Adresse, meldet das Programm die richtigen Werte
+zum Übernehmen (es ändert die Konfiguration nicht selbst). Der Import ist tolerant und versteht unter anderem:
 
 - **CSV mit Komma oder Semikolon**, UTF-8 oder Windows-1252, sowie **Excel (.xlsx)**
 - Spaltennamen wie `Schüler-Nr`, `Vorname`/`Nachname`, `Stufe`, `Strasse`/`PLZ`/`Ort`,
@@ -449,6 +451,7 @@ profil: {verbindlich: true}               # Klassengrössen nach VBV § 7 erzwin
 
 schulhaeuser:
   - name: Bündtmättli
+    adresse: Schwarzenbergstrasse 14, 6102 Malters   # Anzeige; --geocodieren prüft lat/lon dagegen
     lat: 47.0338
     lon: 8.1862
     nicht_verfuegbar: [Mi-NM]              # Schulhaus geschlossen

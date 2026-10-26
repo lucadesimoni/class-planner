@@ -34,6 +34,9 @@ Neue Version: `python scripts/version.py 0.2.0`.
 - Leere Liste der Lernenden ergibt eine klare Fehlermeldung.
 
 ### Hinzugefügt
+- **Adressen der Schulhäuser** (`adresse`, auch in Tabellen, Excel-Austausch und Karte); `--geocodieren` vergleicht
+  die Koordinaten der Schulhäuser mit ihrer Adresse. Beispiel Malters mit den Adressen gemäss schulen-malters.ch
+  (Bündtmättli, Eischachen, Naturkindergarten Im Feld, Sekundarschule im Schulhaus Muoshof).
 - **Bereiche** (dauerhaft oder im Szenario): Dorfzone ohne Schulbus (`schulbus: false`) und gewünschte Aufteilung
   nach Schulhaus (`aufteilung` in %, als Wunsch oder verbindlich; Geschwister zusammen, Nähe zuerst).
 - **Geografische Hypothesen:** Gebiet auf der Karte zeichnen (App) bzw. `gebiete` im Szenario – alle Lernenden
