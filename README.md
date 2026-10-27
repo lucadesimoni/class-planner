@@ -628,8 +628,8 @@ Zu jedem Push laufen alle Tests (`.github/workflows/tests.yml`), inkl. Prüfung,
 Versionsangaben übereinstimmen. Ein Release baut die Windows-Pakete, setzt den Tag `vX.Y.Z` und
 legt einen **Release-Entwurf** mit dem passenden CHANGELOG-Abschnitt an; ein von Hand
 gesetzter Tag, der nicht zur Programmversion passt, bricht den Bau ab. Der Entwurf wird erst sichtbar – und der Tag
-erst gesetzt –, wenn er auf GitHub unter *Releases* veröffentlicht wird. Das geht auch per *Actions → Release veröffentlichen → Run workflow*;
-dieser Workflow verweigert die Veröffentlichung, solange das Repository öffentlich ist. Jeder gespeicherte Stand im Verlauf merkt sich Programm- und
+erst gesetzt –, wenn er auf GitHub unter *Releases* veröffentlicht wird. Das geht auch per *Actions → Release veröffentlichen → Run workflow*. Das Repository ist öffentlich
+(Quellcode einsehbar, GitHub Actions damit kostenlos); die Lizenz bleibt proprietär. Jeder gespeicherte Stand im Verlauf merkt sich Programm- und
 Profilversion, mit denen er berechnet wurde.
 
 ## Lizenz und Rechte

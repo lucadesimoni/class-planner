@@ -6,4 +6,4 @@ MAJOR – bestehende Konfigurationen/Stammdaten müssen angepasst werden
 MINOR – neue Funktionen, alte Daten laufen unverändert
 PATCH – Fehlerkorrekturen
 """
-__version__ = "0.1.0"
+__version__ = "0.2.0"

@@ -2,7 +2,7 @@
 # Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
 #
 # Veröffentlicht den Release-Entwurf vX.Y.Z (aus skf/version.py); GitHub setzt dabei den Tag.
-# Weigert sich, solange das Repository öffentlich ist – die Pakete sind proprietär.
+# Das Repository ist öffentlich (Quellcode einsehbar); die Lizenz bleibt proprietär – siehe LICENSE.
 name: Release veröffentlichen
 
 on:
@@ -15,12 +15,6 @@ jobs:
   veroeffentlichen:
     runs-on: ubuntu-latest
     steps:
-      - name: Nur in einem privaten Repository
-        if: ${{ !github.event.repository.private }}
-        run: |
-          echo "::error::Das Repository ist öffentlich. Zuerst unter Settings → General → Danger Zone auf privat stellen."
-          exit 1
-
       - uses: actions/checkout@v5
 
       - name: Entwurf veröffentlichen
