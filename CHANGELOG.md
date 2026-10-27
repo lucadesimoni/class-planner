@@ -7,6 +7,12 @@ Neue Version: `python scripts/version.py 0.2.0`.
 
 ## [Unveröffentlicht]
 
+## [0.2.0] – 2026-10-27
+
+### Veröffentlichung
+- Das Repository ist öffentlich (Quellcode einsehbar); die Lizenz bleibt proprietär (LICENSE). GitHub Actions
+  laufen damit ohne Budget; *Release veröffentlichen* ist nicht mehr auf private Repositories beschränkt.
+
 ### Behoben
 - Rückkopplung Klassenbildung ↔ Lehraufträge: Statt „nachweislich keine Lösung“ für eine einzelne
   Klasseneinteilung zu melden, wird mit anderen Einteilungen weitergerechnet (bis zu 3). Im Beispiel Malters
@@ -98,5 +104,6 @@ Erste Version.
 - Proprietäre Lizenz, Rechteinhaber Outthinkx for Communities; Drittkomponenten mit
   freizügigen Lizenzen (THIRD_PARTY_NOTICES.md); Vertragsvorlagen.
 
-[Unveröffentlicht]: https://github.com/lucadesimoni/class-planner/compare/v0.1.0...HEAD
+[Unveröffentlicht]: https://github.com/lucadesimoni/class-planner/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/lucadesimoni/class-planner/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/lucadesimoni/class-planner/releases/tag/v0.1.0
