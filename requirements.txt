@@ -1,0 +1,4 @@
+# Abhängigkeiten der Vercel-Funktion api/rechnen.py (nur der Rechenkern) – Versionen wie in uv.lock,
+# geprüft von tests/test_browser_version.py. Desktop, CLI und Tests nutzen pyproject.toml / uv.lock.
+ortools==9.15.6755
+pyyaml==6.0.3

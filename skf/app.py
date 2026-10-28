@@ -12,6 +12,7 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import os
 import tempfile
 import zipfile
 from datetime import datetime
@@ -32,9 +33,11 @@ from skf.bericht import (CSS, _empfehlungen_html, _osm_karte, _plan, _raumbelegu
 from skf.daten import (GEWICHT_HEBEL, STANDARD_GEWICHTE, beispiel_ordner, lade_schule, szenario_aus_hebeln,
                        szenario_infos)
 from skf.export import exportiere_listen
+from skf.fernrechnen import rechne_fern
 from skf.pruefung import SCHWEREGRADE, vorpruefung
 from skf.transparenz import begruendung, regeln
 from skf.datenablage import arbeitsstand_info, arbeitsstand_ordner, lade_arbeitsstand, speichere_arbeitsstand
+from skf.runtime import IN_BROWSER, MAX_RECHENZEIT
 from skf.version import __version__
 
 BEISPIELE = beispiel_ordner()
@@ -595,9 +598,15 @@ def seite_berechnen() -> None:
         if infos[n]["hypothese"]:
             st.caption(f":material/lightbulb: **{n}:** {infos[n]['hypothese']}")
     _hypothese_anlegen(cfg)
-    zeit = st.select_slider("Rechenzeit pro Szenario", options=[30, 60, 120, 300, 600], value=120,
+    zeiten = [z for z in (30, 60, 120, 300, 600) if not IN_BROWSER or z <= MAX_RECHENZEIT] + \
+        ([MAX_RECHENZEIT] if IN_BROWSER else [])
+    zeit = st.select_slider("Rechenzeit pro Szenario", options=zeiten, value=120,
                             format_func=lambda s: f"{s // 60} min" if s >= 60 else f"{s} s",
                             help="Mehr Zeit = näher am Optimum. Kleine Schulen sind in Sekunden fertig.")
+    if IN_BROWSER:
+        st.caption(":material/cloud: Browser-Version: gerechnet wird auf dem Rechenserver. Dorthin gehen Jahrgang, "
+                   "Merkmale (Förderung), Wünsche, Geschwister und Koordinaten der Lernenden – keine Namen, Adressen "
+                   "oder Bemerkungen. Der Server speichert nichts. Ohne Datenweitergabe: installierte Version.")
     notiz = st.text_input("Notiz für den Verlauf (optional)", placeholder="z.B. Variante mit 2 Mehrjahrgangsklassen")
     if st.button("Klassen und Stundenplan berechnen", type="primary", width="stretch", icon=":material/play_arrow:",
                  disabled=not gewaehlt):
@@ -609,7 +618,14 @@ def seite_berechnen() -> None:
                 st.error(f"{szenario}: Die Angaben sind fehlerhaft: {fehler}")
                 continue
             with st.status(f"{szenario}: Berechnung läuft – bitte warten …", expanded=len(gewaehlt) == 1) as status:
-                r = rechne(schule, kinder, zeitlimit=zeit, protokoll=lambda t: st.write(t.strip()))
+                try:
+                    r = (rechne_fern(cfg, szenario, kinder, zeitlimit=zeit, protokoll=lambda t: st.write(t.strip()))
+                         if IN_BROWSER else rechne(schule, kinder, zeitlimit=zeit,
+                                                   protokoll=lambda t: st.write(t.strip())))
+                except RuntimeError as fehler:   # nur Browser: Rechenserver nicht erreichbar o.ä.
+                    status.update(label=f"{szenario}: nicht berechnet", state="error")
+                    st.error(str(fehler))
+                    continue
                 ergebnisse[szenario] = r
                 try:
                     st.session_state.stand = str(verlauf.speichere(r, cfg, notiz))
@@ -637,8 +653,8 @@ def _planung_tab(r: Ergebnis, kz: dict) -> None:
         z = jahre[-1]
         werte.append((f"Lernende {z['Schuljahr']}", f"{z['Lernende']}",))
         werte.append((f"Fehlende Räume {z['Schuljahr']}", str(z["fehlende Räume"])))
-    if werte:
-        for spalte, (k, v) in zip(st.columns(len(werte)), werte):
+    for i in range(0, len(werte), 4):  # höchstens 4 pro Zeile, sonst werden Beträge abgeschnitten
+        for spalte, (k, v) in zip(st.columns(4), werte[i:i + 4]):
             spalte.metric(k, v)
     if jahre and len(jahre) > 1:
         df = pd.DataFrame(jahre).set_index("Schuljahr")[["Lernende", "Klassen (mind.)"]]
@@ -665,7 +681,10 @@ def _szenarien_vergleich(ergebnisse: dict[str, Ergebnis]) -> None:
     st.session_state.ergebnis = ergebnisse[wahl]
 
 
-_GEBIETSKARTE = components.declare_component("gebietskarte", path=str(Path(__file__).parent / "static"))
+# Browser-Version: kein Streamlit-Server, der Dateien ausliefert – die Komponente liegt auf der Website
+_GEBIETSKARTE = (components.declare_component("gebietskarte", url=os.environ["SKF_KOMPONENTEN_URL"] + "gebietskarte/")
+                 if IN_BROWSER and os.environ.get("SKF_KOMPONENTEN_URL")
+                 else components.declare_component("gebietskarte", path=str(Path(__file__).parent / "static")))
 
 
 def _gebietskarte(cfg: dict):

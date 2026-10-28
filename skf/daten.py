@@ -443,6 +443,8 @@ def profile() -> list[str]:
 
 
 def lade_profil(name: str) -> dict:
+    if str(name) not in profile():  # nur mitgelieferte Profile – kein Pfad aus der Konfiguration
+        raise ValueError(f"Unbekanntes Kantonsprofil '{name}'. Vorhanden: {', '.join(profile())}")
     pfad = PROFIL_ORDNER / f"{name}.yaml"
     if not pfad.exists():
         raise ValueError(f"Unbekanntes Kantonsprofil '{name}'. Vorhanden: {', '.join(profile())}")

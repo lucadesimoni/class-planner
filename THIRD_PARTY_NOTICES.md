@@ -17,6 +17,13 @@ Pflicht ist im Wesentlichen: Urheberrechtsvermerk und Lizenztext mitliefern.
 Glyphen als SVG-Pfade übernommen (skaliert, gerundet) – erzeugt mit
 `scripts/erzeuge_icons.py`.
 
+## Browser-Version (von einem CDN geladen, nicht mitverteilt)
+
+| Komponente | Lizenz | Verwendung |
+|---|---|---|
+| [stlite](https://github.com/whitphx/stlite) `@stlite/browser` 1.10.0 | Apache-2.0 | Streamlit im Browser (WebAssembly), geladen von cdn.jsdelivr.net |
+| [Pyodide](https://pyodide.org) (von stlite geladen) | MPL-2.0 | Python im Browser; unverändert genutzt, nicht mitverteilt |
+
 ## Bei der Installation bezogen (nicht mitverteilt)
 
 Diese Python-Pakete lädt die Installation (`uv`/`pip`) direkt aus dem Python Package

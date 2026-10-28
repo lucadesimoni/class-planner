@@ -70,6 +70,28 @@ nur auf dem eigenen Computer erreichbar (<http://localhost:8501>).
 
 Für Fachleute: `uv run skf app` oder `pip install -e .` und dann `skf app`.
 
+### Im Browser (Vercel) – ohne Installation
+
+Dieselbe App läuft auch als Website: Streamlit läuft mit [stlite](https://github.com/whitphx/stlite)
+(WebAssembly/Pyodide) direkt im Browser, Eingaben und gespeicherte Stände bleiben dort (IndexedDB).
+Weil der Rechenkern (Google OR-Tools) nicht im Browser läuft, rechnet eine Vercel-Funktion
+(`api/rechnen.py`): Sie ruft genau dieselbe Funktion `skf.ablauf.rechne` auf wie Desktop und CLI
+(`skf/fernrechnen.py`, keine zweite Rechenlogik) und gibt das gleiche Ergebnis zurück.
+
+- **Gesendet** werden nur die Angaben, die die Rechnung braucht: Schul-Konfiguration, und je
+  Lernende ID, Jahrgang, Geschlecht, Koordinaten, Förderung, Geschwister, Wünsche, Vorjahr,
+  Schulbus. **Nicht gesendet:** Namen, Adressen, Bemerkungen, weitere Spalten. Der Server
+  speichert nichts; Region Frankfurt (`fra1`).
+- Rechenzeit pro Szenario höchstens 4 Minuten (Vercel `maxDuration` 300 s).
+- Die installierte Version bleibt unverändert und rechnet weiterhin ganz ohne Datenweitergabe.
+
+Einrichten (einmalig): das Repository in Vercel importieren – `vercel.json` enthält Build,
+Funktion, Region und Kopfzeilen. Der Build (`python scripts/build_web.py`) erzeugt `_site/`:
+Wheel, Startseite (`web/index.html`), Icon und die Kartenkomponente. Die Funktion installiert nur
+`requirements.txt` (OR-Tools, PyYAML – Versionen wie in `uv.lock`, von einem Test geprüft).
+Lokal ansehen: `python scripts/build_web.py && python -m http.server -d _site 8000` (ohne
+Rechenserver; Rechnen über `SKF_RECHNEN_URL`).
+
 ## Bedienung
 
 | Seite | Inhalt | Bild |
@@ -592,10 +614,17 @@ Der Browser-Test braucht Chromium für Playwright (`playwright install chromium`
 
 ## Datenschutz
 
-Alle Daten bleiben lokal. Die Bedienoberfläche ist nur unter `localhost` erreichbar. Für
+**Installierte Version:** Alle Daten bleiben lokal. Die Bedienoberfläche ist nur unter
+`localhost` erreichbar. Für
 die Karte werden nur Kartenkacheln von OpenStreetMap geladen; Daten von Lernenden
 werden nicht übertragen. Förderdaten (IF/DaZ/IS) sind besonders schützenswert (KDSG § 2)
 und erscheinen in Klassenlisten nur auf ausdrücklichen Wunsch.
+
+**Browser-Version:** Eingaben bleiben im Browser. Zum Berechnen gehen die für die Rechnung
+nötigen Angaben (ohne Namen, Adressen, Bemerkungen) an den Rechenserver – darunter Förderdaten
+und Koordinaten. Der Server speichert nichts. Ob das für die eigene Schule zulässig ist
+(kantonales Datenschutzrecht, Auftragsbearbeitung), klärt die Schule vor der Nutzung; sonst die
+installierte Version verwenden.
 
 Kartendarstellung: [Leaflet](https://leafletjs.com) (BSD-2-Clause, im Paket enthalten),
 Kartendaten © [OpenStreetMap](https://www.openstreetmap.org/copyright)-Mitwirkende.

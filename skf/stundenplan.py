@@ -18,13 +18,11 @@ from __future__ import annotations
 from collections import defaultdict
 from dataclasses import dataclass, field
 
-from ortools.sat.python import cp_model
-
 from .daten import Schule
 from .klassen import Klasse
 from .lehrauftrag import Block, gesperrte_slots
 from .mobilitaet import bus_halbtag, halbtage_der_klasse, lektionsort, zu_knapp
-from .solver import KeineLoesung, Loesungsinfo, Regeln, loese_mit_regeln
+from .solver import KeineLoesung, Loesungsinfo, Regeln, cp_model, loese_mit_regeln
 
 
 @dataclass

@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: LicenseRef-Proprietary
+     Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+     Klassenbildung & Stundenplan im Browser: Streamlit läuft in WebAssembly (stlite / Pyodide), nichts zu
+     installieren. Gerechnet wird über /api/rechnen (OR-Tools läuft nicht im Browser).
+     Gebaut von scripts/build_web.py; __WHEEL__, __VERSION__ und __BUILD__ werden dort eingesetzt. -->
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Klassenbildung &amp; Stundenplan</title>
+  <meta name="description" content="Klassen bilden und Stundenpläne erstellen für die Volksschule – im Browser.">
+  <link rel="icon" href="icon.svg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@stlite/browser@1.10.0/build/stlite.css">
+  <style>
+    :root { --accent: #2f5d50; --ink: #14171f; --muted: #676e7d; --page: #f6f7fb; }
+    html, body { margin: 0; background: var(--page); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--ink); }
+    #laden { min-height: 100vh; display: grid; place-items: center; padding: 16px; box-sizing: border-box; }
+    .karte { max-width: 540px; background: #fff; border: 1px solid #e4e7ee; border-radius: 14px; padding: 28px 30px;
+      box-shadow: 0 2px 10px rgba(20,23,31,.06); }
+    .karte h1 { font-size: 21px; margin: 12px 0 6px; }
+    .karte p { color: var(--muted); margin: 6px 0; font-size: 14px; }
+    .balken { height: 4px; border-radius: 4px; background: #e4e7ee; overflow: hidden; margin-top: 18px; }
+    .balken i { display: block; height: 100%; width: 35%; background: var(--accent); animation: lauf 1.4s ease-in-out infinite; }
+    @keyframes lauf { 0% { margin-left: -35%; } 100% { margin-left: 100%; } }
+    .fuss { font-size: 11.5px; color: var(--muted); margin-top: 14px; }
+  </style>
+</head>
+<body>
+  <div id="laden">
+    <div class="karte">
+      <img src="icon.svg" width="40" height="40" alt="">
+      <h1>Klassenbildung &amp; Stundenplan __VERSION__</h1>
+      <p>Startet im Browser – ohne Installation. Der erste Start lädt das Programm (etwa 50 MB), spätere Starts
+         sind schneller. Eingaben und gespeicherte Stände bleiben in diesem Browser.</p>
+      <p>Zum <b>Berechnen</b> gehen Jahrgang, Merkmale, Wünsche und Koordinaten der Lernenden an den Rechenserver –
+         ohne Namen und Adressen, und dort wird nichts gespeichert.</p>
+      <div class="balken"><i></i></div>
+      <div class="fuss">Build __BUILD__ · © 2026 Outthinkx for Communities · proprietäre Lizenz · läuft mit Streamlit in WebAssembly (stlite, Pyodide)</div>
+    </div>
+  </div>
+  <div id="root"></div>
+  <script type="module">
+    import { mount } from "https://cdn.jsdelivr.net/npm/@stlite/browser@1.10.0/build/stlite.js";
+    const wheel = new URL("__WHEEL__", window.location.href).href;
+    const daten = "/home/pyodide/Klassenbildung";
+    const app = mount({
+      requirements: [wheel],
+      entrypoint: "streamlit_app.py",
+      files: {
+        "streamlit_app.py": [
+          "import importlib.util, runpy",
+          "# die App genau einmal ausführen – ein Import von skf.app würde sie schon ausführen",
+          "runpy.run_path(importlib.util.find_spec('skf.app').origin, run_name='__main__')",
+        ].join("\n"),
+      },
+      env: {
+        SKF_DATEN: daten,
+        SKF_BUILD: "__BUILD__",
+        // Python läuft in einem Web Worker: Adressen absolut angeben
+        SKF_RECHNEN_URL: new URL("api/rechnen", window.location.href).href,
+        SKF_KOMPONENTEN_URL: new URL("komponenten/", window.location.href).href,
+      },
+      idbfsMountpoints: [daten],               // Arbeitsstand und Verlauf bleiben in diesem Browser
+      streamlitConfig: { "client.toolbarMode": "minimal", "theme.primaryColor": "#2f5d50" },
+    }, document.getElementById("root"));
+    const weg = () => { const l = document.getElementById("laden"); if (l) l.remove(); };
+    new MutationObserver((_, beob) => {
+      if (document.querySelector("#root [data-testid=stApp]")) { weg(); beob.disconnect(); }
+    }).observe(document.getElementById("root"), { childList: true, subtree: true });
+    window.__skf = app;
+  </script>
+</body>
+</html>

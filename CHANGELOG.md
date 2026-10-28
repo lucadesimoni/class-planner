@@ -7,6 +7,18 @@ Neue Version: `python scripts/version.py 0.2.0`.
 
 ## [Unveröffentlicht]
 
+### Hinzugefügt
+- **Browser-Version auf Vercel** (wie site-development): die App läuft mit stlite im Browser, gerechnet wird in
+  der Vercel-Funktion `api/rechnen.py` mit derselben `skf.ablauf.rechne` (`skf/fernrechnen.py`). Datensparsam:
+  Namen, Adressen und Bemerkungen verlassen den Browser nicht. Build `scripts/build_web.py`, `vercel.json`.
+  Installierte Version unverändert.
+
+### Geändert
+- OR-Tools wird im Browser (Pyodide) nicht installiert (`sys_platform != 'emscripten'`); die Rechenmodule laden
+  auch ohne OR-Tools.
+- Kantonsprofile nur noch nach Namen aus den mitgelieferten Profilen (kein Dateipfad aus der Konfiguration).
+- Planung & Kosten: Kennzahlen in Zeilen zu vier, damit Beträge nicht abgeschnitten werden.
+
 ## [0.2.0] – 2026-10-27
 
 ### Veröffentlichung

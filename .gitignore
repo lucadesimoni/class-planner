@@ -5,3 +5,4 @@ __pycache__/
 .venv/
 installer/build/
 build/
+_site/

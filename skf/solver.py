@@ -6,7 +6,10 @@ from __future__ import annotations
 import time
 from dataclasses import dataclass
 
-from ortools.sat.python import cp_model
+try:
+    from ortools.sat.python import cp_model
+except ImportError:  # Browser-Version (Pyodide): kein OR-Tools – gerechnet wird auf dem Server (skf.fernrechnen)
+    cp_model = None
 
 
 @dataclass

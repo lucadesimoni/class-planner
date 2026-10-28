@@ -11,7 +11,7 @@ license = {text = "LicenseRef-Proprietary"}
 authors = [{name = "Outthinkx for Communities"}]
 classifiers = ["License :: Other/Proprietary License", "Private :: Do Not Upload"]
 requires-python = ">=3.10"
-dependencies = ["ortools>=9.10", "pyyaml>=6", "openpyxl>=3.1", "streamlit>=1.40", "pandas>=2"]
+dependencies = ["ortools>=9.10; sys_platform != 'emscripten'", "pyyaml>=6", "openpyxl>=3.1", "streamlit>=1.40", "pandas>=2"]
 
 [project.optional-dependencies]
 test = ["pytest>=8", "jsonschema>=4", "playwright>=1.40"]

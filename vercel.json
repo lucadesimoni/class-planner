@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "uv --version || python3 -m pip install --quiet --break-system-packages uv",
+  "buildCommand": "python3 scripts/build_web.py",
+  "outputDirectory": "_site",
+  "cleanUrls": true,
+  "regions": ["fra1"],
+  "functions": {
+    "api/rechnen.py": {
+      "maxDuration": 300,
+      "memory": 2048,
+      "excludeFiles": "{beispiele/**,docs/**,tests/**,installer/**,web/**,_site/**,schema/**,scripts/**,skf/static/**,skf/beispiele/**}"
+    }
+  },
+  "headers": [
+    { "source": "/(.*)\\.whl", "headers": [
+      { "key": "Content-Type", "value": "application/zip" },
+      { "key": "Cache-Control", "value": "public, max-age=3600" },
+      { "key": "Access-Control-Allow-Origin", "value": "*" } ] },
+    { "source": "/(.*)", "headers": [
+      { "key": "X-Content-Type-Options", "value": "nosniff" },
+      { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" } ] }
+  ]
+}
