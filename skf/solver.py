@@ -32,9 +32,13 @@ class Loesungsinfo:
 
 
 class KeineLoesung(RuntimeError):
-    def __init__(self, text: str, konflikt: list[str] | None = None):
+    """Keine Lösung. ``nachweislich``: bewiesen unlösbar (sonst z.B. Zeitlimit erreicht – nicht wiederholen,
+    sondern mehr Zeit geben)."""
+
+    def __init__(self, text: str, konflikt: list[str] | None = None, nachweislich: bool = True):
         super().__init__(text)
         self.konflikt = konflikt or []
+        self.nachweislich = nachweislich
 
 
 def loese(model: cp_model.CpModel, schritt: str, zeitlimit: float,
@@ -47,9 +51,12 @@ def loese(model: cp_model.CpModel, schritt: str, zeitlimit: float,
     if status == cp_model.INFEASIBLE:
         raise KeineLoesung(f"{schritt}: nachweislich keine Lösung möglich. "
                            "Randbedingungen lockern (Räume, Pensen, Verfügbarkeiten, Klassengrössen).")
+    if status == cp_model.MODEL_INVALID:
+        raise KeineLoesung(f"{schritt}: interner Modellfehler ({solver.solution_info() or name}) – bitte melden.",
+                           nachweislich=False)
     if status not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
         raise KeineLoesung(f"{schritt}: innerhalb von {zeitlimit:.0f}s keine Lösung gefunden ({name}) – "
-                           "Zeitlimit erhöhen (-t) oder Randbedingungen lockern.")
+                           "Zeitlimit erhöhen (-t) oder Randbedingungen lockern.", nachweislich=False)
     info = Loesungsinfo(schritt, name, solver.objective_value, solver.best_objective_bound,
                         solver.wall_time)
     return solver, info
@@ -58,7 +65,7 @@ def loese(model: cp_model.CpModel, schritt: str, zeitlimit: float,
 def _lockerbar(name: str) -> int:
     """Wie gut sich eine Regel in der Praxis anpassen lässt (höher = eher anpassbar)."""
     for i, wort in enumerate(("eine Lektion pro Zeitfenster", "keine Lücken", "Blockzeiten", "parallel",
-                              "pro Tag", "Mindestgrösse", "Höchstgrösse", "Kapazität", "Anzahl Räume", "IS",
+                              "pro Tag", "Mindestgrösse", "Höchstgrösse", "Kapazität", "Plätze für", "Anzahl Räume", "IS",
                               "Schulweg", "Geschwister", "Pensum", "Verfügbarkeit")):
         if wort in name:
             return i
@@ -109,19 +116,22 @@ class Regeln:
                 return None
             kern = {self.model.proto.variables[i].name.removeprefix("regel:")
                     for i in solver.sufficient_assumptions_for_infeasibility()}
-            return [n for n in auswahl if n in kern] or auswahl
+            # leer = unlösbar auch ohne benannte Regel (feste Vorgaben): keine Regel beschuldigen
+            return [n for n in auswahl if n in kern]
 
         try:
             kern = unloesbar(namen, zeitlimit)
-            if kern is None:
+            if not kern:
                 return []
             ende = time.time() + zeitlimit  # Verkleinern mit festem Zeitbudget
             for n in sorted(kern, key=_lockerbar):  # strukturelle Regeln zuerst weglassen
-                if len(kern) <= 1 or time.time() > ende:
+                if time.time() > ende:  # auch eine einzelne Regel wird gegengeprüft (ohne sie noch unlösbar?)
                     break
                 if n in kern:
                     kleiner = unloesbar([k for k in kern if k != n], max(0.5, min(3.0, ende - time.time())))
-                    if kleiner is not None:
+                    if kleiner is not None and not kleiner:
+                        return []  # auch ohne diese Regeln unlösbar: Ursache sind feste Vorgaben, keine Regel
+                    if kleiner:
                         kern = kleiner
             return sorted(kern, key=lambda n: -_lockerbar(n))
         finally:
@@ -155,7 +165,7 @@ def loese_mit_regeln(model: cp_model.CpModel, regeln: Regeln, schritt: str, zeit
     try:
         return loese(model, schritt, zeitlimit, threads)
     except KeineLoesung as fehler:
-        if "nachweislich" not in str(fehler):
+        if not fehler.nachweislich:
             raise
         kern = regeln.konflikt(min(20.0, max(5.0, zeitlimit / 2)))
         if not kern:

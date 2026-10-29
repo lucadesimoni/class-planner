@@ -40,6 +40,7 @@ from dataclasses import dataclass, replace
 from .daten import Kind, Schule
 
 PRAEFIX = "H-"  # IDs angenommener Lernender
+MAX_GEBIETE, MAX_PUNKTE, MAX_NEUE = 50, 200, 2000   # Obergrenzen (Rechenzeit, öffentlicher Rechenserver)
 
 
 @dataclass
@@ -56,14 +57,22 @@ class Gebiet:
 def lese_gebiete(roh) -> list[Gebiet]:
     """Gebiete aus der Konfiguration prüfen (Punkte, Zahlen) – Fehler mit klarer Meldung."""
     gebiete = []
+    if roh and not isinstance(roh, list):
+        raise ValueError("gebiete: Liste von Gebieten erwartet")
+    if len(roh or []) > MAX_GEBIETE:
+        raise ValueError(f"gebiete: höchstens {MAX_GEBIETE} Gebiete")
     for i, g in enumerate(roh or []):
         if not isinstance(g, dict):
             raise ValueError(f"gebiete[{i + 1}]: Angaben als 'name, flaeche, schulhaus/neue_lernende' erwarten")
         name = str(g.get("name") or f"Gebiet {i + 1}")
-        try:
-            punkte = [(float(p[0]), float(p[1])) for p in g.get("flaeche") or []]
-        except (TypeError, ValueError, IndexError):
-            raise ValueError(f"Gebiet '{name}': flaeche als Liste von [lat, lon] erwarten") from None
+        flaeche = g.get("flaeche") or []
+        if (not isinstance(flaeche, list) or len(flaeche) > MAX_PUNKTE
+                or not all(isinstance(p, (list, tuple)) and len(p) == 2
+                           and all(isinstance(x, (int, float)) and not isinstance(x, bool) for x in p)
+                           for p in flaeche)):
+            raise ValueError(f"Gebiet '{name}': flaeche als Liste von höchstens {MAX_PUNKTE} Punkten [lat, lon] "
+                             "erwarten")
+        punkte = [(float(p[0]), float(p[1])) for p in flaeche]
         if len(punkte) < 3:
             raise ValueError(f"Gebiet '{name}': mindestens 3 Punkte für die Fläche nötig")
         if any(not (-90 <= a <= 90 and -180 <= b <= 180) for a, b in punkte):
@@ -72,9 +81,11 @@ def lese_gebiete(roh) -> list[Gebiet]:
             neu = int(g.get("neue_lernende") or 0)
         except (TypeError, ValueError):
             raise ValueError(f"Gebiet '{name}': neue_lernende als ganze Zahl erwarten") from None
-        if not 0 <= neu <= 5000:
-            raise ValueError(f"Gebiet '{name}': neue_lernende zwischen 0 und 5000")
+        if not 0 <= neu <= MAX_NEUE:
+            raise ValueError(f"Gebiet '{name}': neue_lernende zwischen 0 und {MAX_NEUE}")
         bus = g.get("schulbus")
+        if bus is True:
+            raise ValueError(f"Gebiet '{name}': schulbus ist false (kein Schulbus) oder der Name einer Linie")
         bus = None if bus is None else ("" if bus is False or str(bus).strip().lower() in ("", "nein", "kein", "false")
                                         else str(bus).strip())
         aufteilung = None
@@ -95,6 +106,8 @@ def lese_gebiete(roh) -> list[Gebiet]:
         if not aufteilung and not neu and bus is None:
             raise ValueError(f"Gebiet '{name}': 'aufteilung', 'schulhaus', 'schulbus' oder 'neue_lernende' angeben")
         gebiete.append(Gebiet(name, punkte, str(g.get("schulhaus") or ""), neu, bus, aufteilung, verbindlich))
+    if sum(g.neue_lernende for g in gebiete) > MAX_NEUE:
+        raise ValueError(f"gebiete: zusammen höchstens {MAX_NEUE} angenommene Lernende")
     return gebiete
 
 
@@ -116,7 +129,7 @@ def _punkte(gebiet: Gebiet, n: int) -> list[tuple[float, float]]:
     zufall = random.Random(zlib.crc32(gebiet.name.encode("utf-8")))
     lats, lons = [p[0] for p in gebiet.flaeche], [p[1] for p in gebiet.flaeche]
     punkte = []
-    for _ in range(n * 200):
+    for _ in range(n * 30):
         if len(punkte) == n:
             break
         lat, lon = zufall.uniform(min(lats), max(lats)), zufall.uniform(min(lons), max(lons))
@@ -147,12 +160,12 @@ def wende_an(schule: Schule, kinder: list[Kind]) -> tuple[list[Kind], list[str]]
         return kinder, []
     kinder = list(kinder)
     hinweise = []
-    for g in gebiete:
+    for nummer, g in enumerate(gebiete, 1):
         if g.neue_lernende:
             neu = []
             for i, (jg, (lat, lon)) in enumerate(zip(_verteilung(schule, kinder, g.neue_lernende),
                                                      _punkte(g, g.neue_lernende))):
-                kid = f"{PRAEFIX}{zlib.crc32(g.name.encode('utf-8')) % 10000:04d}-{i + 1:03d}"
+                kid = f"{PRAEFIX}{nummer:02d}-{i + 1:04d}"   # eindeutig je Gebiet
                 neu.append(Kind(kid, f"Annahme {i + 1} ({g.name})", jg, "wm"[i % 2], g.name, lat, lon,
                                 bemerkung=f"Hypothese: angenommene Lernende im Gebiet {g.name}"))
             kinder += neu

@@ -1,1469 +1,1496 @@
 tag,zeit,klasse,fach,lehrperson,raum,schulhaus
-Mo,08:00,BM 1/2a,BG,BM Lehrperson 02,BM-Zi 9,Bündtmättli
-Mo,08:00,BM 1a,NMG,BM Lehrperson 06,BM-Zi 1,Bündtmättli
-Mo,08:00,BM 1b,NMG,BM Unterstufe Teilzeit,BM-Zi 13,Bündtmättli
-Mo,08:00,BM 2a,Mathematik,BM Lehrperson 01,BM-Zi 8,Bündtmättli
-Mo,08:00,BM 2a,IF,SHP BM 2,BM-Zi 8,Bündtmättli
-Mo,08:00,BM 3/4a,Mathematik,BM Lehrperson 12,BM-Zi 12,Bündtmättli
-Mo,08:00,BM 3/4a,IF,SHP BM 1,BM-Zi 12,Bündtmättli
-Mo,08:00,BM 3a,NMG,BM Lehrperson 03,BM-Zi 3,Bündtmättli
-Mo,08:00,BM 3a,DaZ Aufbau,DaZ BM,,Bündtmättli
-Mo,08:00,BM 3b,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Mo,08:00,BM 4a,Musik,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Mo,08:00,BM 4b,NMG,BM Lehrperson 05,BM-Zi 11,Bündtmättli
-Mo,08:00,BM 5a,Deutsch,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Mo,08:00,BM 5b,NMG,BM Lehrperson 14,BM-Zi 5,Bündtmättli
-Mo,08:00,BM 6a,Französisch,Französisch BM,BM-Zi 2,Bündtmättli
-Mo,08:00,BM 6b,Bewegung und Sport,BM Lehrperson 04,BM-Halle 2,Bündtmättli
+Mo,08:00,BM 1a,Mathematik,BM Unterstufe Teilzeit,BM-Zi 5,Bündtmättli
+Mo,08:00,BM 1a,IF,SHP BM 2,BM-Zi 5,Bündtmättli
+Mo,08:00,BM 1b,Deutsch,BM Lehrperson 03,BM-Zi 10,Bündtmättli
+Mo,08:00,BM 1b,IF,SHP BM 3,BM-Zi 10,Bündtmättli
+Mo,08:00,BM 2a,NMG,BM Lehrperson 02,BM-Zi 7,Bündtmättli
+Mo,08:00,BM 2b,Musik,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Mo,08:00,BM 3a,Mathematik,BM Lehrperson 08,BM-Zi 1,Bündtmättli
+Mo,08:00,BM 3b,BG,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Mo,08:00,BM 4a,Deutsch,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Mo,08:00,BM 4b,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Mo,08:00,BM 5a,Bewegung und Sport,BM Lehrperson 11,BM-Halle 2,Bündtmättli
+Mo,08:00,BM 5b,Französisch,Französisch BM,BM-Zi 8,Bündtmättli
+Mo,08:00,BM 5c,Mathematik,BM Lehrperson 05,BM-Zi 13,Bündtmättli
+Mo,08:00,BM 6a,Bewegung und Sport,BM Lehrperson 12,BM-Halle 1,Bündtmättli
+Mo,08:00,BM 6b,Musik,BM Lehrperson 10,BM-Zi 11,Bündtmättli
 Mo,08:00,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
-Mo,08:00,BM KGb,Bewegung und Sport,KG BM 4,BM-Halle 1,Bündtmättli
+Mo,08:00,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
 Mo,08:00,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Mo,08:00,BM KGc,IF,SHP BM 3,BM-KG 3,Bündtmättli
-Mo,08:00,EI 1a,Mathematik,EI Lehrperson 08,EI-Zi 2,Eischachen
-Mo,08:00,EI 1b,Deutsch,EI Lehrperson 06,EI-Zi 11,Eischachen
-Mo,08:00,EI 2a,Musik,EI Lehrperson 03,EI-Zi 1,Eischachen
-Mo,08:00,EI 2b,Deutsch,EI Lehrperson 01,EI-Zi 9,Eischachen
+Mo,08:00,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Mo,08:00,EI 1a,Deutsch,EI Lehrperson 09,EI-Zi 2,Eischachen
+Mo,08:00,EI 1a,DaZ Aufbau,DaZ EI,,Eischachen
+Mo,08:00,EI 1b,Bewegung und Sport,EI Lehrperson 10,EI-Halle 1,Eischachen
+Mo,08:00,EI 2a,Musik,EI Lehrperson 01,EI-Zi 3,Eischachen
+Mo,08:00,EI 2b,Deutsch,EI Lehrperson 02,EI-Zi 11,Eischachen
 Mo,08:00,EI 3a,TTG,TTG 2,EI-TTG,Eischachen
-Mo,08:00,EI 4a,Musik,EI Lehrperson 09,EI-Zi 4,Eischachen
-Mo,08:00,EI 4b,BG,EI Lehrperson 05,EI-Zi 6,Eischachen
-Mo,08:00,EI 5/6a,Musik,EI Lehrperson 10,EI-Zi 7,Eischachen
-Mo,08:00,EI 5a,BG,EI Lehrperson 02,EI-Zi 8,Eischachen
-Mo,08:00,EI 6a,Französisch,Englisch/Französisch EI,EI-Zi 5,Eischachen
-Mo,08:00,EI 6b,Deutsch,EI Lehrperson 07,EI-Zi 10,Eischachen
-Mo,08:00,EI 6b,IF,SHP EI 3,EI-Zi 10,Eischachen
-Mo,08:00,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
+Mo,08:00,EI 3b,Deutsch,EI Lehrperson 03,EI-Zi 8,Eischachen
+Mo,08:00,EI 3b,IF,SHP EI 1,EI-Zi 8,Eischachen
+Mo,08:00,EI 4a,Mathematik,EI Lehrperson 08,EI-Zi 5,Eischachen
+Mo,08:00,EI 4b,Deutsch,EI Lehrperson 05,EI-Zi 9,Eischachen
+Mo,08:00,EI 4b,IF,SHP EI 2,EI-Zi 9,Eischachen
+Mo,08:00,EI 5a,Deutsch,EI Lehrperson 06,EI-Zi 1,Eischachen
+Mo,08:00,EI 6a,Deutsch,EI Lehrperson 07,EI-Zi 6,Eischachen
+Mo,08:00,EI 6b,Französisch,Englisch/Französisch EI,EI-Zi 7,Eischachen
+Mo,08:00,EI KGa,Bewegung und Sport,KG EI 1,EI-Halle 2,Eischachen
 Mo,08:00,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
-Mo,08:00,EI KGb,DaZ Aufbau,DaZ EI,,Eischachen
+Mo,08:00,EI KGb,IF,SHP EI 3,EI-KG 2,Eischachen
 Mo,08:00,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
-Mo,08:00,EI KGc,IF,SHP EI 2,EI-KG 3,Eischachen
 Mo,08:00,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
-Mo,08:00,EI KGd,IF,SHP EI 1,EI-KG 4,Eischachen
 Mo,08:00,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Mo,08:00,OS S1Aa,Mathematik,OS Mathematik 2,OS-Zi 2,Oberstufe
-Mo,08:00,OS S1Aa,IF,SHP OS 2,OS-Zi 2,Oberstufe
-Mo,08:00,OS S1Ab,Deutsch,OS Deutsch 5,OS-Zi 11,Oberstufe
-Mo,08:00,OS S1B/S1Ca,RZG,OS Deutsch 1,OS-Zi 9,Oberstufe
-Mo,08:00,OS S1Ba,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Mo,08:00,OS S1Ca,Mathematik,OS Mathematik 4,OS-Zi 14,Oberstufe
-Mo,08:00,OS S1Ca,IF,SHP OS 1,OS-Zi 14,Oberstufe
-Mo,08:00,OS S2Aa,TTG,OS Gestalten 3,OS-TTG 1,Oberstufe
-Mo,08:00,OS S2Ab,RZG,OS Deutsch 2,OS-Zi 13,Oberstufe
-Mo,08:00,OS S2Ba,RZG,OS Deutsch 4,OS-Zi 12,Oberstufe
-Mo,08:00,OS S2Ca,Englisch,OS Sprachen 3,OS-Zi 8,Oberstufe
-Mo,08:00,OS S2Cb,TTG,OS Gestalten 2,OS-TTG 2,Oberstufe
-Mo,08:00,OS S3Aa,Mathematik,OS Mathematik 3,OS-Zi 1,Oberstufe
-Mo,08:00,OS S3Ab,Mathematik,OS Mathematik 1,OS-Zi 5,Oberstufe
-Mo,08:00,OS S3B/S3Ca,NT,OS Sport 1,OS-Zi 6,Oberstufe
-Mo,08:00,OS S3Ba,Französisch,OS Sprachen 1,OS-Zi 3,Oberstufe
-Mo,08:00,OS S3Ca,Französisch,OS Sprachen 2,OS-Zi 4,Oberstufe
-Mo,08:00,OS S3Ca,DaZ Aufbau,DaZ OS,,Oberstufe
-Mo,08:50,BM 1/2a,Bewegung und Sport,BM Lehrperson 04,BM-Halle 1,Bündtmättli
-Mo,08:50,BM 1a,NMG,BM Lehrperson 06,BM-Zi 1,Bündtmättli
-Mo,08:50,BM 1b,NMG,BM Unterstufe Teilzeit,BM-Zi 13,Bündtmättli
-Mo,08:50,BM 2a,Mathematik,BM Lehrperson 01,BM-Zi 8,Bündtmättli
-Mo,08:50,BM 3/4a,Deutsch,BM Lehrperson 02,BM-Zi 12,Bündtmättli
-Mo,08:50,BM 3/4a,IF,SHP BM 1,BM-Zi 12,Bündtmättli
-Mo,08:50,BM 3a,Mathematik,BM Lehrperson 03,BM-Zi 3,Bündtmättli
-Mo,08:50,BM 3a,IF,SHP BM 2,BM-Zi 3,Bündtmättli
-Mo,08:50,BM 3a,DaZ Aufbau,DaZ BM,,Bündtmättli
-Mo,08:50,BM 3b,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Mo,08:50,BM 4a,Mathematik,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Mo,08:50,BM 4b,Bewegung und Sport,BM Lehrperson 12,BM-Halle 2,Bündtmättli
-Mo,08:50,BM 5a,Mathematik,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Mo,08:50,BM 5b,Mathematik,BM Lehrperson 14,BM-Zi 5,Bündtmättli
-Mo,08:50,BM 5b,IF,SHP BM 3,BM-Zi 5,Bündtmättli
-Mo,08:50,BM 6a,Deutsch,BM Lehrperson 05,BM-Zi 2,Bündtmättli
-Mo,08:50,BM 6b,Englisch,Französisch BM,BM-Zi 10,Bündtmättli
+Mo,08:00,OS S1Aa,RZG,OS Deutsch 2,OS-Zi 3,Oberstufe
+Mo,08:00,OS S1Ab,RZG,OS Deutsch 5,OS-Zi 5,Oberstufe
+Mo,08:00,OS S1B/S1Ca,RZG,OS Deutsch 3,OS-Zi 10,Oberstufe
+Mo,08:00,OS S1Ba,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
+Mo,08:00,OS S1Ca,Englisch,OS Sprachen 3,OS-Zi 15,Oberstufe
+Mo,08:00,OS S2Aa,NT,OS Mathematik 1,OS-Zi 4,Oberstufe
+Mo,08:00,OS S2Ab,Französisch,OS Sprachen 4,OS-Zi 13,Oberstufe
+Mo,08:00,OS S2Ab,DaZ Aufbau,DaZ OS,,Oberstufe
+Mo,08:00,OS S2Ba,Deutsch,OS Sprachen 1,OS-Zi 9,Oberstufe
+Mo,08:00,OS S2Ba,IF,SHP OS 2,OS-Zi 9,Oberstufe
+Mo,08:00,OS S2Ca,BG,OS Gestalten 3,OS-Zi 11,Oberstufe
+Mo,08:00,OS S2Cb,NT,OS Mathematik 4,OS-Zi 14,Oberstufe
+Mo,08:00,OS S3Aa,BG,OS Gestalten 2,OS-Zi 6,Oberstufe
+Mo,08:00,OS S3Ab,NT,OS Mathematik 3,OS-Zi 7,Oberstufe
+Mo,08:00,OS S3Ba,Deutsch,OS Sprachen 2,OS-Zi 1,Oberstufe
+Mo,08:00,OS S3Ba,IF,SHP OS 1,OS-Zi 1,Oberstufe
+Mo,08:00,OS S3Bb,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Mo,08:00,OS S3Ca,Mathematik,OS Mathematik 2,OS-Zi 12,Oberstufe
+Mo,08:50,BM 1a,Bewegung und Sport,BM Lehrperson 05,BM-Halle 1,Bündtmättli
+Mo,08:50,BM 1b,Musik,BM Lehrperson 12,BM-Zi 10,Bündtmättli
+Mo,08:50,BM 2a,BG,BM Lehrperson 02,BM-Zi 7,Bündtmättli
+Mo,08:50,BM 2b,Deutsch,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Mo,08:50,BM 3a,Musik,BM Lehrperson 03,BM-Zi 1,Bündtmättli
+Mo,08:50,BM 3b,Musik,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Mo,08:50,BM 4a,Mathematik,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Mo,08:50,BM 4b,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Mo,08:50,BM 5a,Musik,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Mo,08:50,BM 5b,BG,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Mo,08:50,BM 5c,Französisch,Französisch BM,BM-Zi 13,Bündtmättli
+Mo,08:50,BM 6a,Deutsch,BM Lehrperson 09,BM-Zi 2,Bündtmättli
+Mo,08:50,BM 6a,IF,SHP BM 2,BM-Zi 2,Bündtmättli
+Mo,08:50,BM 6b,Deutsch,BM Lehrperson 10,BM-Zi 11,Bündtmättli
 Mo,08:50,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
 Mo,08:50,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
 Mo,08:50,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Mo,08:50,EI 1a,Musik,EI Lehrperson 03,EI-Zi 2,Eischachen
-Mo,08:50,EI 1b,Bewegung und Sport,EI Lehrperson 01,EI-Halle 2,Eischachen
-Mo,08:50,EI 2a,Mathematik,EI Lehrperson 02,EI-Zi 1,Eischachen
-Mo,08:50,EI 2a,IF,SHP EI 3,EI-Zi 1,Eischachen
-Mo,08:50,EI 2a,DaZ Anfang,DaZ EI,,Eischachen
-Mo,08:50,EI 2b,Bewegung und Sport,EI Lehrperson 10,EI-Halle 1,Eischachen
+Mo,08:50,BM KGc,IF,SHP BM 3,BM-KG 3,Bündtmättli
+Mo,08:50,BM KGd,Bewegung und Sport,KG BM 3,BM-Halle 2,Bündtmättli
+Mo,08:50,EI 1a,NMG,EI Lehrperson 08,EI-Zi 2,Eischachen
+Mo,08:50,EI 1b,Deutsch,EI Lehrperson 10,EI-Zi 10,Eischachen
+Mo,08:50,EI 1b,IF,SHP EI 1,EI-Zi 10,Eischachen
+Mo,08:50,EI 2a,Bewegung und Sport,EI Lehrperson 01,EI-Halle 1,Eischachen
+Mo,08:50,EI 2b,NMG,EI Lehrperson 02,EI-Zi 11,Eischachen
 Mo,08:50,EI 3a,TTG,TTG 2,EI-TTG,Eischachen
-Mo,08:50,EI 4a,NMG,EI Lehrperson 08,EI-Zi 4,Eischachen
-Mo,08:50,EI 4b,NMG,EI Lehrperson 05,EI-Zi 6,Eischachen
-Mo,08:50,EI 5/6a,Mathematik,EI Lehrperson 09,EI-Zi 7,Eischachen
-Mo,08:50,EI 5/6a,IF,SHP EI 1,EI-Zi 7,Eischachen
-Mo,08:50,EI 5a,NMG,EI Lehrperson 06,EI-Zi 8,Eischachen
-Mo,08:50,EI 6a,Mathematik,EI Lehrperson 07,EI-Zi 5,Eischachen
-Mo,08:50,EI 6a,IF,SHP EI 2,EI-Zi 5,Eischachen
-Mo,08:50,EI 6b,Französisch,Englisch/Französisch EI,EI-Zi 10,Eischachen
+Mo,08:50,EI 3b,NMG,EI Lehrperson 03,EI-Zi 8,Eischachen
+Mo,08:50,EI 4a,Englisch,Englisch/Französisch EI,EI-Zi 5,Eischachen
+Mo,08:50,EI 4b,Mathematik,EI Lehrperson 05,EI-Zi 9,Eischachen
+Mo,08:50,EI 4b,IF,SHP EI 2,EI-Zi 9,Eischachen
+Mo,08:50,EI 5a,Deutsch,EI Lehrperson 06,EI-Zi 1,Eischachen
+Mo,08:50,EI 6a,Bewegung und Sport,EI Lehrperson 09,EI-Halle 2,Eischachen
+Mo,08:50,EI 6b,NMG,EI Lehrperson 07,EI-Zi 7,Eischachen
 Mo,08:50,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
+Mo,08:50,EI KGa,IF,SHP EI 3,EI-KG 1,Eischachen
+Mo,08:50,EI KGa,DaZ Aufbau,DaZ EI,,Eischachen
 Mo,08:50,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
 Mo,08:50,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
 Mo,08:50,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
 Mo,08:50,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Mo,08:50,OS S1Aa,NT,OS Mathematik 2,OS-Zi 2,Oberstufe
-Mo,08:50,OS S1Ab,Englisch,OS Deutsch 5,OS-Zi 11,Oberstufe
-Mo,08:50,OS S1B/S1Ca,Deutsch,OS Deutsch 1,OS-Zi 9,Oberstufe
-Mo,08:50,OS S1Ba,Englisch,OS Sprachen 2,OS-Zi 7,Oberstufe
-Mo,08:50,OS S1Ca,Mathematik,OS Mathematik 4,OS-Zi 14,Oberstufe
-Mo,08:50,OS S2Aa,TTG,OS Gestalten 3,OS-TTG 1,Oberstufe
-Mo,08:50,OS S2Ab,Englisch,OS Sprachen 3,OS-Zi 13,Oberstufe
-Mo,08:50,OS S2Ba,Mathematik,OS Mathematik 3,OS-Zi 12,Oberstufe
-Mo,08:50,OS S2Ba,IF,SHP OS 2,OS-Zi 12,Oberstufe
-Mo,08:50,OS S2Ca,Deutsch,OS Deutsch 2,OS-Zi 8,Oberstufe
-Mo,08:50,OS S2Ca,IF,SHP OS 1,OS-Zi 8,Oberstufe
-Mo,08:50,OS S2Cb,TTG,OS Gestalten 2,OS-TTG 2,Oberstufe
-Mo,08:50,OS S2Cb,DaZ Aufbau,DaZ OS,,Oberstufe
-Mo,08:50,OS S3Aa,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Mo,08:50,OS S3Ab,NT,OS Mathematik 1,OS-Zi 5,Oberstufe
-Mo,08:50,OS S3B/S3Ca,Englisch,OS Sprachen 1,OS-Zi 6,Oberstufe
-Mo,08:50,OS S3Ba,NT,OS Sport 1,OS-Zi 3,Oberstufe
-Mo,08:50,OS S3Ca,BG,OS Gestalten 1,OS-Zi 4,Oberstufe
-Mo,09:55,BM 1/2a,Mathematik,BM Lehrperson 02,BM-Zi 9,Bündtmättli
-Mo,09:55,BM 1/2a,IF,SHP BM 3,BM-Zi 9,Bündtmättli
-Mo,09:55,BM 1a,Mathematik,BM Lehrperson 06,BM-Zi 1,Bündtmättli
-Mo,09:55,BM 1a,IF,SHP BM 1,BM-Zi 1,Bündtmättli
-Mo,09:55,BM 1b,Mathematik,BM Unterstufe Teilzeit,BM-Zi 13,Bündtmättli
-Mo,09:55,BM 2a,Deutsch,BM Lehrperson 01,BM-Zi 8,Bündtmättli
-Mo,09:55,BM 2a,IF,SHP BM 2,BM-Zi 8,Bündtmättli
-Mo,09:55,BM 3/4a,BG,BM Lehrperson 12,BM-Zi 12,Bündtmättli
-Mo,09:55,BM 3a,Deutsch,BM Lehrperson 03,BM-Zi 3,Bündtmättli
-Mo,09:55,BM 3b,Englisch,Englisch BM,BM-Zi 6,Bündtmättli
-Mo,09:55,BM 4a,NMG,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Mo,09:55,BM 4b,Musik,BM Lehrperson 05,BM-Zi 11,Bündtmättli
-Mo,09:55,BM 5a,Mathematik,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Mo,09:55,BM 5b,NMG,BM Lehrperson 14,BM-Zi 5,Bündtmättli
-Mo,09:55,BM 6a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Mo,09:55,BM 6b,Deutsch,BM Lehrperson 04,BM-Zi 10,Bündtmättli
-Mo,09:55,BM KGa,Bewegung und Sport,KG BM 1,BM-Halle 1,Bündtmättli
-Mo,09:55,BM KGa,DaZ Aufbau,DaZ BM,,Bündtmättli
+Mo,08:50,IF Wald-KGa,DaZ Aufbau,DaZ BM,,Im Feld
+Mo,08:50,OS S1Aa,Mathematik,OS Mathematik 1,OS-Zi 3,Oberstufe
+Mo,08:50,OS S1Aa,IF,SHP OS 2,OS-Zi 3,Oberstufe
+Mo,08:50,OS S1Aa,DaZ Anfang,DaZ OS,,Oberstufe
+Mo,08:50,OS S1Ab,Englisch,OS Deutsch 5,OS-Zi 5,Oberstufe
+Mo,08:50,OS S1B/S1Ca,Französisch,OS Sprachen 4,OS-Zi 10,Oberstufe
+Mo,08:50,OS S1Ba,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
+Mo,08:50,OS S1Ca,BG,OS Gestalten 3,OS-Zi 15,Oberstufe
+Mo,08:50,OS S2Aa,Deutsch,OS Deutsch 2,OS-Zi 4,Oberstufe
+Mo,08:50,OS S2Ab,NT,OS Mathematik 4,OS-Zi 13,Oberstufe
+Mo,08:50,OS S2Ba,NT,OS Mathematik 2,OS-Zi 9,Oberstufe
+Mo,08:50,OS S2Ca,Englisch,OS Sprachen 3,OS-Zi 11,Oberstufe
+Mo,08:50,OS S2Cb,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Mo,08:50,OS S3Aa,Französisch,OS Sprachen 1,OS-Zi 6,Oberstufe
+Mo,08:50,OS S3Ab,Deutsch,OS Deutsch 3,OS-Zi 7,Oberstufe
+Mo,08:50,OS S3Ab,IF,SHP OS 1,OS-Zi 7,Oberstufe
+Mo,08:50,OS S3Ba,NT,OS Mathematik 3,OS-Zi 1,Oberstufe
+Mo,08:50,OS S3Bb,Englisch,OS Sprachen 2,OS-Zi 2,Oberstufe
+Mo,08:50,OS S3Ca,TTG,OS Gestalten 2,OS-TTG 2,Oberstufe
+Mo,09:55,BM 1a,BG,BM Lehrperson 05,BM-Zi 5,Bündtmättli
+Mo,09:55,BM 1b,NMG,BM Lehrperson 12,BM-Zi 10,Bündtmättli
+Mo,09:55,BM 2a,NMG,BM Lehrperson 02,BM-Zi 7,Bündtmättli
+Mo,09:55,BM 2b,Deutsch,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Mo,09:55,BM 3a,Deutsch,BM Lehrperson 03,BM-Zi 1,Bündtmättli
+Mo,09:55,BM 3a,IF,SHP BM 3,BM-Zi 1,Bündtmättli
+Mo,09:55,BM 3b,Deutsch,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Mo,09:55,BM 4a,Deutsch,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Mo,09:55,BM 4a,IF,SHP BM 2,BM-Zi 3,Bündtmättli
+Mo,09:55,BM 4b,Englisch,Englisch BM,BM-Zi 6,Bündtmättli
+Mo,09:55,BM 5a,Mathematik,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Mo,09:55,BM 5b,Bewegung und Sport,BM Lehrperson 08,BM-Halle 1,Bündtmättli
+Mo,09:55,BM 5c,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Mo,09:55,BM 6a,BG,BM Lehrperson 09,BM-Zi 2,Bündtmättli
+Mo,09:55,BM 6b,Englisch,Französisch BM,BM-Zi 11,Bündtmättli
+Mo,09:55,BM KGa,Bewegung und Sport,KG BM 1,BM-Halle 2,Bündtmättli
 Mo,09:55,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
-Mo,09:55,BM KGc,Bewegung und Sport,KG BM 2,BM-Halle 2,Bündtmättli
+Mo,09:55,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
+Mo,09:55,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
 Mo,09:55,EI 1a,Mathematik,EI Lehrperson 08,EI-Zi 2,Eischachen
-Mo,09:55,EI 1a,IF,SHP EI 2,EI-Zi 2,Eischachen
-Mo,09:55,EI 1b,Mathematik,EI Lehrperson 06,EI-Zi 11,Eischachen
-Mo,09:55,EI 1b,DaZ Aufbau,DaZ EI,,Eischachen
-Mo,09:55,EI 2a,Deutsch,EI Lehrperson 03,EI-Zi 1,Eischachen
-Mo,09:55,EI 2a,IF,SHP EI 3,EI-Zi 1,Eischachen
-Mo,09:55,EI 2b,BG,EI Lehrperson 01,EI-Zi 9,Eischachen
-Mo,09:55,EI 3a,BG,EI Lehrperson 04,EI-Zi 3,Eischachen
-Mo,09:55,EI 4a,BG,EI Lehrperson 09,EI-Zi 4,Eischachen
-Mo,09:55,EI 4b,Deutsch,EI Lehrperson 05,EI-Zi 6,Eischachen
-Mo,09:55,EI 5/6a,NMG,EI Lehrperson 10,EI-Zi 7,Eischachen
-Mo,09:55,EI 5a,Deutsch,EI Lehrperson 02,EI-Zi 8,Eischachen
-Mo,09:55,EI 6a,Englisch,Englisch/Französisch EI,EI-Zi 5,Eischachen
-Mo,09:55,EI 6b,TTG,TTG 2,EI-TTG,Eischachen
-Mo,09:55,EI KGa,Bewegung und Sport,KG EI 1,EI-Halle 1,Eischachen
+Mo,09:55,EI 1a,IF,SHP EI 1,EI-Zi 2,Eischachen
+Mo,09:55,EI 1b,NMG,EI Lehrperson 10,EI-Zi 10,Eischachen
+Mo,09:55,EI 2a,Mathematik,EI Lehrperson 01,EI-Zi 3,Eischachen
+Mo,09:55,EI 2a,IF,SHP EI 2,EI-Zi 3,Eischachen
+Mo,09:55,EI 2b,Bewegung und Sport,EI Lehrperson 02,EI-Halle 1,Eischachen
+Mo,09:55,EI 3a,Englisch,Englisch/Französisch EI,EI-Zi 4,Eischachen
+Mo,09:55,EI 3b,BG,EI Lehrperson 03,EI-Zi 8,Eischachen
+Mo,09:55,EI 3b,DaZ Aufbau,DaZ EI,,Eischachen
+Mo,09:55,EI 4a,TTG,TTG 2,EI-TTG,Eischachen
+Mo,09:55,EI 4b,Bewegung und Sport,EI Lehrperson 05,EI-Halle 2,Eischachen
+Mo,09:55,EI 5a,Mathematik,EI Lehrperson 06,EI-Zi 1,Eischachen
+Mo,09:55,EI 6a,Musik,EI Lehrperson 09,EI-Zi 6,Eischachen
+Mo,09:55,EI 6b,Deutsch,EI Lehrperson 07,EI-Zi 7,Eischachen
+Mo,09:55,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
 Mo,09:55,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
-Mo,09:55,EI KGc,Bewegung und Sport,KG EI 4,EI-Halle 2,Eischachen
+Mo,09:55,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
 Mo,09:55,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
-Mo,09:55,EI KGd,IF,SHP EI 1,EI-KG 4,Eischachen
+Mo,09:55,EI KGd,IF,SHP EI 3,EI-KG 4,Eischachen
 Mo,09:55,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Mo,09:55,OS S1Aa,NT,OS Mathematik 2,OS-Zi 2,Oberstufe
-Mo,09:55,OS S1Ab,Bewegung und Sport,OS Sport 2,OS-Halle 2,Oberstufe
-Mo,09:55,OS S1B/S1Ca,Französisch,OS Sprachen 3,OS-Zi 9,Oberstufe
-Mo,09:55,OS S1Ba,Französisch,OS Sprachen 2,OS-Zi 7,Oberstufe
-Mo,09:55,OS S1Ca,TTG,OS Gestalten 3,OS-TTG 1,Oberstufe
-Mo,09:55,OS S2Aa,Deutsch,OS Deutsch 4,OS-Zi 10,Oberstufe
-Mo,09:55,OS S2Aa,IF,SHP OS 1,OS-Zi 10,Oberstufe
-Mo,09:55,OS S2Ab,NT,OS Mathematik 1,OS-Zi 13,Oberstufe
-Mo,09:55,OS S2Ab,DaZ Aufbau,DaZ OS,,Oberstufe
-Mo,09:55,OS S2Ba,BG,OS Gestalten 2,OS-Zi 12,Oberstufe
-Mo,09:55,OS S2Ca,Mathematik,OS Mathematik 3,OS-Zi 8,Oberstufe
-Mo,09:55,OS S2Cb,Deutsch,OS Deutsch 1,OS-Zi 15,Oberstufe
-Mo,09:55,OS S2Cb,IF,SHP OS 2,OS-Zi 15,Oberstufe
-Mo,09:55,OS S3Aa,Deutsch,OS Deutsch 3,OS-Zi 1,Oberstufe
-Mo,09:55,OS S3Ab,Englisch,OS Sprachen 4,OS-Zi 5,Oberstufe
-Mo,09:55,OS S3B/S3Ca,Deutsch,OS Deutsch 2,OS-Zi 6,Oberstufe
-Mo,09:55,OS S3Ba,Bewegung und Sport,OS Sport 1,OS-Halle 1,Oberstufe
-Mo,09:55,OS S3Ca,BG,OS Gestalten 1,OS-Zi 4,Oberstufe
-Mo,10:45,BM 1/2a,Mathematik,BM Lehrperson 02,BM-Zi 9,Bündtmättli
-Mo,10:45,BM 1/2a,IF,SHP BM 3,BM-Zi 9,Bündtmättli
-Mo,10:45,BM 1a,Bewegung und Sport,BM Lehrperson 11,BM-Halle 1,Bündtmättli
-Mo,10:45,BM 1b,Mathematik,BM Unterstufe Teilzeit,BM-Zi 13,Bündtmättli
-Mo,10:45,BM 2a,Deutsch,BM Lehrperson 01,BM-Zi 8,Bündtmättli
-Mo,10:45,BM 3/4a,Englisch,Englisch BM,BM-Zi 12,Bündtmättli
-Mo,10:45,BM 3a,Mathematik,BM Lehrperson 03,BM-Zi 3,Bündtmättli
-Mo,10:45,BM 3b,Bewegung und Sport,BM Lehrperson 06,BM-Halle 2,Bündtmättli
-Mo,10:45,BM 4a,NMG,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Mo,10:45,BM 4b,Mathematik,BM Lehrperson 12,BM-Zi 11,Bündtmättli
-Mo,10:45,BM 4b,IF,SHP BM 2,BM-Zi 11,Bündtmättli
-Mo,10:45,BM 5a,BG,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Mo,10:45,BM 5b,Mathematik,BM Lehrperson 14,BM-Zi 5,Bündtmättli
-Mo,10:45,BM 6a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Mo,10:45,BM 6b,NMG,BM Lehrperson 04,BM-Zi 10,Bündtmättli
+Mo,09:55,IF Wald-KGa,IF,SHP BM 1,Waldplatz,Im Feld
+Mo,09:55,IF Wald-KGa,DaZ Anfang,DaZ BM,,Im Feld
+Mo,09:55,OS S1Aa,Französisch,OS Sprachen 4,OS-Zi 3,Oberstufe
+Mo,09:55,OS S1Ab,Mathematik,OS Mathematik 4,OS-Zi 5,Oberstufe
+Mo,09:55,OS S1Ab,DaZ Aufbau,DaZ OS,,Oberstufe
+Mo,09:55,OS S1B/S1Ca,Mathematik,OS Mathematik 1,OS-Zi 10,Oberstufe
+Mo,09:55,OS S1B/S1Ca,IF,SHP OS 1,OS-Zi 10,Oberstufe
+Mo,09:55,OS S1Ba,NT,OS Sport 1,OS-Zi 8,Oberstufe
+Mo,09:55,OS S1Ca,BG,OS Gestalten 3,OS-Zi 15,Oberstufe
+Mo,09:55,OS S2Aa,Englisch,OS Sprachen 2,OS-Zi 4,Oberstufe
+Mo,09:55,OS S2Ab,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Mo,09:55,OS S2Ba,Mathematik,OS Mathematik 2,OS-Zi 9,Oberstufe
+Mo,09:55,OS S2Ba,IF,SHP OS 2,OS-Zi 9,Oberstufe
+Mo,09:55,OS S2Ca,Deutsch,OS Deutsch 2,OS-Zi 11,Oberstufe
+Mo,09:55,OS S2Cb,Englisch,OS Sprachen 3,OS-Zi 14,Oberstufe
+Mo,09:55,OS S3Aa,Englisch,OS Sprachen 1,OS-Zi 6,Oberstufe
+Mo,09:55,OS S3Ab,Berufliche Orientierung,OS Deutsch 3,OS-Zi 7,Oberstufe
+Mo,09:55,OS S3Ba,NT,OS Mathematik 3,OS-Zi 1,Oberstufe
+Mo,09:55,OS S3Bb,BG,OS Gestalten 1,OS-Zi 2,Oberstufe
+Mo,09:55,OS S3Ca,TTG,OS Gestalten 2,OS-TTG 1,Oberstufe
+Mo,10:45,BM 1a,NMG,BM Lehrperson 12,BM-Zi 5,Bündtmättli
+Mo,10:45,BM 1b,Deutsch,BM Lehrperson 03,BM-Zi 10,Bündtmättli
+Mo,10:45,BM 2a,BG,BM Lehrperson 02,BM-Zi 7,Bündtmättli
+Mo,10:45,BM 2b,NMG,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Mo,10:45,BM 3a,Mathematik,BM Lehrperson 08,BM-Zi 1,Bündtmättli
+Mo,10:45,BM 3b,NMG,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Mo,10:45,BM 4a,BG,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Mo,10:45,BM 4b,Bewegung und Sport,BM Lehrperson 05,BM-Halle 1,Bündtmättli
+Mo,10:45,BM 5a,Deutsch,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Mo,10:45,BM 5b,Englisch,Englisch BM,BM-Zi 8,Bündtmättli
+Mo,10:45,BM 5c,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Mo,10:45,BM 6a,Deutsch,BM Lehrperson 09,BM-Zi 2,Bündtmättli
+Mo,10:45,BM 6a,IF,SHP BM 2,BM-Zi 2,Bündtmättli
+Mo,10:45,BM 6b,Französisch,Französisch BM,BM-Zi 11,Bündtmättli
 Mo,10:45,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
-Mo,10:45,BM KGa,DaZ Anfang,DaZ BM,,Bündtmättli
-Mo,10:45,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
-Mo,10:45,BM KGb,IF,SHP BM 1,BM-KG 2,Bündtmättli
+Mo,10:45,BM KGb,Bewegung und Sport,KG BM 4,BM-Halle 2,Bündtmättli
 Mo,10:45,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Mo,10:45,EI 1a,NMG,EI Lehrperson 03,EI-Zi 2,Eischachen
-Mo,10:45,EI 1b,Deutsch,EI Lehrperson 06,EI-Zi 11,Eischachen
-Mo,10:45,EI 1b,IF,SHP EI 1,EI-Zi 11,Eischachen
-Mo,10:45,EI 2a,Bewegung und Sport,EI Lehrperson 02,EI-Halle 1,Eischachen
-Mo,10:45,EI 2b,Deutsch,EI Lehrperson 01,EI-Zi 9,Eischachen
-Mo,10:45,EI 2b,IF,SHP EI 2,EI-Zi 9,Eischachen
-Mo,10:45,EI 3a,Deutsch,EI Lehrperson 04,EI-Zi 3,Eischachen
-Mo,10:45,EI 3a,DaZ Aufbau,DaZ EI,,Eischachen
-Mo,10:45,EI 4a,BG,EI Lehrperson 09,EI-Zi 4,Eischachen
-Mo,10:45,EI 4b,Bewegung und Sport,EI Lehrperson 05,EI-Halle 2,Eischachen
-Mo,10:45,EI 5/6a,NMG,EI Lehrperson 10,EI-Zi 7,Eischachen
-Mo,10:45,EI 5a,Französisch,Englisch/Französisch EI,EI-Zi 8,Eischachen
-Mo,10:45,EI 6a,NMG,EI Lehrperson 08,EI-Zi 5,Eischachen
-Mo,10:45,EI 6b,TTG,TTG 2,EI-TTG,Eischachen
+Mo,10:45,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Mo,10:45,BM KGd,IF,SHP BM 3,BM-KG 4,Bündtmättli
+Mo,10:45,EI 1a,Bewegung und Sport,EI Lehrperson 08,EI-Halle 1,Eischachen
+Mo,10:45,EI 1b,NMG,EI Lehrperson 10,EI-Zi 10,Eischachen
+Mo,10:45,EI 2a,Mathematik,EI Lehrperson 01,EI-Zi 3,Eischachen
+Mo,10:45,EI 2b,Mathematik,EI Lehrperson 02,EI-Zi 11,Eischachen
+Mo,10:45,EI 2b,IF,SHP EI 1,EI-Zi 11,Eischachen
+Mo,10:45,EI 2b,DaZ Anfang,DaZ EI,,Eischachen
+Mo,10:45,EI 3a,BG,EI Lehrperson 04,EI-Zi 4,Eischachen
+Mo,10:45,EI 3b,Musik,EI Lehrperson 03,EI-Zi 8,Eischachen
+Mo,10:45,EI 4a,TTG,TTG 2,EI-TTG,Eischachen
+Mo,10:45,EI 4b,NMG,EI Lehrperson 05,EI-Zi 9,Eischachen
+Mo,10:45,EI 5a,NMG,EI Lehrperson 06,EI-Zi 1,Eischachen
+Mo,10:45,EI 6a,BG,EI Lehrperson 09,EI-Zi 6,Eischachen
+Mo,10:45,EI 6b,Deutsch,EI Lehrperson 07,EI-Zi 7,Eischachen
+Mo,10:45,EI 6b,IF,SHP EI 2,EI-Zi 7,Eischachen
 Mo,10:45,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
+Mo,10:45,EI KGa,IF,SHP EI 3,EI-KG 1,Eischachen
 Mo,10:45,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
-Mo,10:45,EI KGb,IF,SHP EI 3,EI-KG 2,Eischachen
 Mo,10:45,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
 Mo,10:45,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
 Mo,10:45,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Mo,10:45,OS S1Aa,Englisch,OS Sprachen 3,OS-Zi 2,Oberstufe
-Mo,10:45,OS S1Aa,DaZ Anfang,DaZ OS,,Oberstufe
-Mo,10:45,OS S1Ab,Mathematik,OS Mathematik 2,OS-Zi 11,Oberstufe
-Mo,10:45,OS S1B/S1Ca,BG,OS Gestalten 1,OS-Zi 9,Oberstufe
-Mo,10:45,OS S1Ba,RZG,OS Deutsch 5,OS-Zi 7,Oberstufe
-Mo,10:45,OS S1Ca,TTG,OS Gestalten 3,OS-TTG 1,Oberstufe
-Mo,10:45,OS S2Aa,RZG,OS Deutsch 4,OS-Zi 10,Oberstufe
-Mo,10:45,OS S2Ab,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Mo,10:45,OS S2Ba,Englisch,OS Sprachen 2,OS-Zi 12,Oberstufe
-Mo,10:45,OS S2Ca,RZG,OS Deutsch 2,OS-Zi 8,Oberstufe
-Mo,10:45,OS S2Cb,BG,OS Gestalten 2,OS-Zi 15,Oberstufe
-Mo,10:45,OS S3Aa,Deutsch,OS Deutsch 3,OS-Zi 1,Oberstufe
-Mo,10:45,OS S3Aa,IF,SHP OS 2,OS-Zi 1,Oberstufe
-Mo,10:45,OS S3Ab,Französisch,OS Sprachen 4,OS-Zi 5,Oberstufe
-Mo,10:45,OS S3B/S3Ca,NT,OS Sport 1,OS-Zi 6,Oberstufe
-Mo,10:45,OS S3Ba,Mathematik,OS Mathematik 3,OS-Zi 3,Oberstufe
-Mo,10:45,OS S3Ca,Mathematik,OS Mathematik 1,OS-Zi 4,Oberstufe
-Mo,10:45,OS S3Ca,IF,SHP OS 1,OS-Zi 4,Oberstufe
-Mo,13:30,BM 1/2a,Deutsch,BM Lehrperson 04,BM-Zi 9,Bündtmättli
-Mo,13:30,BM 3/4a,NMG,BM Lehrperson 10,BM-Zi 12,Bündtmättli
-Mo,13:30,BM 3a,NMG,BM Lehrperson 03,BM-Zi 3,Bündtmättli
-Mo,13:30,BM 3a,DaZ Anfang,DaZ BM,,Bündtmättli
-Mo,13:30,BM 3b,Mathematik,BM Lehrperson 06,BM-Zi 6,Bündtmättli
-Mo,13:30,BM 3b,IF,SHP BM 3,BM-Zi 6,Bündtmättli
-Mo,13:30,BM 4a,Bewegung und Sport,BM Lehrperson 09,BM-Halle 1,Bündtmättli
+Mo,10:45,IF Wald-KGa,IF,SHP BM 1,Waldplatz,Im Feld
+Mo,10:45,IF Wald-KGa,DaZ Anfang,DaZ BM,,Im Feld
+Mo,10:45,OS S1Aa,NT,OS Mathematik 1,OS-Zi 3,Oberstufe
+Mo,10:45,OS S1Ab,NT,OS Mathematik 2,OS-Zi 5,Oberstufe
+Mo,10:45,OS S1B/S1Ca,Deutsch,OS Deutsch 3,OS-Zi 10,Oberstufe
+Mo,10:45,OS S1Ba,BG,OS Gestalten 1,OS-Zi 8,Oberstufe
+Mo,10:45,OS S1Ca,Deutsch,OS Deutsch 2,OS-Zi 15,Oberstufe
+Mo,10:45,OS S2Aa,Französisch,OS Sprachen 2,OS-Zi 4,Oberstufe
+Mo,10:45,OS S2Ab,Englisch,OS Sprachen 4,OS-Zi 13,Oberstufe
+Mo,10:45,OS S2Ba,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Mo,10:45,OS S2Ca,BG,OS Gestalten 3,OS-Zi 11,Oberstufe
+Mo,10:45,OS S2Cb,Mathematik,OS Mathematik 4,OS-Zi 14,Oberstufe
+Mo,10:45,OS S2Cb,IF,SHP OS 2,OS-Zi 14,Oberstufe
+Mo,10:45,OS S2Cb,DaZ Aufbau,DaZ OS,,Oberstufe
+Mo,10:45,OS S3Aa,Bewegung und Sport,OS Sport 1,OS-Halle 2,Oberstufe
+Mo,10:45,OS S3Ab,Mathematik,OS Mathematik 3,OS-Zi 7,Oberstufe
+Mo,10:45,OS S3Ab,IF,SHP OS 1,OS-Zi 7,Oberstufe
+Mo,10:45,OS S3Ba,BG,OS Gestalten 2,OS-Zi 1,Oberstufe
+Mo,10:45,OS S3Bb,RZG,OS Deutsch 1,OS-Zi 2,Oberstufe
+Mo,10:45,OS S3Ca,Englisch,OS Sprachen 1,OS-Zi 12,Oberstufe
+Mo,13:30,BM 1a,Mathematik,BM Unterstufe Teilzeit,BM-Zi 5,Bündtmättli
+Mo,13:30,BM 2a,Mathematik,BM Lehrperson 02,BM-Zi 7,Bündtmättli
+Mo,13:30,BM 2a,IF,SHP BM 3,BM-Zi 7,Bündtmättli
+Mo,13:30,BM 3b,Deutsch,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Mo,13:30,BM 3b,IF,SHP BM 1,BM-Zi 12,Bündtmättli
+Mo,13:30,BM 4a,Englisch,Englisch BM,BM-Zi 3,Bündtmättli
 Mo,13:30,BM 5a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Mo,13:30,BM 5b,Englisch,Französisch BM,BM-Zi 5,Bündtmättli
-Mo,13:30,BM 6a,Mathematik,BM Lehrperson 11,BM-Zi 2,Bündtmättli
-Mo,13:30,BM 6a,IF,SHP BM 1,BM-Zi 2,Bündtmättli
-Mo,13:30,BM 6b,BG,BM Lehrperson 07,BM-Zi 10,Bündtmättli
-Mo,13:30,EI 1a,NMG,EI Lehrperson 03,EI-Zi 2,Eischachen
-Mo,13:30,EI 1b,BG,EI Lehrperson 01,EI-Zi 11,Eischachen
-Mo,13:30,EI 2a,Mathematik,EI Lehrperson 02,EI-Zi 1,Eischachen
-Mo,13:30,EI 3a,Mathematik,EI Lehrperson 04,EI-Zi 3,Eischachen
-Mo,13:30,EI 4a,Deutsch,EI Lehrperson 05,EI-Zi 4,Eischachen
-Mo,13:30,EI 4a,IF,SHP EI 2,EI-Zi 4,Eischachen
-Mo,13:30,EI 4b,TTG,TTG 2,EI-TTG,Eischachen
-Mo,13:30,EI 5/6a,Englisch,Englisch/Französisch EI,EI-Zi 7,Eischachen
-Mo,13:30,EI 5a,NMG,EI Lehrperson 06,EI-Zi 8,Eischachen
-Mo,13:30,EI 6a,Deutsch,EI Lehrperson 08,EI-Zi 5,Eischachen
-Mo,13:30,EI 6b,Musik,EI Lehrperson 07,EI-Zi 10,Eischachen
-Mo,13:30,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
-Mo,13:30,EI KGa,IF,SHP EI 1,EI-KG 1,Eischachen
-Mo,13:30,OS S1Aa,Französisch,OS Sprachen 3,OS-Zi 2,Oberstufe
-Mo,13:30,OS S1Ab,Mathematik,OS Mathematik 2,OS-Zi 11,Oberstufe
-Mo,13:30,OS S1B/S1Ca,Bewegung und Sport,OS Sport 1,OS-Halle 1,Oberstufe
-Mo,13:30,OS S1Ba,TTG,OS Gestalten 2,OS-TTG 1,Oberstufe
-Mo,13:30,OS S1Ca,RZG,OS Deutsch 5,OS-Zi 14,Oberstufe
-Mo,13:30,OS S2Aa,Englisch,OS Sprachen 4,OS-Zi 10,Oberstufe
-Mo,13:30,OS S2Ab,NT,OS Mathematik 1,OS-Zi 13,Oberstufe
-Mo,13:30,OS S2Ba,RZG,OS Deutsch 4,OS-Zi 12,Oberstufe
-Mo,13:30,OS S2Ca,NT,OS Mathematik 3,OS-Zi 8,Oberstufe
-Mo,13:30,OS S2Cb,Mathematik,OS Mathematik 4,OS-Zi 15,Oberstufe
-Mo,13:30,OS S2Cb,IF,SHP OS 2,OS-Zi 15,Oberstufe
-Mo,13:30,OS S3Aa,Französisch,OS Sprachen 1,OS-Zi 1,Oberstufe
-Mo,13:30,OS S3Ab,RZG,OS Deutsch 3,OS-Zi 5,Oberstufe
-Mo,13:30,OS S3B/S3Ca,Berufliche Orientierung,OS Deutsch 2,OS-Zi 6,Oberstufe
-Mo,13:30,OS S3Ba,BG,OS Gestalten 3,OS-Zi 3,Oberstufe
-Mo,13:30,OS S3Ca,Deutsch,OS Sprachen 2,OS-Zi 4,Oberstufe
-Mo,13:30,OS S3Ca,IF,SHP OS 1,OS-Zi 4,Oberstufe
-Mo,14:20,BM 1/2a,Deutsch,BM Lehrperson 04,BM-Zi 9,Bündtmättli
-Mo,14:20,BM 3/4a,NMG,BM Lehrperson 10,BM-Zi 12,Bündtmättli
-Mo,14:20,BM 3a,Deutsch,BM Lehrperson 03,BM-Zi 3,Bündtmättli
-Mo,14:20,BM 3a,IF,SHP BM 2,BM-Zi 3,Bündtmättli
-Mo,14:20,BM 3a,DaZ Anfang,DaZ BM,,Bündtmättli
-Mo,14:20,BM 3b,BG,BM Lehrperson 06,BM-Zi 6,Bündtmättli
-Mo,14:20,BM 4a,BG,BM Lehrperson 09,BM-Zi 7,Bündtmättli
+Mo,13:30,BM 5a,DaZ Aufbau,DaZ BM,,Bündtmättli
+Mo,13:30,BM 5b,BG,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Mo,13:30,BM 5c,Deutsch,BM Lehrperson 05,BM-Zi 13,Bündtmättli
+Mo,13:30,BM 5c,IF,SHP BM 2,BM-Zi 13,Bündtmättli
+Mo,13:30,BM 6a,Musik,BM Lehrperson 12,BM-Zi 2,Bündtmättli
+Mo,13:30,BM 6b,NMG,BM Lehrperson 10,BM-Zi 11,Bündtmättli
+Mo,13:30,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Mo,13:30,EI 1b,Mathematik,Primar Springer,EI-Zi 10,Eischachen
+Mo,13:30,EI 2a,Deutsch,EI Lehrperson 01,EI-Zi 3,Eischachen
+Mo,13:30,EI 2a,IF,SHP EI 2,EI-Zi 3,Eischachen
+Mo,13:30,EI 3a,BG,EI Lehrperson 04,EI-Zi 4,Eischachen
+Mo,13:30,EI 3b,Englisch,Englisch/Französisch EI,EI-Zi 8,Eischachen
+Mo,13:30,EI 4a,Musik,EI Lehrperson 08,EI-Zi 5,Eischachen
+Mo,13:30,EI 4b,NMG,EI Lehrperson 05,EI-Zi 9,Eischachen
+Mo,13:30,EI 5a,TTG,TTG 2,EI-TTG,Eischachen
+Mo,13:30,EI 6a,NMG,EI Lehrperson 09,EI-Zi 6,Eischachen
+Mo,13:30,EI 6b,NMG,EI Lehrperson 07,EI-Zi 7,Eischachen
+Mo,13:30,EI KGc,Bewegung und Sport,KG EI 4,EI-Halle 1,Eischachen
+Mo,13:30,OS S1Aa,Bewegung und Sport,OS Sport 1,OS-Halle 1,Oberstufe
+Mo,13:30,OS S1Ab,RZG,OS Deutsch 5,OS-Zi 5,Oberstufe
+Mo,13:30,OS S1B/S1Ca,NT,OS Mathematik 1,OS-Zi 10,Oberstufe
+Mo,13:30,OS S1Ba,Französisch,OS Sprachen 4,OS-Zi 8,Oberstufe
+Mo,13:30,OS S1Ca,Deutsch,OS Deutsch 2,OS-Zi 15,Oberstufe
+Mo,13:30,OS S2Aa,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
+Mo,13:30,OS S2Ab,RZG,OS Deutsch 1,OS-Zi 13,Oberstufe
+Mo,13:30,OS S2Ba,RZG,OS Deutsch 4,OS-Zi 9,Oberstufe
+Mo,13:30,OS S2Ca,Bewegung und Sport,OS Sport 2,OS-Halle 2,Oberstufe
+Mo,13:30,OS S2Cb,Mathematik,OS Mathematik 4,OS-Zi 14,Oberstufe
+Mo,13:30,OS S2Cb,IF,SHP OS 2,OS-Zi 14,Oberstufe
+Mo,13:30,OS S3Aa,TTG,OS Gestalten 2,OS-TTG 2,Oberstufe
+Mo,13:30,OS S3Ab,Französisch,OS Sprachen 3,OS-Zi 7,Oberstufe
+Mo,13:30,OS S3Ba,Mathematik,OS Mathematik 3,OS-Zi 1,Oberstufe
+Mo,13:30,OS S3Ba,IF,SHP OS 1,OS-Zi 1,Oberstufe
+Mo,13:30,OS S3Bb,Französisch,OS Sprachen 2,OS-Zi 2,Oberstufe
+Mo,13:30,OS S3Ca,Französisch,OS Sprachen 1,OS-Zi 12,Oberstufe
+Mo,14:20,BM 2a,Mathematik,BM Lehrperson 02,BM-Zi 7,Bündtmättli
+Mo,14:20,BM 2a,IF,SHP BM 3,BM-Zi 7,Bündtmättli
+Mo,14:20,BM 3b,Englisch,Englisch BM,BM-Zi 12,Bündtmättli
 Mo,14:20,BM 5a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Mo,14:20,BM 5b,Französisch,Französisch BM,BM-Zi 5,Bündtmättli
-Mo,14:20,BM 6a,Bewegung und Sport,BM Lehrperson 11,BM-Halle 1,Bündtmättli
-Mo,14:20,BM 6b,Mathematik,BM Lehrperson 07,BM-Zi 10,Bündtmättli
-Mo,14:20,BM 6b,IF,SHP BM 1,BM-Zi 10,Bündtmättli
-Mo,14:20,EI 1a,Deutsch,EI Lehrperson 03,EI-Zi 2,Eischachen
-Mo,14:20,EI 1b,Musik,EI Lehrperson 01,EI-Zi 11,Eischachen
-Mo,14:20,EI 2a,BG,EI Lehrperson 02,EI-Zi 1,Eischachen
-Mo,14:20,EI 3a,Mathematik,EI Lehrperson 04,EI-Zi 3,Eischachen
-Mo,14:20,EI 3a,IF,SHP EI 1,EI-Zi 3,Eischachen
-Mo,14:20,EI 4a,Deutsch,EI Lehrperson 05,EI-Zi 4,Eischachen
-Mo,14:20,EI 4b,TTG,TTG 2,EI-TTG,Eischachen
-Mo,14:20,EI 5/6a,Französisch,Englisch/Französisch EI,EI-Zi 7,Eischachen
-Mo,14:20,EI 5a,Bewegung und Sport,EI Lehrperson 06,EI-Halle 1,Eischachen
-Mo,14:20,EI 6a,Deutsch,EI Lehrperson 08,EI-Zi 5,Eischachen
-Mo,14:20,EI 6a,IF,SHP EI 2,EI-Zi 5,Eischachen
-Mo,14:20,EI 6b,Bewegung und Sport,EI Lehrperson 07,EI-Halle 2,Eischachen
-Mo,14:20,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
-Mo,14:20,OS S1Aa,Deutsch,OS Deutsch 2,OS-Zi 2,Oberstufe
-Mo,14:20,OS S1Aa,IF,SHP OS 2,OS-Zi 2,Oberstufe
-Mo,14:20,OS S1B/S1Ca,Mathematik,OS Mathematik 2,OS-Zi 9,Oberstufe
-Mo,14:20,OS S1B/S1Ca,IF,SHP OS 1,OS-Zi 9,Oberstufe
-Mo,14:20,OS S1Ba,TTG,OS Gestalten 2,OS-TTG 1,Oberstufe
-Mo,14:20,OS S1Ca,BG,OS Gestalten 3,OS-Zi 14,Oberstufe
-Mo,14:20,OS S2Ab,Französisch,OS Sprachen 3,OS-Zi 13,Oberstufe
-Mo,14:20,OS S2Ba,Französisch,OS Sprachen 2,OS-Zi 12,Oberstufe
-Mo,14:20,OS S2Ca,NT,OS Mathematik 3,OS-Zi 8,Oberstufe
-Mo,14:20,OS S2Cb,Englisch,OS Sprachen 4,OS-Zi 15,Oberstufe
-Mo,14:20,OS S3Aa,Englisch,OS Sprachen 1,OS-Zi 1,Oberstufe
-Mo,14:20,OS S3Ab,Berufliche Orientierung,OS Deutsch 3,OS-Zi 5,Oberstufe
-Mo,14:20,OS S3Ca,NT,OS Mathematik 1,OS-Zi 4,Oberstufe
-Di,08:00,BM 1/2a,NMG,BM Lehrperson 02,BM-Zi 9,Bündtmättli
+Mo,14:20,BM 5a,DaZ Aufbau,DaZ BM,,Bündtmättli
+Mo,14:20,BM 5b,Mathematik,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Mo,14:20,BM 5b,IF,SHP BM 1,BM-Zi 8,Bündtmättli
+Mo,14:20,BM 5c,Deutsch,BM Lehrperson 05,BM-Zi 13,Bündtmättli
+Mo,14:20,BM 5c,IF,SHP BM 2,BM-Zi 13,Bündtmättli
+Mo,14:20,BM 6a,Mathematik,BM Lehrperson 12,BM-Zi 2,Bündtmättli
+Mo,14:20,BM 6b,Bewegung und Sport,BM Lehrperson 10,BM-Halle 1,Bündtmättli
+Mo,14:20,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Mo,14:20,EI 1b,Mathematik,Primar Springer,EI-Zi 10,Eischachen
+Mo,14:20,EI 2a,BG,EI Lehrperson 01,EI-Zi 3,Eischachen
+Mo,14:20,EI 3a,NMG,EI Lehrperson 04,EI-Zi 4,Eischachen
+Mo,14:20,EI 3a,DaZ Anfang,DaZ EI,,Eischachen
+Mo,14:20,EI 4a,Bewegung und Sport,EI Lehrperson 08,EI-Halle 1,Eischachen
+Mo,14:20,EI 4b,BG,EI Lehrperson 05,EI-Zi 9,Eischachen
+Mo,14:20,EI 5a,TTG,TTG 2,EI-TTG,Eischachen
+Mo,14:20,EI 6a,NMG,EI Lehrperson 09,EI-Zi 6,Eischachen
+Mo,14:20,EI 6b,Mathematik,EI Lehrperson 07,EI-Zi 7,Eischachen
+Mo,14:20,EI 6b,IF,SHP EI 2,EI-Zi 7,Eischachen
+Mo,14:20,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
+Mo,14:20,OS S1Aa,NT,OS Mathematik 1,OS-Zi 3,Oberstufe
+Mo,14:20,OS S1Ba,Englisch,OS Sprachen 4,OS-Zi 8,Oberstufe
+Mo,14:20,OS S1Ca,Mathematik,OS Mathematik 3,OS-Zi 15,Oberstufe
+Mo,14:20,OS S2Aa,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
+Mo,14:20,OS S2Ab,Deutsch,OS Deutsch 1,OS-Zi 13,Oberstufe
+Mo,14:20,OS S2Ab,IF,SHP OS 2,OS-Zi 13,Oberstufe
+Mo,14:20,OS S2Ba,Französisch,OS Sprachen 1,OS-Zi 9,Oberstufe
+Mo,14:20,OS S2Ca,Deutsch,OS Deutsch 2,OS-Zi 11,Oberstufe
+Mo,14:20,OS S2Ca,IF,SHP OS 1,OS-Zi 11,Oberstufe
+Mo,14:20,OS S2Cb,Französisch,OS Sprachen 3,OS-Zi 14,Oberstufe
+Mo,14:20,OS S3Aa,TTG,OS Gestalten 2,OS-TTG 2,Oberstufe
 Di,08:00,BM 1a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Di,08:00,BM 1b,Musik,BM Lehrperson 07,BM-Zi 13,Bündtmättli
-Di,08:00,BM 2a,Musik,BM Lehrperson 01,BM-Zi 8,Bündtmättli
-Di,08:00,BM 3/4a,NMG,BM Lehrperson 10,BM-Zi 12,Bündtmättli
-Di,08:00,BM 3a,Englisch,Englisch BM,BM-Zi 3,Bündtmättli
-Di,08:00,BM 3b,Deutsch,BM Lehrperson 03,BM-Zi 6,Bündtmättli
-Di,08:00,BM 4a,Bewegung und Sport,BM Lehrperson 09,BM-Halle 2,Bündtmättli
-Di,08:00,BM 4b,Mathematik,BM Lehrperson 12,BM-Zi 11,Bündtmättli
-Di,08:00,BM 4b,IF,SHP BM 2,BM-Zi 11,Bündtmättli
-Di,08:00,BM 5a,Mathematik,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Di,08:00,BM 5b,Französisch,Französisch BM,BM-Zi 5,Bündtmättli
-Di,08:00,BM 6a,NMG,BM Lehrperson 11,BM-Zi 2,Bündtmättli
-Di,08:00,BM 6b,Bewegung und Sport,BM Lehrperson 04,BM-Halle 1,Bündtmättli
+Di,08:00,BM 1b,Musik,BM Lehrperson 12,BM-Zi 10,Bündtmättli
+Di,08:00,BM 2a,NMG,BM Lehrperson 02,BM-Zi 7,Bündtmättli
+Di,08:00,BM 2b,Bewegung und Sport,BM Lehrperson 01,BM-Halle 1,Bündtmättli
+Di,08:00,BM 3a,NMG,BM Lehrperson 03,BM-Zi 1,Bündtmättli
+Di,08:00,BM 3b,Bewegung und Sport,BM Lehrperson 04,BM-Halle 2,Bündtmättli
+Di,08:00,BM 4a,Musik,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Di,08:00,BM 4b,Musik,BM Lehrperson 07,BM-Zi 6,Bündtmättli
+Di,08:00,BM 5a,Französisch,Französisch BM,BM-Zi 4,Bündtmättli
+Di,08:00,BM 5b,Deutsch,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Di,08:00,BM 5c,Mathematik,BM Lehrperson 05,BM-Zi 13,Bündtmättli
+Di,08:00,BM 6a,Deutsch,BM Lehrperson 09,BM-Zi 2,Bündtmättli
+Di,08:00,BM 6a,IF,SHP BM 2,BM-Zi 2,Bündtmättli
+Di,08:00,BM 6b,NMG,BM Lehrperson 10,BM-Zi 11,Bündtmättli
 Di,08:00,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
 Di,08:00,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
 Di,08:00,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Di,08:00,BM KGc,IF,SHP BM 3,BM-KG 3,Bündtmättli
-Di,08:00,EI 1a,Deutsch,EI Lehrperson 03,EI-Zi 2,Eischachen
-Di,08:00,EI 1b,Bewegung und Sport,EI Lehrperson 01,EI-Halle 2,Eischachen
-Di,08:00,EI 2a,NMG,EI Lehrperson 02,EI-Zi 1,Eischachen
-Di,08:00,EI 2b,Bewegung und Sport,EI Lehrperson 10,EI-Halle 1,Eischachen
-Di,08:00,EI 3a,Mathematik,EI Lehrperson 04,EI-Zi 3,Eischachen
-Di,08:00,EI 4a,NMG,EI Lehrperson 08,EI-Zi 4,Eischachen
-Di,08:00,EI 4b,Musik,EI Lehrperson 05,EI-Zi 6,Eischachen
-Di,08:00,EI 5/6a,Deutsch,EI Lehrperson 09,EI-Zi 7,Eischachen
-Di,08:00,EI 5a,TTG,TTG 2,EI-TTG,Eischachen
-Di,08:00,EI 6a,Mathematik,EI Lehrperson 07,EI-Zi 5,Eischachen
-Di,08:00,EI 6a,IF,SHP EI 2,EI-Zi 5,Eischachen
-Di,08:00,EI 6b,Englisch,Englisch/Französisch EI,EI-Zi 10,Eischachen
+Di,08:00,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Di,08:00,BM KGd,IF,SHP BM 3,BM-KG 4,Bündtmättli
+Di,08:00,EI 1a,Mathematik,EI Lehrperson 08,EI-Zi 2,Eischachen
+Di,08:00,EI 1a,IF,SHP EI 1,EI-Zi 2,Eischachen
+Di,08:00,EI 1b,Deutsch,EI Lehrperson 10,EI-Zi 10,Eischachen
+Di,08:00,EI 2a,TTG,TTG 2,EI-TTG,Eischachen
+Di,08:00,EI 2b,Bewegung und Sport,EI Lehrperson 02,EI-Halle 1,Eischachen
+Di,08:00,EI 3a,NMG,EI Lehrperson 04,EI-Zi 4,Eischachen
+Di,08:00,EI 3b,Musik,EI Lehrperson 03,EI-Zi 8,Eischachen
+Di,08:00,EI 3b,DaZ Aufbau,DaZ EI,,Eischachen
+Di,08:00,EI 4a,NMG,EI Lehrperson 11,EI-Zi 5,Eischachen
+Di,08:00,EI 4b,Mathematik,EI Lehrperson 05,EI-Zi 9,Eischachen
+Di,08:00,EI 5a,Englisch,Englisch/Französisch EI,EI-Zi 1,Eischachen
+Di,08:00,EI 6a,NMG,EI Lehrperson 09,EI-Zi 6,Eischachen
+Di,08:00,EI 6b,Bewegung und Sport,EI Lehrperson 07,EI-Halle 2,Eischachen
 Di,08:00,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
 Di,08:00,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
-Di,08:00,EI KGb,IF,SHP EI 3,EI-KG 2,Eischachen
-Di,08:00,EI KGb,DaZ Aufbau,DaZ EI,,Eischachen
 Di,08:00,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
+Di,08:00,EI KGc,IF,SHP EI 2,EI-KG 3,Eischachen
 Di,08:00,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
-Di,08:00,EI KGd,IF,SHP EI 1,EI-KG 4,Eischachen
+Di,08:00,EI KGd,IF,SHP EI 3,EI-KG 4,Eischachen
 Di,08:00,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Di,08:00,IF Wald-KGa,DaZ Anfang,DaZ BM,,Im Feld
-Di,08:00,OS S1Aa,Englisch,OS Sprachen 3,OS-Zi 2,Oberstufe
-Di,08:00,OS S1Aa,DaZ Anfang,DaZ OS,,Oberstufe
-Di,08:00,OS S1Ab,Englisch,OS Deutsch 5,OS-Zi 11,Oberstufe
-Di,08:00,OS S1B/S1Ca,RZG,OS Deutsch 1,OS-Zi 9,Oberstufe
-Di,08:00,OS S1Ba,Französisch,OS Sprachen 2,OS-Zi 7,Oberstufe
-Di,08:00,OS S1Ca,Mathematik,OS Mathematik 4,OS-Zi 14,Oberstufe
-Di,08:00,OS S2Aa,Deutsch,OS Deutsch 4,OS-Zi 10,Oberstufe
-Di,08:00,OS S2Ab,Deutsch,OS Deutsch 2,OS-Zi 13,Oberstufe
-Di,08:00,OS S2Ab,IF,SHP OS 1,OS-Zi 13,Oberstufe
-Di,08:00,OS S2Ba,BG,OS Gestalten 2,OS-Zi 12,Oberstufe
-Di,08:00,OS S2Ca,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Di,08:00,OS S2Cb,Englisch,OS Sprachen 4,OS-Zi 15,Oberstufe
-Di,08:00,OS S3Aa,RZG,OS Deutsch 3,OS-Zi 1,Oberstufe
-Di,08:00,OS S3Ab,TTG,OS Gestalten 1,OS-TTG 2,Oberstufe
-Di,08:00,OS S3B/S3Ca,Mathematik,OS Mathematik 5,OS-Zi 6,Oberstufe
-Di,08:00,OS S3B/S3Ca,IF,SHP OS 2,OS-Zi 6,Oberstufe
-Di,08:00,OS S3Ba,TTG,OS Gestalten 3,OS-TTG 1,Oberstufe
-Di,08:00,OS S3Ca,Mathematik,OS Mathematik 1,OS-Zi 4,Oberstufe
-Di,08:50,BM 1/2a,Musik,BM Lehrperson 02,BM-Zi 9,Bündtmättli
+Di,08:00,IF Wald-KGa,IF,SHP BM 1,Waldplatz,Im Feld
+Di,08:00,OS S1Aa,Deutsch,OS Deutsch 2,OS-Zi 3,Oberstufe
+Di,08:00,OS S1Aa,IF,SHP OS 2,OS-Zi 3,Oberstufe
+Di,08:00,OS S1Ab,NT,OS Mathematik 2,OS-Zi 5,Oberstufe
+Di,08:00,OS S1B/S1Ca,Deutsch,OS Deutsch 3,OS-Zi 10,Oberstufe
+Di,08:00,OS S1Ba,Englisch,OS Sprachen 4,OS-Zi 8,Oberstufe
+Di,08:00,OS S1Ca,Englisch,OS Sprachen 3,OS-Zi 15,Oberstufe
+Di,08:00,OS S2Aa,Mathematik,OS Mathematik 1,OS-Zi 4,Oberstufe
+Di,08:00,OS S2Aa,IF,SHP OS 1,OS-Zi 4,Oberstufe
+Di,08:00,OS S2Ab,Mathematik,OS Mathematik 4,OS-Zi 13,Oberstufe
+Di,08:00,OS S2Ba,Englisch,OS Sprachen 1,OS-Zi 9,Oberstufe
+Di,08:00,OS S2Ca,TTG,OS Gestalten 3,OS-TTG 1,Oberstufe
+Di,08:00,OS S2Cb,BG,OS Gestalten 2,OS-Zi 14,Oberstufe
+Di,08:00,OS S2Cb,DaZ Aufbau,DaZ OS,,Oberstufe
+Di,08:00,OS S3Aa,RZG,OS Mathematik 5,OS-Zi 6,Oberstufe
+Di,08:00,OS S3Ab,BG,OS Gestalten 1,OS-Zi 7,Oberstufe
+Di,08:00,OS S3Ba,Mathematik,OS Mathematik 3,OS-Zi 1,Oberstufe
+Di,08:00,OS S3Bb,Englisch,OS Sprachen 2,OS-Zi 2,Oberstufe
+Di,08:00,OS S3Ca,Berufliche Orientierung,OS Deutsch 1,OS-Zi 12,Oberstufe
 Di,08:50,BM 1a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Di,08:50,BM 1b,Mathematik,BM Unterstufe Teilzeit,BM-Zi 13,Bündtmättli
-Di,08:50,BM 1b,IF,SHP BM 3,BM-Zi 13,Bündtmättli
-Di,08:50,BM 2a,Deutsch,BM Lehrperson 01,BM-Zi 8,Bündtmättli
-Di,08:50,BM 3/4a,NMG,BM Lehrperson 10,BM-Zi 12,Bündtmättli
-Di,08:50,BM 3a,NMG,BM Lehrperson 03,BM-Zi 3,Bündtmättli
-Di,08:50,BM 3b,Musik,BM Lehrperson 06,BM-Zi 6,Bündtmättli
-Di,08:50,BM 4a,Englisch,Englisch BM,BM-Zi 7,Bündtmättli
-Di,08:50,BM 4b,Mathematik,BM Lehrperson 12,BM-Zi 11,Bündtmättli
-Di,08:50,BM 5a,Bewegung und Sport,BM Lehrperson 08,BM-Halle 1,Bündtmättli
-Di,08:50,BM 5b,Bewegung und Sport,BM Lehrperson 09,BM-Halle 2,Bündtmättli
-Di,08:50,BM 6a,Französisch,Französisch BM,BM-Zi 2,Bündtmättli
-Di,08:50,BM 6b,NMG,BM Lehrperson 04,BM-Zi 10,Bündtmättli
+Di,08:50,BM 1b,Bewegung und Sport,BM Lehrperson 12,BM-Halle 1,Bündtmättli
+Di,08:50,BM 2a,NMG,BM Lehrperson 02,BM-Zi 7,Bündtmättli
+Di,08:50,BM 2b,Mathematik,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Di,08:50,BM 3a,Bewegung und Sport,BM Lehrperson 03,BM-Halle 2,Bündtmättli
+Di,08:50,BM 3b,Mathematik,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Di,08:50,BM 4a,NMG,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Di,08:50,BM 4b,Deutsch,BM Lehrperson 07,BM-Zi 6,Bündtmättli
+Di,08:50,BM 4b,IF,SHP BM 2,BM-Zi 6,Bündtmättli
+Di,08:50,BM 5a,Englisch,Französisch BM,BM-Zi 4,Bündtmättli
+Di,08:50,BM 5b,Mathematik,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Di,08:50,BM 5c,Deutsch,BM Lehrperson 05,BM-Zi 13,Bündtmättli
+Di,08:50,BM 6a,NMG,BM Lehrperson 09,BM-Zi 2,Bündtmättli
+Di,08:50,BM 6b,NMG,BM Lehrperson 10,BM-Zi 11,Bündtmättli
 Di,08:50,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
-Di,08:50,BM KGa,IF,SHP BM 2,BM-KG 1,Bündtmättli
 Di,08:50,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
+Di,08:50,BM KGb,IF,SHP BM 3,BM-KG 2,Bündtmättli
 Di,08:50,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Di,08:50,EI 1a,Bewegung und Sport,EI Lehrperson 03,EI-Halle 2,Eischachen
-Di,08:50,EI 1b,Mathematik,EI Lehrperson 06,EI-Zi 11,Eischachen
-Di,08:50,EI 2a,Bewegung und Sport,EI Lehrperson 02,EI-Halle 1,Eischachen
-Di,08:50,EI 2b,Deutsch,EI Lehrperson 01,EI-Zi 9,Eischachen
-Di,08:50,EI 2b,IF,SHP EI 2,EI-Zi 9,Eischachen
-Di,08:50,EI 3a,Englisch,Englisch/Französisch EI,EI-Zi 3,Eischachen
-Di,08:50,EI 3a,DaZ Anfang,DaZ EI,,Eischachen
-Di,08:50,EI 4a,Deutsch,EI Lehrperson 05,EI-Zi 4,Eischachen
-Di,08:50,EI 4b,Mathematik,EI Lehrperson 04,EI-Zi 6,Eischachen
-Di,08:50,EI 5/6a,Mathematik,EI Lehrperson 09,EI-Zi 7,Eischachen
-Di,08:50,EI 5a,TTG,TTG 2,EI-TTG,Eischachen
-Di,08:50,EI 6a,NMG,EI Lehrperson 08,EI-Zi 5,Eischachen
-Di,08:50,EI 6b,Deutsch,EI Lehrperson 07,EI-Zi 10,Eischachen
+Di,08:50,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Di,08:50,EI 1a,Bewegung und Sport,EI Lehrperson 08,EI-Halle 1,Eischachen
+Di,08:50,EI 1b,Deutsch,EI Lehrperson 10,EI-Zi 10,Eischachen
+Di,08:50,EI 1b,IF,SHP EI 1,EI-Zi 10,Eischachen
+Di,08:50,EI 2a,TTG,TTG 2,EI-TTG,Eischachen
+Di,08:50,EI 2b,Mathematik,EI Lehrperson 02,EI-Zi 11,Eischachen
+Di,08:50,EI 3a,NMG,EI Lehrperson 04,EI-Zi 4,Eischachen
+Di,08:50,EI 3b,Bewegung und Sport,EI Lehrperson 03,EI-Halle 2,Eischachen
+Di,08:50,EI 4a,NMG,EI Lehrperson 11,EI-Zi 5,Eischachen
+Di,08:50,EI 4b,Deutsch,EI Lehrperson 05,EI-Zi 9,Eischachen
+Di,08:50,EI 4b,IF,SHP EI 2,EI-Zi 9,Eischachen
+Di,08:50,EI 5a,Französisch,Englisch/Französisch EI,EI-Zi 1,Eischachen
+Di,08:50,EI 6a,Mathematik,EI Lehrperson 09,EI-Zi 6,Eischachen
+Di,08:50,EI 6a,DaZ Aufbau,DaZ EI,,Eischachen
+Di,08:50,EI 6b,NMG,EI Lehrperson 07,EI-Zi 7,Eischachen
 Di,08:50,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
-Di,08:50,EI KGa,IF,SHP EI 1,EI-KG 1,Eischachen
+Di,08:50,EI KGa,IF,SHP EI 3,EI-KG 1,Eischachen
 Di,08:50,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
-Di,08:50,EI KGb,IF,SHP EI 3,EI-KG 2,Eischachen
 Di,08:50,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
 Di,08:50,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
 Di,08:50,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Di,08:50,IF Wald-KGa,DaZ Anfang,DaZ BM,,Im Feld
-Di,08:50,OS S1Aa,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Di,08:50,OS S1Aa,DaZ Anfang,DaZ OS,,Oberstufe
-Di,08:50,OS S1Ab,RZG,OS Mathematik 5,OS-Zi 11,Oberstufe
-Di,08:50,OS S1B/S1Ca,RZG,OS Deutsch 1,OS-Zi 9,Oberstufe
-Di,08:50,OS S1Ba,NT,OS Mathematik 4,OS-Zi 7,Oberstufe
-Di,08:50,OS S1Ca,Deutsch,OS Deutsch 5,OS-Zi 14,Oberstufe
-Di,08:50,OS S2Aa,Englisch,OS Sprachen 4,OS-Zi 10,Oberstufe
-Di,08:50,OS S2Ab,Französisch,OS Sprachen 3,OS-Zi 13,Oberstufe
-Di,08:50,OS S2Ba,Englisch,OS Sprachen 2,OS-Zi 12,Oberstufe
-Di,08:50,OS S2Ca,Deutsch,OS Deutsch 2,OS-Zi 8,Oberstufe
-Di,08:50,OS S2Cb,BG,OS Gestalten 2,OS-Zi 15,Oberstufe
-Di,08:50,OS S3Aa,Deutsch,OS Deutsch 3,OS-Zi 1,Oberstufe
-Di,08:50,OS S3Aa,IF,SHP OS 2,OS-Zi 1,Oberstufe
-Di,08:50,OS S3Ab,TTG,OS Gestalten 1,OS-TTG 2,Oberstufe
-Di,08:50,OS S3B/S3Ca,Bewegung und Sport,OS Sport 1,OS-Halle 2,Oberstufe
-Di,08:50,OS S3Ba,TTG,OS Gestalten 3,OS-TTG 1,Oberstufe
-Di,08:50,OS S3Ca,Mathematik,OS Mathematik 1,OS-Zi 4,Oberstufe
-Di,08:50,OS S3Ca,IF,SHP OS 1,OS-Zi 4,Oberstufe
-Di,09:55,BM 1/2a,NMG,BM Lehrperson 02,BM-Zi 9,Bündtmättli
-Di,09:55,BM 1a,Mathematik,BM Lehrperson 06,BM-Zi 1,Bündtmättli
-Di,09:55,BM 1b,Deutsch,BM Lehrperson 09,BM-Zi 13,Bündtmättli
-Di,09:55,BM 2a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Di,09:55,BM 3/4a,Mathematik,BM Lehrperson 12,BM-Zi 12,Bündtmättli
-Di,09:55,BM 3a,Bewegung und Sport,BM Lehrperson 01,BM-Halle 1,Bündtmättli
-Di,09:55,BM 3b,NMG,BM Lehrperson 03,BM-Zi 6,Bündtmättli
-Di,09:55,BM 4a,Mathematik,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Di,09:55,BM 4b,BG,BM Lehrperson 05,BM-Zi 11,Bündtmättli
-Di,09:55,BM 5a,NMG,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Di,09:55,BM 5b,Mathematik,BM Lehrperson 14,BM-Zi 5,Bündtmättli
-Di,09:55,BM 5b,IF,SHP BM 3,BM-Zi 5,Bündtmättli
-Di,09:55,BM 6a,Englisch,Französisch BM,BM-Zi 2,Bündtmättli
-Di,09:55,BM 6b,Deutsch,BM Lehrperson 04,BM-Zi 10,Bündtmättli
-Di,09:55,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
-Di,09:55,BM KGa,IF,SHP BM 2,BM-KG 1,Bündtmättli
+Di,08:50,IF Wald-KGa,IF,SHP BM 1,Waldplatz,Im Feld
+Di,08:50,OS S1Aa,NT,OS Mathematik 1,OS-Zi 3,Oberstufe
+Di,08:50,OS S1Ab,BG,OS Gestalten 1,OS-Zi 5,Oberstufe
+Di,08:50,OS S1B/S1Ca,BG,OS Gestalten 2,OS-Zi 10,Oberstufe
+Di,08:50,OS S1Ba,RZG,OS Deutsch 3,OS-Zi 8,Oberstufe
+Di,08:50,OS S1Ca,Mathematik,OS Mathematik 3,OS-Zi 15,Oberstufe
+Di,08:50,OS S2Aa,Deutsch,OS Deutsch 2,OS-Zi 4,Oberstufe
+Di,08:50,OS S2Aa,IF,SHP OS 1,OS-Zi 4,Oberstufe
+Di,08:50,OS S2Ab,Englisch,OS Sprachen 4,OS-Zi 13,Oberstufe
+Di,08:50,OS S2Ba,Deutsch,OS Sprachen 1,OS-Zi 9,Oberstufe
+Di,08:50,OS S2Ba,IF,SHP OS 2,OS-Zi 9,Oberstufe
+Di,08:50,OS S2Ca,TTG,OS Gestalten 3,OS-TTG 1,Oberstufe
+Di,08:50,OS S2Cb,Mathematik,OS Mathematik 4,OS-Zi 14,Oberstufe
+Di,08:50,OS S3Aa,Mathematik,OS Mathematik 5,OS-Zi 6,Oberstufe
+Di,08:50,OS S3Ab,Englisch,OS Sprachen 3,OS-Zi 7,Oberstufe
+Di,08:50,OS S3Ba,Deutsch,OS Sprachen 2,OS-Zi 1,Oberstufe
+Di,08:50,OS S3Bb,NT,OS Mathematik 2,OS-Zi 2,Oberstufe
+Di,08:50,OS S3Ca,RZG,OS Deutsch 1,OS-Zi 12,Oberstufe
+Di,08:50,OS S3Ca,DaZ Aufbau,DaZ OS,,Oberstufe
+Di,09:55,BM 1a,Bewegung und Sport,BM Lehrperson 05,BM-Halle 1,Bündtmättli
+Di,09:55,BM 1b,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Di,09:55,BM 2a,Mathematik,BM Lehrperson 02,BM-Zi 7,Bündtmättli
+Di,09:55,BM 2b,NMG,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Di,09:55,BM 3a,Deutsch,BM Lehrperson 03,BM-Zi 1,Bündtmättli
+Di,09:55,BM 3b,Musik,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Di,09:55,BM 4a,NMG,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Di,09:55,BM 4b,Deutsch,BM Lehrperson 07,BM-Zi 6,Bündtmättli
+Di,09:55,BM 5a,Mathematik,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Di,09:55,BM 5b,NMG,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Di,09:55,BM 5c,Französisch,Französisch BM,BM-Zi 13,Bündtmättli
+Di,09:55,BM 6a,Mathematik,BM Lehrperson 12,BM-Zi 2,Bündtmättli
+Di,09:55,BM 6a,IF,SHP BM 2,BM-Zi 2,Bündtmättli
+Di,09:55,BM 6b,BG,BM Lehrperson 10,BM-Zi 11,Bündtmättli
+Di,09:55,BM KGa,Bewegung und Sport,KG BM 1,BM-Halle 2,Bündtmättli
 Di,09:55,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
 Di,09:55,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Di,09:55,EI 1a,Deutsch,EI Lehrperson 03,EI-Zi 2,Eischachen
-Di,09:55,EI 1b,Mathematik,EI Lehrperson 06,EI-Zi 11,Eischachen
-Di,09:55,EI 2a,Mathematik,EI Lehrperson 02,EI-Zi 1,Eischachen
-Di,09:55,EI 2a,IF,SHP EI 3,EI-Zi 1,Eischachen
-Di,09:55,EI 2b,Musik,EI Lehrperson 01,EI-Zi 9,Eischachen
+Di,09:55,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Di,09:55,BM KGd,IF,SHP BM 3,BM-KG 4,Bündtmättli
+Di,09:55,EI 1a,Musik,EI Lehrperson 08,EI-Zi 2,Eischachen
+Di,09:55,EI 1b,TTG,TTG 2,EI-TTG,Eischachen
+Di,09:55,EI 2a,Musik,EI Lehrperson 01,EI-Zi 3,Eischachen
+Di,09:55,EI 2b,Deutsch,EI Lehrperson 02,EI-Zi 11,Eischachen
+Di,09:55,EI 2b,IF,SHP EI 1,EI-Zi 11,Eischachen
 Di,09:55,EI 3a,Bewegung und Sport,EI Lehrperson 04,EI-Halle 1,Eischachen
-Di,09:55,EI 3a,DaZ Anfang,DaZ EI,,Eischachen
-Di,09:55,EI 4a,Mathematik,EI Lehrperson 09,EI-Zi 4,Eischachen
-Di,09:55,EI 4a,IF,SHP EI 2,EI-Zi 4,Eischachen
-Di,09:55,EI 4b,NMG,EI Lehrperson 05,EI-Zi 6,Eischachen
-Di,09:55,EI 5/6a,TTG,TTG 2,EI-TTG,Eischachen
-Di,09:55,EI 5a,Französisch,Englisch/Französisch EI,EI-Zi 8,Eischachen
-Di,09:55,EI 6a,Deutsch,EI Lehrperson 08,EI-Zi 5,Eischachen
-Di,09:55,EI 6b,Bewegung und Sport,EI Lehrperson 07,EI-Halle 2,Eischachen
+Di,09:55,EI 3b,BG,EI Lehrperson 03,EI-Zi 8,Eischachen
+Di,09:55,EI 4a,Deutsch,EI Lehrperson 11,EI-Zi 5,Eischachen
+Di,09:55,EI 4a,IF,SHP EI 2,EI-Zi 5,Eischachen
+Di,09:55,EI 4b,NMG,EI Lehrperson 05,EI-Zi 9,Eischachen
+Di,09:55,EI 5a,NMG,EI Lehrperson 06,EI-Zi 1,Eischachen
+Di,09:55,EI 6a,Mathematik,EI Lehrperson 09,EI-Zi 6,Eischachen
+Di,09:55,EI 6b,BG,EI Lehrperson 07,EI-Zi 7,Eischachen
 Di,09:55,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
+Di,09:55,EI KGa,IF,SHP EI 3,EI-KG 1,Eischachen
+Di,09:55,EI KGa,DaZ Anfang,DaZ EI,,Eischachen
 Di,09:55,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
 Di,09:55,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
 Di,09:55,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
-Di,09:55,EI KGd,IF,SHP EI 1,EI-KG 4,Eischachen
 Di,09:55,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Di,09:55,IF Wald-KGa,IF,SHP BM 1,Waldplatz,Im Feld
 Di,09:55,IF Wald-KGa,DaZ Aufbau,DaZ BM,,Im Feld
-Di,09:55,OS S1Aa,Deutsch,OS Deutsch 2,OS-Zi 2,Oberstufe
-Di,09:55,OS S1Aa,DaZ Aufbau,DaZ OS,,Oberstufe
-Di,09:55,OS S1Ab,Deutsch,OS Deutsch 5,OS-Zi 11,Oberstufe
-Di,09:55,OS S1B/S1Ca,Englisch,OS Sprachen 3,OS-Zi 9,Oberstufe
-Di,09:55,OS S1Ba,Mathematik,OS Mathematik 4,OS-Zi 7,Oberstufe
-Di,09:55,OS S1Ba,IF,SHP OS 2,OS-Zi 7,Oberstufe
-Di,09:55,OS S1Ca,BG,OS Gestalten 3,OS-Zi 14,Oberstufe
-Di,09:55,OS S2Aa,Französisch,OS Sprachen 4,OS-Zi 10,Oberstufe
-Di,09:55,OS S2Ab,TTG,OS Gestalten 2,OS-TTG 1,Oberstufe
-Di,09:55,OS S2Ba,NT,OS Sport 1,OS-Zi 12,Oberstufe
-Di,09:55,OS S2Ca,Mathematik,OS Mathematik 3,OS-Zi 8,Oberstufe
-Di,09:55,OS S2Cb,RZG,OS Deutsch 1,OS-Zi 15,Oberstufe
-Di,09:55,OS S3Aa,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Di,09:55,OS S3Ab,Deutsch,OS Deutsch 3,OS-Zi 5,Oberstufe
-Di,09:55,OS S3Ab,IF,SHP OS 1,OS-Zi 5,Oberstufe
-Di,09:55,OS S3B/S3Ca,RZG,OS Mathematik 5,OS-Zi 6,Oberstufe
-Di,09:55,OS S3Ba,Französisch,OS Sprachen 1,OS-Zi 3,Oberstufe
-Di,09:55,OS S3Ca,Deutsch,OS Sprachen 2,OS-Zi 4,Oberstufe
-Di,10:45,BM 1/2a,Deutsch,BM Lehrperson 04,BM-Zi 9,Bündtmättli
-Di,10:45,BM 1a,Mathematik,BM Lehrperson 06,BM-Zi 1,Bündtmättli
-Di,10:45,BM 1b,Deutsch,BM Lehrperson 09,BM-Zi 13,Bündtmättli
-Di,10:45,BM 1b,IF,SHP BM 3,BM-Zi 13,Bündtmättli
-Di,10:45,BM 2a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Di,10:45,BM 3/4a,Bewegung und Sport,BM Lehrperson 02,BM-Halle 1,Bündtmättli
-Di,10:45,BM 3a,BG,BM Lehrperson 01,BM-Zi 3,Bündtmättli
-Di,10:45,BM 3b,NMG,BM Lehrperson 03,BM-Zi 6,Bündtmättli
-Di,10:45,BM 4a,NMG,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Di,10:45,BM 4b,Bewegung und Sport,BM Lehrperson 12,BM-Halle 2,Bündtmättli
-Di,10:45,BM 5a,Mathematik,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Di,10:45,BM 5a,IF,SHP BM 2,BM-Zi 4,Bündtmättli
-Di,10:45,BM 5b,NMG,BM Lehrperson 14,BM-Zi 5,Bündtmättli
-Di,10:45,BM 6a,Deutsch,BM Lehrperson 05,BM-Zi 2,Bündtmättli
-Di,10:45,BM 6b,Französisch,Französisch BM,BM-Zi 10,Bündtmättli
+Di,09:55,OS S1Aa,TTG,OS Gestalten 3,OS-TTG 1,Oberstufe
+Di,09:55,OS S1Ab,RZG,OS Deutsch 5,OS-Zi 5,Oberstufe
+Di,09:55,OS S1B/S1Ca,Deutsch,OS Deutsch 3,OS-Zi 10,Oberstufe
+Di,09:55,OS S1B/S1Ca,IF,SHP OS 1,OS-Zi 10,Oberstufe
+Di,09:55,OS S1Ba,Französisch,OS Sprachen 4,OS-Zi 8,Oberstufe
+Di,09:55,OS S1Ca,RZG,OS Deutsch 2,OS-Zi 15,Oberstufe
+Di,09:55,OS S2Aa,NT,OS Mathematik 1,OS-Zi 4,Oberstufe
+Di,09:55,OS S2Ab,RZG,OS Deutsch 1,OS-Zi 13,Oberstufe
+Di,09:55,OS S2Ba,Mathematik,OS Mathematik 2,OS-Zi 9,Oberstufe
+Di,09:55,OS S2Ba,IF,SHP OS 2,OS-Zi 9,Oberstufe
+Di,09:55,OS S2Ca,Englisch,OS Sprachen 3,OS-Zi 11,Oberstufe
+Di,09:55,OS S2Cb,Mathematik,OS Mathematik 4,OS-Zi 14,Oberstufe
+Di,09:55,OS S2Cb,DaZ Aufbau,DaZ OS,,Oberstufe
+Di,09:55,OS S3Aa,BG,OS Gestalten 2,OS-Zi 6,Oberstufe
+Di,09:55,OS S3Ab,Mathematik,OS Mathematik 3,OS-Zi 7,Oberstufe
+Di,09:55,OS S3Ba,Französisch,OS Sprachen 2,OS-Zi 1,Oberstufe
+Di,09:55,OS S3Bb,BG,OS Gestalten 1,OS-Zi 2,Oberstufe
+Di,09:55,OS S3Ca,Französisch,OS Sprachen 1,OS-Zi 12,Oberstufe
+Di,10:45,BM 1a,Mathematik,BM Unterstufe Teilzeit,BM-Zi 5,Bündtmättli
+Di,10:45,BM 1b,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Di,10:45,BM 2a,Mathematik,BM Lehrperson 02,BM-Zi 7,Bündtmättli
+Di,10:45,BM 2a,IF,SHP BM 3,BM-Zi 7,Bündtmättli
+Di,10:45,BM 2b,Mathematik,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Di,10:45,BM 2b,IF,SHP BM 2,BM-Zi 9,Bündtmättli
+Di,10:45,BM 3a,NMG,BM Lehrperson 03,BM-Zi 1,Bündtmättli
+Di,10:45,BM 3b,NMG,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Di,10:45,BM 4a,BG,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Di,10:45,BM 4b,Bewegung und Sport,BM Lehrperson 05,BM-Halle 1,Bündtmättli
+Di,10:45,BM 5a,Bewegung und Sport,BM Lehrperson 11,BM-Halle 2,Bündtmättli
+Di,10:45,BM 5b,NMG,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Di,10:45,BM 5c,Englisch,Französisch BM,BM-Zi 13,Bündtmättli
+Di,10:45,BM 6a,Mathematik,BM Lehrperson 12,BM-Zi 2,Bündtmättli
+Di,10:45,BM 6b,Mathematik,BM Lehrperson 10,BM-Zi 11,Bündtmättli
 Di,10:45,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
 Di,10:45,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
 Di,10:45,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Di,10:45,EI 1a,BG,EI Lehrperson 08,EI-Zi 2,Eischachen
-Di,10:45,EI 1b,Deutsch,EI Lehrperson 06,EI-Zi 11,Eischachen
-Di,10:45,EI 2a,Deutsch,EI Lehrperson 03,EI-Zi 1,Eischachen
-Di,10:45,EI 2a,IF,SHP EI 3,EI-Zi 1,Eischachen
-Di,10:45,EI 2b,Deutsch,EI Lehrperson 01,EI-Zi 9,Eischachen
-Di,10:45,EI 2b,IF,SHP EI 2,EI-Zi 9,Eischachen
-Di,10:45,EI 3a,Deutsch,EI Lehrperson 04,EI-Zi 3,Eischachen
-Di,10:45,EI 3a,IF,SHP EI 1,EI-Zi 3,Eischachen
-Di,10:45,EI 4a,Mathematik,EI Lehrperson 09,EI-Zi 4,Eischachen
-Di,10:45,EI 4b,Bewegung und Sport,EI Lehrperson 05,EI-Halle 1,Eischachen
-Di,10:45,EI 5/6a,TTG,TTG 2,EI-TTG,Eischachen
-Di,10:45,EI 5a,Deutsch,EI Lehrperson 02,EI-Zi 8,Eischachen
-Di,10:45,EI 6a,Bewegung und Sport,EI Lehrperson 07,EI-Halle 2,Eischachen
-Di,10:45,EI 6b,Französisch,Englisch/Französisch EI,EI-Zi 10,Eischachen
+Di,10:45,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Di,10:45,EI 1a,Mathematik,EI Lehrperson 08,EI-Zi 2,Eischachen
+Di,10:45,EI 1b,TTG,TTG 2,EI-TTG,Eischachen
+Di,10:45,EI 2a,BG,EI Lehrperson 01,EI-Zi 3,Eischachen
+Di,10:45,EI 2b,Deutsch,EI Lehrperson 02,EI-Zi 11,Eischachen
+Di,10:45,EI 2b,IF,SHP EI 1,EI-Zi 11,Eischachen
+Di,10:45,EI 2b,DaZ Anfang,DaZ EI,,Eischachen
+Di,10:45,EI 3a,Deutsch,EI Lehrperson 04,EI-Zi 4,Eischachen
+Di,10:45,EI 3a,IF,SHP EI 3,EI-Zi 4,Eischachen
+Di,10:45,EI 3b,Mathematik,EI Lehrperson 03,EI-Zi 8,Eischachen
+Di,10:45,EI 4a,Deutsch,EI Lehrperson 11,EI-Zi 5,Eischachen
+Di,10:45,EI 4b,Mathematik,EI Lehrperson 05,EI-Zi 9,Eischachen
+Di,10:45,EI 5a,Musik,EI Lehrperson 06,EI-Zi 1,Eischachen
+Di,10:45,EI 6a,BG,EI Lehrperson 09,EI-Zi 6,Eischachen
+Di,10:45,EI 6b,Deutsch,EI Lehrperson 07,EI-Zi 7,Eischachen
+Di,10:45,EI 6b,IF,SHP EI 2,EI-Zi 7,Eischachen
 Di,10:45,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
-Di,10:45,EI KGa,DaZ Anfang,DaZ EI,,Eischachen
 Di,10:45,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
 Di,10:45,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
 Di,10:45,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
 Di,10:45,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Di,10:45,IF Wald-KGa,IF,SHP BM 1,Waldplatz,Im Feld
-Di,10:45,IF Wald-KGa,DaZ Aufbau,DaZ BM,,Im Feld
-Di,10:45,OS S1Aa,Deutsch,OS Deutsch 2,OS-Zi 2,Oberstufe
-Di,10:45,OS S1Aa,IF,SHP OS 2,OS-Zi 2,Oberstufe
-Di,10:45,OS S1Ab,NT,OS Mathematik 5,OS-Zi 11,Oberstufe
-Di,10:45,OS S1B/S1Ca,Deutsch,OS Deutsch 1,OS-Zi 9,Oberstufe
-Di,10:45,OS S1B/S1Ca,IF,SHP OS 1,OS-Zi 9,Oberstufe
-Di,10:45,OS S1Ba,RZG,OS Deutsch 5,OS-Zi 7,Oberstufe
-Di,10:45,OS S1Ca,NT,OS Sport 1,OS-Zi 14,Oberstufe
-Di,10:45,OS S2Aa,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Di,10:45,OS S2Ab,TTG,OS Gestalten 2,OS-TTG 1,Oberstufe
-Di,10:45,OS S2Ba,Mathematik,OS Mathematik 3,OS-Zi 12,Oberstufe
-Di,10:45,OS S2Ca,Englisch,OS Sprachen 3,OS-Zi 8,Oberstufe
-Di,10:45,OS S2Cb,NT,OS Mathematik 4,OS-Zi 15,Oberstufe
-Di,10:45,OS S2Cb,DaZ Aufbau,DaZ OS,,Oberstufe
-Di,10:45,OS S3Aa,Berufliche Orientierung,OS Deutsch 3,OS-Zi 1,Oberstufe
-Di,10:45,OS S3Ab,Englisch,OS Sprachen 4,OS-Zi 5,Oberstufe
-Di,10:45,OS S3B/S3Ca,BG,OS Gestalten 3,OS-Zi 6,Oberstufe
-Di,10:45,OS S3Ba,Englisch,OS Sprachen 1,OS-Zi 3,Oberstufe
-Di,10:45,OS S3Ca,Englisch,OS Sprachen 2,OS-Zi 4,Oberstufe
-Di,13:30,BM 1/2a,Mathematik,BM Lehrperson 02,BM-Zi 9,Bündtmättli
-Di,13:30,BM 1a,NMG,BM Lehrperson 06,BM-Zi 1,Bündtmättli
-Di,13:30,BM 1b,NMG,BM Unterstufe Teilzeit,BM-Zi 13,Bündtmättli
-Di,13:30,BM 3/4a,Englisch,Englisch BM,BM-Zi 12,Bündtmättli
-Di,13:30,BM 3a,Musik,BM Lehrperson 01,BM-Zi 3,Bündtmättli
-Di,13:30,BM 3a,DaZ Aufbau,DaZ BM,,Bündtmättli
-Di,13:30,BM 3b,Deutsch,BM Lehrperson 03,BM-Zi 6,Bündtmättli
-Di,13:30,BM 3b,IF,SHP BM 3,BM-Zi 6,Bündtmättli
-Di,13:30,BM 4a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Di,13:30,BM 4b,Deutsch,BM Lehrperson 05,BM-Zi 11,Bündtmättli
-Di,13:30,BM 4b,IF,SHP BM 2,BM-Zi 11,Bündtmättli
-Di,13:30,BM 5a,Französisch,Französisch BM,BM-Zi 4,Bündtmättli
-Di,13:30,BM 5b,Deutsch,BM Lehrperson 09,BM-Zi 5,Bündtmättli
-Di,13:30,BM 6a,Mathematik,BM Lehrperson 11,BM-Zi 2,Bündtmättli
-Di,13:30,BM 6a,IF,SHP BM 1,BM-Zi 2,Bündtmättli
-Di,13:30,BM 6b,NMG,BM Lehrperson 04,BM-Zi 10,Bündtmättli
-Di,13:30,EI 1a,Mathematik,EI Lehrperson 08,EI-Zi 2,Eischachen
-Di,13:30,EI 2a,TTG,TTG 2,EI-TTG,Eischachen
-Di,13:30,EI 2b,NMG,EI Lehrperson 01,EI-Zi 9,Eischachen
-Di,13:30,EI 3a,BG,EI Lehrperson 04,EI-Zi 3,Eischachen
-Di,13:30,EI 4a,Bewegung und Sport,EI Lehrperson 05,EI-Halle 1,Eischachen
-Di,13:30,EI 5/6a,Bewegung und Sport,EI Lehrperson 10,EI-Halle 2,Eischachen
-Di,13:30,EI 5a,Mathematik,EI Lehrperson 06,EI-Zi 8,Eischachen
-Di,13:30,EI 5a,IF,SHP EI 1,EI-Zi 8,Eischachen
-Di,13:30,EI 6a,Englisch,Englisch/Französisch EI,EI-Zi 5,Eischachen
-Di,13:30,EI 6b,NMG,EI Lehrperson 11,EI-Zi 10,Eischachen
+Di,10:45,IF Wald-KGa,DaZ Anfang,DaZ BM,,Im Feld
+Di,10:45,OS S1Aa,TTG,OS Gestalten 3,OS-TTG 1,Oberstufe
+Di,10:45,OS S1Ab,Deutsch,OS Deutsch 5,OS-Zi 5,Oberstufe
+Di,10:45,OS S1Ab,IF,SHP OS 2,OS-Zi 5,Oberstufe
+Di,10:45,OS S1B/S1Ca,Englisch,OS Sprachen 4,OS-Zi 10,Oberstufe
+Di,10:45,OS S1Ba,Mathematik,OS Mathematik 4,OS-Zi 8,Oberstufe
+Di,10:45,OS S1Ca,Bewegung und Sport,OS Sport 1,OS-Halle 1,Oberstufe
+Di,10:45,OS S2Aa,Mathematik,OS Mathematik 1,OS-Zi 4,Oberstufe
+Di,10:45,OS S2Ab,BG,OS Gestalten 1,OS-Zi 13,Oberstufe
+Di,10:45,OS S2Ab,DaZ Aufbau,DaZ OS,,Oberstufe
+Di,10:45,OS S2Ba,NT,OS Mathematik 2,OS-Zi 9,Oberstufe
+Di,10:45,OS S2Ca,Deutsch,OS Deutsch 2,OS-Zi 11,Oberstufe
+Di,10:45,OS S2Cb,Französisch,OS Sprachen 3,OS-Zi 14,Oberstufe
+Di,10:45,OS S3Aa,Französisch,OS Sprachen 1,OS-Zi 6,Oberstufe
+Di,10:45,OS S3Ab,Mathematik,OS Mathematik 3,OS-Zi 7,Oberstufe
+Di,10:45,OS S3Ba,Berufliche Orientierung,OS Deutsch 3,OS-Zi 1,Oberstufe
+Di,10:45,OS S3Bb,Deutsch,OS Deutsch 1,OS-Zi 2,Oberstufe
+Di,10:45,OS S3Bb,IF,SHP OS 1,OS-Zi 2,Oberstufe
+Di,10:45,OS S3Ca,BG,OS Gestalten 2,OS-Zi 12,Oberstufe
+Di,13:30,BM 1a,Deutsch,BM Lehrperson 01,BM-Zi 5,Bündtmättli
+Di,13:30,BM 1b,Mathematik,BM Lehrperson 02,BM-Zi 10,Bündtmättli
+Di,13:30,BM 1b,IF,SHP BM 3,BM-Zi 10,Bündtmättli
+Di,13:30,BM 2a,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Di,13:30,BM 3a,Englisch,Englisch BM,BM-Zi 1,Bündtmättli
+Di,13:30,BM 3b,Mathematik,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Di,13:30,BM 4a,Mathematik,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Di,13:30,BM 4a,IF,SHP BM 2,BM-Zi 3,Bündtmättli
+Di,13:30,BM 4b,BG,BM Lehrperson 05,BM-Zi 6,Bündtmättli
+Di,13:30,BM 5a,NMG,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Di,13:30,BM 5a,DaZ Aufbau,DaZ BM,,Bündtmättli
+Di,13:30,BM 5b,Bewegung und Sport,BM Lehrperson 08,BM-Halle 2,Bündtmättli
+Di,13:30,BM 5c,Bewegung und Sport,BM Lehrperson 09,BM-Halle 1,Bündtmättli
+Di,13:30,BM 6a,Französisch,Französisch BM,BM-Zi 2,Bündtmättli
+Di,13:30,BM 6b,Deutsch,BM Lehrperson 10,BM-Zi 11,Bündtmättli
+Di,13:30,BM 6b,IF,SHP BM 1,BM-Zi 11,Bündtmättli
+Di,13:30,EI 1a,Deutsch,EI Lehrperson 09,EI-Zi 2,Eischachen
+Di,13:30,EI 2a,NMG,EI Lehrperson 01,EI-Zi 3,Eischachen
+Di,13:30,EI 2b,NMG,EI Lehrperson 02,EI-Zi 11,Eischachen
+Di,13:30,EI 3a,Mathematik,EI Lehrperson 04,EI-Zi 4,Eischachen
+Di,13:30,EI 3b,Deutsch,EI Lehrperson 03,EI-Zi 8,Eischachen
+Di,13:30,EI 3b,DaZ Aufbau,DaZ EI,,Eischachen
+Di,13:30,EI 4a,Mathematik,EI Lehrperson 08,EI-Zi 5,Eischachen
+Di,13:30,EI 4a,IF,SHP EI 2,EI-Zi 5,Eischachen
+Di,13:30,EI 4b,Englisch,Englisch/Französisch EI,EI-Zi 9,Eischachen
+Di,13:30,EI 5a,Bewegung und Sport,EI Lehrperson 06,EI-Halle 1,Eischachen
+Di,13:30,EI 6a,TTG,TTG 2,EI-TTG,Eischachen
+Di,13:30,EI 6b,Mathematik,EI Lehrperson 07,EI-Zi 7,Eischachen
+Di,13:30,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
+Di,13:30,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
 Di,13:30,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
-Di,13:30,OS S1Aa,RZG,OS Deutsch 2,OS-Zi 2,Oberstufe
-Di,13:30,OS S1Ab,Deutsch,OS Deutsch 5,OS-Zi 11,Oberstufe
-Di,13:30,OS S1Ab,IF,SHP OS 2,OS-Zi 11,Oberstufe
-Di,13:30,OS S1B/S1Ca,Französisch,OS Sprachen 3,OS-Zi 9,Oberstufe
-Di,13:30,OS S1Ba,NT,OS Mathematik 4,OS-Zi 7,Oberstufe
-Di,13:30,OS S1Ca,Bewegung und Sport,OS Sport 1,OS-Halle 2,Oberstufe
-Di,13:30,OS S2Aa,NT,OS Mathematik 5,OS-Zi 10,Oberstufe
-Di,13:30,OS S2Ab,Mathematik,OS Mathematik 1,OS-Zi 13,Oberstufe
-Di,13:30,OS S2Ab,IF,SHP OS 1,OS-Zi 13,Oberstufe
-Di,13:30,OS S2Ba,RZG,OS Deutsch 4,OS-Zi 12,Oberstufe
-Di,13:30,OS S2Ca,Mathematik,OS Mathematik 3,OS-Zi 8,Oberstufe
-Di,13:30,OS S2Cb,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Di,13:30,OS S3Aa,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
-Di,13:30,OS S3Ab,Französisch,OS Sprachen 4,OS-Zi 5,Oberstufe
-Di,13:30,OS S3B/S3Ca,Englisch,OS Sprachen 1,OS-Zi 6,Oberstufe
-Di,13:30,OS S3Ba,Deutsch,OS Deutsch 3,OS-Zi 3,Oberstufe
-Di,13:30,OS S3Ca,RZG,OS Deutsch 1,OS-Zi 4,Oberstufe
-Di,14:20,BM 1/2a,BG,BM Lehrperson 02,BM-Zi 9,Bündtmättli
-Di,14:20,BM 1b,Mathematik,BM Unterstufe Teilzeit,BM-Zi 13,Bündtmättli
-Di,14:20,BM 3a,Mathematik,BM Lehrperson 03,BM-Zi 3,Bündtmättli
-Di,14:20,BM 3a,IF,SHP BM 2,BM-Zi 3,Bündtmättli
-Di,14:20,BM 3a,DaZ Anfang,DaZ BM,,Bündtmättli
-Di,14:20,BM 3b,BG,BM Lehrperson 06,BM-Zi 6,Bündtmättli
-Di,14:20,BM 4a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Di,14:20,BM 4b,Englisch,Englisch BM,BM-Zi 11,Bündtmättli
-Di,14:20,BM 5a,Englisch,Französisch BM,BM-Zi 4,Bündtmättli
-Di,14:20,BM 5b,Deutsch,BM Lehrperson 09,BM-Zi 5,Bündtmättli
-Di,14:20,BM 5b,IF,SHP BM 3,BM-Zi 5,Bündtmättli
-Di,14:20,BM 6a,Bewegung und Sport,BM Lehrperson 11,BM-Halle 1,Bündtmättli
-Di,14:20,BM 6b,Deutsch,BM Lehrperson 04,BM-Zi 10,Bündtmättli
-Di,14:20,EI 2a,TTG,TTG 2,EI-TTG,Eischachen
-Di,14:20,EI 2b,NMG,EI Lehrperson 01,EI-Zi 9,Eischachen
-Di,14:20,EI 3a,Deutsch,EI Lehrperson 04,EI-Zi 3,Eischachen
-Di,14:20,EI 4a,Englisch,Englisch/Französisch EI,EI-Zi 4,Eischachen
-Di,14:20,EI 5/6a,BG,EI Lehrperson 10,EI-Zi 7,Eischachen
-Di,14:20,EI 5a,Mathematik,EI Lehrperson 06,EI-Zi 8,Eischachen
-Di,14:20,EI 5a,IF,SHP EI 1,EI-Zi 8,Eischachen
-Di,14:20,EI 6a,Deutsch,EI Lehrperson 08,EI-Zi 5,Eischachen
-Di,14:20,EI 6b,NMG,EI Lehrperson 11,EI-Zi 10,Eischachen
-Di,14:20,EI KGd,Bewegung und Sport,KG EI 3,EI-Halle 1,Eischachen
-Di,14:20,OS S1Aa,RZG,OS Deutsch 2,OS-Zi 2,Oberstufe
-Di,14:20,OS S1Ab,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Di,14:20,OS S1Ba,Deutsch,OS Deutsch 5,OS-Zi 7,Oberstufe
-Di,14:20,OS S1Ba,IF,SHP OS 2,OS-Zi 7,Oberstufe
-Di,14:20,OS S1Ca,NT,OS Sport 1,OS-Zi 14,Oberstufe
-Di,14:20,OS S2Aa,Deutsch,OS Deutsch 4,OS-Zi 10,Oberstufe
-Di,14:20,OS S2Ab,Mathematik,OS Mathematik 1,OS-Zi 13,Oberstufe
-Di,14:20,OS S2Ca,Französisch,OS Sprachen 3,OS-Zi 8,Oberstufe
-Di,14:20,OS S2Cb,Französisch,OS Sprachen 4,OS-Zi 15,Oberstufe
-Di,14:20,OS S3Aa,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
-Di,14:20,OS S3B/S3Ca,Französisch,OS Sprachen 1,OS-Zi 6,Oberstufe
-Di,14:20,OS S3Ba,Mathematik,OS Mathematik 3,OS-Zi 3,Oberstufe
-Di,14:20,OS S3Ba,IF,SHP OS 1,OS-Zi 3,Oberstufe
-Mi,08:00,BM 1/2a,NMG,BM Lehrperson 02,BM-Zi 9,Bündtmättli
-Mi,08:00,BM 1a,Musik,BM Lehrperson 11,BM-Zi 1,Bündtmättli
-Mi,08:00,BM 1a,DaZ Aufbau,DaZ BM,,Bündtmättli
-Mi,08:00,BM 1b,Deutsch,BM Lehrperson 09,BM-Zi 13,Bündtmättli
-Mi,08:00,BM 2a,BG,BM Lehrperson 13,BM-Zi 8,Bündtmättli
-Mi,08:00,BM 3/4a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Mi,08:00,BM 3a,Bewegung und Sport,BM Lehrperson 01,BM-Halle 1,Bündtmättli
-Mi,08:00,BM 3b,NMG,BM Lehrperson 03,BM-Zi 6,Bündtmättli
-Mi,08:00,BM 4a,Musik,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Mi,08:00,BM 4b,Mathematik,BM Lehrperson 12,BM-Zi 11,Bündtmättli
-Mi,08:00,BM 5a,Deutsch,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Mi,08:00,BM 5a,IF,SHP BM 2,BM-Zi 4,Bündtmättli
-Mi,08:00,BM 5a,DaZ Aufbau,DaZ Teilzeit,,Bündtmättli
-Mi,08:00,BM 5b,NMG,BM Lehrperson 14,BM-Zi 5,Bündtmättli
-Mi,08:00,BM 6a,Deutsch,BM Lehrperson 05,BM-Zi 2,Bündtmättli
-Mi,08:00,BM 6b,BG,BM Lehrperson 07,BM-Zi 10,Bündtmättli
+Di,13:30,OS S1Aa,Englisch,OS Sprachen 4,OS-Zi 3,Oberstufe
+Di,13:30,OS S1Ab,Englisch,OS Deutsch 5,OS-Zi 5,Oberstufe
+Di,13:30,OS S1B/S1Ca,RZG,OS Deutsch 3,OS-Zi 10,Oberstufe
+Di,13:30,OS S1Ba,Mathematik,OS Mathematik 4,OS-Zi 8,Oberstufe
+Di,13:30,OS S1Ba,IF,SHP OS 2,OS-Zi 8,Oberstufe
+Di,13:30,OS S1Ca,Französisch,OS Sprachen 3,OS-Zi 15,Oberstufe
+Di,13:30,OS S2Aa,Französisch,OS Sprachen 2,OS-Zi 4,Oberstufe
+Di,13:30,OS S2Ab,BG,OS Gestalten 1,OS-Zi 13,Oberstufe
+Di,13:30,OS S2Ba,Französisch,OS Sprachen 1,OS-Zi 9,Oberstufe
+Di,13:30,OS S2Ca,Deutsch,OS Deutsch 2,OS-Zi 11,Oberstufe
+Di,13:30,OS S2Cb,TTG,OS Gestalten 2,OS-TTG 1,Oberstufe
+Di,13:30,OS S3Aa,Mathematik,OS Mathematik 5,OS-Zi 6,Oberstufe
+Di,13:30,OS S3Aa,IF,SHP OS 1,OS-Zi 6,Oberstufe
+Di,13:30,OS S3Ab,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Di,13:30,OS S3Ba,Mathematik,OS Mathematik 3,OS-Zi 1,Oberstufe
+Di,13:30,OS S3Bb,Mathematik,OS Mathematik 2,OS-Zi 2,Oberstufe
+Di,13:30,OS S3Ca,NT,OS Sport 1,OS-Zi 12,Oberstufe
+Di,14:20,BM 1a,Deutsch,BM Lehrperson 01,BM-Zi 5,Bündtmättli
+Di,14:20,BM 1b,NMG,BM Lehrperson 12,BM-Zi 10,Bündtmättli
+Di,14:20,BM 2a,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Di,14:20,BM 3a,Mathematik,BM Lehrperson 08,BM-Zi 1,Bündtmättli
+Di,14:20,BM 3a,IF,SHP BM 3,BM-Zi 1,Bündtmättli
+Di,14:20,BM 3b,Deutsch,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Di,14:20,BM 4a,Bewegung und Sport,BM Lehrperson 06,BM-Halle 1,Bündtmättli
+Di,14:20,BM 4b,NMG,BM Lehrperson 02,BM-Zi 6,Bündtmättli
+Di,14:20,BM 5a,Deutsch,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Di,14:20,BM 5a,IF,SHP BM 1,BM-Zi 4,Bündtmättli
+Di,14:20,BM 5b,Englisch,Englisch BM,BM-Zi 8,Bündtmättli
+Di,14:20,BM 5c,Mathematik,BM Lehrperson 05,BM-Zi 13,Bündtmättli
+Di,14:20,BM 5c,IF,SHP BM 2,BM-Zi 13,Bündtmättli
+Di,14:20,BM 5c,DaZ Aufbau,DaZ BM,,Bündtmättli
+Di,14:20,BM 6a,NMG,BM Lehrperson 09,BM-Zi 2,Bündtmättli
+Di,14:20,BM 6b,Deutsch,BM Lehrperson 10,BM-Zi 11,Bündtmättli
+Di,14:20,EI 1a,Deutsch,EI Lehrperson 09,EI-Zi 2,Eischachen
+Di,14:20,EI 2a,NMG,EI Lehrperson 01,EI-Zi 3,Eischachen
+Di,14:20,EI 2b,BG,EI Lehrperson 02,EI-Zi 11,Eischachen
+Di,14:20,EI 3a,Englisch,Englisch/Französisch EI,EI-Zi 4,Eischachen
+Di,14:20,EI 3b,Deutsch,EI Lehrperson 03,EI-Zi 8,Eischachen
+Di,14:20,EI 4a,Bewegung und Sport,EI Lehrperson 08,EI-Halle 1,Eischachen
+Di,14:20,EI 5a,Deutsch,EI Lehrperson 06,EI-Zi 1,Eischachen
+Di,14:20,EI 5a,IF,SHP EI 2,EI-Zi 1,Eischachen
+Di,14:20,EI 6a,TTG,TTG 2,EI-TTG,Eischachen
+Di,14:20,EI 6a,DaZ Aufbau,DaZ EI,,Eischachen
+Di,14:20,EI 6b,NMG,EI Lehrperson 07,EI-Zi 7,Eischachen
+Di,14:20,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
+Di,14:20,EI KGb,Bewegung und Sport,KG EI 2,EI-Halle 2,Eischachen
+Di,14:20,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
+Di,14:20,OS S1Ab,Deutsch,OS Deutsch 5,OS-Zi 5,Oberstufe
+Di,14:20,OS S1Ab,IF,SHP OS 2,OS-Zi 5,Oberstufe
+Di,14:20,OS S1B/S1Ca,Französisch,OS Sprachen 4,OS-Zi 10,Oberstufe
+Di,14:20,OS S1Ca,Mathematik,OS Mathematik 3,OS-Zi 15,Oberstufe
+Di,14:20,OS S1Ca,IF,SHP OS 1,OS-Zi 15,Oberstufe
+Di,14:20,OS S2Aa,RZG,OS Deutsch 2,OS-Zi 4,Oberstufe
+Di,14:20,OS S2Ba,Deutsch,OS Sprachen 1,OS-Zi 9,Oberstufe
+Di,14:20,OS S2Ca,Französisch,OS Sprachen 3,OS-Zi 11,Oberstufe
+Di,14:20,OS S2Cb,TTG,OS Gestalten 2,OS-TTG 1,Oberstufe
+Di,14:20,OS S3Ab,BG,OS Gestalten 1,OS-Zi 7,Oberstufe
+Di,14:20,OS S3Ba,RZG,OS Deutsch 3,OS-Zi 1,Oberstufe
+Di,14:20,OS S3Bb,Französisch,OS Sprachen 2,OS-Zi 2,Oberstufe
+Di,14:20,OS S3Ca,NT,OS Sport 1,OS-Zi 12,Oberstufe
+Mi,08:00,BM 1a,NMG,BM Lehrperson 12,BM-Zi 5,Bündtmättli
+Mi,08:00,BM 1b,Deutsch,BM Lehrperson 03,BM-Zi 10,Bündtmättli
+Mi,08:00,BM 2a,Mathematik,BM Lehrperson 02,BM-Zi 7,Bündtmättli
+Mi,08:00,BM 2b,Deutsch,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Mi,08:00,BM 3a,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Mi,08:00,BM 3b,Bewegung und Sport,BM Lehrperson 04,BM-Halle 1,Bündtmättli
+Mi,08:00,BM 4a,NMG,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Mi,08:00,BM 4b,Mathematik,BM Lehrperson 07,BM-Zi 6,Bündtmättli
+Mi,08:00,BM 4b,IF,SHP BM 2,BM-Zi 6,Bündtmättli
+Mi,08:00,BM 5a,NMG,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Mi,08:00,BM 5b,Deutsch,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Mi,08:00,BM 5b,IF,SHP BM 1,BM-Zi 8,Bündtmättli
+Mi,08:00,BM 5c,NMG,BM Lehrperson 09,BM-Zi 13,Bündtmättli
+Mi,08:00,BM 6a,Französisch,Französisch BM,BM-Zi 2,Bündtmättli
+Mi,08:00,BM 6b,Mathematik,BM Lehrperson 10,BM-Zi 11,Bündtmättli
 Mi,08:00,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
+Mi,08:00,BM KGa,DaZ Anfang,DaZ BM,,Bündtmättli
 Mi,08:00,BM KGb,Bewegung und Sport,KG BM 4,BM-Halle 2,Bündtmättli
 Mi,08:00,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Mi,08:00,EI 1a,Mathematik,EI Lehrperson 08,EI-Zi 2,Eischachen
-Mi,08:00,EI 1b,NMG,EI Lehrperson 06,EI-Zi 11,Eischachen
-Mi,08:00,EI 2a,Musik,EI Lehrperson 03,EI-Zi 1,Eischachen
-Mi,08:00,EI 2b,Deutsch,EI Lehrperson 01,EI-Zi 9,Eischachen
-Mi,08:00,EI 3a,NMG,Primar Springer,EI-Zi 3,Eischachen
-Mi,08:00,EI 3a,DaZ Anfang,DaZ EI,,Eischachen
-Mi,08:00,EI 4a,Deutsch,EI Lehrperson 05,EI-Zi 4,Eischachen
-Mi,08:00,EI 4a,IF,SHP EI 2,EI-Zi 4,Eischachen
-Mi,08:00,EI 4b,Mathematik,EI Lehrperson 04,EI-Zi 6,Eischachen
-Mi,08:00,EI 4b,IF,SHP EI 3,EI-Zi 6,Eischachen
-Mi,08:00,EI 5/6a,Deutsch,EI Lehrperson 09,EI-Zi 7,Eischachen
-Mi,08:00,EI 5a,Deutsch,EI Lehrperson 02,EI-Zi 8,Eischachen
-Mi,08:00,EI 5a,IF,SHP EI 1,EI-Zi 8,Eischachen
-Mi,08:00,EI 6a,Mathematik,EI Lehrperson 07,EI-Zi 5,Eischachen
-Mi,08:00,EI 6b,NMG,EI Lehrperson 11,EI-Zi 10,Eischachen
+Mi,08:00,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Mi,08:00,EI 1a,BG,EI Lehrperson 08,EI-Zi 2,Eischachen
+Mi,08:00,EI 1b,BG,Primar Springer,EI-Zi 10,Eischachen
+Mi,08:00,EI 2a,Bewegung und Sport,EI Lehrperson 01,EI-Halle 1,Eischachen
+Mi,08:00,EI 2b,Mathematik,EI Lehrperson 02,EI-Zi 11,Eischachen
+Mi,08:00,EI 3a,Musik,EI Lehrperson 04,EI-Zi 4,Eischachen
+Mi,08:00,EI 3b,Bewegung und Sport,EI Lehrperson 03,EI-Halle 2,Eischachen
+Mi,08:00,EI 3b,DaZ Aufbau,DaZ EI,,Eischachen
+Mi,08:00,EI 4a,NMG,EI Lehrperson 11,EI-Zi 5,Eischachen
+Mi,08:00,EI 4b,Deutsch,EI Lehrperson 05,EI-Zi 9,Eischachen
+Mi,08:00,EI 5a,Französisch,Englisch/Französisch EI,EI-Zi 1,Eischachen
+Mi,08:00,EI 6a,Mathematik,EI Lehrperson 09,EI-Zi 6,Eischachen
+Mi,08:00,EI 6b,Musik,EI Lehrperson 07,EI-Zi 7,Eischachen
 Mi,08:00,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
 Mi,08:00,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
 Mi,08:00,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
+Mi,08:00,EI KGc,IF,SHP EI 2,EI-KG 3,Eischachen
 Mi,08:00,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
+Mi,08:00,EI KGd,IF,SHP EI 3,EI-KG 4,Eischachen
 Mi,08:00,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Mi,08:00,IF Wald-KGa,IF,SHP BM 1,Waldplatz,Im Feld
-Mi,08:00,OS S1Aa,RZG,OS Deutsch 2,OS-Zi 2,Oberstufe
-Mi,08:00,OS S1Ab,Französisch,OS Sprachen 2,OS-Zi 11,Oberstufe
-Mi,08:00,OS S1B/S1Ca,NT,OS Mathematik 2,OS-Zi 9,Oberstufe
-Mi,08:00,OS S1Ba,NT,OS Mathematik 4,OS-Zi 7,Oberstufe
-Mi,08:00,OS S1Ca,Englisch,OS Deutsch 5,OS-Zi 14,Oberstufe
-Mi,08:00,OS S2Aa,RZG,OS Deutsch 4,OS-Zi 10,Oberstufe
-Mi,08:00,OS S2Ab,Englisch,OS Sprachen 3,OS-Zi 13,Oberstufe
-Mi,08:00,OS S2Ba,Mathematik,OS Mathematik 3,OS-Zi 12,Oberstufe
-Mi,08:00,OS S2Ba,IF,SHP OS 2,OS-Zi 12,Oberstufe
-Mi,08:00,OS S2Ca,BG,OS Gestalten 3,OS-Zi 8,Oberstufe
-Mi,08:00,OS S2Cb,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Mi,08:00,OS S3Aa,Deutsch,OS Deutsch 3,OS-Zi 1,Oberstufe
-Mi,08:00,OS S3Ab,BG,OS Gestalten 1,OS-Zi 5,Oberstufe
-Mi,08:00,OS S3B/S3Ca,Mathematik,OS Mathematik 5,OS-Zi 6,Oberstufe
-Mi,08:00,OS S3Ba,Englisch,OS Sprachen 1,OS-Zi 3,Oberstufe
-Mi,08:00,OS S3Ca,RZG,OS Deutsch 1,OS-Zi 4,Oberstufe
-Mi,08:50,BM 1/2a,NMG,BM Lehrperson 02,BM-Zi 9,Bündtmättli
-Mi,08:50,BM 1a,Bewegung und Sport,BM Lehrperson 11,BM-Halle 1,Bündtmättli
-Mi,08:50,BM 1b,Deutsch,BM Lehrperson 09,BM-Zi 13,Bündtmättli
-Mi,08:50,BM 2a,BG,BM Lehrperson 13,BM-Zi 8,Bündtmättli
-Mi,08:50,BM 3/4a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Mi,08:50,BM 3a,Musik,BM Lehrperson 01,BM-Zi 3,Bündtmättli
-Mi,08:50,BM 3a,DaZ Aufbau,DaZ BM,,Bündtmättli
-Mi,08:50,BM 3b,Deutsch,BM Lehrperson 03,BM-Zi 6,Bündtmättli
-Mi,08:50,BM 4a,Mathematik,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Mi,08:50,BM 4a,IF,SHP BM 2,BM-Zi 7,Bündtmättli
-Mi,08:50,BM 4b,Deutsch,BM Lehrperson 05,BM-Zi 11,Bündtmättli
-Mi,08:50,BM 5a,Bewegung und Sport,BM Lehrperson 08,BM-Halle 2,Bündtmättli
-Mi,08:50,BM 5a,DaZ Aufbau,DaZ Teilzeit,,Bündtmättli
-Mi,08:50,BM 5b,NMG,BM Lehrperson 14,BM-Zi 5,Bündtmättli
-Mi,08:50,BM 6a,Französisch,Französisch BM,BM-Zi 2,Bündtmättli
-Mi,08:50,BM 6b,Mathematik,BM Lehrperson 07,BM-Zi 10,Bündtmättli
+Mi,08:00,OS S1Aa,RZG,OS Deutsch 2,OS-Zi 3,Oberstufe
+Mi,08:00,OS S1Ab,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Mi,08:00,OS S1B/S1Ca,NT,OS Mathematik 1,OS-Zi 10,Oberstufe
+Mi,08:00,OS S1Ba,Mathematik,OS Mathematik 4,OS-Zi 8,Oberstufe
+Mi,08:00,OS S1Ba,IF,SHP OS 2,OS-Zi 8,Oberstufe
+Mi,08:00,OS S1Ca,Französisch,OS Sprachen 3,OS-Zi 15,Oberstufe
+Mi,08:00,OS S2Aa,Englisch,OS Sprachen 2,OS-Zi 4,Oberstufe
+Mi,08:00,OS S2Ab,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
+Mi,08:00,OS S2Ab,DaZ Aufbau,DaZ OS,,Oberstufe
+Mi,08:00,OS S2Ba,Mathematik,OS Mathematik 2,OS-Zi 9,Oberstufe
+Mi,08:00,OS S2Ca,Mathematik,OS Mathematik 5,OS-Zi 11,Oberstufe
+Mi,08:00,OS S2Cb,Deutsch,OS Deutsch 4,OS-Zi 14,Oberstufe
+Mi,08:00,OS S3Aa,Deutsch,OS Sprachen 1,OS-Zi 6,Oberstufe
+Mi,08:00,OS S3Aa,IF,SHP OS 1,OS-Zi 6,Oberstufe
+Mi,08:00,OS S3Ab,RZG,OS Deutsch 3,OS-Zi 7,Oberstufe
+Mi,08:00,OS S3Ba,TTG,OS Gestalten 2,OS-TTG 2,Oberstufe
+Mi,08:00,OS S3Bb,Deutsch,OS Deutsch 1,OS-Zi 2,Oberstufe
+Mi,08:00,OS S3Ca,Bewegung und Sport,OS Sport 1,OS-Halle 2,Oberstufe
+Mi,08:50,BM 1a,NMG,BM Lehrperson 12,BM-Zi 5,Bündtmättli
+Mi,08:50,BM 1b,BG,BM Lehrperson 07,BM-Zi 10,Bündtmättli
+Mi,08:50,BM 2a,Deutsch,BM Lehrperson 13,BM-Zi 7,Bündtmättli
+Mi,08:50,BM 2b,Mathematik,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Mi,08:50,BM 2b,IF,SHP BM 2,BM-Zi 9,Bündtmättli
+Mi,08:50,BM 3a,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Mi,08:50,BM 3b,NMG,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Mi,08:50,BM 4a,Deutsch,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Mi,08:50,BM 4b,NMG,BM Lehrperson 02,BM-Zi 6,Bündtmättli
+Mi,08:50,BM 4b,DaZ Anfang,DaZ Teilzeit,,Bündtmättli
+Mi,08:50,BM 5a,Deutsch,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Mi,08:50,BM 5a,IF,SHP BM 1,BM-Zi 4,Bündtmättli
+Mi,08:50,BM 5b,Bewegung und Sport,BM Lehrperson 08,BM-Halle 2,Bündtmättli
+Mi,08:50,BM 5c,Französisch,Französisch BM,BM-Zi 13,Bündtmättli
+Mi,08:50,BM 5c,DaZ Anfang,DaZ BM,,Bündtmättli
+Mi,08:50,BM 6a,Deutsch,BM Lehrperson 09,BM-Zi 2,Bündtmättli
+Mi,08:50,BM 6b,Bewegung und Sport,BM Lehrperson 10,BM-Halle 1,Bündtmättli
 Mi,08:50,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
 Mi,08:50,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
 Mi,08:50,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Mi,08:50,EI 1a,Mathematik,EI Lehrperson 08,EI-Zi 2,Eischachen
-Mi,08:50,EI 1a,IF,SHP EI 2,EI-Zi 2,Eischachen
-Mi,08:50,EI 1b,Deutsch,EI Lehrperson 06,EI-Zi 11,Eischachen
-Mi,08:50,EI 1b,IF,SHP EI 1,EI-Zi 11,Eischachen
-Mi,08:50,EI 1b,DaZ Aufbau,DaZ EI,,Eischachen
-Mi,08:50,EI 2a,Deutsch,EI Lehrperson 03,EI-Zi 1,Eischachen
-Mi,08:50,EI 2b,NMG,EI Lehrperson 01,EI-Zi 9,Eischachen
-Mi,08:50,EI 3a,NMG,Primar Springer,EI-Zi 3,Eischachen
-Mi,08:50,EI 4a,Bewegung und Sport,EI Lehrperson 05,EI-Halle 1,Eischachen
-Mi,08:50,EI 4b,Mathematik,EI Lehrperson 04,EI-Zi 6,Eischachen
-Mi,08:50,EI 4b,IF,SHP EI 3,EI-Zi 6,Eischachen
-Mi,08:50,EI 5/6a,Mathematik,EI Lehrperson 09,EI-Zi 7,Eischachen
-Mi,08:50,EI 5a,Musik,EI Lehrperson 02,EI-Zi 8,Eischachen
-Mi,08:50,EI 6a,Mathematik,EI Lehrperson 07,EI-Zi 5,Eischachen
-Mi,08:50,EI 6b,NMG,EI Lehrperson 11,EI-Zi 10,Eischachen
+Mi,08:50,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Mi,08:50,EI 1a,NMG,EI Lehrperson 08,EI-Zi 2,Eischachen
+Mi,08:50,EI 1b,BG,Primar Springer,EI-Zi 10,Eischachen
+Mi,08:50,EI 2a,Deutsch,EI Lehrperson 01,EI-Zi 3,Eischachen
+Mi,08:50,EI 2a,IF,SHP EI 2,EI-Zi 3,Eischachen
+Mi,08:50,EI 2b,Deutsch,EI Lehrperson 02,EI-Zi 11,Eischachen
+Mi,08:50,EI 3a,Mathematik,EI Lehrperson 04,EI-Zi 4,Eischachen
+Mi,08:50,EI 3b,Mathematik,EI Lehrperson 03,EI-Zi 8,Eischachen
+Mi,08:50,EI 3b,IF,SHP EI 1,EI-Zi 8,Eischachen
+Mi,08:50,EI 3b,DaZ Aufbau,DaZ EI,,Eischachen
+Mi,08:50,EI 4a,Deutsch,EI Lehrperson 11,EI-Zi 5,Eischachen
+Mi,08:50,EI 4b,Musik,EI Lehrperson 05,EI-Zi 9,Eischachen
+Mi,08:50,EI 5a,Englisch,Englisch/Französisch EI,EI-Zi 1,Eischachen
+Mi,08:50,EI 6a,NMG,EI Lehrperson 09,EI-Zi 6,Eischachen
+Mi,08:50,EI 6b,Bewegung und Sport,EI Lehrperson 07,EI-Halle 1,Eischachen
 Mi,08:50,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
 Mi,08:50,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
-Mi,08:50,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
+Mi,08:50,EI KGb,IF,SHP EI 3,EI-KG 2,Eischachen
+Mi,08:50,EI KGc,Bewegung und Sport,KG EI 4,EI-Halle 2,Eischachen
 Mi,08:50,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
 Mi,08:50,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Mi,08:50,IF Wald-KGa,IF,SHP BM 1,Waldplatz,Im Feld
-Mi,08:50,OS S1Aa,BG,OS Gestalten 1,OS-Zi 2,Oberstufe
-Mi,08:50,OS S1Aa,DaZ Anfang,DaZ OS,,Oberstufe
-Mi,08:50,OS S1Ab,Mathematik,OS Mathematik 2,OS-Zi 11,Oberstufe
-Mi,08:50,OS S1B/S1Ca,Französisch,OS Sprachen 3,OS-Zi 9,Oberstufe
-Mi,08:50,OS S1Ba,RZG,OS Deutsch 5,OS-Zi 7,Oberstufe
-Mi,08:50,OS S1Ca,Mathematik,OS Mathematik 4,OS-Zi 14,Oberstufe
-Mi,08:50,OS S2Aa,Mathematik,OS Mathematik 5,OS-Zi 10,Oberstufe
-Mi,08:50,OS S2Ab,RZG,OS Deutsch 2,OS-Zi 13,Oberstufe
-Mi,08:50,OS S2Ba,Deutsch,OS Deutsch 4,OS-Zi 12,Oberstufe
-Mi,08:50,OS S2Ba,IF,SHP OS 2,OS-Zi 12,Oberstufe
-Mi,08:50,OS S2Ca,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Mi,08:50,OS S2Cb,RZG,OS Deutsch 1,OS-Zi 15,Oberstufe
-Mi,08:50,OS S3Aa,Mathematik,OS Mathematik 3,OS-Zi 1,Oberstufe
-Mi,08:50,OS S3Ab,Deutsch,OS Deutsch 3,OS-Zi 5,Oberstufe
-Mi,08:50,OS S3Ab,IF,SHP OS 1,OS-Zi 5,Oberstufe
-Mi,08:50,OS S3B/S3Ca,Französisch,OS Sprachen 1,OS-Zi 6,Oberstufe
-Mi,08:50,OS S3Ba,BG,OS Gestalten 3,OS-Zi 3,Oberstufe
-Mi,08:50,OS S3Ca,Englisch,OS Sprachen 2,OS-Zi 4,Oberstufe
-Mi,09:55,BM 1/2a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Mi,09:55,BM 1a,Deutsch,BM Lehrperson 13,BM-Zi 1,Bündtmättli
-Mi,09:55,BM 1a,IF,SHP BM 1,BM-Zi 1,Bündtmättli
-Mi,09:55,BM 1a,DaZ Aufbau,DaZ BM,,Bündtmättli
-Mi,09:55,BM 1b,Bewegung und Sport,BM Lehrperson 07,BM-Halle 2,Bündtmättli
-Mi,09:55,BM 2a,Bewegung und Sport,BM Lehrperson 01,BM-Halle 1,Bündtmättli
-Mi,09:55,BM 3/4a,Deutsch,BM Lehrperson 02,BM-Zi 12,Bündtmättli
-Mi,09:55,BM 3a,NMG,BM Lehrperson 03,BM-Zi 3,Bündtmättli
-Mi,09:55,BM 3b,Musik,BM Lehrperson 06,BM-Zi 6,Bündtmättli
-Mi,09:55,BM 4a,Deutsch,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Mi,09:55,BM 4b,Deutsch,BM Lehrperson 05,BM-Zi 11,Bündtmättli
-Mi,09:55,BM 4b,IF,SHP BM 2,BM-Zi 11,Bündtmättli
-Mi,09:55,BM 5a,NMG,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Mi,09:55,BM 5b,Mathematik,BM Lehrperson 14,BM-Zi 5,Bündtmättli
-Mi,09:55,BM 5b,DaZ Anfang,DaZ Teilzeit,,Bündtmättli
-Mi,09:55,BM 6a,Musik,BM Lehrperson 11,BM-Zi 2,Bündtmättli
-Mi,09:55,BM 6b,Französisch,Französisch BM,BM-Zi 10,Bündtmättli
+Mi,08:50,OS S1Aa,RZG,OS Deutsch 2,OS-Zi 3,Oberstufe
+Mi,08:50,OS S1Ab,Französisch,OS Sprachen 2,OS-Zi 5,Oberstufe
+Mi,08:50,OS S1Ab,DaZ Aufbau,DaZ OS,,Oberstufe
+Mi,08:50,OS S1B/S1Ca,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Mi,08:50,OS S1Ba,Mathematik,OS Mathematik 4,OS-Zi 8,Oberstufe
+Mi,08:50,OS S1Ba,IF,SHP OS 2,OS-Zi 8,Oberstufe
+Mi,08:50,OS S1Ca,NT,OS Sport 1,OS-Zi 15,Oberstufe
+Mi,08:50,OS S2Aa,Mathematik,OS Mathematik 1,OS-Zi 4,Oberstufe
+Mi,08:50,OS S2Ab,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
+Mi,08:50,OS S2Ba,Deutsch,OS Sprachen 1,OS-Zi 9,Oberstufe
+Mi,08:50,OS S2Ca,Französisch,OS Sprachen 3,OS-Zi 11,Oberstufe
+Mi,08:50,OS S2Cb,RZG,OS Deutsch 4,OS-Zi 14,Oberstufe
+Mi,08:50,OS S3Aa,Mathematik,OS Mathematik 5,OS-Zi 6,Oberstufe
+Mi,08:50,OS S3Aa,IF,SHP OS 1,OS-Zi 6,Oberstufe
+Mi,08:50,OS S3Ab,Deutsch,OS Deutsch 3,OS-Zi 7,Oberstufe
+Mi,08:50,OS S3Ba,TTG,OS Gestalten 2,OS-TTG 2,Oberstufe
+Mi,08:50,OS S3Bb,NT,OS Mathematik 2,OS-Zi 2,Oberstufe
+Mi,08:50,OS S3Ca,Deutsch,OS Deutsch 1,OS-Zi 12,Oberstufe
+Mi,09:55,BM 1a,Deutsch,BM Lehrperson 01,BM-Zi 5,Bündtmättli
+Mi,09:55,BM 1a,IF,SHP BM 2,BM-Zi 5,Bündtmättli
+Mi,09:55,BM 1a,DaZ Anfang,DaZ Teilzeit,,Bündtmättli
+Mi,09:55,BM 1b,Deutsch,BM Lehrperson 03,BM-Zi 10,Bündtmättli
+Mi,09:55,BM 2a,Deutsch,BM Lehrperson 13,BM-Zi 7,Bündtmättli
+Mi,09:55,BM 2b,BG,BM Lehrperson 02,BM-Zi 9,Bündtmättli
+Mi,09:55,BM 3a,Englisch,Englisch BM,BM-Zi 1,Bündtmättli
+Mi,09:55,BM 3b,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Mi,09:55,BM 4a,Bewegung und Sport,BM Lehrperson 06,BM-Halle 1,Bündtmättli
+Mi,09:55,BM 4b,Deutsch,BM Lehrperson 07,BM-Zi 6,Bündtmättli
+Mi,09:55,BM 5a,Mathematik,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Mi,09:55,BM 5b,Mathematik,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Mi,09:55,BM 5b,IF,SHP BM 1,BM-Zi 8,Bündtmättli
+Mi,09:55,BM 5c,Bewegung und Sport,BM Lehrperson 09,BM-Halle 2,Bündtmättli
+Mi,09:55,BM 6a,Mathematik,BM Lehrperson 12,BM-Zi 2,Bündtmättli
+Mi,09:55,BM 6b,Französisch,Französisch BM,BM-Zi 11,Bündtmättli
 Mi,09:55,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
+Mi,09:55,BM KGa,DaZ Aufbau,DaZ BM,,Bündtmättli
 Mi,09:55,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
 Mi,09:55,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Mi,09:55,EI 1a,Musik,EI Lehrperson 03,EI-Zi 2,Eischachen
-Mi,09:55,EI 1b,Deutsch,EI Lehrperson 06,EI-Zi 11,Eischachen
-Mi,09:55,EI 2a,Bewegung und Sport,EI Lehrperson 02,EI-Halle 1,Eischachen
-Mi,09:55,EI 2b,Mathematik,EI Lehrperson 01,EI-Zi 9,Eischachen
-Mi,09:55,EI 2b,IF,SHP EI 2,EI-Zi 9,Eischachen
-Mi,09:55,EI 3a,Deutsch,EI Lehrperson 04,EI-Zi 3,Eischachen
-Mi,09:55,EI 4a,NMG,EI Lehrperson 08,EI-Zi 4,Eischachen
-Mi,09:55,EI 4b,BG,EI Lehrperson 05,EI-Zi 6,Eischachen
-Mi,09:55,EI 5/6a,Mathematik,EI Lehrperson 09,EI-Zi 7,Eischachen
-Mi,09:55,EI 5/6a,IF,SHP EI 1,EI-Zi 7,Eischachen
-Mi,09:55,EI 5a,Englisch,Englisch/Französisch EI,EI-Zi 8,Eischachen
-Mi,09:55,EI 6a,BG,EI Lehrperson 07,EI-Zi 5,Eischachen
-Mi,09:55,EI 6b,Mathematik,EI Lehrperson 11,EI-Zi 10,Eischachen
-Mi,09:55,EI 6b,IF,SHP EI 3,EI-Zi 10,Eischachen
+Mi,09:55,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Mi,09:55,EI 1a,Bewegung und Sport,EI Lehrperson 08,EI-Halle 2,Eischachen
+Mi,09:55,EI 1b,Mathematik,Primar Springer,EI-Zi 10,Eischachen
+Mi,09:55,EI 1b,IF,SHP EI 1,EI-Zi 10,Eischachen
+Mi,09:55,EI 2a,NMG,EI Lehrperson 01,EI-Zi 3,Eischachen
+Mi,09:55,EI 2b,Musik,EI Lehrperson 02,EI-Zi 11,Eischachen
+Mi,09:55,EI 3a,NMG,EI Lehrperson 04,EI-Zi 4,Eischachen
+Mi,09:55,EI 3b,NMG,EI Lehrperson 03,EI-Zi 8,Eischachen
+Mi,09:55,EI 4a,Deutsch,EI Lehrperson 11,EI-Zi 5,Eischachen
+Mi,09:55,EI 4b,Mathematik,EI Lehrperson 05,EI-Zi 9,Eischachen
+Mi,09:55,EI 4b,IF,SHP EI 2,EI-Zi 9,Eischachen
+Mi,09:55,EI 5a,Bewegung und Sport,EI Lehrperson 06,EI-Halle 1,Eischachen
+Mi,09:55,EI 6a,Französisch,Englisch/Französisch EI,EI-Zi 6,Eischachen
+Mi,09:55,EI 6b,BG,EI Lehrperson 07,EI-Zi 7,Eischachen
 Mi,09:55,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
 Mi,09:55,EI KGa,DaZ Anfang,DaZ EI,,Eischachen
-Mi,09:55,EI KGb,Bewegung und Sport,KG EI 2,EI-Halle 2,Eischachen
+Mi,09:55,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
 Mi,09:55,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
 Mi,09:55,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
+Mi,09:55,EI KGd,IF,SHP EI 3,EI-KG 4,Eischachen
 Mi,09:55,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Mi,09:55,OS S1Aa,Mathematik,OS Mathematik 2,OS-Zi 2,Oberstufe
-Mi,09:55,OS S1Aa,IF,SHP OS 2,OS-Zi 2,Oberstufe
+Mi,09:55,OS S1Aa,BG,OS Gestalten 3,OS-Zi 3,Oberstufe
 Mi,09:55,OS S1Aa,DaZ Anfang,DaZ OS,,Oberstufe
-Mi,09:55,OS S1Ab,NT,OS Mathematik 5,OS-Zi 11,Oberstufe
-Mi,09:55,OS S1B/S1Ca,Bewegung und Sport,OS Sport 1,OS-Halle 1,Oberstufe
-Mi,09:55,OS S1Ba,Deutsch,OS Deutsch 5,OS-Zi 7,Oberstufe
-Mi,09:55,OS S1Ca,Französisch,OS Sprachen 3,OS-Zi 14,Oberstufe
-Mi,09:55,OS S2Aa,Deutsch,OS Deutsch 4,OS-Zi 10,Oberstufe
-Mi,09:55,OS S2Aa,IF,SHP OS 1,OS-Zi 10,Oberstufe
-Mi,09:55,OS S2Ab,RZG,OS Deutsch 2,OS-Zi 13,Oberstufe
-Mi,09:55,OS S2Ba,Französisch,OS Sprachen 2,OS-Zi 12,Oberstufe
-Mi,09:55,OS S2Ca,Mathematik,OS Mathematik 3,OS-Zi 8,Oberstufe
-Mi,09:55,OS S2Cb,NT,OS Mathematik 4,OS-Zi 15,Oberstufe
-Mi,09:55,OS S3Aa,BG,OS Gestalten 1,OS-Zi 1,Oberstufe
-Mi,09:55,OS S3Ab,NT,OS Mathematik 1,OS-Zi 5,Oberstufe
-Mi,09:55,OS S3B/S3Ca,TTG,OS Gestalten 3,OS-TTG 1,Oberstufe
-Mi,09:55,OS S3Ba,RZG,OS Deutsch 3,OS-Zi 3,Oberstufe
-Mi,09:55,OS S3Ca,Berufliche Orientierung,OS Deutsch 1,OS-Zi 4,Oberstufe
-Mi,10:45,BM 1/2a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Mi,10:45,BM 1a,Deutsch,BM Lehrperson 13,BM-Zi 1,Bündtmättli
-Mi,10:45,BM 1b,Musik,BM Lehrperson 07,BM-Zi 13,Bündtmättli
-Mi,10:45,BM 2a,Mathematik,BM Lehrperson 01,BM-Zi 8,Bündtmättli
-Mi,10:45,BM 3/4a,Bewegung und Sport,BM Lehrperson 02,BM-Halle 2,Bündtmättli
-Mi,10:45,BM 3a,Deutsch,BM Lehrperson 03,BM-Zi 3,Bündtmättli
-Mi,10:45,BM 3a,IF,SHP BM 2,BM-Zi 3,Bündtmättli
-Mi,10:45,BM 3a,DaZ Anfang,DaZ BM,,Bündtmättli
-Mi,10:45,BM 3b,Mathematik,BM Lehrperson 06,BM-Zi 6,Bündtmättli
-Mi,10:45,BM 4a,Deutsch,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Mi,10:45,BM 4b,NMG,BM Lehrperson 05,BM-Zi 11,Bündtmättli
-Mi,10:45,BM 5a,NMG,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Mi,10:45,BM 5b,Mathematik,BM Lehrperson 14,BM-Zi 5,Bündtmättli
-Mi,10:45,BM 5b,DaZ Anfang,DaZ Teilzeit,,Bündtmättli
-Mi,10:45,BM 6a,NMG,BM Lehrperson 11,BM-Zi 2,Bündtmättli
-Mi,10:45,BM 6b,Englisch,Französisch BM,BM-Zi 10,Bündtmättli
+Mi,09:55,OS S1Ab,Mathematik,OS Mathematik 4,OS-Zi 5,Oberstufe
+Mi,09:55,OS S1B/S1Ca,Mathematik,OS Mathematik 1,OS-Zi 10,Oberstufe
+Mi,09:55,OS S1B/S1Ca,IF,SHP OS 1,OS-Zi 10,Oberstufe
+Mi,09:55,OS S1Ba,RZG,OS Deutsch 3,OS-Zi 8,Oberstufe
+Mi,09:55,OS S1Ca,NT,OS Sport 1,OS-Zi 15,Oberstufe
+Mi,09:55,OS S2Aa,RZG,OS Deutsch 2,OS-Zi 4,Oberstufe
+Mi,09:55,OS S2Ab,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Mi,09:55,OS S2Ba,BG,OS Gestalten 2,OS-Zi 9,Oberstufe
+Mi,09:55,OS S2Ca,Mathematik,OS Mathematik 5,OS-Zi 11,Oberstufe
+Mi,09:55,OS S2Cb,Deutsch,OS Deutsch 4,OS-Zi 14,Oberstufe
+Mi,09:55,OS S2Cb,IF,SHP OS 2,OS-Zi 14,Oberstufe
+Mi,09:55,OS S3Aa,Englisch,OS Sprachen 1,OS-Zi 6,Oberstufe
+Mi,09:55,OS S3Ab,Englisch,OS Sprachen 3,OS-Zi 7,Oberstufe
+Mi,09:55,OS S3Ba,Englisch,OS Sprachen 2,OS-Zi 1,Oberstufe
+Mi,09:55,OS S3Bb,Mathematik,OS Mathematik 2,OS-Zi 2,Oberstufe
+Mi,09:55,OS S3Ca,RZG,OS Deutsch 1,OS-Zi 12,Oberstufe
+Mi,10:45,BM 1a,Musik,BM Lehrperson 12,BM-Zi 5,Bündtmättli
+Mi,10:45,BM 1b,Mathematik,BM Lehrperson 02,BM-Zi 10,Bündtmättli
+Mi,10:45,BM 2a,Bewegung und Sport,BM Lehrperson 13,BM-Halle 1,Bündtmättli
+Mi,10:45,BM 2b,Deutsch,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Mi,10:45,BM 3a,Musik,BM Lehrperson 03,BM-Zi 1,Bündtmättli
+Mi,10:45,BM 3b,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Mi,10:45,BM 4a,Englisch,Englisch BM,BM-Zi 3,Bündtmättli
+Mi,10:45,BM 4b,Mathematik,BM Lehrperson 07,BM-Zi 6,Bündtmättli
+Mi,10:45,BM 4b,IF,SHP BM 2,BM-Zi 6,Bündtmättli
+Mi,10:45,BM 4b,DaZ Anfang,DaZ Teilzeit,,Bündtmättli
+Mi,10:45,BM 5a,NMG,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Mi,10:45,BM 5b,Mathematik,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Mi,10:45,BM 5c,Mathematik,BM Lehrperson 05,BM-Zi 13,Bündtmättli
+Mi,10:45,BM 6a,NMG,BM Lehrperson 09,BM-Zi 2,Bündtmättli
+Mi,10:45,BM 6b,Englisch,Französisch BM,BM-Zi 11,Bündtmättli
 Mi,10:45,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
+Mi,10:45,BM KGa,IF,SHP BM 1,BM-KG 1,Bündtmättli
+Mi,10:45,BM KGa,DaZ Aufbau,DaZ BM,,Bündtmättli
 Mi,10:45,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
-Mi,10:45,BM KGb,IF,SHP BM 1,BM-KG 2,Bündtmättli
-Mi,10:45,BM KGc,Bewegung und Sport,KG BM 2,BM-Halle 1,Bündtmättli
-Mi,10:45,EI 1a,BG,EI Lehrperson 08,EI-Zi 2,Eischachen
-Mi,10:45,EI 1b,Mathematik,EI Lehrperson 06,EI-Zi 11,Eischachen
-Mi,10:45,EI 1b,IF,SHP EI 1,EI-Zi 11,Eischachen
-Mi,10:45,EI 2a,Deutsch,EI Lehrperson 03,EI-Zi 1,Eischachen
-Mi,10:45,EI 2b,Mathematik,EI Lehrperson 01,EI-Zi 9,Eischachen
-Mi,10:45,EI 3a,Bewegung und Sport,EI Lehrperson 04,EI-Halle 1,Eischachen
-Mi,10:45,EI 4a,Mathematik,EI Lehrperson 09,EI-Zi 4,Eischachen
-Mi,10:45,EI 4b,Deutsch,EI Lehrperson 05,EI-Zi 6,Eischachen
-Mi,10:45,EI 5/6a,Englisch,Englisch/Französisch EI,EI-Zi 7,Eischachen
-Mi,10:45,EI 5a,BG,EI Lehrperson 02,EI-Zi 8,Eischachen
-Mi,10:45,EI 5a,DaZ Aufbau,DaZ EI,,Eischachen
-Mi,10:45,EI 6a,Bewegung und Sport,EI Lehrperson 07,EI-Halle 2,Eischachen
-Mi,10:45,EI 6b,Mathematik,EI Lehrperson 11,EI-Zi 10,Eischachen
-Mi,10:45,EI 6b,IF,SHP EI 3,EI-Zi 10,Eischachen
+Mi,10:45,BM KGc,Bewegung und Sport,KG BM 2,BM-Halle 2,Bündtmättli
+Mi,10:45,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Mi,10:45,EI 1a,Musik,EI Lehrperson 08,EI-Zi 2,Eischachen
+Mi,10:45,EI 1b,Mathematik,Primar Springer,EI-Zi 10,Eischachen
+Mi,10:45,EI 2a,NMG,EI Lehrperson 01,EI-Zi 3,Eischachen
+Mi,10:45,EI 2b,Deutsch,EI Lehrperson 02,EI-Zi 11,Eischachen
+Mi,10:45,EI 3a,Deutsch,EI Lehrperson 04,EI-Zi 4,Eischachen
+Mi,10:45,EI 3a,DaZ Anfang,DaZ EI,,Eischachen
+Mi,10:45,EI 3b,Mathematik,EI Lehrperson 03,EI-Zi 8,Eischachen
+Mi,10:45,EI 3b,IF,SHP EI 1,EI-Zi 8,Eischachen
+Mi,10:45,EI 4a,NMG,EI Lehrperson 11,EI-Zi 5,Eischachen
+Mi,10:45,EI 4b,BG,EI Lehrperson 05,EI-Zi 9,Eischachen
+Mi,10:45,EI 5a,Mathematik,EI Lehrperson 06,EI-Zi 1,Eischachen
+Mi,10:45,EI 5a,IF,SHP EI 2,EI-Zi 1,Eischachen
+Mi,10:45,EI 6a,Deutsch,EI Lehrperson 07,EI-Zi 6,Eischachen
+Mi,10:45,EI 6a,IF,SHP EI 3,EI-Zi 6,Eischachen
+Mi,10:45,EI 6b,Englisch,Englisch/Französisch EI,EI-Zi 7,Eischachen
 Mi,10:45,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
 Mi,10:45,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
 Mi,10:45,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
-Mi,10:45,EI KGc,IF,SHP EI 2,EI-KG 3,Eischachen
-Mi,10:45,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
+Mi,10:45,EI KGd,Bewegung und Sport,KG EI 3,EI-Halle 1,Eischachen
 Mi,10:45,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Mi,10:45,OS S1Aa,BG,OS Gestalten 1,OS-Zi 2,Oberstufe
-Mi,10:45,OS S1Ab,Deutsch,OS Deutsch 5,OS-Zi 11,Oberstufe
-Mi,10:45,OS S1Ab,IF,SHP OS 2,OS-Zi 11,Oberstufe
-Mi,10:45,OS S1B/S1Ca,Mathematik,OS Mathematik 2,OS-Zi 9,Oberstufe
-Mi,10:45,OS S1Ba,Mathematik,OS Mathematik 4,OS-Zi 7,Oberstufe
-Mi,10:45,OS S1Ca,Bewegung und Sport,OS Sport 1,OS-Halle 1,Oberstufe
-Mi,10:45,OS S2Aa,Mathematik,OS Mathematik 5,OS-Zi 10,Oberstufe
-Mi,10:45,OS S2Ab,Deutsch,OS Deutsch 2,OS-Zi 13,Oberstufe
-Mi,10:45,OS S2Ab,DaZ Aufbau,DaZ OS,,Oberstufe
-Mi,10:45,OS S2Ba,Deutsch,OS Deutsch 4,OS-Zi 12,Oberstufe
-Mi,10:45,OS S2Ca,Französisch,OS Sprachen 3,OS-Zi 8,Oberstufe
-Mi,10:45,OS S2Cb,RZG,OS Deutsch 1,OS-Zi 15,Oberstufe
-Mi,10:45,OS S3Aa,NT,OS Mathematik 3,OS-Zi 1,Oberstufe
-Mi,10:45,OS S3Ab,Mathematik,OS Mathematik 1,OS-Zi 5,Oberstufe
-Mi,10:45,OS S3Ab,IF,SHP OS 1,OS-Zi 5,Oberstufe
-Mi,10:45,OS S3B/S3Ca,TTG,OS Gestalten 3,OS-TTG 1,Oberstufe
-Mi,10:45,OS S3Ba,Deutsch,OS Deutsch 3,OS-Zi 3,Oberstufe
-Mi,10:45,OS S3Ca,Französisch,OS Sprachen 2,OS-Zi 4,Oberstufe
-Do,08:00,BM 1/2a,Bewegung und Sport,BM Lehrperson 04,BM-Halle 1,Bündtmättli
-Do,08:00,BM 1a,Deutsch,BM Lehrperson 13,BM-Zi 1,Bündtmättli
-Do,08:00,BM 1b,Mathematik,BM Unterstufe Teilzeit,BM-Zi 13,Bündtmättli
-Do,08:00,BM 1b,IF,SHP BM 3,BM-Zi 13,Bündtmättli
-Do,08:00,BM 2a,Musik,BM Lehrperson 01,BM-Zi 8,Bündtmättli
-Do,08:00,BM 3/4a,Deutsch,BM Lehrperson 02,BM-Zi 12,Bündtmättli
-Do,08:00,BM 3a,Mathematik,BM Lehrperson 03,BM-Zi 3,Bündtmättli
-Do,08:00,BM 3b,Englisch,Englisch BM,BM-Zi 6,Bündtmättli
-Do,08:00,BM 4a,NMG,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Do,08:00,BM 4b,Mathematik,BM Lehrperson 12,BM-Zi 11,Bündtmättli
-Do,08:00,BM 5a,Mathematik,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Do,08:00,BM 5a,DaZ Aufbau,DaZ Teilzeit,,Bündtmättli
-Do,08:00,BM 5b,BG,BM Lehrperson 09,BM-Zi 5,Bündtmättli
-Do,08:00,BM 6a,Bewegung und Sport,BM Lehrperson 11,BM-Halle 2,Bündtmättli
-Do,08:00,BM 6b,Musik,BM Lehrperson 07,BM-Zi 10,Bündtmättli
+Mi,10:45,OS S1Aa,BG,OS Gestalten 3,OS-Zi 3,Oberstufe
+Mi,10:45,OS S1Ab,Mathematik,OS Mathematik 4,OS-Zi 5,Oberstufe
+Mi,10:45,OS S1B/S1Ca,BG,OS Gestalten 2,OS-Zi 10,Oberstufe
+Mi,10:45,OS S1Ba,Deutsch,OS Deutsch 3,OS-Zi 8,Oberstufe
+Mi,10:45,OS S1Ca,Deutsch,OS Deutsch 2,OS-Zi 15,Oberstufe
+Mi,10:45,OS S2Aa,Mathematik,OS Mathematik 1,OS-Zi 4,Oberstufe
+Mi,10:45,OS S2Ab,Deutsch,OS Deutsch 1,OS-Zi 13,Oberstufe
+Mi,10:45,OS S2Ab,IF,SHP OS 2,OS-Zi 13,Oberstufe
+Mi,10:45,OS S2Ba,RZG,OS Deutsch 4,OS-Zi 9,Oberstufe
+Mi,10:45,OS S2Ca,RZG,OS Mathematik 5,OS-Zi 11,Oberstufe
+Mi,10:45,OS S2Cb,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Mi,10:45,OS S3Aa,NT,OS Sport 1,OS-Zi 6,Oberstufe
+Mi,10:45,OS S3Ab,Französisch,OS Sprachen 3,OS-Zi 7,Oberstufe
+Mi,10:45,OS S3Ba,Deutsch,OS Sprachen 2,OS-Zi 1,Oberstufe
+Mi,10:45,OS S3Ba,IF,SHP OS 1,OS-Zi 1,Oberstufe
+Mi,10:45,OS S3Bb,NT,OS Mathematik 2,OS-Zi 2,Oberstufe
+Mi,10:45,OS S3Ca,Englisch,OS Sprachen 1,OS-Zi 12,Oberstufe
+Do,08:00,BM 1a,BG,BM Lehrperson 05,BM-Zi 5,Bündtmättli
+Do,08:00,BM 1b,Mathematik,BM Lehrperson 02,BM-Zi 10,Bündtmättli
+Do,08:00,BM 2a,Musik,BM Lehrperson 13,BM-Zi 7,Bündtmättli
+Do,08:00,BM 2b,Musik,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Do,08:00,BM 3a,Deutsch,BM Lehrperson 03,BM-Zi 1,Bündtmättli
+Do,08:00,BM 3a,DaZ Aufbau,DaZ Teilzeit,,Bündtmättli
+Do,08:00,BM 3b,Deutsch,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Do,08:00,BM 4a,Mathematik,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Do,08:00,BM 4b,Mathematik,BM Lehrperson 07,BM-Zi 6,Bündtmättli
+Do,08:00,BM 4b,IF,SHP BM 2,BM-Zi 6,Bündtmättli
+Do,08:00,BM 5a,BG,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Do,08:00,BM 5b,Deutsch,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Do,08:00,BM 5b,IF,SHP BM 1,BM-Zi 8,Bündtmättli
+Do,08:00,BM 5c,NMG,BM Lehrperson 09,BM-Zi 13,Bündtmättli
+Do,08:00,BM 6a,Englisch,Französisch BM,BM-Zi 2,Bündtmättli
+Do,08:00,BM 6b,Bewegung und Sport,BM Lehrperson 10,BM-Halle 1,Bündtmättli
 Do,08:00,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
-Do,08:00,BM KGa,IF,SHP BM 2,BM-KG 1,Bündtmättli
+Do,08:00,BM KGa,DaZ Aufbau,DaZ BM,,Bündtmättli
 Do,08:00,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
-Do,08:00,BM KGb,IF,SHP BM 1,BM-KG 2,Bündtmättli
-Do,08:00,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Do,08:00,EI 1a,Bewegung und Sport,EI Lehrperson 03,EI-Halle 1,Eischachen
-Do,08:00,EI 1b,Deutsch,EI Lehrperson 06,EI-Zi 11,Eischachen
-Do,08:00,EI 1b,IF,SHP EI 1,EI-Zi 11,Eischachen
-Do,08:00,EI 2a,NMG,EI Lehrperson 02,EI-Zi 1,Eischachen
-Do,08:00,EI 2b,Mathematik,EI Lehrperson 01,EI-Zi 9,Eischachen
-Do,08:00,EI 2b,IF,SHP EI 2,EI-Zi 9,Eischachen
-Do,08:00,EI 3a,Deutsch,EI Lehrperson 04,EI-Zi 3,Eischachen
-Do,08:00,EI 3a,DaZ Aufbau,DaZ EI,,Eischachen
-Do,08:00,EI 4a,TTG,TTG 2,EI-TTG,Eischachen
-Do,08:00,EI 4b,NMG,EI Lehrperson 05,EI-Zi 6,Eischachen
-Do,08:00,EI 5/6a,Deutsch,EI Lehrperson 09,EI-Zi 7,Eischachen
-Do,08:00,EI 5a,Französisch,Englisch/Französisch EI,EI-Zi 8,Eischachen
-Do,08:00,EI 6a,NMG,EI Lehrperson 08,EI-Zi 5,Eischachen
-Do,08:00,EI 6b,Bewegung und Sport,EI Lehrperson 07,EI-Halle 2,Eischachen
-Do,08:00,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
+Do,08:00,BM KGb,IF,SHP BM 3,BM-KG 2,Bündtmättli
+Do,08:00,BM KGc,Bewegung und Sport,KG BM 2,BM-Halle 2,Bündtmättli
+Do,08:00,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Do,08:00,EI 1a,Deutsch,EI Lehrperson 09,EI-Zi 2,Eischachen
+Do,08:00,EI 1b,Musik,EI Lehrperson 10,EI-Zi 10,Eischachen
+Do,08:00,EI 2a,Mathematik,EI Lehrperson 01,EI-Zi 3,Eischachen
+Do,08:00,EI 2b,Mathematik,EI Lehrperson 02,EI-Zi 11,Eischachen
+Do,08:00,EI 2b,IF,SHP EI 1,EI-Zi 11,Eischachen
+Do,08:00,EI 2b,DaZ Anfang,DaZ EI,,Eischachen
+Do,08:00,EI 3a,Bewegung und Sport,EI Lehrperson 04,EI-Halle 1,Eischachen
+Do,08:00,EI 3b,TTG,TTG 2,EI-TTG,Eischachen
+Do,08:00,EI 4a,Musik,EI Lehrperson 08,EI-Zi 5,Eischachen
+Do,08:00,EI 4b,Deutsch,EI Lehrperson 05,EI-Zi 9,Eischachen
+Do,08:00,EI 4b,IF,SHP EI 2,EI-Zi 9,Eischachen
+Do,08:00,EI 5a,Mathematik,EI Lehrperson 06,EI-Zi 1,Eischachen
+Do,08:00,EI 6a,Französisch,Englisch/Französisch EI,EI-Zi 6,Eischachen
+Do,08:00,EI 6b,Mathematik,EI Lehrperson 07,EI-Zi 7,Eischachen
+Do,08:00,EI KGa,Bewegung und Sport,KG EI 1,EI-Halle 2,Eischachen
 Do,08:00,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
+Do,08:00,EI KGb,IF,SHP EI 3,EI-KG 2,Eischachen
 Do,08:00,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
 Do,08:00,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
 Do,08:00,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Do,08:00,OS S1Aa,Französisch,OS Sprachen 3,OS-Zi 2,Oberstufe
-Do,08:00,OS S1Aa,DaZ Anfang,DaZ OS,,Oberstufe
-Do,08:00,OS S1Ab,RZG,OS Mathematik 5,OS-Zi 11,Oberstufe
-Do,08:00,OS S1B/S1Ca,NT,OS Mathematik 2,OS-Zi 9,Oberstufe
-Do,08:00,OS S1Ba,BG,OS Gestalten 2,OS-Zi 7,Oberstufe
-Do,08:00,OS S1Ca,RZG,OS Deutsch 5,OS-Zi 14,Oberstufe
-Do,08:00,OS S2Aa,Englisch,OS Sprachen 4,OS-Zi 10,Oberstufe
-Do,08:00,OS S2Ab,Deutsch,OS Deutsch 2,OS-Zi 13,Oberstufe
-Do,08:00,OS S2Ab,IF,SHP OS 1,OS-Zi 13,Oberstufe
-Do,08:00,OS S2Ba,NT,OS Sport 1,OS-Zi 12,Oberstufe
-Do,08:00,OS S2Ca,Mathematik,OS Mathematik 3,OS-Zi 8,Oberstufe
-Do,08:00,OS S2Cb,Mathematik,OS Mathematik 4,OS-Zi 15,Oberstufe
-Do,08:00,OS S2Cb,IF,SHP OS 2,OS-Zi 15,Oberstufe
-Do,08:00,OS S3Aa,BG,OS Gestalten 1,OS-Zi 1,Oberstufe
-Do,08:00,OS S3Ab,Mathematik,OS Mathematik 1,OS-Zi 5,Oberstufe
-Do,08:00,OS S3B/S3Ca,Englisch,OS Sprachen 1,OS-Zi 6,Oberstufe
-Do,08:00,OS S3Ba,Berufliche Orientierung,OS Deutsch 3,OS-Zi 3,Oberstufe
-Do,08:00,OS S3Ca,Französisch,OS Sprachen 2,OS-Zi 4,Oberstufe
-Do,08:50,BM 1/2a,Musik,BM Lehrperson 02,BM-Zi 9,Bündtmättli
-Do,08:50,BM 1a,Mathematik,BM Lehrperson 06,BM-Zi 1,Bündtmättli
-Do,08:50,BM 1b,Bewegung und Sport,BM Lehrperson 07,BM-Halle 1,Bündtmättli
-Do,08:50,BM 2a,NMG,BM Lehrperson 13,BM-Zi 8,Bündtmättli
-Do,08:50,BM 3/4a,Mathematik,BM Lehrperson 12,BM-Zi 12,Bündtmättli
-Do,08:50,BM 3a,Englisch,Englisch BM,BM-Zi 3,Bündtmättli
-Do,08:50,BM 3b,Deutsch,BM Lehrperson 03,BM-Zi 6,Bündtmättli
-Do,08:50,BM 3b,IF,SHP BM 3,BM-Zi 6,Bündtmättli
-Do,08:50,BM 4a,Deutsch,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Do,08:50,BM 4a,IF,SHP BM 2,BM-Zi 7,Bündtmättli
-Do,08:50,BM 4b,NMG,BM Lehrperson 05,BM-Zi 11,Bündtmättli
-Do,08:50,BM 5a,NMG,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Do,08:50,BM 5b,Bewegung und Sport,BM Lehrperson 09,BM-Halle 2,Bündtmättli
-Do,08:50,BM 5b,DaZ Anfang,DaZ Teilzeit,,Bündtmättli
-Do,08:50,BM 6a,NMG,BM Lehrperson 11,BM-Zi 2,Bündtmättli
-Do,08:50,BM 6b,Deutsch,BM Lehrperson 04,BM-Zi 10,Bündtmättli
-Do,08:50,BM 6b,IF,SHP BM 1,BM-Zi 10,Bündtmättli
+Do,08:00,OS S1Aa,Deutsch,OS Deutsch 2,OS-Zi 3,Oberstufe
+Do,08:00,OS S1Ab,Französisch,OS Sprachen 2,OS-Zi 5,Oberstufe
+Do,08:00,OS S1B/S1Ca,NT,OS Mathematik 1,OS-Zi 10,Oberstufe
+Do,08:00,OS S1Ba,Mathematik,OS Mathematik 4,OS-Zi 8,Oberstufe
+Do,08:00,OS S1Ba,IF,SHP OS 2,OS-Zi 8,Oberstufe
+Do,08:00,OS S1Ca,Bewegung und Sport,OS Sport 1,OS-Halle 2,Oberstufe
+Do,08:00,OS S2Aa,BG,OS Gestalten 1,OS-Zi 4,Oberstufe
+Do,08:00,OS S2Ab,Englisch,OS Sprachen 4,OS-Zi 13,Oberstufe
+Do,08:00,OS S2Ab,DaZ Aufbau,DaZ OS,,Oberstufe
+Do,08:00,OS S2Ba,Englisch,OS Sprachen 1,OS-Zi 9,Oberstufe
+Do,08:00,OS S2Ca,Französisch,OS Sprachen 3,OS-Zi 11,Oberstufe
+Do,08:00,OS S2Cb,RZG,OS Deutsch 4,OS-Zi 14,Oberstufe
+Do,08:00,OS S3Aa,RZG,OS Mathematik 5,OS-Zi 6,Oberstufe
+Do,08:00,OS S3Ab,Deutsch,OS Deutsch 3,OS-Zi 7,Oberstufe
+Do,08:00,OS S3Ab,IF,SHP OS 1,OS-Zi 7,Oberstufe
+Do,08:00,OS S3Ba,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Do,08:00,OS S3Bb,Mathematik,OS Mathematik 2,OS-Zi 2,Oberstufe
+Do,08:00,OS S3Ca,Deutsch,OS Deutsch 1,OS-Zi 12,Oberstufe
+Do,08:50,BM 1a,Deutsch,BM Lehrperson 01,BM-Zi 5,Bündtmättli
+Do,08:50,BM 1a,IF,SHP BM 2,BM-Zi 5,Bündtmättli
+Do,08:50,BM 1a,DaZ Anfang,DaZ Teilzeit,,Bündtmättli
+Do,08:50,BM 1b,Deutsch,BM Lehrperson 03,BM-Zi 10,Bündtmättli
+Do,08:50,BM 2a,Bewegung und Sport,BM Lehrperson 13,BM-Halle 2,Bündtmättli
+Do,08:50,BM 2b,BG,BM Lehrperson 02,BM-Zi 9,Bündtmättli
+Do,08:50,BM 3a,Mathematik,BM Lehrperson 08,BM-Zi 1,Bündtmättli
+Do,08:50,BM 3b,Mathematik,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Do,08:50,BM 3b,IF,SHP BM 1,BM-Zi 12,Bündtmättli
+Do,08:50,BM 4a,NMG,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Do,08:50,BM 4b,Mathematik,BM Lehrperson 07,BM-Zi 6,Bündtmättli
+Do,08:50,BM 5a,NMG,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Do,08:50,BM 5b,Französisch,Französisch BM,BM-Zi 8,Bündtmättli
+Do,08:50,BM 5c,Bewegung und Sport,BM Lehrperson 09,BM-Halle 1,Bündtmättli
+Do,08:50,BM 6a,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Do,08:50,BM 6b,BG,BM Lehrperson 10,BM-Zi 11,Bündtmättli
 Do,08:50,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
+Do,08:50,BM KGa,DaZ Aufbau,DaZ BM,,Bündtmättli
 Do,08:50,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
 Do,08:50,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Do,08:50,EI 1a,Deutsch,EI Lehrperson 03,EI-Zi 2,Eischachen
-Do,08:50,EI 1a,IF,SHP EI 2,EI-Zi 2,Eischachen
-Do,08:50,EI 1b,Musik,EI Lehrperson 01,EI-Zi 11,Eischachen
-Do,08:50,EI 2a,NMG,EI Lehrperson 02,EI-Zi 1,Eischachen
-Do,08:50,EI 2b,Bewegung und Sport,EI Lehrperson 10,EI-Halle 1,Eischachen
-Do,08:50,EI 3a,Musik,EI Lehrperson 04,EI-Zi 3,Eischachen
-Do,08:50,EI 4a,TTG,TTG 2,EI-TTG,Eischachen
-Do,08:50,EI 4b,NMG,EI Lehrperson 05,EI-Zi 6,Eischachen
-Do,08:50,EI 5/6a,Deutsch,EI Lehrperson 09,EI-Zi 7,Eischachen
-Do,08:50,EI 5/6a,IF,SHP EI 1,EI-Zi 7,Eischachen
-Do,08:50,EI 5a,NMG,EI Lehrperson 06,EI-Zi 8,Eischachen
-Do,08:50,EI 6a,Bewegung und Sport,EI Lehrperson 07,EI-Halle 2,Eischachen
-Do,08:50,EI 6b,Englisch,Englisch/Französisch EI,EI-Zi 10,Eischachen
+Do,08:50,BM KGc,IF,SHP BM 3,BM-KG 3,Bündtmättli
+Do,08:50,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Do,08:50,EI 1a,Deutsch,EI Lehrperson 09,EI-Zi 2,Eischachen
+Do,08:50,EI 1a,IF,SHP EI 1,EI-Zi 2,Eischachen
+Do,08:50,EI 1b,Bewegung und Sport,EI Lehrperson 10,EI-Halle 1,Eischachen
+Do,08:50,EI 2a,Mathematik,EI Lehrperson 01,EI-Zi 3,Eischachen
+Do,08:50,EI 2b,NMG,EI Lehrperson 02,EI-Zi 11,Eischachen
+Do,08:50,EI 3a,Deutsch,EI Lehrperson 04,EI-Zi 4,Eischachen
+Do,08:50,EI 3a,IF,SHP EI 3,EI-Zi 4,Eischachen
+Do,08:50,EI 3a,DaZ Anfang,DaZ EI,,Eischachen
+Do,08:50,EI 3b,TTG,TTG 2,EI-TTG,Eischachen
+Do,08:50,EI 4a,Mathematik,EI Lehrperson 08,EI-Zi 5,Eischachen
+Do,08:50,EI 4a,IF,SHP EI 2,EI-Zi 5,Eischachen
+Do,08:50,EI 4b,Musik,EI Lehrperson 05,EI-Zi 9,Eischachen
+Do,08:50,EI 5a,Deutsch,EI Lehrperson 06,EI-Zi 1,Eischachen
+Do,08:50,EI 6a,Deutsch,EI Lehrperson 07,EI-Zi 6,Eischachen
+Do,08:50,EI 6b,Französisch,Englisch/Französisch EI,EI-Zi 7,Eischachen
 Do,08:50,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
 Do,08:50,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
-Do,08:50,EI KGb,DaZ Aufbau,DaZ EI,,Eischachen
 Do,08:50,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
-Do,08:50,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
+Do,08:50,EI KGd,Bewegung und Sport,KG EI 3,EI-Halle 2,Eischachen
 Do,08:50,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Do,08:50,OS S1Aa,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
-Do,08:50,OS S1Ab,Englisch,OS Deutsch 5,OS-Zi 11,Oberstufe
-Do,08:50,OS S1B/S1Ca,Mathematik,OS Mathematik 2,OS-Zi 9,Oberstufe
-Do,08:50,OS S1B/S1Ca,IF,SHP OS 1,OS-Zi 9,Oberstufe
-Do,08:50,OS S1Ba,Mathematik,OS Mathematik 4,OS-Zi 7,Oberstufe
-Do,08:50,OS S1Ca,Französisch,OS Sprachen 3,OS-Zi 14,Oberstufe
-Do,08:50,OS S2Aa,NT,OS Mathematik 5,OS-Zi 10,Oberstufe
-Do,08:50,OS S2Ab,BG,OS Gestalten 2,OS-Zi 13,Oberstufe
-Do,08:50,OS S2Ba,Bewegung und Sport,OS Sport 1,OS-Halle 1,Oberstufe
-Do,08:50,OS S2Ca,NT,OS Mathematik 3,OS-Zi 8,Oberstufe
-Do,08:50,OS S2Cb,Englisch,OS Sprachen 4,OS-Zi 15,Oberstufe
-Do,08:50,OS S2Cb,DaZ Aufbau,DaZ OS,,Oberstufe
-Do,08:50,OS S3Aa,Französisch,OS Sprachen 1,OS-Zi 1,Oberstufe
-Do,08:50,OS S3Ab,Mathematik,OS Mathematik 1,OS-Zi 5,Oberstufe
-Do,08:50,OS S3B/S3Ca,Deutsch,OS Deutsch 2,OS-Zi 6,Oberstufe
-Do,08:50,OS S3B/S3Ca,IF,SHP OS 2,OS-Zi 6,Oberstufe
-Do,08:50,OS S3Ba,Deutsch,OS Deutsch 3,OS-Zi 3,Oberstufe
-Do,08:50,OS S3Ca,Deutsch,OS Sprachen 2,OS-Zi 4,Oberstufe
-Do,09:55,BM 1/2a,Deutsch,BM Lehrperson 04,BM-Zi 9,Bündtmättli
-Do,09:55,BM 1a,Deutsch,BM Lehrperson 13,BM-Zi 1,Bündtmättli
-Do,09:55,BM 1b,Deutsch,BM Lehrperson 09,BM-Zi 13,Bündtmättli
-Do,09:55,BM 1b,DaZ Anfang,DaZ Teilzeit,,Bündtmättli
-Do,09:55,BM 2a,Mathematik,BM Lehrperson 01,BM-Zi 8,Bündtmättli
-Do,09:55,BM 2a,IF,SHP BM 2,BM-Zi 8,Bündtmättli
-Do,09:55,BM 3/4a,Musik,BM Lehrperson 12,BM-Zi 12,Bündtmättli
-Do,09:55,BM 3a,Deutsch,BM Lehrperson 03,BM-Zi 3,Bündtmättli
-Do,09:55,BM 3b,Bewegung und Sport,BM Lehrperson 06,BM-Halle 1,Bündtmättli
-Do,09:55,BM 4a,Englisch,Englisch BM,BM-Zi 7,Bündtmättli
-Do,09:55,BM 4b,Deutsch,BM Lehrperson 05,BM-Zi 11,Bündtmättli
-Do,09:55,BM 5a,Bewegung und Sport,BM Lehrperson 08,BM-Halle 2,Bündtmättli
-Do,09:55,BM 5b,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Do,09:55,BM 6a,Mathematik,BM Lehrperson 11,BM-Zi 2,Bündtmättli
-Do,09:55,BM 6a,IF,SHP BM 1,BM-Zi 2,Bündtmättli
-Do,09:55,BM 6b,Mathematik,BM Lehrperson 07,BM-Zi 10,Bündtmättli
+Do,08:50,OS S1Aa,Mathematik,OS Mathematik 1,OS-Zi 3,Oberstufe
+Do,08:50,OS S1Ab,NT,OS Mathematik 2,OS-Zi 5,Oberstufe
+Do,08:50,OS S1B/S1Ca,Englisch,OS Sprachen 4,OS-Zi 10,Oberstufe
+Do,08:50,OS S1Ba,Deutsch,OS Deutsch 3,OS-Zi 8,Oberstufe
+Do,08:50,OS S1Ba,IF,SHP OS 2,OS-Zi 8,Oberstufe
+Do,08:50,OS S1Ca,RZG,OS Deutsch 2,OS-Zi 15,Oberstufe
+Do,08:50,OS S2Aa,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Do,08:50,OS S2Ab,NT,OS Mathematik 4,OS-Zi 13,Oberstufe
+Do,08:50,OS S2Ba,RZG,OS Deutsch 4,OS-Zi 9,Oberstufe
+Do,08:50,OS S2Ca,Mathematik,OS Mathematik 5,OS-Zi 11,Oberstufe
+Do,08:50,OS S2Cb,Englisch,OS Sprachen 3,OS-Zi 14,Oberstufe
+Do,08:50,OS S3Aa,Bewegung und Sport,OS Sport 1,OS-Halle 2,Oberstufe
+Do,08:50,OS S3Ab,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
+Do,08:50,OS S3Ba,Französisch,OS Sprachen 2,OS-Zi 1,Oberstufe
+Do,08:50,OS S3Bb,Deutsch,OS Deutsch 1,OS-Zi 2,Oberstufe
+Do,08:50,OS S3Bb,IF,SHP OS 1,OS-Zi 2,Oberstufe
+Do,08:50,OS S3Ca,Englisch,OS Sprachen 1,OS-Zi 12,Oberstufe
+Do,08:50,OS S3Ca,DaZ Aufbau,DaZ OS,,Oberstufe
+Do,09:55,BM 1a,Mathematik,BM Unterstufe Teilzeit,BM-Zi 5,Bündtmättli
+Do,09:55,BM 1a,DaZ Anfang,DaZ Teilzeit,,Bündtmättli
+Do,09:55,BM 1b,Mathematik,BM Lehrperson 02,BM-Zi 10,Bündtmättli
+Do,09:55,BM 2a,Deutsch,BM Lehrperson 13,BM-Zi 7,Bündtmättli
+Do,09:55,BM 2b,NMG,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Do,09:55,BM 3a,BG,BM Lehrperson 03,BM-Zi 1,Bündtmättli
+Do,09:55,BM 3b,NMG,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Do,09:55,BM 4a,Mathematik,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Do,09:55,BM 4a,IF,SHP BM 2,BM-Zi 3,Bündtmättli
+Do,09:55,BM 4b,Musik,BM Lehrperson 07,BM-Zi 6,Bündtmättli
+Do,09:55,BM 5a,Englisch,Französisch BM,BM-Zi 4,Bündtmättli
+Do,09:55,BM 5b,Mathematik,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Do,09:55,BM 5c,Musik,BM Lehrperson 09,BM-Zi 13,Bündtmättli
+Do,09:55,BM 5c,DaZ Anfang,DaZ BM,,Bündtmättli
+Do,09:55,BM 6a,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Do,09:55,BM 6b,Mathematik,BM Lehrperson 10,BM-Zi 11,Bündtmättli
+Do,09:55,BM 6b,IF,SHP BM 1,BM-Zi 11,Bündtmättli
 Do,09:55,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
 Do,09:55,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
+Do,09:55,BM KGb,IF,SHP BM 3,BM-KG 2,Bündtmättli
 Do,09:55,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Do,09:55,BM KGc,IF,SHP BM 3,BM-KG 3,Bündtmättli
+Do,09:55,BM KGd,Bewegung und Sport,KG BM 3,BM-Halle 1,Bündtmättli
 Do,09:55,EI 1a,TTG,TTG 2,EI-TTG,Eischachen
-Do,09:55,EI 1b,Mathematik,EI Lehrperson 06,EI-Zi 11,Eischachen
-Do,09:55,EI 2a,Deutsch,EI Lehrperson 03,EI-Zi 1,Eischachen
-Do,09:55,EI 2b,Mathematik,EI Lehrperson 01,EI-Zi 9,Eischachen
-Do,09:55,EI 3a,Mathematik,EI Lehrperson 04,EI-Zi 3,Eischachen
-Do,09:55,EI 3a,IF,SHP EI 1,EI-Zi 3,Eischachen
-Do,09:55,EI 3a,DaZ Aufbau,DaZ EI,,Eischachen
-Do,09:55,EI 4a,Mathematik,EI Lehrperson 09,EI-Zi 4,Eischachen
-Do,09:55,EI 4a,IF,SHP EI 2,EI-Zi 4,Eischachen
-Do,09:55,EI 4b,Deutsch,EI Lehrperson 05,EI-Zi 6,Eischachen
-Do,09:55,EI 5/6a,Bewegung und Sport,EI Lehrperson 10,EI-Halle 1,Eischachen
-Do,09:55,EI 5a,Deutsch,EI Lehrperson 02,EI-Zi 8,Eischachen
-Do,09:55,EI 6a,BG,EI Lehrperson 07,EI-Zi 5,Eischachen
-Do,09:55,EI 6b,Französisch,Englisch/Französisch EI,EI-Zi 10,Eischachen
-Do,09:55,EI KGa,Bewegung und Sport,KG EI 1,EI-Halle 2,Eischachen
+Do,09:55,EI 1b,Deutsch,EI Lehrperson 10,EI-Zi 10,Eischachen
+Do,09:55,EI 1b,IF,SHP EI 1,EI-Zi 10,Eischachen
+Do,09:55,EI 2a,Deutsch,EI Lehrperson 01,EI-Zi 3,Eischachen
+Do,09:55,EI 2a,IF,SHP EI 2,EI-Zi 3,Eischachen
+Do,09:55,EI 2b,Mathematik,EI Lehrperson 02,EI-Zi 11,Eischachen
+Do,09:55,EI 3a,Mathematik,EI Lehrperson 04,EI-Zi 4,Eischachen
+Do,09:55,EI 3a,IF,SHP EI 3,EI-Zi 4,Eischachen
+Do,09:55,EI 3a,DaZ Anfang,DaZ EI,,Eischachen
+Do,09:55,EI 3b,Bewegung und Sport,EI Lehrperson 03,EI-Halle 2,Eischachen
+Do,09:55,EI 4a,Bewegung und Sport,EI Lehrperson 08,EI-Halle 1,Eischachen
+Do,09:55,EI 4b,Mathematik,EI Lehrperson 05,EI-Zi 9,Eischachen
+Do,09:55,EI 5a,NMG,EI Lehrperson 06,EI-Zi 1,Eischachen
+Do,09:55,EI 6a,Englisch,Englisch/Französisch EI,EI-Zi 6,Eischachen
+Do,09:55,EI 6b,Mathematik,EI Lehrperson 07,EI-Zi 7,Eischachen
+Do,09:55,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
 Do,09:55,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
-Do,09:55,EI KGb,IF,SHP EI 3,EI-KG 2,Eischachen
 Do,09:55,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
 Do,09:55,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
 Do,09:55,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Do,09:55,IF Wald-KGa,DaZ Anfang,DaZ BM,,Im Feld
-Do,09:55,OS S1Aa,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
-Do,09:55,OS S1Ab,BG,OS Gestalten 2,OS-Zi 11,Oberstufe
-Do,09:55,OS S1B/S1Ca,NT,OS Mathematik 2,OS-Zi 9,Oberstufe
-Do,09:55,OS S1Ba,Deutsch,OS Deutsch 5,OS-Zi 7,Oberstufe
-Do,09:55,OS S1Ba,IF,SHP OS 2,OS-Zi 7,Oberstufe
-Do,09:55,OS S1Ca,Mathematik,OS Mathematik 4,OS-Zi 14,Oberstufe
-Do,09:55,OS S1Ca,IF,SHP OS 1,OS-Zi 14,Oberstufe
-Do,09:55,OS S2Aa,Französisch,OS Sprachen 4,OS-Zi 10,Oberstufe
-Do,09:55,OS S2Ab,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Do,09:55,OS S2Ba,Französisch,OS Sprachen 2,OS-Zi 12,Oberstufe
-Do,09:55,OS S2Ca,Englisch,OS Sprachen 3,OS-Zi 8,Oberstufe
-Do,09:55,OS S2Cb,Deutsch,OS Deutsch 1,OS-Zi 15,Oberstufe
-Do,09:55,OS S2Cb,DaZ Aufbau,DaZ OS,,Oberstufe
-Do,09:55,OS S3Aa,Mathematik,OS Mathematik 3,OS-Zi 1,Oberstufe
-Do,09:55,OS S3Ab,RZG,OS Deutsch 3,OS-Zi 5,Oberstufe
-Do,09:55,OS S3B/S3Ca,RZG,OS Mathematik 5,OS-Zi 6,Oberstufe
-Do,09:55,OS S3Ba,NT,OS Sport 1,OS-Zi 3,Oberstufe
-Do,09:55,OS S3Ca,NT,OS Mathematik 1,OS-Zi 4,Oberstufe
-Do,10:45,BM 1/2a,Deutsch,BM Lehrperson 04,BM-Zi 9,Bündtmättli
-Do,10:45,BM 1a,Bewegung und Sport,BM Lehrperson 11,BM-Halle 1,Bündtmättli
-Do,10:45,BM 1b,BG,BM Lehrperson 07,BM-Zi 13,Bündtmättli
-Do,10:45,BM 2a,NMG,BM Lehrperson 13,BM-Zi 8,Bündtmättli
-Do,10:45,BM 3/4a,BG,BM Lehrperson 12,BM-Zi 12,Bündtmättli
-Do,10:45,BM 3a,Deutsch,BM Lehrperson 03,BM-Zi 3,Bündtmättli
-Do,10:45,BM 3b,Mathematik,BM Lehrperson 06,BM-Zi 6,Bündtmättli
-Do,10:45,BM 3b,IF,SHP BM 3,BM-Zi 6,Bündtmättli
-Do,10:45,BM 4a,Bewegung und Sport,BM Lehrperson 09,BM-Halle 2,Bündtmättli
-Do,10:45,BM 4b,Englisch,Englisch BM,BM-Zi 11,Bündtmättli
-Do,10:45,BM 5a,BG,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Do,10:45,BM 5a,DaZ Aufbau,DaZ Teilzeit,,Bündtmättli
-Do,10:45,BM 5b,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Do,10:45,BM 6a,BG,BM Lehrperson 05,BM-Zi 2,Bündtmättli
-Do,10:45,BM 6b,Französisch,Französisch BM,BM-Zi 10,Bündtmättli
+Do,09:55,OS S1Aa,Mathematik,OS Mathematik 1,OS-Zi 3,Oberstufe
+Do,09:55,OS S1Aa,DaZ Anfang,DaZ OS,,Oberstufe
+Do,09:55,OS S1Ab,Mathematik,OS Mathematik 4,OS-Zi 5,Oberstufe
+Do,09:55,OS S1B/S1Ca,RZG,OS Deutsch 3,OS-Zi 10,Oberstufe
+Do,09:55,OS S1Ba,Bewegung und Sport,OS Sport 1,OS-Halle 1,Oberstufe
+Do,09:55,OS S1Ca,Französisch,OS Sprachen 3,OS-Zi 15,Oberstufe
+Do,09:55,OS S2Aa,Deutsch,OS Deutsch 2,OS-Zi 4,Oberstufe
+Do,09:55,OS S2Ab,Französisch,OS Sprachen 4,OS-Zi 13,Oberstufe
+Do,09:55,OS S2Ba,Französisch,OS Sprachen 1,OS-Zi 9,Oberstufe
+Do,09:55,OS S2Ca,Bewegung und Sport,OS Sport 2,OS-Halle 2,Oberstufe
+Do,09:55,OS S2Cb,Deutsch,OS Deutsch 4,OS-Zi 14,Oberstufe
+Do,09:55,OS S3Aa,Mathematik,OS Mathematik 5,OS-Zi 6,Oberstufe
+Do,09:55,OS S3Ab,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
+Do,09:55,OS S3Ba,Deutsch,OS Sprachen 2,OS-Zi 1,Oberstufe
+Do,09:55,OS S3Bb,Mathematik,OS Mathematik 2,OS-Zi 2,Oberstufe
+Do,09:55,OS S3Bb,IF,SHP OS 1,OS-Zi 2,Oberstufe
+Do,09:55,OS S3Ca,Deutsch,OS Deutsch 1,OS-Zi 12,Oberstufe
+Do,09:55,OS S3Ca,IF,SHP OS 2,OS-Zi 12,Oberstufe
+Do,10:45,BM 1a,Mathematik,BM Unterstufe Teilzeit,BM-Zi 5,Bündtmättli
+Do,10:45,BM 1a,IF,SHP BM 2,BM-Zi 5,Bündtmättli
+Do,10:45,BM 1a,DaZ Aufbau,DaZ BM,,Bündtmättli
+Do,10:45,BM 1b,BG,BM Lehrperson 07,BM-Zi 10,Bündtmättli
+Do,10:45,BM 2a,Deutsch,BM Lehrperson 13,BM-Zi 7,Bündtmättli
+Do,10:45,BM 2a,IF,SHP BM 3,BM-Zi 7,Bündtmättli
+Do,10:45,BM 2b,Deutsch,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Do,10:45,BM 3a,Bewegung und Sport,BM Lehrperson 03,BM-Halle 2,Bündtmättli
+Do,10:45,BM 3a,DaZ Aufbau,DaZ Teilzeit,,Bündtmättli
+Do,10:45,BM 3b,BG,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Do,10:45,BM 4a,NMG,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Do,10:45,BM 4b,NMG,BM Lehrperson 02,BM-Zi 6,Bündtmättli
+Do,10:45,BM 5a,Französisch,Französisch BM,BM-Zi 4,Bündtmättli
+Do,10:45,BM 5b,NMG,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Do,10:45,BM 5c,NMG,BM Lehrperson 09,BM-Zi 13,Bündtmättli
+Do,10:45,BM 6a,Bewegung und Sport,BM Lehrperson 12,BM-Halle 1,Bündtmättli
+Do,10:45,BM 6b,Deutsch,BM Lehrperson 10,BM-Zi 11,Bündtmättli
 Do,10:45,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
-Do,10:45,BM KGa,IF,SHP BM 2,BM-KG 1,Bündtmättli
+Do,10:45,BM KGa,IF,SHP BM 1,BM-KG 1,Bündtmättli
 Do,10:45,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
-Do,10:45,BM KGb,IF,SHP BM 1,BM-KG 2,Bündtmättli
 Do,10:45,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
+Do,10:45,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
 Do,10:45,EI 1a,TTG,TTG 2,EI-TTG,Eischachen
-Do,10:45,EI 1b,NMG,EI Lehrperson 06,EI-Zi 11,Eischachen
-Do,10:45,EI 2a,Deutsch,EI Lehrperson 03,EI-Zi 1,Eischachen
-Do,10:45,EI 2a,DaZ Anfang,DaZ EI,,Eischachen
-Do,10:45,EI 2b,BG,EI Lehrperson 01,EI-Zi 9,Eischachen
-Do,10:45,EI 3a,Bewegung und Sport,EI Lehrperson 04,EI-Halle 1,Eischachen
-Do,10:45,EI 4a,Mathematik,EI Lehrperson 09,EI-Zi 4,Eischachen
-Do,10:45,EI 4a,IF,SHP EI 2,EI-Zi 4,Eischachen
-Do,10:45,EI 4b,Deutsch,EI Lehrperson 05,EI-Zi 6,Eischachen
-Do,10:45,EI 4b,IF,SHP EI 3,EI-Zi 6,Eischachen
-Do,10:45,EI 5/6a,NMG,EI Lehrperson 10,EI-Zi 7,Eischachen
-Do,10:45,EI 5a,Deutsch,EI Lehrperson 02,EI-Zi 8,Eischachen
-Do,10:45,EI 5a,IF,SHP EI 1,EI-Zi 8,Eischachen
-Do,10:45,EI 6a,Französisch,Englisch/Französisch EI,EI-Zi 5,Eischachen
-Do,10:45,EI 6b,Deutsch,EI Lehrperson 07,EI-Zi 10,Eischachen
+Do,10:45,EI 1b,Deutsch,EI Lehrperson 10,EI-Zi 10,Eischachen
+Do,10:45,EI 2a,Deutsch,EI Lehrperson 01,EI-Zi 3,Eischachen
+Do,10:45,EI 2a,IF,SHP EI 2,EI-Zi 3,Eischachen
+Do,10:45,EI 2b,Deutsch,EI Lehrperson 02,EI-Zi 11,Eischachen
+Do,10:45,EI 2b,IF,SHP EI 1,EI-Zi 11,Eischachen
+Do,10:45,EI 3a,Deutsch,EI Lehrperson 04,EI-Zi 4,Eischachen
+Do,10:45,EI 3b,Mathematik,EI Lehrperson 03,EI-Zi 8,Eischachen
+Do,10:45,EI 4a,Mathematik,EI Lehrperson 08,EI-Zi 5,Eischachen
+Do,10:45,EI 4b,Bewegung und Sport,EI Lehrperson 05,EI-Halle 1,Eischachen
+Do,10:45,EI 5a,NMG,EI Lehrperson 06,EI-Zi 1,Eischachen
+Do,10:45,EI 6a,Deutsch,EI Lehrperson 07,EI-Zi 6,Eischachen
+Do,10:45,EI 6a,IF,SHP EI 3,EI-Zi 6,Eischachen
+Do,10:45,EI 6b,Englisch,Englisch/Französisch EI,EI-Zi 7,Eischachen
 Do,10:45,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
+Do,10:45,EI KGa,DaZ Anfang,DaZ EI,,Eischachen
 Do,10:45,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
 Do,10:45,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
 Do,10:45,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
 Do,10:45,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Do,10:45,OS S1Aa,NT,OS Mathematik 2,OS-Zi 2,Oberstufe
-Do,10:45,OS S1Ab,Französisch,OS Sprachen 2,OS-Zi 11,Oberstufe
-Do,10:45,OS S1B/S1Ca,BG,OS Gestalten 1,OS-Zi 9,Oberstufe
-Do,10:45,OS S1Ba,Mathematik,OS Mathematik 4,OS-Zi 7,Oberstufe
-Do,10:45,OS S1Ca,Deutsch,OS Deutsch 5,OS-Zi 14,Oberstufe
-Do,10:45,OS S2Aa,Mathematik,OS Mathematik 5,OS-Zi 10,Oberstufe
-Do,10:45,OS S2Aa,IF,SHP OS 1,OS-Zi 10,Oberstufe
-Do,10:45,OS S2Ab,BG,OS Gestalten 2,OS-Zi 13,Oberstufe
-Do,10:45,OS S2Ba,Deutsch,OS Deutsch 4,OS-Zi 12,Oberstufe
-Do,10:45,OS S2Ca,Französisch,OS Sprachen 3,OS-Zi 8,Oberstufe
-Do,10:45,OS S2Cb,Französisch,OS Sprachen 4,OS-Zi 15,Oberstufe
-Do,10:45,OS S3Aa,Mathematik,OS Mathematik 3,OS-Zi 1,Oberstufe
-Do,10:45,OS S3Aa,IF,SHP OS 2,OS-Zi 1,Oberstufe
-Do,10:45,OS S3Ab,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Do,10:45,OS S3B/S3Ca,NT,OS Sport 1,OS-Zi 6,Oberstufe
-Do,10:45,OS S3Ba,RZG,OS Deutsch 3,OS-Zi 3,Oberstufe
-Do,10:45,OS S3Ca,Mathematik,OS Mathematik 1,OS-Zi 4,Oberstufe
-Do,10:45,OS S3Ca,DaZ Aufbau,DaZ OS,,Oberstufe
-Do,13:30,BM 1b,Deutsch,BM Lehrperson 09,BM-Zi 13,Bündtmättli
-Do,13:30,BM 1b,IF,SHP BM 3,BM-Zi 13,Bündtmättli
-Do,13:30,BM 2a,Bewegung und Sport,BM Lehrperson 01,BM-Halle 1,Bündtmättli
-Do,13:30,BM 3/4a,Deutsch,BM Lehrperson 02,BM-Zi 12,Bündtmättli
-Do,13:30,BM 3/4a,IF,SHP BM 1,BM-Zi 12,Bündtmättli
-Do,13:30,BM 3a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Do,13:30,BM 4b,NMG,BM Lehrperson 05,BM-Zi 11,Bündtmättli
-Do,13:30,BM 5a,Deutsch,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Do,13:30,BM 5a,IF,SHP BM 2,BM-Zi 4,Bündtmättli
-Do,13:30,BM 5b,Französisch,Französisch BM,BM-Zi 5,Bündtmättli
-Do,13:30,BM 6a,NMG,BM Lehrperson 11,BM-Zi 2,Bündtmättli
-Do,13:30,BM 6b,NMG,BM Lehrperson 04,BM-Zi 10,Bündtmättli
+Do,10:45,OS S1Aa,Französisch,OS Sprachen 4,OS-Zi 3,Oberstufe
+Do,10:45,OS S1Aa,DaZ Anfang,DaZ OS,,Oberstufe
+Do,10:45,OS S1Ab,BG,OS Gestalten 1,OS-Zi 5,Oberstufe
+Do,10:45,OS S1B/S1Ca,Mathematik,OS Mathematik 1,OS-Zi 10,Oberstufe
+Do,10:45,OS S1Ba,RZG,OS Deutsch 3,OS-Zi 8,Oberstufe
+Do,10:45,OS S1Ca,Mathematik,OS Mathematik 3,OS-Zi 15,Oberstufe
+Do,10:45,OS S2Aa,Deutsch,OS Deutsch 2,OS-Zi 4,Oberstufe
+Do,10:45,OS S2Aa,IF,SHP OS 1,OS-Zi 4,Oberstufe
+Do,10:45,OS S2Ab,Mathematik,OS Mathematik 4,OS-Zi 13,Oberstufe
+Do,10:45,OS S2Ab,IF,SHP OS 2,OS-Zi 13,Oberstufe
+Do,10:45,OS S2Ba,Mathematik,OS Mathematik 2,OS-Zi 9,Oberstufe
+Do,10:45,OS S2Ca,RZG,OS Mathematik 5,OS-Zi 11,Oberstufe
+Do,10:45,OS S2Cb,Deutsch,OS Deutsch 4,OS-Zi 14,Oberstufe
+Do,10:45,OS S3Aa,Deutsch,OS Sprachen 1,OS-Zi 6,Oberstufe
+Do,10:45,OS S3Ab,Französisch,OS Sprachen 3,OS-Zi 7,Oberstufe
+Do,10:45,OS S3Ba,Englisch,OS Sprachen 2,OS-Zi 1,Oberstufe
+Do,10:45,OS S3Bb,Berufliche Orientierung,OS Deutsch 1,OS-Zi 2,Oberstufe
+Do,10:45,OS S3Ca,Bewegung und Sport,OS Sport 1,OS-Halle 1,Oberstufe
+Do,13:30,BM 1b,Bewegung und Sport,BM Lehrperson 12,BM-Halle 1,Bündtmättli
+Do,13:30,BM 2b,Deutsch,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Do,13:30,BM 2b,IF,SHP BM 2,BM-Zi 9,Bündtmättli
+Do,13:30,BM 3a,NMG,BM Lehrperson 03,BM-Zi 1,Bündtmättli
+Do,13:30,BM 3b,Mathematik,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Do,13:30,BM 4a,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Do,13:30,BM 4b,Englisch,Englisch BM,BM-Zi 6,Bündtmättli
+Do,13:30,BM 5a,Bewegung und Sport,BM Lehrperson 11,BM-Halle 2,Bündtmättli
+Do,13:30,BM 5b,NMG,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Do,13:30,BM 5c,Deutsch,BM Lehrperson 05,BM-Zi 13,Bündtmättli
+Do,13:30,BM 6a,BG,BM Lehrperson 09,BM-Zi 2,Bündtmättli
+Do,13:30,BM 6b,NMG,BM Lehrperson 10,BM-Zi 11,Bündtmättli
 Do,13:30,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
-Do,13:30,BM KGa,DaZ Aufbau,DaZ BM,,Bündtmättli
-Do,13:30,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
+Do,13:30,BM KGa,IF,SHP BM 1,BM-KG 1,Bündtmättli
+Do,13:30,BM KGa,DaZ Anfang,DaZ BM,,Bündtmättli
 Do,13:30,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Do,13:30,EI 3a,NMG,Primar Springer,EI-Zi 3,Eischachen
-Do,13:30,EI 4a,Deutsch,EI Lehrperson 05,EI-Zi 4,Eischachen
-Do,13:30,EI 4b,Englisch,Englisch/Französisch EI,EI-Zi 6,Eischachen
-Do,13:30,EI 5/6a,Mathematik,EI Lehrperson 09,EI-Zi 7,Eischachen
-Do,13:30,EI 5/6a,IF,SHP EI 1,EI-Zi 7,Eischachen
-Do,13:30,EI 5a,Bewegung und Sport,EI Lehrperson 06,EI-Halle 1,Eischachen
-Do,13:30,EI 6a,NMG,EI Lehrperson 08,EI-Zi 5,Eischachen
-Do,13:30,EI 6b,NMG,EI Lehrperson 11,EI-Zi 10,Eischachen
-Do,13:30,OS S1Aa,Mathematik,OS Mathematik 2,OS-Zi 2,Oberstufe
-Do,13:30,OS S1Ab,TTG,OS Gestalten 2,OS-TTG 1,Oberstufe
-Do,13:30,OS S1B/S1Ca,Englisch,OS Sprachen 3,OS-Zi 9,Oberstufe
-Do,13:30,OS S1Ba,Englisch,OS Sprachen 2,OS-Zi 7,Oberstufe
-Do,13:30,OS S1Ca,Deutsch,OS Deutsch 5,OS-Zi 14,Oberstufe
-Do,13:30,OS S2Aa,RZG,OS Deutsch 4,OS-Zi 10,Oberstufe
-Do,13:30,OS S2Ab,NT,OS Mathematik 1,OS-Zi 13,Oberstufe
-Do,13:30,OS S2Ba,NT,OS Sport 1,OS-Zi 12,Oberstufe
-Do,13:30,OS S2Ca,Deutsch,OS Deutsch 2,OS-Zi 8,Oberstufe
-Do,13:30,OS S2Ca,IF,SHP OS 1,OS-Zi 8,Oberstufe
-Do,13:30,OS S2Cb,Mathematik,OS Mathematik 4,OS-Zi 15,Oberstufe
-Do,13:30,OS S3Aa,NT,OS Mathematik 3,OS-Zi 1,Oberstufe
-Do,13:30,OS S3Ab,Französisch,OS Sprachen 4,OS-Zi 5,Oberstufe
-Do,13:30,OS S3B/S3Ca,Mathematik,OS Mathematik 5,OS-Zi 6,Oberstufe
-Do,13:30,OS S3B/S3Ca,IF,SHP OS 2,OS-Zi 6,Oberstufe
-Do,13:30,OS S3Ba,Englisch,OS Sprachen 1,OS-Zi 3,Oberstufe
-Do,13:30,OS S3Ca,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Do,14:20,BM 2a,Deutsch,BM Lehrperson 01,BM-Zi 8,Bündtmättli
-Do,14:20,BM 2a,IF,SHP BM 2,BM-Zi 8,Bündtmättli
-Do,14:20,BM 3/4a,Bewegung und Sport,BM Lehrperson 02,BM-Halle 1,Bündtmättli
-Do,14:20,BM 3a,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Do,14:20,BM 4b,Deutsch,BM Lehrperson 05,BM-Zi 11,Bündtmättli
-Do,14:20,BM 5a,Französisch,Französisch BM,BM-Zi 4,Bündtmättli
-Do,14:20,BM 5b,Deutsch,BM Lehrperson 09,BM-Zi 5,Bündtmättli
-Do,14:20,BM 5b,IF,SHP BM 3,BM-Zi 5,Bündtmättli
-Do,14:20,BM 6a,Mathematik,BM Lehrperson 11,BM-Zi 2,Bündtmättli
-Do,14:20,BM 6a,IF,SHP BM 1,BM-Zi 2,Bündtmättli
-Do,14:20,BM 6b,Bewegung und Sport,BM Lehrperson 04,BM-Halle 2,Bündtmättli
+Do,13:30,BM KGc,IF,SHP BM 3,BM-KG 3,Bündtmättli
+Do,13:30,EI 1a,BG,EI Lehrperson 08,EI-Zi 2,Eischachen
+Do,13:30,EI 1b,Mathematik,Primar Springer,EI-Zi 10,Eischachen
+Do,13:30,EI 3b,Deutsch,EI Lehrperson 03,EI-Zi 8,Eischachen
+Do,13:30,EI 4b,Englisch,Englisch/Französisch EI,EI-Zi 9,Eischachen
+Do,13:30,EI 5a,Mathematik,EI Lehrperson 06,EI-Zi 1,Eischachen
+Do,13:30,EI 5a,IF,SHP EI 2,EI-Zi 1,Eischachen
+Do,13:30,EI 6a,Mathematik,EI Lehrperson 09,EI-Zi 6,Eischachen
+Do,13:30,EI 6b,TTG,TTG 2,EI-TTG,Eischachen
+Do,13:30,OS S1Aa,Bewegung und Sport,OS Sport 1,OS-Halle 2,Oberstufe
+Do,13:30,OS S1Ab,Deutsch,OS Deutsch 5,OS-Zi 5,Oberstufe
+Do,13:30,OS S1B/S1Ca,TTG,OS Gestalten 2,OS-TTG 2,Oberstufe
+Do,13:30,OS S1Ba,Französisch,OS Sprachen 4,OS-Zi 8,Oberstufe
+Do,13:30,OS S1Ca,Englisch,OS Sprachen 3,OS-Zi 15,Oberstufe
+Do,13:30,OS S2Aa,Französisch,OS Sprachen 2,OS-Zi 4,Oberstufe
+Do,13:30,OS S2Ab,Mathematik,OS Mathematik 4,OS-Zi 13,Oberstufe
+Do,13:30,OS S2Ab,IF,SHP OS 2,OS-Zi 13,Oberstufe
+Do,13:30,OS S2Ba,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Do,13:30,OS S2Ca,NT,OS Mathematik 5,OS-Zi 11,Oberstufe
+Do,13:30,OS S2Cb,RZG,OS Deutsch 4,OS-Zi 14,Oberstufe
+Do,13:30,OS S3Aa,Deutsch,OS Sprachen 1,OS-Zi 6,Oberstufe
+Do,13:30,OS S3Ab,Deutsch,OS Deutsch 3,OS-Zi 7,Oberstufe
+Do,13:30,OS S3Ab,IF,SHP OS 1,OS-Zi 7,Oberstufe
+Do,13:30,OS S3Ba,NT,OS Mathematik 3,OS-Zi 1,Oberstufe
+Do,13:30,OS S3Bb,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
+Do,13:30,OS S3Ca,Mathematik,OS Mathematik 2,OS-Zi 12,Oberstufe
+Do,14:20,BM 2b,Bewegung und Sport,BM Lehrperson 01,BM-Halle 1,Bündtmättli
+Do,14:20,BM 3a,Deutsch,BM Lehrperson 03,BM-Zi 1,Bündtmättli
+Do,14:20,BM 3a,IF,SHP BM 3,BM-Zi 1,Bündtmättli
+Do,14:20,BM 3b,Englisch,Englisch BM,BM-Zi 12,Bündtmättli
+Do,14:20,BM 4a,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Do,14:20,BM 4b,Bewegung und Sport,BM Lehrperson 05,BM-Halle 2,Bündtmättli
+Do,14:20,BM 5a,NMG,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Do,14:20,BM 5b,Musik,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Do,14:20,BM 5c,BG,BM Lehrperson 09,BM-Zi 13,Bündtmättli
+Do,14:20,BM 6a,Mathematik,BM Lehrperson 12,BM-Zi 2,Bündtmättli
+Do,14:20,BM 6a,IF,SHP BM 2,BM-Zi 2,Bündtmättli
+Do,14:20,BM 6b,Deutsch,BM Lehrperson 10,BM-Zi 11,Bündtmättli
+Do,14:20,BM 6b,IF,SHP BM 1,BM-Zi 11,Bündtmättli
 Do,14:20,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
 Do,14:20,BM KGa,DaZ Anfang,DaZ BM,,Bündtmättli
-Do,14:20,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
 Do,14:20,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Do,14:20,EI 3a,NMG,Primar Springer,EI-Zi 3,Eischachen
-Do,14:20,EI 4a,Musik,EI Lehrperson 09,EI-Zi 4,Eischachen
-Do,14:20,EI 4b,Musik,EI Lehrperson 05,EI-Zi 6,Eischachen
-Do,14:20,EI 5/6a,Französisch,Englisch/Französisch EI,EI-Zi 7,Eischachen
-Do,14:20,EI 5a,Mathematik,EI Lehrperson 06,EI-Zi 8,Eischachen
-Do,14:20,EI 5a,IF,SHP EI 1,EI-Zi 8,Eischachen
-Do,14:20,EI 6a,Deutsch,EI Lehrperson 08,EI-Zi 5,Eischachen
-Do,14:20,EI 6b,Mathematik,EI Lehrperson 11,EI-Zi 10,Eischachen
-Do,14:20,OS S1Aa,Deutsch,OS Deutsch 2,OS-Zi 2,Oberstufe
-Do,14:20,OS S1Ab,TTG,OS Gestalten 2,OS-TTG 1,Oberstufe
-Do,14:20,OS S1B/S1Ca,Mathematik,OS Mathematik 2,OS-Zi 9,Oberstufe
-Do,14:20,OS S1Ca,Englisch,OS Deutsch 5,OS-Zi 14,Oberstufe
-Do,14:20,OS S2Aa,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Do,14:20,OS S2Ab,Mathematik,OS Mathematik 1,OS-Zi 13,Oberstufe
-Do,14:20,OS S2Ba,Deutsch,OS Deutsch 4,OS-Zi 12,Oberstufe
-Do,14:20,OS S2Ba,IF,SHP OS 2,OS-Zi 12,Oberstufe
-Do,14:20,OS S3Aa,Englisch,OS Sprachen 1,OS-Zi 1,Oberstufe
-Do,14:20,OS S3Ab,Englisch,OS Sprachen 4,OS-Zi 5,Oberstufe
-Do,14:20,OS S3B/S3Ca,Mathematik,OS Mathematik 5,OS-Zi 6,Oberstufe
-Do,14:20,OS S3Ba,Mathematik,OS Mathematik 3,OS-Zi 3,Oberstufe
-Do,14:20,OS S3Ba,IF,SHP OS 1,OS-Zi 3,Oberstufe
-Do,14:20,OS S3Ca,Englisch,OS Sprachen 2,OS-Zi 4,Oberstufe
-Fr,08:00,BM 1/2a,Mathematik,BM Lehrperson 02,BM-Zi 9,Bündtmättli
-Fr,08:00,BM 1/2a,IF,SHP BM 3,BM-Zi 9,Bündtmättli
-Fr,08:00,BM 1a,BG,BM Lehrperson 11,BM-Zi 1,Bündtmättli
-Fr,08:00,BM 1b,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Fr,08:00,BM 1b,DaZ Anfang,DaZ Teilzeit,,Bündtmättli
-Fr,08:00,BM 2a,NMG,BM Lehrperson 13,BM-Zi 8,Bündtmättli
-Fr,08:00,BM 3/4a,NMG,BM Lehrperson 10,BM-Zi 12,Bündtmättli
-Fr,08:00,BM 3a,Bewegung und Sport,BM Lehrperson 01,BM-Halle 1,Bündtmättli
-Fr,08:00,BM 3b,Deutsch,BM Lehrperson 03,BM-Zi 6,Bündtmättli
-Fr,08:00,BM 4a,BG,BM Lehrperson 09,BM-Zi 7,Bündtmättli
-Fr,08:00,BM 4b,Bewegung und Sport,BM Lehrperson 12,BM-Halle 2,Bündtmättli
-Fr,08:00,BM 5a,Deutsch,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Fr,08:00,BM 5a,IF,SHP BM 2,BM-Zi 4,Bündtmättli
-Fr,08:00,BM 5b,Englisch,Französisch BM,BM-Zi 5,Bündtmättli
-Fr,08:00,BM 6a,Deutsch,BM Lehrperson 05,BM-Zi 2,Bündtmättli
-Fr,08:00,BM 6b,NMG,BM Lehrperson 04,BM-Zi 10,Bündtmättli
+Do,14:20,EI 3b,Deutsch,EI Lehrperson 03,EI-Zi 8,Eischachen
+Do,14:20,EI 5a,Deutsch,EI Lehrperson 06,EI-Zi 1,Eischachen
+Do,14:20,EI 5a,IF,SHP EI 2,EI-Zi 1,Eischachen
+Do,14:20,EI 6a,Bewegung und Sport,EI Lehrperson 09,EI-Halle 1,Eischachen
+Do,14:20,EI 6b,TTG,TTG 2,EI-TTG,Eischachen
+Do,14:20,OS S1Aa,Englisch,OS Sprachen 4,OS-Zi 3,Oberstufe
+Do,14:20,OS S1Ab,Deutsch,OS Deutsch 5,OS-Zi 5,Oberstufe
+Do,14:20,OS S1Ab,IF,SHP OS 2,OS-Zi 5,Oberstufe
+Do,14:20,OS S1B/S1Ca,TTG,OS Gestalten 2,OS-TTG 2,Oberstufe
+Do,14:20,OS S1Ba,Deutsch,OS Deutsch 3,OS-Zi 8,Oberstufe
+Do,14:20,OS S2Ab,NT,OS Mathematik 4,OS-Zi 13,Oberstufe
+Do,14:20,OS S3Aa,NT,OS Sport 1,OS-Zi 6,Oberstufe
+Do,14:20,OS S3Ab,Englisch,OS Sprachen 3,OS-Zi 7,Oberstufe
+Do,14:20,OS S3Ba,Mathematik,OS Mathematik 3,OS-Zi 1,Oberstufe
+Do,14:20,OS S3Ba,IF,SHP OS 1,OS-Zi 1,Oberstufe
+Do,14:20,OS S3Bb,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
+Do,14:20,OS S3Ca,Mathematik,OS Mathematik 2,OS-Zi 12,Oberstufe
+Fr,08:00,BM 1a,Bewegung und Sport,BM Lehrperson 05,BM-Halle 1,Bündtmättli
+Fr,08:00,BM 1b,Mathematik,BM Lehrperson 02,BM-Zi 10,Bündtmättli
+Fr,08:00,BM 1b,IF,SHP BM 3,BM-Zi 10,Bündtmättli
+Fr,08:00,BM 2a,Musik,BM Lehrperson 13,BM-Zi 7,Bündtmättli
+Fr,08:00,BM 2b,Mathematik,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Fr,08:00,BM 2b,IF,SHP BM 2,BM-Zi 9,Bündtmättli
+Fr,08:00,BM 3a,NMG,BM Lehrperson 03,BM-Zi 1,Bündtmättli
+Fr,08:00,BM 3a,DaZ Aufbau,DaZ Teilzeit,,Bündtmättli
+Fr,08:00,BM 3b,Deutsch,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Fr,08:00,BM 3b,IF,SHP BM 1,BM-Zi 12,Bündtmättli
+Fr,08:00,BM 4a,Deutsch,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Fr,08:00,BM 4b,Deutsch,BM Lehrperson 07,BM-Zi 6,Bündtmättli
+Fr,08:00,BM 5a,Französisch,Französisch BM,BM-Zi 4,Bündtmättli
+Fr,08:00,BM 5b,Deutsch,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Fr,08:00,BM 5c,NMG,BM Lehrperson 09,BM-Zi 13,Bündtmättli
+Fr,08:00,BM 5c,DaZ Aufbau,DaZ BM,,Bündtmättli
+Fr,08:00,BM 6a,Bewegung und Sport,BM Lehrperson 12,BM-Halle 2,Bündtmättli
+Fr,08:00,BM 6b,TTG,TTG 1,BM-TTG 1,Bündtmättli
 Fr,08:00,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
-Fr,08:00,BM KGa,DaZ Aufbau,DaZ BM,,Bündtmättli
 Fr,08:00,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
-Fr,08:00,BM KGb,IF,SHP BM 1,BM-KG 2,Bündtmättli
 Fr,08:00,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Fr,08:00,EI 1a,Deutsch,EI Lehrperson 03,EI-Zi 2,Eischachen
-Fr,08:00,EI 1b,BG,EI Lehrperson 01,EI-Zi 11,Eischachen
-Fr,08:00,EI 2a,NMG,EI Lehrperson 02,EI-Zi 1,Eischachen
-Fr,08:00,EI 2a,DaZ Anfang,DaZ EI,,Eischachen
+Fr,08:00,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Fr,08:00,EI 1a,Deutsch,EI Lehrperson 09,EI-Zi 2,Eischachen
+Fr,08:00,EI 1a,DaZ Aufbau,DaZ EI,,Eischachen
+Fr,08:00,EI 1b,Musik,EI Lehrperson 10,EI-Zi 10,Eischachen
+Fr,08:00,EI 2a,Bewegung und Sport,EI Lehrperson 01,EI-Halle 1,Eischachen
 Fr,08:00,EI 2b,TTG,TTG 2,EI-TTG,Eischachen
-Fr,08:00,EI 3a,Englisch,Englisch/Französisch EI,EI-Zi 3,Eischachen
-Fr,08:00,EI 4a,Bewegung und Sport,EI Lehrperson 05,EI-Halle 1,Eischachen
-Fr,08:00,EI 4b,Mathematik,EI Lehrperson 04,EI-Zi 6,Eischachen
-Fr,08:00,EI 4b,IF,SHP EI 3,EI-Zi 6,Eischachen
-Fr,08:00,EI 5/6a,Deutsch,EI Lehrperson 09,EI-Zi 7,Eischachen
-Fr,08:00,EI 5a,Mathematik,EI Lehrperson 06,EI-Zi 8,Eischachen
-Fr,08:00,EI 6a,Mathematik,EI Lehrperson 07,EI-Zi 5,Eischachen
-Fr,08:00,EI 6a,IF,SHP EI 2,EI-Zi 5,Eischachen
-Fr,08:00,EI 6b,Mathematik,EI Lehrperson 11,EI-Zi 10,Eischachen
+Fr,08:00,EI 3a,Musik,EI Lehrperson 04,EI-Zi 4,Eischachen
+Fr,08:00,EI 3b,Mathematik,EI Lehrperson 03,EI-Zi 8,Eischachen
+Fr,08:00,EI 3b,IF,SHP EI 1,EI-Zi 8,Eischachen
+Fr,08:00,EI 4a,Mathematik,EI Lehrperson 08,EI-Zi 5,Eischachen
+Fr,08:00,EI 4a,IF,SHP EI 2,EI-Zi 5,Eischachen
+Fr,08:00,EI 4b,NMG,EI Lehrperson 05,EI-Zi 9,Eischachen
+Fr,08:00,EI 5a,NMG,EI Lehrperson 06,EI-Zi 1,Eischachen
+Fr,08:00,EI 6a,Deutsch,EI Lehrperson 07,EI-Zi 6,Eischachen
+Fr,08:00,EI 6a,IF,SHP EI 3,EI-Zi 6,Eischachen
+Fr,08:00,EI 6b,Französisch,Englisch/Französisch EI,EI-Zi 7,Eischachen
 Fr,08:00,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
-Fr,08:00,EI KGa,IF,SHP EI 1,EI-KG 1,Eischachen
-Fr,08:00,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
+Fr,08:00,EI KGb,Bewegung und Sport,KG EI 2,EI-Halle 2,Eischachen
 Fr,08:00,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
-Fr,08:00,EI KGd,Bewegung und Sport,KG EI 3,EI-Halle 2,Eischachen
+Fr,08:00,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
 Fr,08:00,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Fr,08:00,OS S1Aa,Französisch,OS Sprachen 3,OS-Zi 2,Oberstufe
-Fr,08:00,OS S1Aa,DaZ Aufbau,DaZ OS,,Oberstufe
-Fr,08:00,OS S1Ab,Mathematik,OS Mathematik 2,OS-Zi 11,Oberstufe
-Fr,08:00,OS S1Ab,IF,SHP OS 2,OS-Zi 11,Oberstufe
-Fr,08:00,OS S1B/S1Ca,Deutsch,OS Deutsch 1,OS-Zi 9,Oberstufe
-Fr,08:00,OS S1B/S1Ca,IF,SHP OS 1,OS-Zi 9,Oberstufe
-Fr,08:00,OS S1Ba,Englisch,OS Sprachen 2,OS-Zi 7,Oberstufe
-Fr,08:00,OS S1Ca,RZG,OS Deutsch 5,OS-Zi 14,Oberstufe
-Fr,08:00,OS S2Aa,NT,OS Mathematik 5,OS-Zi 10,Oberstufe
-Fr,08:00,OS S2Ab,Mathematik,OS Mathematik 1,OS-Zi 13,Oberstufe
-Fr,08:00,OS S2Ba,Bewegung und Sport,OS Sport 1,OS-Halle 1,Oberstufe
-Fr,08:00,OS S2Ca,Deutsch,OS Deutsch 2,OS-Zi 8,Oberstufe
-Fr,08:00,OS S2Cb,NT,OS Mathematik 4,OS-Zi 15,Oberstufe
-Fr,08:00,OS S3Aa,Englisch,OS Sprachen 1,OS-Zi 1,Oberstufe
-Fr,08:00,OS S3Ab,Deutsch,OS Deutsch 3,OS-Zi 5,Oberstufe
-Fr,08:00,OS S3B/S3Ca,BG,OS Gestalten 3,OS-Zi 6,Oberstufe
-Fr,08:00,OS S3Ba,Mathematik,OS Mathematik 3,OS-Zi 3,Oberstufe
-Fr,08:00,OS S3Ca,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
-Fr,08:50,BM 1/2a,Mathematik,BM Lehrperson 02,BM-Zi 9,Bündtmättli
-Fr,08:50,BM 1/2a,IF,SHP BM 3,BM-Zi 9,Bündtmättli
-Fr,08:50,BM 1a,BG,BM Lehrperson 11,BM-Zi 1,Bündtmättli
-Fr,08:50,BM 1b,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Fr,08:50,BM 1b,DaZ Anfang,DaZ Teilzeit,,Bündtmättli
-Fr,08:50,BM 2a,NMG,BM Lehrperson 13,BM-Zi 8,Bündtmättli
-Fr,08:50,BM 3/4a,Mathematik,BM Lehrperson 12,BM-Zi 12,Bündtmättli
-Fr,08:50,BM 3a,BG,BM Lehrperson 01,BM-Zi 3,Bündtmättli
-Fr,08:50,BM 3b,Deutsch,BM Lehrperson 03,BM-Zi 6,Bündtmättli
-Fr,08:50,BM 4a,Deutsch,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Fr,08:50,BM 4a,IF,SHP BM 2,BM-Zi 7,Bündtmättli
-Fr,08:50,BM 4b,BG,BM Lehrperson 05,BM-Zi 11,Bündtmättli
-Fr,08:50,BM 5a,NMG,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Fr,08:50,BM 5b,Bewegung und Sport,BM Lehrperson 09,BM-Halle 2,Bündtmättli
-Fr,08:50,BM 6a,Englisch,Französisch BM,BM-Zi 2,Bündtmättli
-Fr,08:50,BM 6b,Deutsch,BM Lehrperson 04,BM-Zi 10,Bündtmättli
-Fr,08:50,BM 6b,IF,SHP BM 1,BM-Zi 10,Bündtmättli
-Fr,08:50,BM KGa,Bewegung und Sport,KG BM 1,BM-Halle 1,Bündtmättli
-Fr,08:50,BM KGa,DaZ Aufbau,DaZ BM,,Bündtmättli
+Fr,08:00,OS S1Aa,Deutsch,OS Deutsch 2,OS-Zi 3,Oberstufe
+Fr,08:00,OS S1Aa,IF,SHP OS 2,OS-Zi 3,Oberstufe
+Fr,08:00,OS S1Ab,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Fr,08:00,OS S1Ab,DaZ Aufbau,DaZ OS,,Oberstufe
+Fr,08:00,OS S1B/S1Ca,Englisch,OS Sprachen 4,OS-Zi 10,Oberstufe
+Fr,08:00,OS S1Ba,BG,OS Gestalten 1,OS-Zi 8,Oberstufe
+Fr,08:00,OS S1Ca,Mathematik,OS Mathematik 3,OS-Zi 15,Oberstufe
+Fr,08:00,OS S2Aa,Mathematik,OS Mathematik 1,OS-Zi 4,Oberstufe
+Fr,08:00,OS S2Aa,IF,SHP OS 1,OS-Zi 4,Oberstufe
+Fr,08:00,OS S2Ab,Mathematik,OS Mathematik 4,OS-Zi 13,Oberstufe
+Fr,08:00,OS S2Ba,TTG,OS Gestalten 2,OS-TTG 1,Oberstufe
+Fr,08:00,OS S2Ca,NT,OS Mathematik 5,OS-Zi 11,Oberstufe
+Fr,08:00,OS S2Cb,Französisch,OS Sprachen 3,OS-Zi 14,Oberstufe
+Fr,08:00,OS S3Aa,NT,OS Sport 1,OS-Zi 6,Oberstufe
+Fr,08:00,OS S3Ab,RZG,OS Deutsch 3,OS-Zi 7,Oberstufe
+Fr,08:00,OS S3Ba,Englisch,OS Sprachen 2,OS-Zi 1,Oberstufe
+Fr,08:00,OS S3Bb,Deutsch,OS Deutsch 1,OS-Zi 2,Oberstufe
+Fr,08:00,OS S3Ca,Französisch,OS Sprachen 1,OS-Zi 12,Oberstufe
+Fr,08:50,BM 1a,Musik,BM Lehrperson 12,BM-Zi 5,Bündtmättli
+Fr,08:50,BM 1a,DaZ Aufbau,DaZ BM,,Bündtmättli
+Fr,08:50,BM 1b,Deutsch,BM Lehrperson 03,BM-Zi 10,Bündtmättli
+Fr,08:50,BM 1b,IF,SHP BM 3,BM-Zi 10,Bündtmättli
+Fr,08:50,BM 2a,Deutsch,BM Lehrperson 13,BM-Zi 7,Bündtmättli
+Fr,08:50,BM 2b,Bewegung und Sport,BM Lehrperson 01,BM-Halle 1,Bündtmättli
+Fr,08:50,BM 3a,Mathematik,BM Lehrperson 08,BM-Zi 1,Bündtmättli
+Fr,08:50,BM 3b,Mathematik,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Fr,08:50,BM 3b,IF,SHP BM 1,BM-Zi 12,Bündtmättli
+Fr,08:50,BM 4a,Bewegung und Sport,BM Lehrperson 06,BM-Halle 2,Bündtmättli
+Fr,08:50,BM 4b,Deutsch,BM Lehrperson 07,BM-Zi 6,Bündtmättli
+Fr,08:50,BM 4b,DaZ Anfang,DaZ Teilzeit,,Bündtmättli
+Fr,08:50,BM 5a,Mathematik,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Fr,08:50,BM 5b,Französisch,Französisch BM,BM-Zi 8,Bündtmättli
+Fr,08:50,BM 5c,Mathematik,BM Lehrperson 05,BM-Zi 13,Bündtmättli
+Fr,08:50,BM 5c,IF,SHP BM 2,BM-Zi 13,Bündtmättli
+Fr,08:50,BM 6a,Deutsch,BM Lehrperson 09,BM-Zi 2,Bündtmättli
+Fr,08:50,BM 6b,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Fr,08:50,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
 Fr,08:50,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
 Fr,08:50,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Fr,08:50,EI 1a,NMG,EI Lehrperson 03,EI-Zi 2,Eischachen
-Fr,08:50,EI 1b,Bewegung und Sport,EI Lehrperson 01,EI-Halle 1,Eischachen
-Fr,08:50,EI 2a,BG,EI Lehrperson 02,EI-Zi 1,Eischachen
+Fr,08:50,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Fr,08:50,EI 1a,Mathematik,EI Lehrperson 08,EI-Zi 2,Eischachen
+Fr,08:50,EI 1a,IF,SHP EI 1,EI-Zi 2,Eischachen
+Fr,08:50,EI 1b,Bewegung und Sport,EI Lehrperson 10,EI-Halle 1,Eischachen
+Fr,08:50,EI 2a,Mathematik,EI Lehrperson 01,EI-Zi 3,Eischachen
 Fr,08:50,EI 2b,TTG,TTG 2,EI-TTG,Eischachen
-Fr,08:50,EI 3a,Musik,EI Lehrperson 04,EI-Zi 3,Eischachen
-Fr,08:50,EI 4a,NMG,EI Lehrperson 08,EI-Zi 4,Eischachen
+Fr,08:50,EI 3a,Deutsch,EI Lehrperson 04,EI-Zi 4,Eischachen
+Fr,08:50,EI 3b,Deutsch,EI Lehrperson 03,EI-Zi 8,Eischachen
+Fr,08:50,EI 4a,Englisch,Englisch/Französisch EI,EI-Zi 5,Eischachen
 Fr,08:50,EI 4b,Bewegung und Sport,EI Lehrperson 05,EI-Halle 2,Eischachen
-Fr,08:50,EI 5/6a,Französisch,Englisch/Französisch EI,EI-Zi 7,Eischachen
-Fr,08:50,EI 5a,NMG,EI Lehrperson 06,EI-Zi 8,Eischachen
-Fr,08:50,EI 6a,Musik,EI Lehrperson 07,EI-Zi 5,Eischachen
-Fr,08:50,EI 6b,Mathematik,EI Lehrperson 11,EI-Zi 10,Eischachen
-Fr,08:50,EI 6b,IF,SHP EI 3,EI-Zi 10,Eischachen
+Fr,08:50,EI 5a,BG,EI Lehrperson 06,EI-Zi 1,Eischachen
+Fr,08:50,EI 6a,Mathematik,EI Lehrperson 09,EI-Zi 6,Eischachen
+Fr,08:50,EI 6a,IF,SHP EI 3,EI-Zi 6,Eischachen
+Fr,08:50,EI 6b,NMG,EI Lehrperson 07,EI-Zi 7,Eischachen
 Fr,08:50,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
-Fr,08:50,EI KGa,IF,SHP EI 1,EI-KG 1,Eischachen
-Fr,08:50,EI KGa,DaZ Anfang,DaZ EI,,Eischachen
+Fr,08:50,EI KGa,DaZ Aufbau,DaZ EI,,Eischachen
 Fr,08:50,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
 Fr,08:50,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
 Fr,08:50,EI KGc,IF,SHP EI 2,EI-KG 3,Eischachen
 Fr,08:50,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
 Fr,08:50,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Fr,08:50,OS S1Aa,Mathematik,OS Mathematik 2,OS-Zi 2,Oberstufe
-Fr,08:50,OS S1Ab,NT,OS Mathematik 5,OS-Zi 11,Oberstufe
-Fr,08:50,OS S1B/S1Ca,Deutsch,OS Deutsch 1,OS-Zi 9,Oberstufe
-Fr,08:50,OS S1Ba,Französisch,OS Sprachen 2,OS-Zi 7,Oberstufe
-Fr,08:50,OS S1Ca,Englisch,OS Deutsch 5,OS-Zi 14,Oberstufe
-Fr,08:50,OS S2Aa,BG,OS Gestalten 3,OS-Zi 10,Oberstufe
-Fr,08:50,OS S2Ab,Englisch,OS Sprachen 3,OS-Zi 13,Oberstufe
-Fr,08:50,OS S2Ab,DaZ Aufbau,DaZ OS,,Oberstufe
-Fr,08:50,OS S2Ba,Mathematik,OS Mathematik 3,OS-Zi 12,Oberstufe
-Fr,08:50,OS S2Ba,IF,SHP OS 2,OS-Zi 12,Oberstufe
-Fr,08:50,OS S2Ca,RZG,OS Deutsch 2,OS-Zi 8,Oberstufe
-Fr,08:50,OS S2Cb,Mathematik,OS Mathematik 4,OS-Zi 15,Oberstufe
-Fr,08:50,OS S3Aa,RZG,OS Deutsch 3,OS-Zi 1,Oberstufe
-Fr,08:50,OS S3Ab,Mathematik,OS Mathematik 1,OS-Zi 5,Oberstufe
-Fr,08:50,OS S3Ab,IF,SHP OS 1,OS-Zi 5,Oberstufe
-Fr,08:50,OS S3B/S3Ca,Französisch,OS Sprachen 1,OS-Zi 6,Oberstufe
-Fr,08:50,OS S3Ba,NT,OS Sport 1,OS-Zi 3,Oberstufe
-Fr,08:50,OS S3Ca,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
-Fr,09:55,BM 1/2a,Deutsch,BM Lehrperson 04,BM-Zi 9,Bündtmättli
-Fr,09:55,BM 1a,Deutsch,BM Lehrperson 13,BM-Zi 1,Bündtmättli
-Fr,09:55,BM 1a,IF,SHP BM 1,BM-Zi 1,Bündtmättli
-Fr,09:55,BM 1b,Bewegung und Sport,BM Lehrperson 07,BM-Halle 1,Bündtmättli
-Fr,09:55,BM 2a,Mathematik,BM Lehrperson 01,BM-Zi 8,Bündtmättli
-Fr,09:55,BM 3/4a,Musik,BM Lehrperson 12,BM-Zi 12,Bündtmättli
-Fr,09:55,BM 3a,Deutsch,BM Lehrperson 03,BM-Zi 3,Bündtmättli
-Fr,09:55,BM 3a,IF,SHP BM 2,BM-Zi 3,Bündtmättli
-Fr,09:55,BM 3b,Bewegung und Sport,BM Lehrperson 06,BM-Halle 2,Bündtmättli
-Fr,09:55,BM 4a,Deutsch,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Fr,09:55,BM 4b,Musik,BM Lehrperson 05,BM-Zi 11,Bündtmättli
-Fr,09:55,BM 5a,Französisch,Französisch BM,BM-Zi 4,Bündtmättli
-Fr,09:55,BM 5a,DaZ Aufbau,DaZ Teilzeit,,Bündtmättli
-Fr,09:55,BM 5b,Deutsch,BM Lehrperson 09,BM-Zi 5,Bündtmättli
-Fr,09:55,BM 6a,NMG,BM Lehrperson 11,BM-Zi 2,Bündtmättli
-Fr,09:55,BM 6b,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Fr,08:50,OS S1Aa,Englisch,OS Sprachen 4,OS-Zi 3,Oberstufe
+Fr,08:50,OS S1Aa,DaZ Anfang,DaZ OS,,Oberstufe
+Fr,08:50,OS S1Ab,TTG,OS Gestalten 1,OS-TTG 2,Oberstufe
+Fr,08:50,OS S1B/S1Ca,Mathematik,OS Mathematik 1,OS-Zi 10,Oberstufe
+Fr,08:50,OS S1B/S1Ca,IF,SHP OS 1,OS-Zi 10,Oberstufe
+Fr,08:50,OS S1Ba,Bewegung und Sport,OS Sport 1,OS-Halle 1,Oberstufe
+Fr,08:50,OS S1Ca,RZG,OS Deutsch 2,OS-Zi 15,Oberstufe
+Fr,08:50,OS S2Aa,Englisch,OS Sprachen 2,OS-Zi 4,Oberstufe
+Fr,08:50,OS S2Ab,Deutsch,OS Deutsch 1,OS-Zi 13,Oberstufe
+Fr,08:50,OS S2Ba,TTG,OS Gestalten 2,OS-TTG 1,Oberstufe
+Fr,08:50,OS S2Ca,RZG,OS Mathematik 5,OS-Zi 11,Oberstufe
+Fr,08:50,OS S2Cb,NT,OS Mathematik 4,OS-Zi 14,Oberstufe
+Fr,08:50,OS S3Aa,Französisch,OS Sprachen 1,OS-Zi 6,Oberstufe
+Fr,08:50,OS S3Ab,NT,OS Mathematik 3,OS-Zi 7,Oberstufe
+Fr,08:50,OS S3Ba,RZG,OS Deutsch 3,OS-Zi 1,Oberstufe
+Fr,08:50,OS S3Bb,Bewegung und Sport,OS Sport 2,OS-Halle 2,Oberstufe
+Fr,08:50,OS S3Ca,Mathematik,OS Mathematik 2,OS-Zi 12,Oberstufe
+Fr,08:50,OS S3Ca,IF,SHP OS 2,OS-Zi 12,Oberstufe
+Fr,09:55,BM 1a,Deutsch,BM Lehrperson 01,BM-Zi 5,Bündtmättli
+Fr,09:55,BM 1b,NMG,BM Lehrperson 12,BM-Zi 10,Bündtmättli
+Fr,09:55,BM 2a,Deutsch,BM Lehrperson 13,BM-Zi 7,Bündtmättli
+Fr,09:55,BM 2b,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Fr,09:55,BM 3a,Bewegung und Sport,BM Lehrperson 03,BM-Halle 1,Bündtmättli
+Fr,09:55,BM 3b,Bewegung und Sport,BM Lehrperson 04,BM-Halle 2,Bündtmättli
+Fr,09:55,BM 4a,Mathematik,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Fr,09:55,BM 4a,IF,SHP BM 2,BM-Zi 3,Bündtmättli
+Fr,09:55,BM 4b,Mathematik,BM Lehrperson 07,BM-Zi 6,Bündtmättli
+Fr,09:55,BM 4b,DaZ Anfang,DaZ Teilzeit,,Bündtmättli
+Fr,09:55,BM 5a,Mathematik,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Fr,09:55,BM 5a,IF,SHP BM 1,BM-Zi 4,Bündtmättli
+Fr,09:55,BM 5b,NMG,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Fr,09:55,BM 5c,Deutsch,BM Lehrperson 05,BM-Zi 13,Bündtmättli
+Fr,09:55,BM 5c,DaZ Aufbau,DaZ BM,,Bündtmättli
+Fr,09:55,BM 6a,NMG,BM Lehrperson 09,BM-Zi 2,Bündtmättli
+Fr,09:55,BM 6b,Französisch,Französisch BM,BM-Zi 11,Bündtmättli
 Fr,09:55,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
-Fr,09:55,BM KGa,DaZ Anfang,DaZ BM,,Bündtmättli
 Fr,09:55,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
 Fr,09:55,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
 Fr,09:55,BM KGc,IF,SHP BM 3,BM-KG 3,Bündtmättli
-Fr,09:55,EI 1a,Bewegung und Sport,EI Lehrperson 03,EI-Halle 2,Eischachen
-Fr,09:55,EI 1b,TTG,TTG 2,EI-TTG,Eischachen
-Fr,09:55,EI 2a,Mathematik,EI Lehrperson 02,EI-Zi 1,Eischachen
-Fr,09:55,EI 2a,IF,SHP EI 3,EI-Zi 1,Eischachen
-Fr,09:55,EI 2b,NMG,EI Lehrperson 01,EI-Zi 9,Eischachen
-Fr,09:55,EI 3a,Mathematik,EI Lehrperson 04,EI-Zi 3,Eischachen
-Fr,09:55,EI 3a,IF,SHP EI 1,EI-Zi 3,Eischachen
-Fr,09:55,EI 3a,DaZ Anfang,DaZ EI,,Eischachen
-Fr,09:55,EI 4a,Englisch,Englisch/Französisch EI,EI-Zi 4,Eischachen
-Fr,09:55,EI 4b,NMG,EI Lehrperson 05,EI-Zi 6,Eischachen
-Fr,09:55,EI 5/6a,BG,EI Lehrperson 10,EI-Zi 7,Eischachen
-Fr,09:55,EI 5a,Bewegung und Sport,EI Lehrperson 06,EI-Halle 1,Eischachen
-Fr,09:55,EI 6a,NMG,EI Lehrperson 08,EI-Zi 5,Eischachen
-Fr,09:55,EI 6b,BG,EI Lehrperson 07,EI-Zi 10,Eischachen
+Fr,09:55,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Fr,09:55,EI 1a,Mathematik,EI Lehrperson 08,EI-Zi 2,Eischachen
+Fr,09:55,EI 1a,IF,SHP EI 1,EI-Zi 2,Eischachen
+Fr,09:55,EI 1b,NMG,EI Lehrperson 10,EI-Zi 10,Eischachen
+Fr,09:55,EI 2a,Deutsch,EI Lehrperson 01,EI-Zi 3,Eischachen
+Fr,09:55,EI 2b,Bewegung und Sport,EI Lehrperson 02,EI-Halle 1,Eischachen
+Fr,09:55,EI 3a,Deutsch,EI Lehrperson 04,EI-Zi 4,Eischachen
+Fr,09:55,EI 3b,NMG,EI Lehrperson 03,EI-Zi 8,Eischachen
+Fr,09:55,EI 4a,BG,EI Lehrperson 11,EI-Zi 5,Eischachen
+Fr,09:55,EI 4b,NMG,EI Lehrperson 05,EI-Zi 9,Eischachen
+Fr,09:55,EI 5a,BG,EI Lehrperson 06,EI-Zi 1,Eischachen
+Fr,09:55,EI 6a,Englisch,Englisch/Französisch EI,EI-Zi 6,Eischachen
+Fr,09:55,EI 6b,Bewegung und Sport,EI Lehrperson 07,EI-Halle 2,Eischachen
 Fr,09:55,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
+Fr,09:55,EI KGa,DaZ Aufbau,DaZ EI,,Eischachen
 Fr,09:55,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
+Fr,09:55,EI KGb,IF,SHP EI 3,EI-KG 2,Eischachen
 Fr,09:55,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
 Fr,09:55,EI KGc,IF,SHP EI 2,EI-KG 3,Eischachen
 Fr,09:55,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
 Fr,09:55,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Fr,09:55,OS S1Aa,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Fr,09:55,OS S1Aa,DaZ Aufbau,DaZ OS,,Oberstufe
-Fr,09:55,OS S1Ab,Mathematik,OS Mathematik 2,OS-Zi 11,Oberstufe
-Fr,09:55,OS S1Ab,IF,SHP OS 2,OS-Zi 11,Oberstufe
-Fr,09:55,OS S1B/S1Ca,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
-Fr,09:55,OS S1Ba,BG,OS Gestalten 2,OS-Zi 7,Oberstufe
-Fr,09:55,OS S1Ca,Französisch,OS Sprachen 3,OS-Zi 14,Oberstufe
-Fr,09:55,OS S2Aa,Mathematik,OS Mathematik 5,OS-Zi 10,Oberstufe
-Fr,09:55,OS S2Ab,Deutsch,OS Deutsch 2,OS-Zi 13,Oberstufe
-Fr,09:55,OS S2Ab,IF,SHP OS 1,OS-Zi 13,Oberstufe
-Fr,09:55,OS S2Ba,Englisch,OS Sprachen 2,OS-Zi 12,Oberstufe
-Fr,09:55,OS S2Ca,BG,OS Gestalten 3,OS-Zi 8,Oberstufe
-Fr,09:55,OS S2Cb,Deutsch,OS Deutsch 1,OS-Zi 15,Oberstufe
-Fr,09:55,OS S3Aa,NT,OS Mathematik 3,OS-Zi 1,Oberstufe
-Fr,09:55,OS S3Ab,Deutsch,OS Deutsch 3,OS-Zi 5,Oberstufe
-Fr,09:55,OS S3B/S3Ca,Bewegung und Sport,OS Sport 1,OS-Halle 2,Oberstufe
-Fr,09:55,OS S3Ba,Französisch,OS Sprachen 1,OS-Zi 3,Oberstufe
-Fr,09:55,OS S3Ca,Mathematik,OS Mathematik 1,OS-Zi 4,Oberstufe
-Fr,10:45,BM 1/2a,Bewegung und Sport,BM Lehrperson 04,BM-Halle 2,Bündtmättli
-Fr,10:45,BM 1a,Deutsch,BM Lehrperson 13,BM-Zi 1,Bündtmättli
-Fr,10:45,BM 1a,IF,SHP BM 1,BM-Zi 1,Bündtmättli
-Fr,10:45,BM 1b,BG,BM Lehrperson 07,BM-Zi 13,Bündtmättli
-Fr,10:45,BM 2a,Bewegung und Sport,BM Lehrperson 01,BM-Halle 1,Bündtmättli
-Fr,10:45,BM 3/4a,Mathematik,BM Lehrperson 12,BM-Zi 12,Bündtmättli
-Fr,10:45,BM 3a,Mathematik,BM Lehrperson 03,BM-Zi 3,Bündtmättli
-Fr,10:45,BM 3b,Mathematik,BM Lehrperson 06,BM-Zi 6,Bündtmättli
-Fr,10:45,BM 4a,Mathematik,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Fr,10:45,BM 4b,NMG,BM Lehrperson 05,BM-Zi 11,Bündtmättli
-Fr,10:45,BM 5a,Englisch,Französisch BM,BM-Zi 4,Bündtmättli
-Fr,10:45,BM 5b,Deutsch,BM Lehrperson 09,BM-Zi 5,Bündtmättli
-Fr,10:45,BM 5b,DaZ Anfang,DaZ Teilzeit,,Bündtmättli
-Fr,10:45,BM 6a,Mathematik,BM Lehrperson 11,BM-Zi 2,Bündtmättli
-Fr,10:45,BM 6b,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Fr,09:55,OS S1Aa,Deutsch,OS Deutsch 2,OS-Zi 3,Oberstufe
+Fr,09:55,OS S1Aa,DaZ Anfang,DaZ OS,,Oberstufe
+Fr,09:55,OS S1Ab,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
+Fr,09:55,OS S1B/S1Ca,Französisch,OS Sprachen 4,OS-Zi 10,Oberstufe
+Fr,09:55,OS S1Ba,NT,OS Sport 1,OS-Zi 8,Oberstufe
+Fr,09:55,OS S1Ca,TTG,OS Gestalten 3,OS-TTG 2,Oberstufe
+Fr,09:55,OS S2Aa,NT,OS Mathematik 1,OS-Zi 4,Oberstufe
+Fr,09:55,OS S2Ab,Mathematik,OS Mathematik 4,OS-Zi 13,Oberstufe
+Fr,09:55,OS S2Ba,Mathematik,OS Mathematik 2,OS-Zi 9,Oberstufe
+Fr,09:55,OS S2Ba,IF,SHP OS 2,OS-Zi 9,Oberstufe
+Fr,09:55,OS S2Ca,Mathematik,OS Mathematik 5,OS-Zi 11,Oberstufe
+Fr,09:55,OS S2Cb,BG,OS Gestalten 2,OS-Zi 14,Oberstufe
+Fr,09:55,OS S3Aa,Deutsch,OS Sprachen 1,OS-Zi 6,Oberstufe
+Fr,09:55,OS S3Aa,IF,SHP OS 1,OS-Zi 6,Oberstufe
+Fr,09:55,OS S3Ab,Mathematik,OS Mathematik 3,OS-Zi 7,Oberstufe
+Fr,09:55,OS S3Ba,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Fr,09:55,OS S3Bb,Englisch,OS Sprachen 2,OS-Zi 2,Oberstufe
+Fr,09:55,OS S3Ca,Deutsch,OS Deutsch 1,OS-Zi 12,Oberstufe
+Fr,10:45,BM 1a,Deutsch,BM Lehrperson 01,BM-Zi 5,Bündtmättli
+Fr,10:45,BM 1a,IF,SHP BM 2,BM-Zi 5,Bündtmättli
+Fr,10:45,BM 1b,Bewegung und Sport,BM Lehrperson 12,BM-Halle 1,Bündtmättli
+Fr,10:45,BM 2a,Bewegung und Sport,BM Lehrperson 13,BM-Halle 2,Bündtmättli
+Fr,10:45,BM 2b,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Fr,10:45,BM 3a,Deutsch,BM Lehrperson 03,BM-Zi 1,Bündtmättli
+Fr,10:45,BM 3b,Deutsch,BM Lehrperson 04,BM-Zi 12,Bündtmättli
+Fr,10:45,BM 4a,Musik,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Fr,10:45,BM 4b,BG,BM Lehrperson 05,BM-Zi 6,Bündtmättli
+Fr,10:45,BM 5a,BG,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Fr,10:45,BM 5b,Deutsch,BM Lehrperson 08,BM-Zi 8,Bündtmättli
+Fr,10:45,BM 5c,Englisch,Französisch BM,BM-Zi 13,Bündtmättli
+Fr,10:45,BM 6a,NMG,BM Lehrperson 09,BM-Zi 2,Bündtmättli
+Fr,10:45,BM 6b,NMG,BM Lehrperson 10,BM-Zi 11,Bündtmättli
 Fr,10:45,BM KGa,Kindergarten,KG BM 1,BM-KG 1,Bündtmättli
-Fr,10:45,BM KGa,IF,SHP BM 2,BM-KG 1,Bündtmättli
+Fr,10:45,BM KGa,IF,SHP BM 1,BM-KG 1,Bündtmättli
 Fr,10:45,BM KGa,DaZ Anfang,DaZ BM,,Bündtmättli
 Fr,10:45,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
 Fr,10:45,BM KGc,Kindergarten,KG BM 2,BM-KG 3,Bündtmättli
-Fr,10:45,BM KGc,IF,SHP BM 3,BM-KG 3,Bündtmättli
-Fr,10:45,EI 1a,Deutsch,EI Lehrperson 03,EI-Zi 2,Eischachen
-Fr,10:45,EI 1a,IF,SHP EI 2,EI-Zi 2,Eischachen
-Fr,10:45,EI 1b,TTG,TTG 2,EI-TTG,Eischachen
-Fr,10:45,EI 2a,Mathematik,EI Lehrperson 02,EI-Zi 1,Eischachen
-Fr,10:45,EI 2b,Mathematik,EI Lehrperson 01,EI-Zi 9,Eischachen
-Fr,10:45,EI 3a,Deutsch,EI Lehrperson 04,EI-Zi 3,Eischachen
-Fr,10:45,EI 3a,IF,SHP EI 1,EI-Zi 3,Eischachen
-Fr,10:45,EI 3a,DaZ Aufbau,DaZ EI,,Eischachen
-Fr,10:45,EI 4a,NMG,EI Lehrperson 08,EI-Zi 4,Eischachen
-Fr,10:45,EI 4b,Deutsch,EI Lehrperson 05,EI-Zi 6,Eischachen
-Fr,10:45,EI 5/6a,NMG,EI Lehrperson 10,EI-Zi 7,Eischachen
-Fr,10:45,EI 5a,NMG,EI Lehrperson 06,EI-Zi 8,Eischachen
-Fr,10:45,EI 6a,Französisch,Englisch/Französisch EI,EI-Zi 5,Eischachen
-Fr,10:45,EI 6b,Deutsch,EI Lehrperson 07,EI-Zi 10,Eischachen
+Fr,10:45,BM KGd,Kindergarten,KG BM 3,BM-KG 4,Bündtmättli
+Fr,10:45,BM KGd,IF,SHP BM 3,BM-KG 4,Bündtmättli
+Fr,10:45,EI 1a,NMG,EI Lehrperson 08,EI-Zi 2,Eischachen
+Fr,10:45,EI 1a,DaZ Aufbau,DaZ EI,,Eischachen
+Fr,10:45,EI 1b,Deutsch,EI Lehrperson 10,EI-Zi 10,Eischachen
+Fr,10:45,EI 1b,IF,SHP EI 1,EI-Zi 10,Eischachen
+Fr,10:45,EI 2a,Deutsch,EI Lehrperson 01,EI-Zi 3,Eischachen
+Fr,10:45,EI 2b,Musik,EI Lehrperson 02,EI-Zi 11,Eischachen
+Fr,10:45,EI 3a,Mathematik,EI Lehrperson 04,EI-Zi 4,Eischachen
+Fr,10:45,EI 3a,IF,SHP EI 3,EI-Zi 4,Eischachen
+Fr,10:45,EI 3b,NMG,EI Lehrperson 03,EI-Zi 8,Eischachen
+Fr,10:45,EI 4a,NMG,EI Lehrperson 11,EI-Zi 5,Eischachen
+Fr,10:45,EI 4b,Deutsch,EI Lehrperson 05,EI-Zi 9,Eischachen
+Fr,10:45,EI 5a,Mathematik,EI Lehrperson 06,EI-Zi 1,Eischachen
+Fr,10:45,EI 5a,IF,SHP EI 2,EI-Zi 1,Eischachen
+Fr,10:45,EI 6a,Französisch,Englisch/Französisch EI,EI-Zi 6,Eischachen
+Fr,10:45,EI 6b,Deutsch,EI Lehrperson 07,EI-Zi 7,Eischachen
 Fr,10:45,EI KGa,Kindergarten,KG EI 1,EI-KG 1,Eischachen
-Fr,10:45,EI KGb,Bewegung und Sport,KG EI 2,EI-Halle 1,Eischachen
+Fr,10:45,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
 Fr,10:45,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
 Fr,10:45,EI KGd,Kindergarten,KG EI 3,EI-KG 4,Eischachen
 Fr,10:45,IF Wald-KGa,Wald,Wald-KG Im Feld,Waldplatz,Im Feld
-Fr,10:45,OS S1Aa,Mathematik,OS Mathematik 2,OS-Zi 2,Oberstufe
-Fr,10:45,OS S1Ab,BG,OS Gestalten 2,OS-Zi 11,Oberstufe
-Fr,10:45,OS S1B/S1Ca,TTG,OS Gestalten 1,OS-TTG 1,Oberstufe
-Fr,10:45,OS S1Ba,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Fr,10:45,OS S1Ca,NT,OS Sport 1,OS-Zi 14,Oberstufe
-Fr,10:45,OS S2Aa,BG,OS Gestalten 3,OS-Zi 10,Oberstufe
-Fr,10:45,OS S2Ab,Französisch,OS Sprachen 3,OS-Zi 13,Oberstufe
-Fr,10:45,OS S2Ab,DaZ Aufbau,DaZ OS,,Oberstufe
-Fr,10:45,OS S2Ba,Mathematik,OS Mathematik 3,OS-Zi 12,Oberstufe
-Fr,10:45,OS S2Ca,RZG,OS Deutsch 2,OS-Zi 8,Oberstufe
-Fr,10:45,OS S2Cb,Deutsch,OS Deutsch 1,OS-Zi 15,Oberstufe
-Fr,10:45,OS S3Aa,Französisch,OS Sprachen 1,OS-Zi 1,Oberstufe
-Fr,10:45,OS S3Ab,NT,OS Mathematik 1,OS-Zi 5,Oberstufe
-Fr,10:45,OS S3B/S3Ca,Mathematik,OS Mathematik 5,OS-Zi 6,Oberstufe
-Fr,10:45,OS S3B/S3Ca,IF,SHP OS 2,OS-Zi 6,Oberstufe
-Fr,10:45,OS S3Ba,Deutsch,OS Deutsch 3,OS-Zi 3,Oberstufe
-Fr,10:45,OS S3Ba,IF,SHP OS 1,OS-Zi 3,Oberstufe
-Fr,10:45,OS S3Ca,Deutsch,OS Sprachen 2,OS-Zi 4,Oberstufe
-Fr,13:30,BM 1a,Mathematik,BM Lehrperson 06,BM-Zi 1,Bündtmättli
-Fr,13:30,BM 2a,Deutsch,BM Lehrperson 01,BM-Zi 8,Bündtmättli
-Fr,13:30,BM 3/4a,Deutsch,BM Lehrperson 02,BM-Zi 12,Bündtmättli
-Fr,13:30,BM 3b,NMG,BM Lehrperson 03,BM-Zi 6,Bündtmättli
-Fr,13:30,BM 4a,Mathematik,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Fr,13:30,BM 4a,IF,SHP BM 2,BM-Zi 7,Bündtmättli
-Fr,13:30,BM 4b,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Fr,13:30,BM 5a,Deutsch,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Fr,13:30,BM 5b,BG,BM Lehrperson 09,BM-Zi 5,Bündtmättli
-Fr,13:30,BM 6a,BG,BM Lehrperson 05,BM-Zi 2,Bündtmättli
-Fr,13:30,BM 6b,Mathematik,BM Lehrperson 07,BM-Zi 10,Bündtmättli
-Fr,13:30,BM 6b,IF,SHP BM 1,BM-Zi 10,Bündtmättli
-Fr,13:30,EI 1b,NMG,EI Lehrperson 06,EI-Zi 11,Eischachen
-Fr,13:30,EI 2b,Musik,EI Lehrperson 01,EI-Zi 9,Eischachen
-Fr,13:30,EI 4b,Mathematik,EI Lehrperson 04,EI-Zi 6,Eischachen
-Fr,13:30,EI 5/6a,Bewegung und Sport,EI Lehrperson 10,EI-Halle 1,Eischachen
-Fr,13:30,EI 5a,Englisch,Englisch/Französisch EI,EI-Zi 8,Eischachen
-Fr,13:30,EI 5a,DaZ Aufbau,DaZ EI,,Eischachen
-Fr,13:30,EI 6a,TTG,TTG 2,EI-TTG,Eischachen
-Fr,13:30,EI 6b,BG,EI Lehrperson 07,EI-Zi 10,Eischachen
-Fr,13:30,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
-Fr,13:30,EI KGc,Kindergarten,KG EI 4,EI-KG 3,Eischachen
-Fr,13:30,OS S1Aa,Englisch,OS Sprachen 3,OS-Zi 2,Oberstufe
-Fr,13:30,OS S1Ab,Französisch,OS Sprachen 2,OS-Zi 11,Oberstufe
-Fr,13:30,OS S1B/S1Ca,Mathematik,OS Mathematik 2,OS-Zi 9,Oberstufe
-Fr,13:30,OS S1Ba,Mathematik,OS Mathematik 4,OS-Zi 7,Oberstufe
-Fr,13:30,OS S1Ca,Deutsch,OS Deutsch 5,OS-Zi 14,Oberstufe
-Fr,13:30,OS S2Aa,Mathematik,OS Mathematik 5,OS-Zi 10,Oberstufe
-Fr,13:30,OS S2Aa,IF,SHP OS 1,OS-Zi 10,Oberstufe
-Fr,13:30,OS S2Ab,Mathematik,OS Mathematik 1,OS-Zi 13,Oberstufe
-Fr,13:30,OS S2Ba,TTG,OS Gestalten 2,OS-TTG 1,Oberstufe
-Fr,13:30,OS S2Ca,TTG,OS Gestalten 3,OS-TTG 2,Oberstufe
-Fr,13:30,OS S2Cb,Französisch,OS Sprachen 4,OS-Zi 15,Oberstufe
-Fr,13:30,OS S3Aa,Mathematik,OS Mathematik 3,OS-Zi 1,Oberstufe
-Fr,13:30,OS S3Aa,IF,SHP OS 2,OS-Zi 1,Oberstufe
-Fr,13:30,OS S3Ab,BG,OS Gestalten 1,OS-Zi 5,Oberstufe
-Fr,13:30,OS S3B/S3Ca,Deutsch,OS Deutsch 2,OS-Zi 6,Oberstufe
-Fr,13:30,OS S3Ba,Bewegung und Sport,OS Sport 1,OS-Halle 1,Oberstufe
-Fr,13:30,OS S3Ca,Bewegung und Sport,OS Sport 2,OS-Halle 2,Oberstufe
-Fr,14:20,BM 1a,Musik,BM Lehrperson 11,BM-Zi 1,Bündtmättli
-Fr,14:20,BM 2a,Deutsch,BM Lehrperson 01,BM-Zi 8,Bündtmättli
-Fr,14:20,BM 2a,IF,SHP BM 2,BM-Zi 8,Bündtmättli
-Fr,14:20,BM 3/4a,Deutsch,BM Lehrperson 02,BM-Zi 12,Bündtmättli
-Fr,14:20,BM 3/4a,IF,SHP BM 1,BM-Zi 12,Bündtmättli
-Fr,14:20,BM 3b,Mathematik,BM Lehrperson 06,BM-Zi 6,Bündtmättli
-Fr,14:20,BM 4a,NMG,BM Lehrperson 10,BM-Zi 7,Bündtmättli
-Fr,14:20,BM 4b,TTG,TTG 1,BM-TTG 1,Bündtmättli
-Fr,14:20,BM 5a,Musik,BM Lehrperson 08,BM-Zi 4,Bündtmättli
-Fr,14:20,BM 5b,Musik,BM Lehrperson 09,BM-Zi 5,Bündtmättli
-Fr,14:20,BM 6a,Deutsch,BM Lehrperson 05,BM-Zi 2,Bündtmättli
-Fr,14:20,BM 6b,Mathematik,BM Lehrperson 07,BM-Zi 10,Bündtmättli
-Fr,14:20,EI 2b,Deutsch,EI Lehrperson 01,EI-Zi 9,Eischachen
-Fr,14:20,EI 4b,Englisch,Englisch/Französisch EI,EI-Zi 6,Eischachen
-Fr,14:20,EI 5/6a,NMG,EI Lehrperson 10,EI-Zi 7,Eischachen
-Fr,14:20,EI 5a,Mathematik,EI Lehrperson 06,EI-Zi 8,Eischachen
-Fr,14:20,EI 6a,TTG,TTG 2,EI-TTG,Eischachen
-Fr,14:20,EI 6b,Deutsch,EI Lehrperson 07,EI-Zi 10,Eischachen
-Fr,14:20,EI KGb,Kindergarten,KG EI 2,EI-KG 2,Eischachen
-Fr,14:20,EI KGc,Bewegung und Sport,KG EI 4,EI-Halle 1,Eischachen
-Fr,14:20,OS S1Ab,RZG,OS Mathematik 5,OS-Zi 11,Oberstufe
-Fr,14:20,OS S1B/S1Ca,Englisch,OS Sprachen 3,OS-Zi 9,Oberstufe
-Fr,14:20,OS S1Ba,Deutsch,OS Deutsch 5,OS-Zi 7,Oberstufe
-Fr,14:20,OS S1Ba,IF,SHP OS 2,OS-Zi 7,Oberstufe
-Fr,14:20,OS S2Aa,Französisch,OS Sprachen 4,OS-Zi 10,Oberstufe
-Fr,14:20,OS S2Ba,TTG,OS Gestalten 2,OS-TTG 1,Oberstufe
-Fr,14:20,OS S2Ca,TTG,OS Gestalten 3,OS-TTG 2,Oberstufe
-Fr,14:20,OS S2Cb,Mathematik,OS Mathematik 4,OS-Zi 15,Oberstufe
-Fr,14:20,OS S3Ab,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
-Fr,14:20,OS S3B/S3Ca,Deutsch,OS Deutsch 2,OS-Zi 6,Oberstufe
-Fr,14:20,OS S3Ba,Mathematik,OS Mathematik 3,OS-Zi 3,Oberstufe
-Fr,14:20,OS S3Ba,IF,SHP OS 1,OS-Zi 3,Oberstufe
-Fr,14:20,OS S3Ca,NT,OS Mathematik 1,OS-Zi 4,Oberstufe
+Fr,10:45,OS S1Aa,Mathematik,OS Mathematik 1,OS-Zi 3,Oberstufe
+Fr,10:45,OS S1Aa,IF,SHP OS 2,OS-Zi 3,Oberstufe
+Fr,10:45,OS S1Ab,Englisch,OS Deutsch 5,OS-Zi 5,Oberstufe
+Fr,10:45,OS S1B/S1Ca,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Fr,10:45,OS S1Ba,Englisch,OS Sprachen 4,OS-Zi 8,Oberstufe
+Fr,10:45,OS S1Ca,TTG,OS Gestalten 3,OS-TTG 1,Oberstufe
+Fr,10:45,OS S2Aa,BG,OS Gestalten 1,OS-Zi 4,Oberstufe
+Fr,10:45,OS S2Ab,Deutsch,OS Deutsch 1,OS-Zi 13,Oberstufe
+Fr,10:45,OS S2Ba,BG,OS Gestalten 2,OS-Zi 9,Oberstufe
+Fr,10:45,OS S2Ca,NT,OS Mathematik 5,OS-Zi 11,Oberstufe
+Fr,10:45,OS S2Cb,Mathematik,OS Mathematik 4,OS-Zi 14,Oberstufe
+Fr,10:45,OS S2Cb,DaZ Aufbau,DaZ OS,,Oberstufe
+Fr,10:45,OS S3Aa,Berufliche Orientierung,OS Deutsch 2,OS-Zi 6,Oberstufe
+Fr,10:45,OS S3Ab,Mathematik,OS Mathematik 3,OS-Zi 7,Oberstufe
+Fr,10:45,OS S3Ba,Französisch,OS Sprachen 2,OS-Zi 1,Oberstufe
+Fr,10:45,OS S3Bb,Mathematik,OS Mathematik 2,OS-Zi 2,Oberstufe
+Fr,10:45,OS S3Bb,IF,SHP OS 1,OS-Zi 2,Oberstufe
+Fr,10:45,OS S3Ca,NT,OS Sport 1,OS-Zi 12,Oberstufe
+Fr,13:30,BM 2b,NMG,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Fr,13:30,BM 3a,Deutsch,BM Lehrperson 03,BM-Zi 1,Bündtmättli
+Fr,13:30,BM 3a,IF,SHP BM 3,BM-Zi 1,Bündtmättli
+Fr,13:30,BM 4a,Deutsch,BM Lehrperson 06,BM-Zi 3,Bündtmättli
+Fr,13:30,BM 4b,NMG,BM Lehrperson 02,BM-Zi 6,Bündtmättli
+Fr,13:30,BM 5a,Deutsch,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Fr,13:30,BM 5b,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Fr,13:30,BM 5c,BG,BM Lehrperson 09,BM-Zi 13,Bündtmättli
+Fr,13:30,BM 5c,DaZ Anfang,DaZ BM,,Bündtmättli
+Fr,13:30,BM 6a,Englisch,Französisch BM,BM-Zi 2,Bündtmättli
+Fr,13:30,BM 6b,Mathematik,BM Lehrperson 10,BM-Zi 11,Bündtmättli
+Fr,13:30,BM 6b,IF,SHP BM 1,BM-Zi 11,Bündtmättli
+Fr,13:30,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
+Fr,13:30,EI 2b,BG,EI Lehrperson 02,EI-Zi 11,Eischachen
+Fr,13:30,EI 3a,Mathematik,EI Lehrperson 04,EI-Zi 4,Eischachen
+Fr,13:30,EI 3b,Englisch,Englisch/Französisch EI,EI-Zi 8,Eischachen
+Fr,13:30,EI 4a,BG,EI Lehrperson 11,EI-Zi 5,Eischachen
+Fr,13:30,EI 4b,TTG,TTG 2,EI-TTG,Eischachen
+Fr,13:30,EI 5a,Bewegung und Sport,EI Lehrperson 06,EI-Halle 1,Eischachen
+Fr,13:30,EI 6a,Bewegung und Sport,EI Lehrperson 09,EI-Halle 2,Eischachen
+Fr,13:30,EI 6b,Deutsch,EI Lehrperson 07,EI-Zi 7,Eischachen
+Fr,13:30,EI 6b,IF,SHP EI 2,EI-Zi 7,Eischachen
+Fr,13:30,OS S1Aa,Französisch,OS Sprachen 4,OS-Zi 3,Oberstufe
+Fr,13:30,OS S1Ab,Mathematik,OS Mathematik 4,OS-Zi 5,Oberstufe
+Fr,13:30,OS S1Ab,IF,SHP OS 2,OS-Zi 5,Oberstufe
+Fr,13:30,OS S1B/S1Ca,Mathematik,OS Mathematik 1,OS-Zi 10,Oberstufe
+Fr,13:30,OS S1Ba,Deutsch,OS Deutsch 3,OS-Zi 8,Oberstufe
+Fr,13:30,OS S1Ca,NT,OS Sport 1,OS-Zi 15,Oberstufe
+Fr,13:30,OS S2Aa,RZG,OS Deutsch 2,OS-Zi 4,Oberstufe
+Fr,13:30,OS S2Ab,RZG,OS Deutsch 1,OS-Zi 13,Oberstufe
+Fr,13:30,OS S2Ba,NT,OS Mathematik 2,OS-Zi 9,Oberstufe
+Fr,13:30,OS S2Ca,Mathematik,OS Mathematik 5,OS-Zi 11,Oberstufe
+Fr,13:30,OS S2Ca,IF,SHP OS 1,OS-Zi 11,Oberstufe
+Fr,13:30,OS S2Cb,Englisch,OS Sprachen 3,OS-Zi 14,Oberstufe
+Fr,13:30,OS S3Aa,Englisch,OS Sprachen 1,OS-Zi 6,Oberstufe
+Fr,13:30,OS S3Ab,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Fr,13:30,OS S3Ba,Mathematik,OS Mathematik 3,OS-Zi 1,Oberstufe
+Fr,13:30,OS S3Bb,Französisch,OS Sprachen 2,OS-Zi 2,Oberstufe
+Fr,13:30,OS S3Ca,BG,OS Gestalten 2,OS-Zi 12,Oberstufe
+Fr,14:20,BM 2b,Mathematik,BM Lehrperson 01,BM-Zi 9,Bündtmättli
+Fr,14:20,BM 3a,BG,BM Lehrperson 03,BM-Zi 1,Bündtmättli
+Fr,14:20,BM 4b,NMG,BM Lehrperson 02,BM-Zi 6,Bündtmättli
+Fr,14:20,BM 5a,Deutsch,BM Lehrperson 11,BM-Zi 4,Bündtmättli
+Fr,14:20,BM 5a,IF,SHP BM 1,BM-Zi 4,Bündtmättli
+Fr,14:20,BM 5b,TTG,TTG 1,BM-TTG 1,Bündtmättli
+Fr,14:20,BM 5c,NMG,BM Lehrperson 09,BM-Zi 13,Bündtmättli
+Fr,14:20,BM 5c,DaZ Anfang,DaZ BM,,Bündtmättli
+Fr,14:20,BM 6a,Französisch,Französisch BM,BM-Zi 2,Bündtmättli
+Fr,14:20,BM 6b,Mathematik,BM Lehrperson 10,BM-Zi 11,Bündtmättli
+Fr,14:20,BM KGb,Kindergarten,KG BM 4,BM-KG 2,Bündtmättli
+Fr,14:20,BM KGb,IF,SHP BM 3,BM-KG 2,Bündtmättli
+Fr,14:20,EI 2b,NMG,EI Lehrperson 02,EI-Zi 11,Eischachen
+Fr,14:20,EI 3a,Bewegung und Sport,EI Lehrperson 04,EI-Halle 1,Eischachen
+Fr,14:20,EI 4a,Deutsch,EI Lehrperson 11,EI-Zi 5,Eischachen
+Fr,14:20,EI 4a,IF,SHP EI 2,EI-Zi 5,Eischachen
+Fr,14:20,EI 4b,TTG,TTG 2,EI-TTG,Eischachen
+Fr,14:20,EI 5a,Französisch,Englisch/Französisch EI,EI-Zi 1,Eischachen
+Fr,14:20,EI 6a,NMG,EI Lehrperson 09,EI-Zi 6,Eischachen
+Fr,14:20,EI 6b,Mathematik,EI Lehrperson 07,EI-Zi 7,Eischachen
+Fr,14:20,OS S1Aa,Mathematik,OS Mathematik 1,OS-Zi 3,Oberstufe
+Fr,14:20,OS S1Ab,Französisch,OS Sprachen 2,OS-Zi 5,Oberstufe
+Fr,14:20,OS S1B/S1Ca,Deutsch,OS Deutsch 3,OS-Zi 10,Oberstufe
+Fr,14:20,OS S1Ba,NT,OS Sport 1,OS-Zi 8,Oberstufe
+Fr,14:20,OS S1Ca,Deutsch,OS Deutsch 2,OS-Zi 15,Oberstufe
+Fr,14:20,OS S1Ca,IF,SHP OS 1,OS-Zi 15,Oberstufe
+Fr,14:20,OS S2Aa,Bewegung und Sport,OS Sport 2,OS-Halle 1,Oberstufe
+Fr,14:20,OS S2Ab,Französisch,OS Sprachen 4,OS-Zi 13,Oberstufe
+Fr,14:20,OS S2Ba,Englisch,OS Sprachen 1,OS-Zi 9,Oberstufe
+Fr,14:20,OS S2Ca,Englisch,OS Sprachen 3,OS-Zi 11,Oberstufe
+Fr,14:20,OS S2Cb,NT,OS Mathematik 4,OS-Zi 14,Oberstufe
+Fr,14:20,OS S3Aa,Mathematik,OS Mathematik 5,OS-Zi 6,Oberstufe
+Fr,14:20,OS S3Ab,NT,OS Mathematik 3,OS-Zi 7,Oberstufe
+Fr,14:20,OS S3Ba,BG,OS Gestalten 2,OS-Zi 1,Oberstufe
+Fr,14:20,OS S3Bb,RZG,OS Deutsch 1,OS-Zi 2,Oberstufe
+Fr,14:20,OS S3Ca,Mathematik,OS Mathematik 2,OS-Zi 12,Oberstufe
+Fr,14:20,OS S3Ca,IF,SHP OS 2,OS-Zi 12,Oberstufe

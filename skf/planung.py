@@ -199,7 +199,7 @@ def _prognose(schule: Schule, kinder: list[Kind], r, p: Planung) -> None:
     quartiere = planung.get("quartiere") or []
     jg, folge = schule.jahrgaenge, naechste(schule)
     anzahl = Counter(k.jahrgang for k in kinder)
-    basis = float(planung.get("neue_kg1_pro_jahr") or anzahl[jg[0]])
+    basis = float(anzahl[jg[0]] if planung.get("neue_kg1_pro_jahr") is None else planung["neue_kg1_pro_jahr"])
     heute: dict[str, Counter] = defaultdict(Counter)  # Jahrgang → Schulhaus → Lernende (Zuteilung)
     for k in kinder:
         if k.id in e.schulhaus_von:
@@ -212,9 +212,13 @@ def _prognose(schule: Schule, kinder: list[Kind], r, p: Planung) -> None:
         orte = [sh.name for sh in schule.schulhaeuser if _fuehrt(schule, sh, j)]
         return {sh: 1 / len(orte) for sh in orte}
 
+    verloren: Counter = Counter()  # Lernende einer Stufe, die kein Schulhaus führt
+
     def dazu(stand, j: str, sh: str | None, n: float) -> None:
         if sh and _fuehrt(schule, schule.schulhaus(sh), j):
             stand[j, sh] += n
+        elif not verteile(j):
+            verloren[j] += n
         else:
             for ort, a in verteile(j).items():
                 stand[j, ort] += n * a
@@ -286,6 +290,12 @@ def _prognose(schule: Schule, kinder: list[Kind], r, p: Planung) -> None:
         p.jahre.append({"Schuljahr": schuljahr, "Jahr": n, "Lernende": round(sum(stand.values())),
                         "davon Zuzug Quartiere": round(zuzug[n]) if zuzug[n] else 0})
     _jahre_ergaenzen(schule, r, p, wachstum)
+    if verloren:
+        p.empfehlungen.append(Empfehlung(
+            "Ausbau", "Stufen ohne Schulhaus in der Prognose",
+            "Für " + ", ".join(f"{j} ({n:.0f} Lernende über alle Jahre)" for j, n in sorted(verloren.items()))
+            + " führt kein Schulhaus die Stufe mit passendem Raum – diese Lernenden fehlen in der Prognose. "
+            "Schulhaus-Stufen oder Klassentypen ergänzen.", True))
     gemeldet = set()
     for zeile in p.prognose:
         schluessel = (zeile["Schulhaus"], zeile["Raumtyp"])

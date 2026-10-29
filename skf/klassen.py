@@ -94,12 +94,17 @@ def geschwistergruppen(schule: Schule, kinder: list[Kind]) -> dict[str, list[lis
             familien[k.familie].append(k)
     out = {}
     for fam, ks in familien.items():
+        # jede Gruppe hat mindestens ein Schulhaus, das alle ihre Kinder führen kann (Schnittmenge, keine Kette:
+        # KG nur in A/B, 1. Klasse nur in C, 2. Klasse in B/C wären sonst eine Gruppe ohne gemeinsames Schulhaus)
         gruppen: list[tuple[set[str], list[str]]] = []
-        for k in ks:
-            orte = set(moegliche_schulhaeuser(schule, k))
-            treffer = [g for g in gruppen if g[0] & orte]
-            neu = (orte.union(*(g[0] for g in treffer)), [k.id] + [i for g in treffer for i in g[1]])
-            gruppen = [g for g in gruppen if g not in treffer] + [neu]
+        orte_von = {k.id: set(moegliche_schulhaeuser(schule, k)) for k in ks}
+        for k in sorted(ks, key=lambda k: (len(orte_von[k.id]), k.id)):
+            orte = orte_von[k.id]
+            treffer = next((g for g in gruppen if g[0] & orte), None)
+            if treffer:
+                gruppen[gruppen.index(treffer)] = (treffer[0] & orte, treffer[1] + [k.id])
+            else:
+                gruppen.append((set(orte), [k.id]))
         out[fam] = [sorted(g[1]) for g in gruppen]
     return out
 
@@ -159,6 +164,13 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60,
                 cap = min(v.max, raum.plaetze)
                 if cap < v.min:
                     continue
+                # notwendig: der Raum ist mindestens so oft offen, wie die Klasse Lektionen im Schulzimmer hat
+                im_zimmer = sum(l for f, l in tafel_fuer_vorlage(schule, v).items()
+                                if schule.faecher[f].raumtyp == "Klassenzimmer") if v.raumtyp == "Klassenzimmer" else 0
+                offen = sum(1 for sl in schule.slots if sl.index not in raum.nicht_verfuegbar
+                            and sl.index not in s.nicht_verfuegbar)
+                if offen < im_zimmer:
+                    continue
                 name_v = v.bezeichnung or "/".join(v.jahrgaenge)
                 yv = m.new_bool_var(f"y_{s.name}_{ri}_{vi}")
                 y[s.name, ri, vi] = yv
@@ -178,10 +190,13 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60,
                 m.add(abw >= groesse - v.ideal * yv)
                 m.add(abw >= v.ideal * yv - groesse)
                 kosten += [(w["klasse"] + v.strafe) * yv, w["groessen_abweichung"] * abw]
+                if raum.nicht_verfuegbar:  # bei Gleichstand frei verfügbare Räume bevorzugen
+                    kosten.append(len(raum.nicht_verfuegbar) * yv)
             if optionen:
                 m.add_at_most_one(optionen)
                 # Symmetriebrechung: gleichwertige Räume werden der Reihe nach belegt
-                gleich = (raum.typ, raum.plaetze)
+                # gleichwertig nur bei gleicher Verfügbarkeit (ein zeitweise gesperrter Raum ist nicht austauschbar)
+                gleich = (raum.typ, raum.plaetze, frozenset(raum.nicht_verfuegbar))
                 if gleich in vorheriger:
                     m.add(sum(optionen) <= sum(vorheriger[gleich]))
                 vorheriger[gleich] = optionen
@@ -191,7 +206,8 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60,
         for j in schule.jahrgaenge:
             kinder_sj = [x[k.id, s.name] for k in kinder if k.jahrgang == j and (k.id, s.name) in x]
             plaetze_sj = [nv for (sn, _, _, jj), nv in n.items() if sn == s.name and jj == j]
-            m.add(sum(kinder_sj) == sum(plaetze_sj))
+            if kinder_sj or plaetze_sj:  # benannt: die Konfliktanalyse kann fehlende Plätze nennen
+                regeln.nur_wenn(m.add(sum(kinder_sj) == sum(plaetze_sj)), f"Plätze für Jahrgang {j} in {s.name}")
 
     # Spezialräume (Turnhalle, Werkraum, …): Lektionen pro Woche dürfen die freien
     # Raum-Zeitfenster am jeweiligen Ort nicht übersteigen.
@@ -237,7 +253,7 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60,
     # hineinkommen; sie zählen bei der Klassengrösse is_zaehlt_als-fach.
     is_n = {}  # (schulhaus, raumindex, vorlagenindex, jahrgang) -> int
     if any(k.is_ for k in kinder):
-        zusatz = round((schule.is_zaehlt_als - 1) * 10)
+        zusatz = round((schule.is_zaehlt_als - 1) * 100)  # in Hundertsteln: 1.25 → 25, 1.05 → 5 (exakt)
         for (sn, ri, vi), yv in y.items():
             v = schule.vorlagen[vi]
             cap = min(v.max, schule.schulhaus(sn).raeume[ri].plaetze)
@@ -247,7 +263,7 @@ def teile_ein(schule: Schule, kinder: list[Kind], zeitlimit: float = 60,
             summe_is = sum(is_n[sn, ri, vi, j] for j in v.jahrgaenge)
             if zusatz > 0:
                 groesse = sum(n[sn, ri, vi, j] for j in v.jahrgaenge)
-                regeln.nur_wenn(m.add(10 * groesse + zusatz * summe_is <= 10 * cap * yv),
+                regeln.nur_wenn(m.add(100 * groesse + zusatz * summe_is <= 100 * cap * yv),
                                 f"IS zählt {schule.is_zaehlt_als:g}-fach bei der Klassengrösse")
             if schule.max_is_pro_klasse is not None:
                 regeln.nur_wenn(m.add(summe_is <= schule.max_is_pro_klasse * yv),
@@ -439,6 +455,6 @@ def klassenmuster(schule: Schule, e: Einteilung) -> dict[tuple[str, int], int]:
     """Anzahl Klassen je (Schulhaus, Klassentyp-Index) – für ``teile_ein(andere_als=…)``."""
     muster: dict[tuple[str, int], int] = {}
     for c in e.klassen:
-        schluessel = (c.schulhaus, schule.vorlagen.index(c.vorlage))
+        schluessel = (c.schulhaus, next(i for i, v in enumerate(schule.vorlagen) if v is c.vorlage))
         muster[schluessel] = muster.get(schluessel, 0) + 1
     return muster

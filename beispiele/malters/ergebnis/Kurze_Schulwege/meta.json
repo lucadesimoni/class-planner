@@ -1,5 +1,5 @@
 {
- "zeit": "2026-10-26T16:01:47",
+ "zeit": "2026-10-29T08:13:06",
  "szenario": "Kurze Schulwege",
  "schule": "Schule Malters – Volksschule (Beispiel)",
  "schuljahr": "2027/28",
@@ -11,21 +11,21 @@
   "Max. Schulweg": "5.51 km",
   "Mehrjahrgangsklassen": "4",
   "Lehrpersonen im Einsatz": "71",
-  "Förderlektionen": "273",
+  "Förderlektionen": "271",
   "Springstunden": "2",
-  "Wünsche erfüllt": "58/84",
-  "Lektionen/Woche": "1474",
+  "Wünsche erfüllt": "57/84",
+  "Lektionen/Woche": "1472",
   "Klassen nahe Idealgrösse": "31/47",
   "Lehrpersonen pro Klasse": "3.5",
   "Auslastung Schulzimmer": "77 %",
-  "Kosten/Jahr": "CHF 7’330’000",
-  "Kosten pro Lernende": "CHF 8’292",
+  "Kosten/Jahr": "CHF 7’310’000",
+  "Kosten pro Lernende": "CHF 8’269",
   "Fehler": "0",
-  "Warnungen": "10",
-  "Hinweise": "116",
-  "Rechenzeit": "113 s"
+  "Warnungen": "9",
+  "Hinweise": "115",
+  "Rechenzeit": "111 s"
  },
  "manuell": [],
- "programmversion": "0.1.0",
+ "programmversion": "0.2.0",
  "profilversion": "2026.10.1"
 }

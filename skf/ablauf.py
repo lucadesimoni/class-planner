@@ -87,6 +87,16 @@ def _wunschquote_text(w: dict) -> str:
 def rechne(schule: Schule, kinder: list[Kind], zeitlimit: float = 120, nur_klassen: bool = False,
            protokoll=print) -> Ergebnis:
     start = time.time()
+    # Eine Frist für alle Versuche: Wiederholungen (Rückkopplung) dürfen die Rechenzeit nicht vervielfachen
+    frist = start + 1.5 * zeitlimit
+
+    def zeit(anteil: float) -> float:
+        """Zeit für einen Rechenschritt: sein Anteil, aber nie über die Frist hinaus (mind. 1 s)."""
+        return max(1.0, min(zeitlimit * anteil, frist - time.time()))
+
+    def noch_zeit() -> bool:
+        return frist - time.time() > 0.2 * zeitlimit
+
     kinder, hinweise = wende_gebiete_an(schule, kinder)  # geografische Hypothesen: nur Eingaben
     r = Ergebnis(schule, kinder, meldungen=vorpruefung(schule, kinder))
     r.meldungen += [Meldung("Hinweis", "Hypothese", h) for h in hinweise]
@@ -99,7 +109,7 @@ def rechne(schule: Schule, kinder: list[Kind], zeitlimit: float = 120, nur_klass
         for klassenversuch in range(3):
             stand = (len(r.infos), len(r.meldungen))  # für einen weiteren Versuch: diesen wieder entfernen
             try:
-                einteilung = teile_ein(schule, kinder, zeitlimit=zeitlimit * 0.25, andere_als=muster)
+                einteilung = teile_ein(schule, kinder, zeitlimit=zeit(0.25), andere_als=muster)
             except KeineLoesung:
                 if not muster:
                     raise
@@ -115,15 +125,26 @@ def rechne(schule: Schule, kinder: list[Kind], zeitlimit: float = 120, nur_klass
                 break
             try:
                 verbote: list[list[tuple[str, str, str]]] = []
+                stundenplan_fehler: KeineLoesung | None = None
                 for versuch in range(4):
-                    r.bloecke, info = verteile_lehrauftraege(schule, r.einteilung.klassen, zeitlimit=zeitlimit * 0.15,
-                                                             kinder=kinder, verbote=verbote)
+                    try:
+                        r.bloecke, info = verteile_lehrauftraege(schule, r.einteilung.klassen,
+                                                                 zeitlimit=zeit(0.15), kinder=kinder,
+                                                                 verbote=verbote)
+                    except KeineLoesung:
+                        if stundenplan_fehler is None:
+                            raise
+                        # erst durch die Rückkopplung unlösbar: der eigentliche Grund ist der Stundenplan
+                        raise stundenplan_fehler from None
                     protokoll(f"  {info}")
                     try:
                         r.lektionen, infos, warnungen = erstelle_stundenplan(
-                            schule, r.einteilung.klassen, r.bloecke, zeitlimit=zeitlimit * 0.6,
+                            schule, r.einteilung.klassen, r.bloecke, zeitlimit=zeit(0.6),
                             buslinien=buslinien_der_klassen(r.einteilung.klassen, kinder))
                     except KeineLoesung as fehler:
+                        if not fehler.nachweislich or not noch_zeit():  # Zeitlimit: mehr Zeit hilft, Wiederholen nicht
+                            raise
+                        stundenplan_fehler = fehler
                         # Rückkopplung: Lehraufträge der am Konflikt beteiligten Lehrpersonen neu verteilen
                         beteiligt = _beteiligte_lehrpersonen(fehler.konflikt, schule) or {
                             lp.name for lp in schule.lehrpersonen if lp.nicht_verfuegbar}  # Teilzeit als Engpass
@@ -146,10 +167,13 @@ def rechne(schule: Schule, kinder: list[Kind], zeitlimit: float = 120, nur_klass
                 break
             except KeineLoesung as fehler:
                 # Rückkopplung: mit dieser Klasseneinteilung unlösbar – eine andere Einteilung versuchen
-                if klassenversuch == 2:
-                    if muster:
-                        raise KeineLoesung(f"{fehler} (geprüft mit {klassenversuch + 1} verschiedenen "
-                                           "Klasseneinteilungen)", fehler.konflikt) from None
+                if not fehler.nachweislich:
+                    raise
+                if klassenversuch == 2 or not noch_zeit():
+                    if muster:  # Ergebnis und Grund der ersten (besten) Einteilung zeigen, nicht der letzten
+                        r.einteilung, r.bloecke, r.lektionen, r.infos, r.meldungen = erster
+                        raise KeineLoesung(f"{erster_fehler} (auch mit {klassenversuch} weiteren "
+                                           "Klasseneinteilungen nicht lösbar)", erster_fehler.konflikt) from None
                     raise
                 if not muster:
                     erster_fehler = fehler

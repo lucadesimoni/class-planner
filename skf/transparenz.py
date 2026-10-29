@@ -22,7 +22,11 @@ REGELN = [
                                                                             "führt Stufe")),
     ("Fixe Schulhaus-Zuteilungen eingehalten", "Klassen", ("fixen Schulhaus",)),
     ("Klassengrösse im erlaubten Rahmen und Raum gross genug", "Klassen", ("Grösse", "gewichtete Grösse")),
-    ("Jedes Schulzimmer höchstens einer Klasse", "Klassen", ("Raum", "doppelt vergeben")),
+    ("Jedes Schulzimmer höchstens einer Klasse", "Klassen", ("doppelt vergeben",)),
+    ("Klasse im Raumtyp und Schulhaus ihres Klassentyps", "Klassen", ("verlangt Raumtyp", "zugelassen")),
+    ("Lernende im Schulhaus ihrer Klasse", "Klassen", ("Schulhaus der Klasse",)),
+    ("Mehrjahrgangsklassen: Mindestzahl je Jahrgang", "Klassen", ("pro Jahrgang",)),
+    ("Höchstzahl Klassen (falls festgelegt)", "Klassen", ("Klassen, höchstens",)),
     ("IS: höchstens zulässige Anzahl pro Klasse", "Klassen", ("IS-Lernende",)),
     ("Geschwister im selben Schulhaus (falls verlangt)", "Klassen", ("Familie",)),
     ("Lehrpersonen nur in ihren Fächern, Jahrgängen, Schulhäusern", "Lehraufträge", ("nicht qualifiziert",)),
@@ -30,6 +34,7 @@ REGELN = [
     ("Stundentafel vollständig", "Stundenplan", ("statt",)),
     ("Keine Doppelbelegung von Klasse, Lehrperson oder Raum", "Stundenplan", ("doppelt belegt",)),
     ("Verfügbarkeiten von Lehrpersonen, Schulhäusern, Räumen", "Stundenplan", ("nicht verfügbar", "geschlossen")),
+    ("Spezialräume: passender Raumtyp, gross genug", "Stundenplan", ("das Fach braucht", "zu klein")),
     ("Höchstens erlaubte Lektionen pro Fach und Tag", "Stundenplan", ("Lektionen am",)),
     ("Blockzeiten am Vormittag", "Stundenplan", ("Blockzeit",)),
     ("Keine Lücken im Halbtag für Lernende", "Stundenplan", ("Lücke",)),
@@ -77,11 +82,12 @@ def kriterien(r: Ergebnis) -> list[dict]:
         sum(w["klasse"] + c.vorlage.strafe for c in e.klassen))
     abw = sum(abs(len(c.kinder) - c.vorlage.ideal) for c in e.klassen)
     neu("Klassenbildung", "Abweichung von der Idealgrösse", f"{abw} Plätze", abw, "groessen_abweichung")
-    familien = defaultdict(set)
-    for k in r.kinder:
-        if k.familie:
-            familien[k.familie].add(e.schulhaus_von[k.id])
-    getrennt = sum(len(v) - 1 for v in familien.values())
+    from .klassen import (
+        geschwistergruppen,  # gleiche Gruppen wie der Optimierer (nur wer zusammen sein kann)
+    )
+    getrennt = 0 if s.geschwister == "aus" else sum(
+        len({e.schulhaus_von[i] for i in ids}) - 1
+        for gruppen in geschwistergruppen(s, r.kinder).values() for ids in gruppen if len(ids) > 1)
     neu("Klassenbildung", "Geschwister in verschiedenen Schulhäusern", f"{getrennt} Familien", getrennt,
         "geschwister_getrennt")
     gew = sum(1 for k in r.kinder if k.bisheriges_schulhaus and k.bisheriges_schulhaus != e.schulhaus_von[k.id]

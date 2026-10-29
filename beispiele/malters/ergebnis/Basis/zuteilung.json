@@ -1,21 +1,33 @@
 {
+"K0007": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 1a"
+},
+"K0029": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 1a"
+},
+"K0049": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 1a"
+},
+"K0070": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 1a"
+},
 "K0114": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
-"K0237": {
+"K0153": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
-"K0265": {
+"K0255": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
-"K0266": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1a"
-},
-"K0279": {
+"K0273": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
@@ -23,27 +35,27 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
-"K0315": {
+"K0303": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
-"K0350": {
+"K0405": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
-"K0438": {
+"K0448": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
-"K0453": {
+"K0479": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
-"K0486": {
+"K0490": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
-"K0531": {
+"K0494": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
@@ -51,27 +63,23 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
-"K0562": {
+"K0557": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
-"K0583": {
+"K0588": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
-"K0605": {
+"K0594": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
-"K0607": {
+"K0598": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
-"K0609": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1a"
-},
-"K0615": {
+"K0619": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
@@ -79,11 +87,11 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1a"
 },
-"K0029": {
+"K0002": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
-"K0049": {
+"K0089": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
@@ -91,11 +99,23 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
+"K0100": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 1b"
+},
 "K0150": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
-"K0153": {
+"K0154": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 1b"
+},
+"K0162": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 1b"
+},
+"K0194": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
@@ -103,31 +123,39 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
-"K0273": {
+"K0241": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
-"K0296": {
+"K0277": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
-"K0303": {
+"K0280": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
-"K0320": {
+"K0438": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
-"K0448": {
+"K0440": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
-"K0490": {
+"K0486": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
-"K0494": {
+"K0545": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 1b"
+},
+"K0547": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 1b"
+},
+"K0555": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
@@ -135,11 +163,7 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
-"K0588": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1b"
-},
-"K0594": {
+"K0576": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
@@ -147,107 +171,19 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
-"K0598": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1b"
-},
-"K0614": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1b"
-},
 "K0623": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 1b"
 },
-"K0002": {
+"K0017": {
 "schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
+"klasse": "BM 2a"
 },
-"K0007": {
+"K0032": {
 "schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
+"klasse": "BM 2a"
 },
-"K0070": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0089": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0100": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0154": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0162": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0194": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0195": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0241": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0255": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0277": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0280": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0405": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0440": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0479": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0545": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0547": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0555": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0557": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0576": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0619": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 1c"
-},
-"K0003": {
+"K0037": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2a"
 },
@@ -255,79 +191,75 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2a"
 },
+"K0067": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2a"
+},
+"K0163": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2a"
+},
+"K0179": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2a"
+},
+"K0185": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2a"
+},
+"K0216": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2a"
+},
+"K0263": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2a"
+},
+"K0274": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2a"
+},
+"K0313": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2a"
+},
+"K0329": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2a"
+},
+"K0408": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2a"
+},
+"K0435": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2a"
+},
+"K0476": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2a"
+},
+"K0508": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2a"
+},
+"K0537": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2a"
+},
+"K0546": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2a"
+},
+"K0003": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2b"
+},
 "K0066": {
 "schulhaus": "Bündtmättli",
-"klasse": "BM 2a"
+"klasse": "BM 2b"
 },
 "K0077": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2a"
-},
-"K0141": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2a"
-},
-"K0159": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2a"
-},
-"K0262": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2a"
-},
-"K0284": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2a"
-},
-"K0302": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2a"
-},
-"K0321": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2a"
-},
-"K0372": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2a"
-},
-"K0412": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2a"
-},
-"K0426": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2a"
-},
-"K0462": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2a"
-},
-"K0485": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2a"
-},
-"K0487": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2a"
-},
-"K0503": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2a"
-},
-"K0017": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2b"
-},
-"K0032": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2b"
-},
-"K0037": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2b"
-},
-"K0067": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2b"
 },
@@ -335,51 +267,55 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2b"
 },
-"K0163": {
+"K0141": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2b"
 },
-"K0179": {
+"K0159": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2b"
 },
-"K0185": {
+"K0262": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2b"
 },
-"K0216": {
+"K0284": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2b"
 },
-"K0263": {
+"K0302": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2b"
 },
-"K0274": {
+"K0316": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2b"
 },
-"K0313": {
+"K0372": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2b"
 },
-"K0329": {
+"K0412": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2b"
 },
-"K0408": {
+"K0426": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2b"
 },
-"K0435": {
+"K0462": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2b"
 },
-"K0476": {
+"K0485": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2b"
 },
-"K0508": {
+"K0487": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 2b"
+},
+"K0503": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2b"
 },
@@ -387,35 +323,11 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 2b"
 },
-"K0537": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2b"
-},
-"K0546": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 2b"
-},
-"K0004": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 3a"
-},
-"K0010": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 3a"
-},
-"K0046": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 3a"
-},
 "K0060": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3a"
 },
 "K0101": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 3a"
-},
-"K0104": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3a"
 },
@@ -431,7 +343,15 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3a"
 },
-"K0164": {
+"K0151": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 3a"
+},
+"K0186": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 3a"
+},
+"K0211": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3a"
 },
@@ -443,19 +363,7 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3a"
 },
-"K0256": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 3a"
-},
-"K0258": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 3a"
-},
 "K0288": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 3a"
-},
-"K0294": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3a"
 },
@@ -463,15 +371,19 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3a"
 },
-"K0314": {
+"K0306": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3a"
 },
-"K0330": {
+"K0319": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3a"
 },
-"K0452": {
+"K0338": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 3a"
+},
+"K0413": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3a"
 },
@@ -482,6 +394,26 @@
 "K0482": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3a"
+},
+"K0491": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 3a"
+},
+"K0548": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 3a"
+},
+"K0566": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 3a"
+},
+"K0004": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 3b"
+},
+"K0010": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 3b"
 },
 "K0018": {
 "schulhaus": "Bündtmättli",
@@ -495,7 +427,7 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3b"
 },
-"K0055": {
+"K0046": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3b"
 },
@@ -503,23 +435,31 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3b"
 },
-"K0151": {
+"K0104": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3b"
 },
-"K0186": {
+"K0164": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3b"
 },
-"K0306": {
+"K0256": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3b"
 },
-"K0319": {
+"K0258": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3b"
 },
-"K0338": {
+"K0294": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 3b"
+},
+"K0314": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 3b"
+},
+"K0330": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3b"
 },
@@ -535,15 +475,11 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3b"
 },
-"K0413": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 3b"
-},
 "K0449": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3b"
 },
-"K0491": {
+"K0452": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3b"
 },
@@ -555,15 +491,7 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3b"
 },
-"K0548": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 3b"
-},
 "K0563": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 3b"
-},
-"K0566": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 3b"
 },
@@ -571,11 +499,15 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4a"
 },
+"K0031": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 4a"
+},
 "K0043": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4a"
 },
-"K0078": {
+"K0068": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4a"
 },
@@ -587,7 +519,11 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4a"
 },
-"K0169": {
+"K0127": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 4a"
+},
+"K0165": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4a"
 },
@@ -595,23 +531,15 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4a"
 },
-"K0189": {
+"K0212": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4a"
 },
-"K0218": {
+"K0295": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4a"
 },
-"K0304": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 4a"
-},
-"K0322": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 4a"
-},
-"K0386": {
+"K0325": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4a"
 },
@@ -631,19 +559,19 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4a"
 },
-"K0450": {
+"K0480": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4a"
 },
-"K0518": {
+"K0504": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4a"
 },
-"K0552": {
+"K0506": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4a"
 },
-"K0558": {
+"K0551": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4a"
 },
@@ -651,23 +579,23 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
 },
-"K0031": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 4b"
-},
 "K0053": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
 },
-"K0068": {
+"K0078": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
 },
-"K0127": {
+"K0169": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
 },
-"K0165": {
+"K0189": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 4b"
+},
+"K0218": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
 },
@@ -675,11 +603,11 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
 },
-"K0295": {
+"K0304": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
 },
-"K0325": {
+"K0322": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
 },
@@ -687,7 +615,7 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
 },
-"K0334": {
+"K0386": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
 },
@@ -695,7 +623,7 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
 },
-"K0461": {
+"K0450": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
 },
@@ -703,19 +631,11 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
 },
-"K0480": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 4b"
-},
-"K0504": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 4b"
-},
-"K0506": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 4b"
-},
 "K0514": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 4b"
+},
+"K0518": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
 },
@@ -723,27 +643,47 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
 },
-"K0551": {
+"K0552": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 4b"
+},
+"K0558": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 4b"
+},
+"K0020": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5a"
+},
+"K0034": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5a"
 },
 "K0059": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5a"
 },
-"K0108": {
+"K0062": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5a"
 },
-"K0136": {
+"K0126": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5a"
 },
-"K0160": {
+"K0129": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5a"
 },
-"K0229": {
+"K0142": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5a"
+},
+"K0210": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5a"
+},
+"K0224": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5a"
 },
@@ -751,23 +691,11 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5a"
 },
-"K0285": {
+"K0307": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5a"
 },
-"K0290": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 5a"
-},
-"K0293": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 5a"
-},
-"K0305": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 5a"
-},
-"K0323": {
+"K0308": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5a"
 },
@@ -779,31 +707,11 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5a"
 },
-"K0392": {
+"K0360": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5a"
 },
 "K0398": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 5a"
-},
-"K0417": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 5a"
-},
-"K0421": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 5a"
-},
-"K0427": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 5a"
-},
-"K0499": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 5a"
-},
-"K0500": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5a"
 },
@@ -815,15 +723,7 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5b"
 },
-"K0020": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 5b"
-},
 "K0039": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 5b"
-},
-"K0062": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5b"
 },
@@ -835,19 +735,19 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5b"
 },
-"K0142": {
+"K0136": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5b"
 },
-"K0180": {
+"K0160": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5b"
 },
-"K0210": {
+"K0285": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5b"
 },
-"K0224": {
+"K0290": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5b"
 },
@@ -855,11 +755,15 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5b"
 },
+"K0323": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5b"
+},
 "K0342": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5b"
 },
-"K0360": {
+"K0392": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5b"
 },
@@ -867,15 +771,15 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5b"
 },
+"K0421": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5b"
+},
+"K0427": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5b"
+},
 "K0451": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 5b"
-},
-"K0460": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 5b"
-},
-"K0515": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5b"
 },
@@ -883,23 +787,87 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 5b"
 },
+"K0035": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0036": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0108": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0131": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0146": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0180": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0229": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0247": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0293": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0305": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0417": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0422": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0460": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0489": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0499": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0500": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
+"K0515": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 5/6a"
+},
 "K0520": {
 "schulhaus": "Bündtmättli",
-"klasse": "BM 5b"
+"klasse": "BM 5/6a"
 },
-"K0001": {
+"K0541": {
 "schulhaus": "Bündtmättli",
-"klasse": "BM 6a"
+"klasse": "BM 5/6a"
 },
-"K0023": {
+"K0553": {
 "schulhaus": "Bündtmättli",
-"klasse": "BM 6a"
+"klasse": "BM 5/6a"
 },
-"K0047": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 6a"
-},
-"K0054": {
+"K0044": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6a"
 },
@@ -911,15 +879,11 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6a"
 },
-"K0161": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 6a"
-},
-"K0187": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 6a"
-},
 "K0192": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 6a"
+},
+"K0202": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6a"
 },
@@ -927,11 +891,15 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6a"
 },
+"K0289": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 6a"
+},
 "K0291": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6a"
 },
-"K0317": {
+"K0311": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6a"
 },
@@ -939,27 +907,23 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6a"
 },
-"K0327": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 6a"
-},
 "K0331": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6a"
 },
-"K0340": {
+"K0373": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6a"
 },
-"K0345": {
+"K0380": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6a"
 },
-"K0379": {
+"K0390": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6a"
 },
-"K0389": {
+"K0410": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6a"
 },
@@ -967,11 +931,31 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6a"
 },
-"K0468": {
+"K0498": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6a"
 },
-"K0035": {
+"K0521": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 6a"
+},
+"K0544": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 6a"
+},
+"K0001": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 6b"
+},
+"K0023": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 6b"
+},
+"K0047": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 6b"
+},
+"K0054": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6b"
 },
@@ -979,11 +963,11 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6b"
 },
-"K0131": {
+"K0161": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6b"
 },
-"K0146": {
+"K0187": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6b"
 },
@@ -995,7 +979,11 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6b"
 },
-"K0289": {
+"K0317": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 6b"
+},
+"K0327": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6b"
 },
@@ -1003,11 +991,15 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6b"
 },
-"K0373": {
+"K0340": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6b"
 },
-"K0380": {
+"K0345": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 6b"
+},
+"K0379": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6b"
 },
@@ -1015,7 +1007,7 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6b"
 },
-"K0390": {
+"K0389": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6b"
 },
@@ -1023,43 +1015,35 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6b"
 },
+"K0468": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM 6b"
+},
 "K0475": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM 6b"
 },
-"K0489": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 6b"
-},
-"K0498": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 6b"
-},
-"K0521": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 6b"
-},
-"K0541": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 6b"
-},
-"K0544": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 6b"
-},
-"K0553": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM 6b"
-},
-"K0048": {
+"K0025": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGa"
 },
-"K0158": {
+"K0103": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGa"
 },
-"K0173": {
+"K0152": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGa"
+},
+"K0257": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGa"
+},
+"K0282": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGa"
+},
+"K0298": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGa"
 },
@@ -1071,11 +1055,15 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGa"
 },
-"K0402": {
+"K0377": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGa"
 },
-"K0430": {
+"K0384": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGa"
+},
+"K0402": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGa"
 },
@@ -1083,23 +1071,15 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGa"
 },
-"K0505": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGa"
-},
-"K0512": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGa"
-},
-"K0575": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGa"
-},
-"K0593": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGa"
-},
 "K0597": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGa"
+},
+"K0599": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGa"
+},
+"K0601": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGa"
 },
@@ -1108,10 +1088,6 @@
 "klasse": "BM KGa"
 },
 "K0604": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGa"
-},
-"K0612": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGa"
 },
@@ -1127,19 +1103,11 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGa"
 },
-"K0638": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGa"
-},
 "K0642": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGa"
 },
-"K0024": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGb"
-},
-"K0025": {
+"K0048": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGb"
 },
@@ -1147,39 +1115,19 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGb"
 },
-"K0088": {
+"K0158": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGb"
 },
-"K0103": {
+"K0193": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGb"
 },
-"K0152": {
+"K0364": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGb"
 },
-"K0177": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGb"
-},
-"K0257": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGb"
-},
-"K0264": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGb"
-},
-"K0298": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGb"
-},
-"K0351": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGb"
-},
-"K0377": {
+"K0369": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGb"
 },
@@ -1187,15 +1135,19 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGb"
 },
-"K0384": {
+"K0432": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGb"
 },
-"K0404": {
+"K0434": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGb"
 },
-"K0465": {
+"K0437": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGb"
+},
+"K0466": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGb"
 },
@@ -1203,15 +1155,31 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGb"
 },
-"K0559": {
+"K0484": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGb"
 },
-"K0599": {
+"K0505": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGb"
 },
-"K0601": {
+"K0512": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGb"
+},
+"K0554": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGb"
+},
+"K0575": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGb"
+},
+"K0577": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGb"
+},
+"K0593": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGb"
 },
@@ -1223,6 +1191,18 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGb"
 },
+"K0638": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGb"
+},
+"K0024": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGc"
+},
+"K0088": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGc"
+},
 "K0096": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGc"
@@ -1231,11 +1211,15 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGc"
 },
-"K0184": {
+"K0173": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGc"
 },
-"K0193": {
+"K0177": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGc"
+},
+"K0184": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGc"
 },
@@ -1243,11 +1227,11 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGc"
 },
-"K0272": {
+"K0264": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGc"
 },
-"K0282": {
+"K0272": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGc"
 },
@@ -1255,15 +1239,11 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGc"
 },
+"K0351": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGc"
+},
 "K0357": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGc"
-},
-"K0364": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGc"
-},
-"K0369": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGc"
 },
@@ -1271,31 +1251,15 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGc"
 },
-"K0416": {
+"K0404": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGc"
 },
-"K0432": {
+"K0430": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGc"
 },
-"K0434": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGc"
-},
-"K0437": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGc"
-},
-"K0466": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGc"
-},
-"K0484": {
-"schulhaus": "Bündtmättli",
-"klasse": "BM KGc"
-},
-"K0554": {
+"K0465": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGc"
 },
@@ -1303,7 +1267,15 @@
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGc"
 },
+"K0559": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGc"
+},
 "K0574": {
+"schulhaus": "Bündtmättli",
+"klasse": "BM KGc"
+},
+"K0612": {
 "schulhaus": "Bündtmättli",
 "klasse": "BM KGc"
 },
@@ -1315,15 +1287,15 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 1a"
 },
-"K0074": {
+"K0237": {
 "schulhaus": "Eischachen",
 "klasse": "EI 1a"
 },
-"K0243": {
+"K0266": {
 "schulhaus": "Eischachen",
 "klasse": "EI 1a"
 },
-"K0249": {
+"K0296": {
 "schulhaus": "Eischachen",
 "klasse": "EI 1a"
 },
@@ -1331,7 +1303,7 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 1a"
 },
-"K0341": {
+"K0350": {
 "schulhaus": "Eischachen",
 "klasse": "EI 1a"
 },
@@ -1343,15 +1315,7 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 1a"
 },
-"K0428": {
-"schulhaus": "Eischachen",
-"klasse": "EI 1a"
-},
-"K0444": {
-"schulhaus": "Eischachen",
-"klasse": "EI 1a"
-},
-"K0493": {
+"K0453": {
 "schulhaus": "Eischachen",
 "klasse": "EI 1a"
 },
@@ -1359,7 +1323,7 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 1a"
 },
-"K0550": {
+"K0562": {
 "schulhaus": "Eischachen",
 "klasse": "EI 1a"
 },
@@ -1387,17 +1351,97 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 1a"
 },
-"K0592": {
+"K0607": {
 "schulhaus": "Eischachen",
 "klasse": "EI 1a"
 },
-"K0613": {
+"K0615": {
 "schulhaus": "Eischachen",
 "klasse": "EI 1a"
 },
 "K0622": {
 "schulhaus": "Eischachen",
 "klasse": "EI 1a"
+},
+"K0074": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0195": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0243": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0249": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0265": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0279": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0315": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0320": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0341": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0428": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0444": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0493": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0531": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0550": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0583": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0592": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0605": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0609": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0613": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
+},
+"K0614": {
+"schulhaus": "Eischachen",
+"klasse": "EI 1b"
 },
 "K0009": {
 "schulhaus": "Eischachen",
@@ -1423,15 +1467,7 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 2a"
 },
-"K0168": {
-"schulhaus": "Eischachen",
-"klasse": "EI 2a"
-},
 "K0178": {
-"schulhaus": "Eischachen",
-"klasse": "EI 2a"
-},
-"K0181": {
 "schulhaus": "Eischachen",
 "klasse": "EI 2a"
 },
@@ -1463,15 +1499,19 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 2a"
 },
-"K0316": {
+"K0374": {
 "schulhaus": "Eischachen",
 "klasse": "EI 2a"
 },
-"K0366": {
+"K0407": {
 "schulhaus": "Eischachen",
 "klasse": "EI 2a"
 },
-"K0488": {
+"K0456": {
+"schulhaus": "Eischachen",
+"klasse": "EI 2a"
+},
+"K0511": {
 "schulhaus": "Eischachen",
 "klasse": "EI 2a"
 },
@@ -1480,6 +1520,10 @@
 "klasse": "EI 2a"
 },
 "K0561": {
+"schulhaus": "Eischachen",
+"klasse": "EI 2a"
+},
+"K0567": {
 "schulhaus": "Eischachen",
 "klasse": "EI 2a"
 },
@@ -1503,7 +1547,15 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 2b"
 },
+"K0168": {
+"schulhaus": "Eischachen",
+"klasse": "EI 2b"
+},
 "K0170": {
+"schulhaus": "Eischachen",
+"klasse": "EI 2b"
+},
+"K0181": {
 "schulhaus": "Eischachen",
 "klasse": "EI 2b"
 },
@@ -1527,19 +1579,19 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 2b"
 },
+"K0321": {
+"schulhaus": "Eischachen",
+"klasse": "EI 2b"
+},
 "K0356": {
 "schulhaus": "Eischachen",
 "klasse": "EI 2b"
 },
-"K0374": {
+"K0366": {
 "schulhaus": "Eischachen",
 "klasse": "EI 2b"
 },
 "K0391": {
-"schulhaus": "Eischachen",
-"klasse": "EI 2b"
-},
-"K0407": {
 "schulhaus": "Eischachen",
 "klasse": "EI 2b"
 },
@@ -1551,7 +1603,7 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 2b"
 },
-"K0456": {
+"K0488": {
 "schulhaus": "Eischachen",
 "klasse": "EI 2b"
 },
@@ -1559,23 +1611,91 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 2b"
 },
-"K0511": {
-"schulhaus": "Eischachen",
-"klasse": "EI 2b"
-},
 "K0526": {
-"schulhaus": "Eischachen",
-"klasse": "EI 2b"
-},
-"K0567": {
 "schulhaus": "Eischachen",
 "klasse": "EI 2b"
 },
 "K0065": {
 "schulhaus": "Eischachen",
-"klasse": "EI 3a"
+"klasse": "EI 3/4a"
 },
 "K0075": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0095": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0112": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0124": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0171": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0196": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0200": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0208": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0242": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0246": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0324": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0348": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0353": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0365": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0375": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0376": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0461": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0539": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0570": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3/4a"
+},
+"K0055": {
 "schulhaus": "Eischachen",
 "klasse": "EI 3a"
 },
@@ -1583,11 +1703,19 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 3a"
 },
+"K0092": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3a"
+},
 "K0122": {
 "schulhaus": "Eischachen",
 "klasse": "EI 3a"
 },
-"K0171": {
+"K0183": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3a"
+},
+"K0206": {
 "schulhaus": "Eischachen",
 "klasse": "EI 3a"
 },
@@ -1599,23 +1727,11 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 3a"
 },
-"K0242": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3a"
-},
-"K0246": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3a"
-},
 "K0260": {
 "schulhaus": "Eischachen",
 "klasse": "EI 3a"
 },
-"K0324": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3a"
-},
-"K0365": {
+"K0310": {
 "schulhaus": "Eischachen",
 "klasse": "EI 3a"
 },
@@ -1635,11 +1751,19 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 3a"
 },
+"K0471": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3a"
+},
 "K0497": {
 "schulhaus": "Eischachen",
 "klasse": "EI 3a"
 },
 "K0536": {
+"schulhaus": "Eischachen",
+"klasse": "EI 3a"
+},
+"K0543": {
 "schulhaus": "Eischachen",
 "klasse": "EI 3a"
 },
@@ -1651,75 +1775,7 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 3a"
 },
-"K0092": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
-"K0095": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
-"K0183": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
-"K0196": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
-"K0200": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
-"K0206": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
-"K0208": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
-"K0211": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
-"K0310": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
-"K0348": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
-"K0353": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
-"K0375": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
-"K0376": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
-"K0471": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
-"K0543": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
-"K0570": {
-"schulhaus": "Eischachen",
-"klasse": "EI 3b"
-},
 "K0006": {
-"schulhaus": "Eischachen",
-"klasse": "EI 4a"
-},
-"K0011": {
 "schulhaus": "Eischachen",
 "klasse": "EI 4a"
 },
@@ -1735,35 +1791,11 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 4a"
 },
-"K0050": {
-"schulhaus": "Eischachen",
-"klasse": "EI 4a"
-},
 "K0072": {
 "schulhaus": "Eischachen",
 "klasse": "EI 4a"
 },
-"K0112": {
-"schulhaus": "Eischachen",
-"klasse": "EI 4a"
-},
 "K0138": {
-"schulhaus": "Eischachen",
-"klasse": "EI 4a"
-},
-"K0156": {
-"schulhaus": "Eischachen",
-"klasse": "EI 4a"
-},
-"K0172": {
-"schulhaus": "Eischachen",
-"klasse": "EI 4a"
-},
-"K0174": {
-"schulhaus": "Eischachen",
-"klasse": "EI 4a"
-},
-"K0176": {
 "schulhaus": "Eischachen",
 "klasse": "EI 4a"
 },
@@ -1775,11 +1807,11 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 4a"
 },
-"K0227": {
+"K0271": {
 "schulhaus": "Eischachen",
 "klasse": "EI 4a"
 },
-"K0251": {
+"K0278": {
 "schulhaus": "Eischachen",
 "klasse": "EI 4a"
 },
@@ -1791,17 +1823,45 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 4a"
 },
-"K0337": {
-"schulhaus": "Eischachen",
-"klasse": "EI 4a"
-},
 "K0358": {
 "schulhaus": "Eischachen",
 "klasse": "EI 4a"
 },
-"K0539": {
+"K0361": {
 "schulhaus": "Eischachen",
 "klasse": "EI 4a"
+},
+"K0371": {
+"schulhaus": "Eischachen",
+"klasse": "EI 4a"
+},
+"K0424": {
+"schulhaus": "Eischachen",
+"klasse": "EI 4a"
+},
+"K0431": {
+"schulhaus": "Eischachen",
+"klasse": "EI 4a"
+},
+"K0445": {
+"schulhaus": "Eischachen",
+"klasse": "EI 4a"
+},
+"K0459": {
+"schulhaus": "Eischachen",
+"klasse": "EI 4a"
+},
+"K0534": {
+"schulhaus": "Eischachen",
+"klasse": "EI 4a"
+},
+"K0011": {
+"schulhaus": "Eischachen",
+"klasse": "EI 4b"
+},
+"K0050": {
+"schulhaus": "Eischachen",
+"klasse": "EI 4b"
 },
 "K0080": {
 "schulhaus": "Eischachen",
@@ -1811,11 +1871,11 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 4b"
 },
-"K0124": {
+"K0148": {
 "schulhaus": "Eischachen",
 "klasse": "EI 4b"
 },
-"K0148": {
+"K0156": {
 "schulhaus": "Eischachen",
 "klasse": "EI 4b"
 },
@@ -1823,15 +1883,23 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 4b"
 },
-"K0212": {
+"K0172": {
 "schulhaus": "Eischachen",
 "klasse": "EI 4b"
 },
-"K0271": {
+"K0174": {
 "schulhaus": "Eischachen",
 "klasse": "EI 4b"
 },
-"K0278": {
+"K0176": {
+"schulhaus": "Eischachen",
+"klasse": "EI 4b"
+},
+"K0227": {
+"schulhaus": "Eischachen",
+"klasse": "EI 4b"
+},
+"K0251": {
 "schulhaus": "Eischachen",
 "klasse": "EI 4b"
 },
@@ -1839,31 +1907,15 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 4b"
 },
+"K0334": {
+"schulhaus": "Eischachen",
+"klasse": "EI 4b"
+},
+"K0337": {
+"schulhaus": "Eischachen",
+"klasse": "EI 4b"
+},
 "K0352": {
-"schulhaus": "Eischachen",
-"klasse": "EI 4b"
-},
-"K0361": {
-"schulhaus": "Eischachen",
-"klasse": "EI 4b"
-},
-"K0371": {
-"schulhaus": "Eischachen",
-"klasse": "EI 4b"
-},
-"K0424": {
-"schulhaus": "Eischachen",
-"klasse": "EI 4b"
-},
-"K0431": {
-"schulhaus": "Eischachen",
-"klasse": "EI 4b"
-},
-"K0445": {
-"schulhaus": "Eischachen",
-"klasse": "EI 4b"
-},
-"K0459": {
 "schulhaus": "Eischachen",
 "klasse": "EI 4b"
 },
@@ -1883,15 +1935,7 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 4b"
 },
-"K0534": {
-"schulhaus": "Eischachen",
-"klasse": "EI 4b"
-},
-"K0012": {
-"schulhaus": "Eischachen",
-"klasse": "EI 5a"
-},
-"K0034": {
+"K0033": {
 "schulhaus": "Eischachen",
 "klasse": "EI 5a"
 },
@@ -1907,11 +1951,7 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 5a"
 },
-"K0126": {
-"schulhaus": "Eischachen",
-"klasse": "EI 5a"
-},
-"K0129": {
+"K0119": {
 "schulhaus": "Eischachen",
 "klasse": "EI 5a"
 },
@@ -1939,15 +1979,11 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 5a"
 },
+"K0253": {
+"schulhaus": "Eischachen",
+"klasse": "EI 5a"
+},
 "K0276": {
-"schulhaus": "Eischachen",
-"klasse": "EI 5a"
-},
-"K0307": {
-"schulhaus": "Eischachen",
-"klasse": "EI 5a"
-},
-"K0308": {
 "schulhaus": "Eischachen",
 "klasse": "EI 5a"
 },
@@ -1963,79 +1999,115 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 5a"
 },
+"K0423": {
+"schulhaus": "Eischachen",
+"klasse": "EI 5a"
+},
+"K0455": {
+"schulhaus": "Eischachen",
+"klasse": "EI 5a"
+},
+"K0483": {
+"schulhaus": "Eischachen",
+"klasse": "EI 5a"
+},
+"K0513": {
+"schulhaus": "Eischachen",
+"klasse": "EI 5a"
+},
 "K0527": {
 "schulhaus": "Eischachen",
 "klasse": "EI 5a"
 },
-"K0033": {
+"K0012": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
 },
-"K0036": {
+"K0056": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
+},
+"K0073": {
+"schulhaus": "Eischachen",
+"klasse": "EI 5/6a"
+},
+"K0084": {
+"schulhaus": "Eischachen",
+"klasse": "EI 5/6a"
 },
 "K0093": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
 },
-"K0119": {
+"K0125": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
+},
+"K0139": {
+"schulhaus": "Eischachen",
+"klasse": "EI 5/6a"
+},
+"K0147": {
+"schulhaus": "Eischachen",
+"klasse": "EI 5/6a"
+},
+"K0155": {
+"schulhaus": "Eischachen",
+"klasse": "EI 5/6a"
 },
 "K0188": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
 },
-"K0247": {
+"K0235": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
 },
-"K0253": {
+"K0250": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
 },
 "K0268": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
 },
 "K0301": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
+},
+"K0328": {
+"schulhaus": "Eischachen",
+"klasse": "EI 5/6a"
 },
 "K0396": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
 },
-"K0422": {
+"K0436": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
 },
-"K0423": {
+"K0457": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
 },
-"K0455": {
+"K0464": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
 },
 "K0474": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
 },
 "K0477": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
 },
-"K0483": {
+"K0535": {
 "schulhaus": "Eischachen",
-"klasse": "EI 5b"
+"klasse": "EI 5/6a"
 },
-"K0513": {
-"schulhaus": "Eischachen",
-"klasse": "EI 5b"
-},
-"K0044": {
+"K0014": {
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
@@ -2043,15 +2115,19 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
-"K0073": {
+"K0086": {
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
-"K0084": {
+"K0097": {
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
-"K0125": {
+"K0107": {
+"schulhaus": "Eischachen",
+"klasse": "EI 6a"
+},
+"K0120": {
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
@@ -2059,15 +2135,11 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
-"K0139": {
+"K0145": {
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
-"K0147": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6a"
-},
-"K0155": {
+"K0149": {
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
@@ -2075,15 +2147,19 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
+"K0220": {
+"schulhaus": "Eischachen",
+"klasse": "EI 6a"
+},
 "K0225": {
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
-"K0235": {
+"K0245": {
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
-"K0250": {
+"K0252": {
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
@@ -2091,11 +2167,7 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
-"K0311": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6a"
-},
-"K0328": {
+"K0349": {
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
@@ -2103,11 +2175,11 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
-"K0436": {
+"K0368": {
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
-"K0457": {
+"K0382": {
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
@@ -2115,95 +2187,19 @@
 "schulhaus": "Eischachen",
 "klasse": "EI 6a"
 },
-"K0014": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0056": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0086": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0097": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0107": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0120": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0145": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0149": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0202": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0220": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0245": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0252": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0349": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0368": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0382": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0410": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0464": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
 "K0525": {
 "schulhaus": "Eischachen",
-"klasse": "EI 6b"
-},
-"K0535": {
-"schulhaus": "Eischachen",
-"klasse": "EI 6b"
+"klasse": "EI 6a"
 },
 "K0540": {
 "schulhaus": "Eischachen",
-"klasse": "EI 6b"
+"klasse": "EI 6a"
 },
 "K0076": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGa"
 },
 "K0087": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGa"
-},
-"K0118": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGa"
 },
@@ -2215,11 +2211,11 @@
 "schulhaus": "Eischachen",
 "klasse": "EI KGa"
 },
-"K0199": {
+"K0203": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGa"
 },
-"K0203": {
+"K0269": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGa"
 },
@@ -2235,19 +2231,15 @@
 "schulhaus": "Eischachen",
 "klasse": "EI KGa"
 },
-"K0415": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGa"
-},
-"K0418": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGa"
-},
 "K0496": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGa"
 },
 "K0542": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGa"
+},
+"K0572": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGa"
 },
@@ -2259,21 +2251,25 @@
 "schulhaus": "Eischachen",
 "klasse": "EI KGa"
 },
+"K0629": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGa"
+},
+"K0630": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGa"
+},
 "K0633": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGa"
+},
+"K0635": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGa"
 },
 "K0640": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGa"
-},
-"K0644": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGa"
-},
-"K0071": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGb"
 },
 "K0117": {
 "schulhaus": "Eischachen",
@@ -2299,7 +2295,27 @@
 "schulhaus": "Eischachen",
 "klasse": "EI KGb"
 },
-"K0439": {
+"K0516": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGb"
+},
+"K0522": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGb"
+},
+"K0538": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGb"
+},
+"K0549": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGb"
+},
+"K0578": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGb"
+},
+"K0584": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGb"
 },
@@ -2311,11 +2327,11 @@
 "schulhaus": "Eischachen",
 "klasse": "EI KGb"
 },
-"K0608": {
+"K0602": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGb"
 },
-"K0610": {
+"K0608": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGb"
 },
@@ -2331,27 +2347,39 @@
 "schulhaus": "Eischachen",
 "klasse": "EI KGb"
 },
-"K0626": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGb"
-},
 "K0627": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGb"
 },
-"K0629": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGb"
-},
-"K0634": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGb"
-},
-"K0005": {
+"K0008": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGc"
 },
-"K0144": {
+"K0022": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGc"
+},
+"K0051": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGc"
+},
+"K0063": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGc"
+},
+"K0085": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGc"
+},
+"K0116": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGc"
+},
+"K0182": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGc"
+},
+"K0197": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGc"
 },
@@ -2359,19 +2387,7 @@
 "schulhaus": "Eischachen",
 "klasse": "EI KGc"
 },
-"K0318": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGc"
-},
-"K0362": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGc"
-},
-"K0363": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGc"
-},
-"K0393": {
+"K0355": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGc"
 },
@@ -2387,6 +2403,10 @@
 "schulhaus": "Eischachen",
 "klasse": "EI KGc"
 },
+"K0446": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGc"
+},
 "K0481": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGc"
@@ -2395,23 +2415,11 @@
 "schulhaus": "Eischachen",
 "klasse": "EI KGc"
 },
-"K0522": {
+"K0587": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGc"
 },
-"K0538": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGc"
-},
-"K0549": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGc"
-},
-"K0572": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGc"
-},
-"K0578": {
+"K0610": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGc"
 },
@@ -2419,31 +2427,15 @@
 "schulhaus": "Eischachen",
 "klasse": "EI KGc"
 },
-"K0635": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGc"
-},
-"K0008": {
+"K0005": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGd"
 },
-"K0022": {
+"K0071": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGd"
 },
-"K0051": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGd"
-},
-"K0063": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGd"
-},
-"K0085": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGd"
-},
-"K0116": {
+"K0118": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGd"
 },
@@ -2451,27 +2443,43 @@
 "schulhaus": "Eischachen",
 "klasse": "EI KGd"
 },
-"K0182": {
+"K0144": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGd"
 },
-"K0197": {
+"K0199": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGd"
 },
-"K0269": {
+"K0318": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGd"
 },
-"K0355": {
+"K0362": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGd"
 },
-"K0446": {
+"K0363": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGd"
 },
-"K0516": {
+"K0393": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGd"
+},
+"K0415": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGd"
+},
+"K0416": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGd"
+},
+"K0418": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGd"
+},
+"K0439": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGd"
 },
@@ -2479,23 +2487,19 @@
 "schulhaus": "Eischachen",
 "klasse": "EI KGd"
 },
-"K0584": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGd"
-},
-"K0587": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGd"
-},
-"K0602": {
-"schulhaus": "Eischachen",
-"klasse": "EI KGd"
-},
 "K0624": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGd"
 },
-"K0630": {
+"K0626": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGd"
+},
+"K0634": {
+"schulhaus": "Eischachen",
+"klasse": "EI KGd"
+},
+"K0644": {
 "schulhaus": "Eischachen",
 "klasse": "EI KGd"
 },
@@ -2536,10 +2540,6 @@
 "klasse": "IF Wald-KGa"
 },
 "K0571": {
-"schulhaus": "Im Feld",
-"klasse": "IF Wald-KGa"
-},
-"K0577": {
 "schulhaus": "Im Feld",
 "klasse": "IF Wald-KGa"
 },
@@ -2599,6 +2599,10 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Aa"
 },
+"K0677": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S1Aa"
+},
 "K0681": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Aa"
@@ -2611,7 +2615,7 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Aa"
 },
-"K0703": {
+"K0700": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Aa"
 },
@@ -2632,10 +2636,6 @@
 "klasse": "OS S1Aa"
 },
 "K0721": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S1Aa"
-},
-"K0724": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Aa"
 },
@@ -2663,10 +2663,6 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ab"
 },
-"K0677": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S1Ab"
-},
 "K0680": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ab"
@@ -2683,15 +2679,15 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ab"
 },
-"K0700": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S1Ab"
-},
 "K0701": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ab"
 },
 "K0702": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S1Ab"
+},
+"K0703": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ab"
 },
@@ -2711,11 +2707,15 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ab"
 },
-"K0656": {
+"K0724": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S1Ab"
+},
+"K0647": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ba"
 },
-"K0658": {
+"K0652": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ba"
 },
@@ -2723,11 +2723,7 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ba"
 },
-"K0664": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S1Ba"
-},
-"K0674": {
+"K0672": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ba"
 },
@@ -2747,7 +2743,7 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ba"
 },
-"K0686": {
+"K0685": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ba"
 },
@@ -2767,10 +2763,6 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ba"
 },
-"K0696": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S1Ba"
-},
 "K0698": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ba"
@@ -2785,77 +2777,73 @@
 },
 "K0646": {
 "schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
-},
-"K0647": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
+"klasse": "OS S1Bb"
 },
 "K0648": {
 "schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
+"klasse": "OS S1Bb"
 },
 "K0649": {
 "schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
-},
-"K0652": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
+"klasse": "OS S1Bb"
 },
 "K0653": {
 "schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
+"klasse": "OS S1Bb"
 },
 "K0654": {
 "schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
+"klasse": "OS S1Bb"
+},
+"K0656": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S1Bb"
+},
+"K0658": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S1Bb"
 },
 "K0660": {
 "schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
+"klasse": "OS S1Bb"
 },
-"K0661": {
+"K0664": {
 "schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
+"klasse": "OS S1Bb"
 },
 "K0671": {
 "schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
+"klasse": "OS S1Bb"
 },
-"K0672": {
+"K0674": {
 "schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
+"klasse": "OS S1Bb"
 },
-"K0685": {
+"K0686": {
 "schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
+"klasse": "OS S1Bb"
 },
 "K0689": {
 "schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
+"klasse": "OS S1Bb"
+},
+"K0696": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S1Bb"
 },
 "K0706": {
 "schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
-},
-"K0709": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
-},
-"K0715": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
-},
-"K0722": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
+"klasse": "OS S1Bb"
 },
 "K0723": {
 "schulhaus": "Oberstufe",
-"klasse": "OS S1B/S1Ca"
+"klasse": "OS S1Bb"
 },
 "K0655": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S1Ca"
+},
+"K0661": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ca"
 },
@@ -2883,6 +2871,14 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ca"
 },
+"K0709": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S1Ca"
+},
+"K0715": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S1Ca"
+},
 "K0718": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ca"
@@ -2895,6 +2891,10 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ca"
 },
+"K0722": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S1Ca"
+},
 "K0725": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S1Ca"
@@ -2903,11 +2903,15 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Aa"
 },
-"K0748": {
+"K0744": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Aa"
 },
-"K0749": {
+"K0747": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S2Aa"
+},
+"K0748": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Aa"
 },
@@ -2947,15 +2951,11 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Aa"
 },
+"K0781": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S2Aa"
+},
 "K0782": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S2Aa"
-},
-"K0789": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S2Aa"
-},
-"K0796": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Aa"
 },
@@ -2979,15 +2979,11 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Ab"
 },
-"K0744": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S2Ab"
-},
 "K0745": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Ab"
 },
-"K0747": {
+"K0749": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Ab"
 },
@@ -3011,10 +3007,6 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Ab"
 },
-"K0781": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S2Ab"
-},
 "K0784": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Ab"
@@ -3023,7 +3015,15 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Ab"
 },
+"K0789": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S2Ab"
+},
 "K0795": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S2Ab"
+},
+"K0796": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Ab"
 },
@@ -3123,7 +3123,19 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Ca"
 },
+"K0730": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S2Ca"
+},
+"K0733": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S2Ca"
+},
 "K0735": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S2Ca"
+},
+"K0741": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Ca"
 },
@@ -3143,35 +3155,11 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Ca"
 },
-"K0762": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S2Ca"
-},
 "K0769": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Ca"
 },
-"K0774": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S2Ca"
-},
-"K0780": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S2Ca"
-},
-"K0730": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S2Cb"
-},
-"K0733": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S2Cb"
-},
 "K0740": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S2Cb"
-},
-"K0741": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Cb"
 },
@@ -3179,7 +3167,19 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Cb"
 },
+"K0762": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S2Cb"
+},
+"K0774": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S2Cb"
+},
 "K0779": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S2Cb"
+},
+"K0780": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Cb"
 },
@@ -3214,10 +3214,6 @@
 "K0799": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S2Cb"
-},
-"K0805": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S3Aa"
 },
 "K0807": {
 "schulhaus": "Oberstufe",
@@ -3255,7 +3251,7 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Aa"
 },
-"K0855": {
+"K0850": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Aa"
 },
@@ -3267,7 +3263,7 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Aa"
 },
-"K0866": {
+"K0868": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Aa"
 },
@@ -3278,6 +3274,14 @@
 "K0871": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Aa"
+},
+"K0877": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S3Aa"
+},
+"K0805": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S3Ab"
 },
 "K0808": {
 "schulhaus": "Oberstufe",
@@ -3307,7 +3311,7 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Ab"
 },
-"K0850": {
+"K0855": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Ab"
 },
@@ -3319,11 +3323,11 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Ab"
 },
-"K0867": {
+"K0866": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Ab"
 },
-"K0868": {
+"K0867": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Ab"
 },
@@ -3332,10 +3336,6 @@
 "klasse": "OS S3Ab"
 },
 "K0874": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S3Ab"
-},
-"K0877": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Ab"
 },
@@ -3367,6 +3367,10 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Ba"
 },
+"K0837": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S3Ba"
+},
 "K0838": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Ba"
@@ -3375,19 +3379,19 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Ba"
 },
-"K0854": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S3Ba"
-},
-"K0856": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S3Ba"
-},
 "K0859": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Ba"
 },
+"K0861": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S3Ba"
+},
 "K0865": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S3Ba"
+},
+"K0870": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Ba"
 },
@@ -3400,10 +3404,6 @@
 "klasse": "OS S3Ba"
 },
 "K0881": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S3Ba"
-},
-"K0882": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Ba"
 },
@@ -3435,10 +3435,6 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Bb"
 },
-"K0837": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S3Bb"
-},
 "K0839": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Bb"
@@ -3455,15 +3451,15 @@
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Bb"
 },
+"K0854": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S3Bb"
+},
+"K0856": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S3Bb"
+},
 "K0858": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S3Bb"
-},
-"K0861": {
-"schulhaus": "Oberstufe",
-"klasse": "OS S3Bb"
-},
-"K0870": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Bb"
 },
@@ -3472,6 +3468,10 @@
 "klasse": "OS S3Bb"
 },
 "K0876": {
+"schulhaus": "Oberstufe",
+"klasse": "OS S3Bb"
+},
+"K0882": {
 "schulhaus": "Oberstufe",
 "klasse": "OS S3Bb"
 },

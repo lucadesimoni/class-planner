@@ -37,6 +37,7 @@ from .version import __version__
 # Felder, die nie zum Server gehen (die Rechnung braucht sie nicht)
 NUR_IM_BROWSER = ("name", "adresse", "bemerkung", "vorname", "nachname", "zusatz")
 MAX_ANFRAGE = 8_000_000   # Zeichen
+MAX_KINDER = 20_000
 
 
 def _fuer_server(k: Kind) -> dict:
@@ -120,16 +121,26 @@ def bearbeite(text: str) -> tuple[int, str]:
                                "Seite neu laden.")
         if not isinstance(a.get("konfiguration"), dict) or not isinstance(a.get("kinder"), list):
             raise ValueError("'konfiguration' (Objekt) und 'kinder' (Liste) erwartet")
+        if len(a["kinder"]) > MAX_KINDER:
+            return fehler(413, f"höchstens {MAX_KINDER} Lernende pro Berechnung")
         kinder = [_kind(d) for d in a["kinder"]]
-        zeitlimit = max(5.0, min(float(a.get("zeitlimit", 120)), MAX_RECHENZEIT))
+        zeitlimit = float(a.get("zeitlimit", 120))
+        if not 5 <= zeitlimit or zeitlimit != zeitlimit:
+            zeitlimit = 5.0
+        zeitlimit = min(zeitlimit, MAX_RECHENZEIT)
         with tempfile.TemporaryDirectory() as tmp:
             pfad = Path(tmp) / "schule.yaml"
             pfad.write_text(yaml.safe_dump(a["konfiguration"], allow_unicode=True, sort_keys=False), encoding="utf-8")
             schule = lade_schule(pfad, str(a.get("szenario") or "Basis"))
-    except (ValueError, TypeError, KeyError) as e:
+    except (ValueError, TypeError, KeyError, AttributeError, IndexError, OverflowError) as e:
         return fehler(400, f"Angaben fehlerhaft: {e}")
     zeilen: list[str] = []
-    r = rechne(schule, kinder, zeitlimit=zeitlimit, nur_klassen=bool(a.get("nur_klassen")),
-               protokoll=lambda t: zeilen.append(str(t).strip()))
+    try:
+        r = rechne(schule, kinder, zeitlimit=zeitlimit, nur_klassen=bool(a.get("nur_klassen")),
+                   protokoll=lambda t: zeilen.append(str(t).strip()))
+    except (ValueError, TypeError, KeyError, AttributeError, IndexError, OverflowError, ZeroDivisionError) as e:
+        return fehler(400, f"Angaben fehlerhaft: {type(e).__name__}: {e}")
+    except Exception:  # noqa: BLE001 – nie Programmstellen oder Daten nach aussen geben
+        return fehler(500, "Interner Fehler beim Rechnen – mit der installierten Version prüfen und melden.")
     ergebnis = base64.b64encode(zlib.compress(pickle.dumps(r, protocol=4), 6)).decode("ascii")
     return 200, json.dumps({"version": __version__, "protokoll": zeilen, "ergebnis": ergebnis}, ensure_ascii=False)

@@ -9,14 +9,17 @@ Schul-Konfiguration überschreibt das Profil.
 """
 from __future__ import annotations
 
-from collections import Counter
-
 import math
 import re
+from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
 import yaml
+
+# Obergrenzen gegen versehentliche oder böswillige Riesen-Eingaben (Schreibfehler, öffentlicher Rechenserver)
+GRENZEN = {"zeitfenster": 120, "schulhaeuser": 100, "raeume": 2000, "anzahl_pro_eintrag": 200,
+           "lehrpersonen": 2000, "vorlagen": 500, "jahre": 30}
 
 STANDARD_GEWICHTE = {
     # Klasseneinteilung
@@ -85,12 +88,16 @@ def stufen_liste(angabe, jahrgaenge: list[str]) -> list[str] | None:
             a, b = stamm(von), stamm(bis)
             if a not in folge or b not in folge:
                 raise ValueError(f"Stufen '{t}': unbekannt (vorhanden: {', '.join(folge)})")
+            if folge.index(a) > folge.index(b):
+                raise ValueError(f"Stufen '{t}': umgekehrter Bereich – von der tieferen zur höheren Stufe angeben")
             for s in folge[folge.index(a):folge.index(b) + 1]:
                 out += jg(s)
         else:
             if not jg(von):
                 raise ValueError(f"Stufe '{von}': unbekannt (vorhanden: {', '.join(folge)})")
             out += jg(von)
+    if not out:
+        raise ValueError(f"Stufen '{angabe}': keine Stufe")
     return list(dict.fromkeys(out))
 
 
@@ -313,9 +320,20 @@ class Schule:
 
 def _parse_slots(raster: dict) -> list[Slot]:
     tage = raster.get("tage", ["Mo", "Di", "Mi", "Do", "Fr"])
+    roh = raster.get("halbtage")
+    if not isinstance(roh, dict) or not roh:
+        raise ValueError("zeitraster.halbtage: z.B. {VM: [\"07:50\", \"08:40\"], NM: [\"13:30\"]} erwartet")
+    halbtage = {}
+    for ht, zeiten in roh.items():
+        if not isinstance(zeiten, list):
+            raise ValueError(f"zeitraster.halbtage.{ht}: Liste von Uhrzeiten erwartet")
+        halbtage[str(ht)] = [_zeit(z, f"zeitraster.halbtage.{ht}") for z in zeiten]
+        if [minuten(z) for z in halbtage[str(ht)]] != sorted(minuten(z) for z in halbtage[str(ht)]):
+            raise ValueError(f"zeitraster.halbtage.{ht}: Lektionen in zeitlicher Reihenfolge angeben")
+    if len(tage) * sum(map(len, halbtage.values())) > GRENZEN["zeitfenster"]:
+        raise ValueError(f"zeitraster: mehr als {GRENZEN['zeitfenster']} Zeitfenster pro Woche")
     # Halbtage nach Beginn ordnen (VM vor NM), egal in welcher Reihenfolge sie notiert sind
-    bloecke: dict[str, list[str]] = dict(sorted(raster["halbtage"].items(),
-                                                key=lambda t: minuten(t[1][0]) if t[1] else 0))
+    bloecke: dict[str, list[str]] = dict(sorted(halbtage.items(), key=lambda t: minuten(t[1][0]) if t[1] else 0))
     frei = set(raster.get("frei", []))
     slots: list[Slot] = []
     for tag in tage:
@@ -351,29 +369,40 @@ def _liste(wert) -> list[str] | None:
     return [str(v) for v in wert]
 
 
+def _ohne_entfernen(wert):
+    """'entfernen: true'-Einträge ohne Gegenstück verwerfen (sonst entstünde z.B. eine neue Buslinie)."""
+    if isinstance(wert, list):
+        return [_ohne_entfernen(x) for x in wert if not (isinstance(x, dict) and x.get("entfernen"))]
+    if isinstance(wert, dict):
+        return {k: _ohne_entfernen(v) for k, v in wert.items()}
+    return wert
+
+
 def _mische(basis, patch):
     """Szenario-Änderungen anwenden: Dicts werden rekursiv gemischt, Listen von
     Einträgen mit 'name' werden pro Name gemischt (neu = anhängen,
-    'entfernen: true' = löschen), alle anderen Werte ersetzt."""
+    'entfernen: true' = löschen; Einträge ohne Name werden angehängt), alle anderen Werte ersetzt."""
     if isinstance(basis, dict) and isinstance(patch, dict):
         out = dict(basis)
         for k, v in patch.items():
-            out[k] = _mische(basis[k], v) if k in basis else v
+            out[k] = _mische(basis[k], v) if k in basis else _ohne_entfernen(v)
         return out
-    if (isinstance(basis, list) and isinstance(patch, list)
-            and all(isinstance(x, dict) and "name" in x for x in basis + patch)):
+    if (isinstance(basis, list) and isinstance(patch, list) and basis
+            and all(isinstance(x, dict) and "name" in x for x in basis)
+            and all(isinstance(x, dict) for x in patch)):
         out = [dict(x) for x in basis]
         for p in patch:
-            treffer = next((i for i, x in enumerate(out) if x["name"] == p["name"]), None)
+            treffer = (next((i for i, x in enumerate(out) if x.get("name") == p["name"]), None)
+                       if "name" in p else None)
             if p.get("entfernen"):
                 if treffer is not None:
                     out.pop(treffer)
             elif treffer is None:
-                out.append(p)
+                out.append(_ohne_entfernen(p))
             else:
                 out[treffer] = _mische(out[treffer], p)
         return out
-    return patch
+    return _ohne_entfernen(patch)
 
 
 def szenarien(pfad: str | Path) -> list[str]:
@@ -455,9 +484,9 @@ def lese_konfiguration(pfad: str | Path, szenario: str = "Basis",
                        gewichte: dict[str, int] | None = None) -> dict:
     """Rohdaten der Konfiguration (Profil + Schule + Szenario + Gewichte) als dict."""
     cfg = yaml.safe_load(Path(pfad).read_text(encoding="utf-8"))
+    alle = cfg.pop("szenarien", None) or {}  # vor dem Profil: Szenarien sind Änderungen, kein Inhalt
     if cfg.get("basis_profil"):
         cfg = _mische(lade_profil(cfg["basis_profil"]), cfg)
-    alle = cfg.pop("szenarien", None) or {}
     if szenario != "Basis":
         if szenario not in alle:
             raise ValueError(f"Unbekanntes Szenario '{szenario}'. Vorhanden: {', '.join(alle) or '-'}")
@@ -485,17 +514,31 @@ def baue_schule(cfg: dict) -> Schule:
     szenario = cfg.get("_szenario", "Basis")
     slots = _parse_slots(cfg["zeitraster"])
 
+    for feld in ("schulhaeuser", "lehrpersonen"):
+        if not isinstance(cfg.get(feld), list) or not all(isinstance(x, dict) for x in cfg[feld]):
+            raise ValueError(f"{feld}: Liste von Einträgen (Name, …) erwartet")
+        if len(cfg[feld]) > GRENZEN[feld]:
+            raise ValueError(f"{feld}: höchstens {GRENZEN[feld]} Einträge")
+    if not isinstance((cfg.get("klassenbildung") or {}).get("vorlagen"), list):
+        raise ValueError("klassenbildung.vorlagen: Liste von Klassentypen erwartet")
+    if len(cfg["klassenbildung"]["vorlagen"]) > GRENZEN["vorlagen"]:
+        raise ValueError(f"klassenbildung.vorlagen: höchstens {GRENZEN['vorlagen']} Klassentypen")
     schulhaeuser = []
     for sh in cfg["schulhaeuser"]:
         raeume = []
         for r in sh.get("raeume", []):
             anzahl = r.get("anzahl", 1)
+            if not isinstance(anzahl, int) or isinstance(anzahl, bool) or not 1 <= anzahl <= GRENZEN["anzahl_pro_eintrag"]:
+                raise ValueError(f"Schulhaus {sh.get('name')}: Raum-Anzahl {anzahl!r} – ganze Zahl von 1 bis "
+                                 f"{GRENZEN['anzahl_pro_eintrag']} erwartet")
             for i in range(anzahl):
                 name = r.get("name") or f"{r['typ']} {i + 1}"
                 if anzahl > 1 and r.get("name"):
                     name = f"{r['name']} {i + 1}"
                 raeume.append(Raum(name, r["typ"], int(r.get("plaetze", 25)),
                                    _slot_set(r.get("nicht_verfuegbar", []), slots)))
+        if sum(len(x.raeume) for x in schulhaeuser) + len(raeume) > GRENZEN["raeume"]:
+            raise ValueError(f"höchstens {GRENZEN['raeume']} Räume insgesamt")
         schulhaeuser.append(Schulhaus(
             name=sh["name"], kuerzel=sh.get("kuerzel", sh["name"][:2].upper()), adresse=str(sh.get("adresse") or ""),
             lat=float(sh["lat"]), lon=float(sh["lon"]), raeume=raeume,
@@ -515,6 +558,9 @@ def baue_schule(cfg: dict) -> Schule:
             for regel in groessen.values():
                 if set(jg) & set(_liste(regel["jahrgaenge"])):
                     lo, hi = max(lo, int(regel["min"])), min(hi, int(regel["max"]))
+        if not 1 <= lo <= hi:
+            raise ValueError(f"Klassentyp {'/'.join(jg)}: Grösse min {lo}, max {hi} – es muss 1 ≤ min ≤ max gelten"
+                             + (" (nach dem verbindlichen Kantonsprofil)" if profil.get("verbindlich") else ""))
         vorlagen.append(Vorlage(
             jahrgaenge=jg, min=lo, max=hi,
             ideal=min(hi, max(lo, int(v.get("ideal", (lo + hi) // 2)))),
@@ -556,7 +602,12 @@ def baue_schule(cfg: dict) -> Schule:
             bisherige_klasse=str(lp.get("bisherige_klasse", "")), kuerzel=str(lp.get("kuerzel", ""))))
 
     gewichte = dict(STANDARD_GEWICHTE)
-    gewichte.update(cfg.get("gewichte", {}))
+    for k, v in (cfg.get("gewichte") or {}).items():
+        if k not in STANDARD_GEWICHTE:
+            raise ValueError(f"Unbekanntes Gewicht '{k}'. Erlaubt: {', '.join(STANDARD_GEWICHTE)}")
+        if isinstance(v, bool):
+            raise ValueError(f"Gewicht {k}: Zahl ≥ 0 erwartet, nicht {v}")
+        gewichte[k] = round(_zahl(v, f"Gewicht {k}"))   # CP-SAT rechnet mit ganzen Zahlen
 
     return Schule(
         name=cfg.get("name", "Schule"),
@@ -589,7 +640,9 @@ def _zahl(wert, wo: str) -> float:
         x = float(wert)
     except (TypeError, ValueError):
         raise ValueError(f"{wo}: Zahl erwartet, nicht '{wert}'") from None
-    if x < 0 or x != x:
+    if not math.isfinite(x):
+        raise ValueError(f"{wo}: endliche Zahl erwartet, nicht '{wert}'")
+    if x < 0:
         raise ValueError(f"{wo}: darf nicht negativ sein ({wert})")
     return x
 
@@ -630,6 +683,10 @@ def _planung(roh) -> dict:
     for k in ("neue_kg1_pro_jahr", "vollpensum_lektionen", "jahre"):
         if roh.get(k) is not None:
             out[k] = _zahl(roh[k], f"planung.{k}")
+    if "jahre" in out:
+        if out["jahre"] > GRENZEN["jahre"] or out["jahre"] != int(out["jahre"]):
+            raise ValueError(f"planung.jahre: ganze Zahl bis {GRENZEN['jahre']}")
+        out["jahre"] = int(out["jahre"])
     if out.get("vollpensum_lektionen") == 0:
         raise ValueError("planung.vollpensum_lektionen: muss grösser als 0 sein")
     out["austritt_prozent"] = {}
@@ -670,13 +727,33 @@ def minuten(zeit: str) -> int:
     return int(h) * 60 + int(m or 0)
 
 
+def _zeit(wert, wo: str) -> str:
+    """Uhrzeit prüfen → "HH:MM". YAML liest 13:30 ohne Anführungszeichen als Zahl 810 (Minuten) – das wird
+    zurückgerechnet statt still falsch weiterverwendet."""
+    if isinstance(wert, bool):
+        raise ValueError(f"{wo}: Uhrzeit wie 08:00 erwartet, nicht {wert}")
+    if isinstance(wert, int):
+        h, m = divmod(wert, 60)
+    else:
+        treffer = re.fullmatch(r"\s*(\d{1,2}):(\d{2})\s*", str(wert))
+        if not treffer:
+            raise ValueError(f"{wo}: Uhrzeit wie 08:00 erwartet, nicht '{wert}'")
+        h, m = int(treffer.group(1)), int(treffer.group(2))
+    if not (0 <= h < 24 and 0 <= m < 60):
+        raise ValueError(f"{wo}: ungültige Uhrzeit '{wert}'")
+    return f"{h:02d}:{m:02d}"
+
+
 def _buslinien(cfg: dict) -> list[Buslinie]:
     linien = []
     for l in cfg.get("linien", []) or []:
         linien.append(Buslinie(
             name=str(l["name"]), schulhaeuser=_liste(l.get("schulhaeuser")) or [],
-            ankunft={str(k): minuten(v) for k, v in (l.get("ankunft") or {}).items()},
-            abfahrt={str(k): sorted(minuten(x) for x in _liste(v)) for k, v in (l.get("abfahrt") or {}).items()}))
+            ankunft={str(k): minuten(_zeit(v, f"schulbus {l['name']} ankunft"))
+                     for k, v in (l.get("ankunft") or {}).items()},
+            abfahrt={str(k): sorted(minuten(_zeit(x, f"schulbus {l['name']} abfahrt"))
+                                    for x in (v if isinstance(v, list) else _liste(v)))
+                     for k, v in (l.get("abfahrt") or {}).items()}))
     return linien
 
 
@@ -690,8 +767,11 @@ def _wegzeiten(cfg) -> dict | None:
     if isinstance(eintraege, dict):  # {"A - B": 12} (Bindestrich mit Leerzeichen, falls Namen "-" enthalten)
         eintraege = [[*str(k).partition(" - " if " - " in str(k) else "-")[::2], v] for k, v in eintraege.items()]
     for a, b, v in eintraege:
-        paare[str(a).strip(), str(b).strip()] = paare[str(b).strip(), str(a).strip()] = int(v)
-    return {"minuten": paare, "kmh": float(cfg.get("geschwindigkeit_kmh", 20))}
+        paare[str(a).strip(), str(b).strip()] = paare[str(b).strip(), str(a).strip()] = int(_zahl(v, "wegzeiten"))
+    kmh = _zahl(cfg.get("geschwindigkeit_kmh", 20), "wegzeiten.geschwindigkeit_kmh")
+    if kmh <= 0:
+        raise ValueError("wegzeiten.geschwindigkeit_kmh: muss grösser als 0 sein")
+    return {"minuten": paare, "kmh": kmh}
 
 
 def lade_kinder(pfad: str | Path, spalten: dict[str, str] | None = None) -> list[Kind]:

@@ -96,7 +96,10 @@ def schritt(schule: Schule, k: Kind, klasse: str = "") -> Schritt:
         return neu(k.jahrgang, "Repetition")
     moeglich = folge[k.jahrgang]
     if e in _UEBERSPRINGT:
-        weiter = [n for z in moeglich if z in folge for n in folge[z]]
+        weiter = list(dict.fromkeys(n for z in moeglich if z in folge for n in folge[z]))
+        if len(weiter) > 1:  # z.B. 5. Klasse → 1. Sek: das Niveau gehört zum Entscheid
+            return neu(k.jahrgang, "Entscheid fehlt", f"Überspringen nach {'/'.join(weiter)}: Zielstufe direkt "
+                                                      f"angeben (z.B. {weiter[0]})")
         if weiter and weiter[0] != ABSCHLUSS:
             return neu(weiter[0], "Überspringt eine Stufe")
         return neu(moeglich[0], "Aufstieg", "Überspringen nicht möglich – normal aufgestiegen")

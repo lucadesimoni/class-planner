@@ -1,8 +1,8 @@
 {
  "format": "skf-stammdaten",
  "version": 1,
- "programm": "0.1.0",
- "exportiert": "2026-10-26",
+ "programm": "0.2.0",
+ "exportiert": "2026-10-29",
  "schule": {
   "profil": {
    "name": "Kanton Luzern – Volksschule (KG, Primar, Sek)",
@@ -310,6 +310,7 @@
    {
     "name": "Bündtmättli",
     "kuerzel": "BM",
+    "adresse": "Schwarzenbergstrasse 14, 6102 Malters",
     "stufen": "KG1-6",
     "lat": 47.0338,
     "lon": 8.1862,
@@ -346,6 +347,7 @@
    {
     "name": "Eischachen",
     "kuerzel": "EI",
+    "adresse": "Hellbühlstrasse 52, 6102 Malters",
     "stufen": "KG1-6",
     "lat": 47.0402,
     "lon": 8.1765,
@@ -378,6 +380,7 @@
    {
     "name": "Im Feld",
     "kuerzel": "IF",
+    "adresse": "Naturkindergarten Im Feld, c/o Schulhaus Eischachen, Hellbühlstrasse 52, 6102 Malters",
     "stufen": "KG1-KG2",
     "lat": 47.0445,
     "lon": 8.188,
@@ -398,6 +401,7 @@
    {
     "name": "Oberstufe",
     "kuerzel": "OS",
+    "adresse": "Schulhaus Muoshof, Muoshofstrasse 26, 6102 Malters",
     "stufen": "S1-S3",
     "lat": 47.0372,
     "lon": 8.1838,

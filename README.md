@@ -82,7 +82,8 @@ Weil der Rechenkern (Google OR-Tools) nicht im Browser läuft, rechnet eine Verc
   Lernende ID, Jahrgang, Geschlecht, Koordinaten, Förderung, Geschwister, Wünsche, Vorjahr,
   Schulbus. **Nicht gesendet:** Namen, Adressen, Bemerkungen, weitere Spalten. Der Server
   speichert nichts; Region Frankfurt (`fra1`).
-- Rechenzeit pro Szenario höchstens 4 Minuten (Vercel `maxDuration` 300 s).
+- Rechenzeit pro Szenario höchstens 160 s; mit allen Wiederholungen bleibt eine Berechnung unter Vercels
+  `maxDuration` von 300 s.
 - Die installierte Version bleibt unverändert und rechnet weiterhin ganz ohne Datenweitergabe.
 
 Einrichten (einmalig): das Repository in Vercel importieren – `vercel.json` enthält Build,
@@ -596,7 +597,26 @@ werden die Lehraufträge der beteiligten Lehrpersonen neu verteilt (bis zu 4 Ver
 Lehraufträge oder Stundenplan mit einer Klasseneinteilung nachweislich unlösbar, wird die
 Klassenbildung mit einer anderen Einteilung wiederholt: mindestens eine Anzahl Klassen je
 Schulhaus und Klassentyp muss sich ändern (bis zu 3 Einteilungen). Erst wenn auch das nicht
-geht, meldet das Programm einen Fehler, mit der Zahl der geprüften Einteilungen.
+geht, meldet das Programm einen Fehler – mit dem Grund der ersten (besten) Einteilung und der
+Zahl der weiteren geprüften Einteilungen.
+
+**Bewiesen oder nur nicht gefunden:** „Nachweislich keine Lösung“ heisst bewiesen unlösbar; die
+Konfliktanalyse nennt dann die beteiligten Regeln – und keine, wenn die Ursache feste Vorgaben
+sind. Ist nur die Rechenzeit abgelaufen, sagt das Programm genau das und wiederholt nichts
+(mehr Zeit hilft, Wiederholen nicht). Alle Versuche zusammen halten eine Frist von 1,5 × der
+eingestellten Rechenzeit ein (plus Konfliktanalyse).
+
+**Unabhängige Nachprüfung:** Jede harte Regel, die die Optimierung erzwingt, wird danach mit
+eigenem Code nachgezählt (*Prüfung → Transparenz*): auch Raumtyp und Schulhaus des Klassentyps,
+Mindestzahl je Jahrgang in Mehrjahrgangsklassen, Höchstzahl Klassen, Schulhaus der Lernenden
+und Spezialräume (Typ und Grösse). `tests/test_haertung.py` hält für jeden gefundenen Fehler
+einen Regressionstest.
+
+**Eingaben:** Unsinnige Werte werden beim Einlesen mit klarer Meldung abgelehnt, statt still
+falsch zu rechnen: Uhrzeiten (auch `13:30` ohne Anführungszeichen), unendliche oder negative
+Zahlen, Gewichte als Text, umgekehrte Stufenbereiche, Klassentypen mit min > max, und
+Obergrenzen gegen Riesen-Eingaben (z.B. 200 Räume pro Eintrag, 120 Zeitfenster, 30 Jahre
+Prognose). Kantonsprofile nur nach Namen.
 
 Jeder Schritt meldet, ob die Lösung **beweisbar optimal** ist oder wie weit sie höchstens
 vom Optimum entfernt ist. Mehr Rechenzeit (`-t`) verkleinert diese Lücke. Schulwege

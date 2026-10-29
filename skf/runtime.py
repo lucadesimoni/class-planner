@@ -13,4 +13,6 @@ import sys
 # SKF_BROWSER=1 führt die Browser-Pfade in normalem Python aus (Tests)
 IN_BROWSER = sys.platform == "emscripten" or os.environ.get("SKF_BROWSER") == "1"
 RECHEN_URL = os.environ.get("SKF_RECHNEN_URL", "/api/rechnen")   # relativ = gleiche Adresse wie die Seite
-MAX_RECHENZEIT = 240   # Sekunden pro Szenario auf dem Server (Vercel: maxDuration 300)
+# Sekunden Rechenzeit pro Szenario auf dem Server: rechne() hält höchstens 1,5 × dieser Zeit plus die
+# Konfliktanalyse ein – das bleibt unter Vercels maxDuration von 300 s
+MAX_RECHENZEIT = 160

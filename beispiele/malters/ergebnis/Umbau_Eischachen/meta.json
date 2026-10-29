@@ -1,5 +1,5 @@
 {
- "zeit": "2026-10-26T16:10:32",
+ "zeit": "2026-10-29T08:21:24",
  "szenario": "Umbau Eischachen",
  "schule": "Schule Malters – Volksschule (Beispiel)",
  "schuljahr": "2027/28",
@@ -20,6 +20,6 @@
   "Rechenzeit": "10 s"
  },
  "manuell": [],
- "programmversion": "0.1.0",
+ "programmversion": "0.2.0",
  "profilversion": "2026.10.1"
 }

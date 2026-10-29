@@ -105,8 +105,9 @@ def _loese_komponente(schule: Schule, klassen: list[Klasse], bloecke: list[Block
     for b in bloecke:
         fach = schule.faecher[b.fach]
         lp = lp_nach_name[b.lehrperson]
-        # nur durch die Lehrperson gesperrte Slots bleiben als Variable (für die Konfliktanalyse)
-        gesperrt = gesperrte_slots(schule, klasse_nach_name[b.klasse], b.fach, lp) - lp.nicht_verfuegbar
+        # Schulhaus/Raum gesperrt: gar keine Variable; nur durch die Lehrperson gesperrte Slots bleiben
+        # als Variable mit benannter Regel (Konfliktanalyse nennt sie nur, wenn sie wirklich stört)
+        gesperrt = gesperrte_slots(schule, klasse_nach_name[b.klasse], b.fach, None)
         teile = [(fach.dauer, b.lektionen // fach.dauer)]
         if b.lektionen % fach.dauer:
             teile.append((1, b.lektionen % fach.dauer))
@@ -210,7 +211,7 @@ def _loese_komponente(schule: Schule, klassen: list[Klasse], bloecke: list[Block
     # Lehrpersonen: keine Doppelbelegung, weiche Ziele
     kosten = []
     halbtage = schule.halbtage()
-    for name in {b.lehrperson for b in bloecke}:
+    for name in sorted({b.lehrperson for b in bloecke}):  # feste Reihenfolge: gleiche Eingabe, gleiches Modell
         busy = {}
         for s in slots:
             vars_ = belegt["lp", name, s.index]

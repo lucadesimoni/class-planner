@@ -1,5 +1,5 @@
 {
- "zeit": "2026-10-26T16:13:26",
+ "zeit": "2026-10-29T08:23:16",
  "szenario": "Geschwister zwingend",
  "schule": "Schule Malters – Volksschule (Beispiel)",
  "schuljahr": "2027/28",
@@ -10,22 +10,22 @@
   "Ø Schulweg": "1.41 km",
   "Max. Schulweg": "5.51 km",
   "Mehrjahrgangsklassen": "2",
-  "Lehrpersonen im Einsatz": "67",
+  "Lehrpersonen im Einsatz": "69",
   "Förderlektionen": "276",
-  "Springstunden": "6",
-  "Wünsche erfüllt": "65/84",
+  "Springstunden": "1",
+  "Wünsche erfüllt": "66/84",
   "Lektionen/Woche": "1476",
   "Klassen nahe Idealgrösse": "31/47",
-  "Lehrpersonen pro Klasse": "3.7",
+  "Lehrpersonen pro Klasse": "3.4",
   "Auslastung Schulzimmer": "76 %",
   "Kosten/Jahr": "CHF 7’338’000",
   "Kosten pro Lernende": "CHF 8’301",
   "Fehler": "0",
-  "Warnungen": "12",
-  "Hinweise": "104",
-  "Rechenzeit": "173 s"
+  "Warnungen": "11",
+  "Hinweise": "100",
+  "Rechenzeit": "111 s"
  },
  "manuell": [],
- "programmversion": "0.1.0",
+ "programmversion": "0.2.0",
  "profilversion": "2026.10.1"
 }

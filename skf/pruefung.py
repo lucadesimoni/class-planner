@@ -166,14 +166,17 @@ def vorpruefung(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
         plaetze = 0
         for s in schule.schulhaeuser:
             for r in s.raeume:
+                # ein Raum zählt nur, wenn die Mindestgrösse eines Klassentyps darin Platz hat
                 caps = [min(v.max, r.plaetze) for v in schule.vorlagen if v.raumtyp == r.typ and r.typ in typen
-                        and set(v.jahrgaenge) <= jg and (not v.schulhaeuser or s.name in v.schulhaeuser)]
+                        and set(v.jahrgaenge) <= jg and (not v.schulhaeuser or s.name in v.schulhaeuser)
+                        and (s.stufen is None or set(v.jahrgaenge) & set(s.stufen))
+                        and min(v.max, r.plaetze) >= v.min]
                 plaetze += max(caps, default=0)
         art = "/".join(sorted(typen))
         if kinder_gruppe > plaetze:
             m.append(Meldung("Fehler", "Klassen", f"{kinder_gruppe} Lernende ({'/'.join(sorted(jg))}) aber höchstens "
                              f"{plaetze} Plätze in Räumen vom Typ '{art}'"))
-        elif kinder_gruppe > 0.95 * plaetze:
+        elif plaetze and kinder_gruppe > 0.95 * plaetze:
             m.append(Meldung("Warnung", "Klassen", f"Räume '{art}' zu {100 * kinder_gruppe / plaetze:.0f}% "
                              "ausgelastet – kaum Spielraum für eine gute Einteilung"))
 
@@ -286,6 +289,7 @@ def pruefe(schule: Schule, kinder: list[Kind], e: Einteilung,
     klassen = {c.name: c for c in e.klassen}
 
     zugeteilt = Counter(kid for c in e.klassen for kid in c.kinder)
+    nach_id_alle = {k.id: k for k in kinder}
     for k in kinder:
         if zugeteilt[k.id] != 1:
             f.append(Meldung("Fehler", "Klassen", f"{k.id} ist {zugeteilt[k.id]}x eingeteilt", k.id))
@@ -302,6 +306,25 @@ def pruefe(schule: Schule, kinder: list[Kind], e: Einteilung,
                 for sh in linie.schulhaeuser for v in schule.vorlagen):
             f.append(Meldung("Fehler", "Klassen", f"{k.id}: Schulhaus {e.schulhaus_von.get(k.id)} wird von "
                              f"Buslinie {linie.name} nicht angefahren", k.id))
+        if k.id in e.klasse_von and k.id in e.schulhaus_von and \
+                e.schulhaus_von[k.id] != klassen[e.klasse_von[k.id]].schulhaus:
+            f.append(Meldung("Fehler", "Klassen", f"{k.id}: Schulhaus {e.schulhaus_von[k.id]} ist nicht das "
+                             f"Schulhaus der Klasse {e.klasse_von[k.id]}", k.id))
+    if schule.max_klassen is not None and len(e.klassen) > schule.max_klassen:
+        f.append(Meldung("Fehler", "Klassen", f"{len(e.klassen)} Klassen, höchstens {schule.max_klassen} erlaubt"))
+    for c in e.klassen:
+        if c.raum.typ != c.vorlage.raumtyp:
+            f.append(Meldung("Fehler", "Klassen", f"{c.name}: Raum {c.raum.name} ist vom Typ {c.raum.typ}, der "
+                             f"Klassentyp verlangt Raumtyp {c.vorlage.raumtyp}", c.name))
+        if c.vorlage.schulhaeuser and c.schulhaus not in c.vorlage.schulhaeuser:
+            f.append(Meldung("Fehler", "Klassen", f"{c.name}: Klassentyp nur in {', '.join(c.vorlage.schulhaeuser)} "
+                             "zugelassen", c.name))
+        if len(c.vorlage.jahrgaenge) > 1 and c.vorlage.min_pro_jahrgang:
+            je_jg = Counter(nach_id_alle[i].jahrgang for i in c.kinder if i in nach_id_alle)
+            for j in c.vorlage.jahrgaenge:
+                if je_jg[j] < c.vorlage.min_pro_jahrgang:
+                    f.append(Meldung("Fehler", "Klassen", f"{c.name}: {je_jg[j]} Lernende im Jahrgang {j}, "
+                                     f"mindestens {c.vorlage.min_pro_jahrgang} pro Jahrgang", c.name))
     raeume = Counter((c.schulhaus, c.raum.name) for c in e.klassen)
     f += [Meldung("Fehler", "Klassen", f"Raum {r[1]} doppelt vergeben", r[1]) for r, n in raeume.items() if n > 1]
     for c in e.klassen:
@@ -376,6 +399,18 @@ def pruefe(schule: Schule, kinder: list[Kind], e: Einteilung,
         raum = next((r for r in schule.schulhaus(l.raum_ort).raeume if r.name == l.raum), None)
         if raum and l.slot in raum.nicht_verfuegbar:
             f.append(Meldung("Fehler", "Stundenplan", f"Raum {l.raum_label} nicht verfügbar: {wann}", l.klasse, l.slot))
+        typ = schule.faecher[l.fach].raumtyp
+        if raum and typ not in ("", "Klassenzimmer"):
+            if raum.typ != typ:
+                f.append(Meldung("Fehler", "Stundenplan", f"{l.klasse} {l.fach}: Raum {l.raum_label} ist vom Typ "
+                                 f"{raum.typ}, das Fach braucht {typ}", l.klasse, l.slot))
+            else:  # wie im Modell: so gross wie die Gruppe, höchstens wie der grösste Raum dieses Typs
+                groesste = max((r.plaetze for r in schule.schulhaus(l.raum_ort).raeume
+                                if r.typ == typ and l.slot not in r.nicht_verfuegbar), default=raum.plaetze)
+                bedarf = min(l.gruppe or klassen[l.klasse].groesse, groesste)
+                if raum.plaetze < bedarf:
+                    f.append(Meldung("Fehler", "Stundenplan", f"{l.klasse} {l.fach}: Raum {l.raum_label} zu klein "
+                                     f"({raum.plaetze} Plätze für {bedarf} Lernende), {wann}", l.klasse, l.slot))
 
     pro_tag = Counter((l.klasse, l.fach, schule.slots[l.slot].tag) for l in lektionen)
     for (k, fach, tag), n in pro_tag.items():

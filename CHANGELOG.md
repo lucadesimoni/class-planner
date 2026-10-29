@@ -7,6 +7,31 @@ Neue Version: `python scripts/version.py 0.2.0`.
 
 ## [Unveröffentlicht]
 
+### Behoben (Prüfung des Rechenkerns, Oktober 2026 – je ein Regressionstest in `tests/test_haertung.py`)
+- Konfliktanalyse nannte eine unbeteiligte Regel, wenn die Ursache eine feste Vorgabe war (z.B. zu kleine
+  Räume); die Platz-Gleichung ist jetzt eine benannte Regel, die Vorprüfung zählt nur nutzbare Räume.
+- Geschwister wurden über eine Kette gruppiert (KG nur in A, 1. Klasse nur in C …) – „Geschwister zwingend“ war
+  dann unlösbar; Gruppen haben jetzt immer ein gemeinsames Schulhaus. Die Transparenz zählt wie der Optimierer.
+- Ein (zeitweise) gesperrtes Schulzimmer galt als gleichwertig und wurde einer Klasse gegeben → falsche
+  „keine Lösung“. Zimmer brauchen genug offene Zeitfenster, frei verfügbare werden bevorzugt.
+- Zeitüberschreitung wurde wie Unlösbarkeit behandelt und bis zu 12-mal wiederholt; jetzt eine Frist für alle
+  Versuche, kein Wiederholen bei Zeitüberschreitung.
+- Ungequotete Uhrzeiten (YAML liest 13:30 als 810) verschoben Blockzeiten, Bus- und Wegzeiten.
+- Lektionenzahl wurde gegen alle statt gegen die offenen Zeitfenster des Schulhauses geprüft.
+- Rückmeldung Stundenplan → Lehraufträge überdeckte den eigentlichen Grund; nach mehreren Klasseneinteilungen
+  wurde der Grund der letzten statt der ersten gemeldet.
+- Konfliktanalyse beschuldigte Lehrpersonen für Zeiten, in denen Raum oder Schulhaus ohnehin geschlossen sind.
+- Fördergruppen über mehrere Klassen: Qualifikation der Lehrperson nur für die erste Klasse geprüft.
+- Nachprüfung zählte mehrere harte Regeln nicht nach (Raumtyp, Höchstzahl Klassen, Schulhaus des Klassentyps,
+  Mindestzahl je Jahrgang, Schulhaus der Lernenden, Spezialraum Typ/Grösse).
+- Eingaben: unendliche/negative Zahlen, Gewichte als Text oder negativ, umgekehrte Stufenbereiche, min > max,
+  `schulbus: true`, Punkte als Text, Riesen-Mengen (Räume, Zeitfenster, Prognosejahre, Gebiete) – jetzt mit
+  klarer Meldung abgelehnt; Rechenserver antwortet immer mit JSON, ohne Programmstellen.
+- Szenarien: ein Eintrag ohne Namen ersetzte die ganze Liste, „entfernen“ ohne Gegenstück legte Neues an.
+- `neue_kg1_pro_jahr: 0` wurde ignoriert; Stufen ohne Schulhaus verschwanden still aus der Prognose.
+- IS-Gewichtung auf Zehntel gerundet (1.25 → 1.2); Modellaufbau in fester Reihenfolge.
+- Überspringen in eine Stufe mit Niveaus (5. Klasse → Sek) wählte still Niveau A.
+
 ### Hinzugefügt
 - **Browser-Version auf Vercel** (wie site-development): die App läuft mit stlite im Browser, gerechnet wird in
   der Vercel-Funktion `api/rechnen.py` mit derselben `skf.ablauf.rechne` (`skf/fernrechnen.py`). Datensparsam:

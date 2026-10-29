@@ -120,11 +120,11 @@ def qualifiziert(lp: Lehrperson, klasse: Klasse, fach: str) -> bool:
                                               for j in klasse.jahrgaenge)))
 
 
-def gesperrte_slots(schule: Schule, klasse: Klasse, fach: str, lp: Lehrperson) -> set[int]:
+def gesperrte_slots(schule: Schule, klasse: Klasse, fach: str, lp: Lehrperson | None) -> set[int]:
     """Slots, in denen diese Lehrperson dieses Fach in dieser Klasse nicht unterrichten kann
-    (Lehrperson, Schulhaus oder benötigter Raum nicht verfügbar)."""
+    (Lehrperson, Schulhaus oder benötigter Raum nicht verfügbar). ``lp=None``: nur Schulhaus und Raum."""
     sh = schule.schulhaus(klasse.schulhaus)
-    gesperrt = set(lp.nicht_verfuegbar) | sh.nicht_verfuegbar
+    gesperrt = set(lp.nicht_verfuegbar if lp else ()) | sh.nicht_verfuegbar
     typ = schule.faecher[fach].raumtyp
     if typ == "":
         return gesperrt
@@ -151,8 +151,10 @@ def verteile_lehrauftraege(schule: Schule, klassen: list[Klasse], zeitlimit: flo
     bloecke = []
     for c in klassen:
         tafel = stundentafel(schule, c)
-        if sum(tafel.values()) > len(schule.slots):
-            raise KeineLoesung(f"{c.name}: {sum(tafel.values())} Lektionen, aber nur {len(schule.slots)} Zeitfenster")
+        offen = len(schule.offene_slots(c.schulhaus))  # ohne Zeiten, in denen das Schulhaus geschlossen ist
+        if sum(tafel.values()) > offen:
+            raise KeineLoesung(f"{c.name}: {sum(tafel.values())} Lektionen, aber nur {offen} Zeitfenster "
+                               f"(Schulhaus {c.schulhaus} offen)")
         bloecke += [Block(c.name, c.schulhaus, f, l) for f, l in tafel.items() if l > 0]
     if nach_id:
         bloecke += foerderbloecke(schule, klassen, nach_id)
@@ -162,10 +164,12 @@ def verteile_lehrauftraege(schule: Schule, klassen: list[Klasse], zeitlimit: flo
     a = {}
     for bi, b in enumerate(bloecke):
         klasse = next(c for c in klassen if c.name == b.klasse)
-        kandidaten = [ti for ti, lp in enumerate(schule.lehrpersonen) if qualifiziert(lp, klasse, b.fach)]
+        beteiligt = [c for c in klassen if c.name in b.klassen]  # Fördergruppen: alle beteiligten Klassen
+        kandidaten = [ti for ti, lp in enumerate(schule.lehrpersonen)
+                      if all(qualifiziert(lp, c, b.fach) for c in beteiligt or [klasse])]
         if not kandidaten:
-            raise KeineLoesung(f"Keine Lehrperson für {b.fach} in {b.klasse} ({b.schulhaus}, "
-                               f"Jahrgänge {'/'.join(klasse.jahrgaenge)})")
+            raise KeineLoesung(f"Keine Lehrperson für {b.fach} in {'+'.join(b.klassen)} ({b.schulhaus}, Jahrgänge "
+                               f"{'/'.join(sorted({j for c in beteiligt or [klasse] for j in c.jahrgaenge}))})")
         for ti in kandidaten:
             a[bi, ti] = m.new_bool_var(f"a_{bi}_{ti}")
         m.add_exactly_one(a[bi, ti] for ti in kandidaten)
@@ -280,8 +284,8 @@ def verteile_lehrauftraege(schule: Schule, klassen: list[Klasse], zeitlimit: flo
     for verbot in verbote or []:
         terme = [a[bi, lp_index[lp]] for bi, b in enumerate(bloecke) for kl, fach, lp in verbot
                  if b.klasse == kl and b.fach == fach and (bi, lp_index.get(lp)) in a]
-        if terme:
-            m.add(sum(terme) <= len(terme) - 1)
+        if terme:  # benannt: die Konfliktanalyse soll diese Rückmeldung als Ursache nennen können
+            regeln.nur_wenn(m.add(sum(terme) <= len(terme) - 1), "Rückmeldung aus dem Stundenplan")
 
     m.minimize(sum(kosten))
     sol, info = loese_mit_regeln(m, regeln, "Lehraufträge", zeitlimit)

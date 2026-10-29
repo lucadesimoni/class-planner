@@ -1,6 +1,6 @@
-Klassenbildung & Stundenplan 0.1.0 – gespeicherter Stand
+Klassenbildung & Stundenplan 0.2.0 – gespeicherter Stand
 =============================================================
-Schule: Schule Malters – Volksschule (Beispiel)   Schuljahr: 2027/28   Szenario: Lehrpersonenmangel   Zeitpunkt: 26.10.2026 16:15
+Schule: Schule Malters – Volksschule (Beispiel)   Schuljahr: 2027/28   Szenario: Lehrpersonenmangel   Zeitpunkt: 29.10.2026 08:25
 
 Alle Dateien sind offen lesbar – auch ohne dieses Programm.
 
