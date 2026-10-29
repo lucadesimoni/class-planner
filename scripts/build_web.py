@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+# SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+# Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 """Browser-Version bauen (Vercel): Wheel, Startseite, Icon und Kartenkomponente in einem Ordner.
 
     python scripts/build_web.py            # → _site/ (lokal ansehen: python -m http.server -d _site 8000)

@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+# SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+# Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 """Bedienoberfläche für Schulleitung und Lehrpersonen (Streamlit).
 
 Start:  skf app   (oder Doppelklick auf start-windows.bat / start-mac.command / start-linux.sh)
@@ -1185,9 +1185,11 @@ Nur Kartenkacheln werden von OpenStreetMap geladen. Förderdaten erscheinen in L
 *Prüfen* zuerst beheben.
 """)
     with st.expander("Über diese Software und Lizenzen", icon=":material/info:"):
-        st.markdown(f"**Klassenbildung & Stundenplan {__version__}** · © 2026 Outthinkx for Communities · "
-                    "alle Rechte vorbehalten.  \n"
-                    "Nutzung nur mit gültiger Lizenz. Verwendete Komponenten (Google OR-Tools, Streamlit, pandas, "
+        st.markdown(f"**Klassenbildung & Stundenplan {__version__}** · © 2026 Outthinkx by Luca De Simoni.  \n"
+                    "**Gratis** für Privatpersonen, Lernen und Lehre, nicht-kommerzielle Forschung und eine Testphase "
+                    "von 90 Tagen. **Lizenzpflichtig** ist jeder produktive Einsatz durch oder für Schulen, Gemeinden, "
+                    "Behörden und Firmen sowie der Betrieb als Dienst (Bedingungen: LICENSE).  \n"
+                    "Verwendete Komponenten (Google OR-Tools, Streamlit, pandas, "
                     "openpyxl, PyYAML, Leaflet, Material Symbols u.a.) stehen unter freizügigen Lizenzen "
                     "(Apache-2.0, MIT, BSD); Kartendaten © OpenStreetMap-Mitwirkende. Details: "
                     "`LICENSE` und `THIRD_PARTY_NOTICES.md` im Programmordner.")

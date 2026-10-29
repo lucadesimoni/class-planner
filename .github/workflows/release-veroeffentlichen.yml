@@ -1,8 +1,8 @@
-# SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+# SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+# Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 #
 # Veröffentlicht den Release-Entwurf vX.Y.Z (aus skf/version.py); GitHub setzt dabei den Tag.
-# Das Repository ist öffentlich (Quellcode einsehbar); die Lizenz bleibt proprietär – siehe LICENSE.
+# Das Repository ist öffentlich (Quellcode einsehbar); nicht-kommerziell frei, produktiver Einsatz lizenzpflichtig – siehe LICENSE.
 name: Release veröffentlichen
 
 on:

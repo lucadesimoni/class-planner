@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+# SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+# Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 """Browser-Version (stlite auf Vercel) und Rechnen über den Server (skf.fernrechnen, api/rechnen.py).
 
 Die echte WebAssembly-Umgebung braucht das stlite/Pyodide-CDN; hier laufen die Browser-Pfade in normalem

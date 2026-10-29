@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+# SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+# Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 """Neue Programmversion setzen – überall gleichzeitig.
 
     python scripts/version.py            zeigt die aktuelle Version und prüft, ob alles übereinstimmt

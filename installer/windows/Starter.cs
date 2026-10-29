@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: LicenseRef-Proprietary
-// Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+// SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+// Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 //
 // Klassenbildung.exe – startet das mitgelieferte Python mit "skf app" im selben Fenster.
 // Ohne Argumente: Bedienoberfläche. Mit Befehl (z.B. "rechnen schule.yaml kinder.csv"):

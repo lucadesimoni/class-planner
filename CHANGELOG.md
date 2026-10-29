@@ -7,6 +7,12 @@ Neue Version: `python scripts/version.py 0.2.0`.
 
 ## [Unveröffentlicht]
 
+### Lizenz
+- **Neue Lizenz: Outthinkx Nicht-kommerzielle Lizenz 1.0** (`LicenseRef-Outthinkx-NC-1.0`), Rechteinhaber
+  **Outthinkx by Luca De Simoni**. Gratis für Privatpersonen, Lernen und Lehre, nicht-kommerzielle Forschung und
+  eine Testphase von 90 Tagen; jeder produktive Einsatz durch oder für Schulen, Gemeinden, Behörden und Firmen
+  sowie der Betrieb als Dienst braucht eine schriftliche Lizenz. Gilt auch für die bisher proprietären Stände bis 0.2.0.
+
 ### Behoben (Prüfung des Rechenkerns, Oktober 2026 – je ein Regressionstest in `tests/test_haertung.py`)
 - Konfliktanalyse nannte eine unbeteiligte Regel, wenn die Ursache eine feste Vorgabe war (z.B. zu kleine
   Räume); die Platz-Gleichung ist jetzt eine benannte Regel, die Vorprüfung zählt nur nutzbare Räume.

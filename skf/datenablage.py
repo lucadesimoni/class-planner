@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+# SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+# Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 """Offene, dokumentierte Datenablage – lesbar ohne dieses Programm.
 
 * ergebnis.json      – vollständiges Ergebnis, maschinenlesbar (Schema schema/skf-ergebnis.schema.json)

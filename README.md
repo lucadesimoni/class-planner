@@ -678,21 +678,30 @@ Versionsangaben übereinstimmen. Ein Release baut die Windows-Pakete, setzt den 
 legt einen **Release-Entwurf** mit dem passenden CHANGELOG-Abschnitt an; ein von Hand
 gesetzter Tag, der nicht zur Programmversion passt, bricht den Bau ab. Der Entwurf wird erst sichtbar – und der Tag
 erst gesetzt –, wenn er auf GitHub unter *Releases* veröffentlicht wird. Das geht auch per *Actions → Release veröffentlichen → Run workflow*. Das Repository ist öffentlich
-(Quellcode einsehbar, GitHub Actions damit kostenlos); die Lizenz bleibt proprietär. Jeder gespeicherte Stand im Verlauf merkt sich Programm- und
+(Quellcode einsehbar, GitHub Actions damit kostenlos); nicht-kommerzielle Nutzung ist frei, produktiver Einsatz lizenzpflichtig (LICENSE). Jeder gespeicherte Stand im Verlauf merkt sich Programm- und
 Profilversion, mit denen er berechnet wurde.
 
 ## Lizenz und Rechte
 
-**Proprietäre Software.** © 2026 Outthinkx for Communities, alle Rechte vorbehalten – siehe
-[LICENSE](LICENSE). Nutzung, Weitergabe und Betrieb nur mit schriftlicher Lizenz; eine
-Vertragsvorlage für Schulgemeinden liegt unter
-[`docs/lizenzvertrag-vorlage.md`](docs/lizenzvertrag-vorlage.md) (vor Verwendung
-juristisch prüfen lassen). Frühere Stände dieses Repositorys standen unter der GPL-3.0;
-sie bleiben unter jener Lizenz, alle neuen Stände nicht. Damit Outthinkx for Communities
-die Rechte hält, braucht es eine schriftliche Übertragung vom Urheber – Vorlage:
+© 2026 **Outthinkx by Luca De Simoni** – [Outthinkx Nicht-kommerzielle Lizenz 1.0](LICENSE).
+
+| Gratis (ohne Antrag) | Lizenzpflichtig (schriftlicher Vertrag) |
+|---|---|
+| Privatpersonen für persönliche Zwecke | jeder produktive Einsatz durch oder für Schulen, Schulgemeinden, Gemeinden, Schulverbände, Kantone, Behörden – auch öffentlich oder gemeinnützig |
+| Lernen und Lehre über die Software und ihre Methoden | Nutzung durch oder für Firmen, Beratende, Dienstleistende |
+| nicht-kommerzielle Forschung (Veröffentlichung mit Quellenangabe) | Betrieb als Dienst für Dritte (Website, Browser-Version, Rechenserver) |
+| Prüfung vor dem Kauf: jede Organisation 90 Tage, ohne die Ergebnisse für die echte Planung zu verwenden | Verkauf, Vermietung, Bündelung, Weitergabe gegen Entgelt |
+
+Gratis Weitergabe ist erlaubt, unentgeltlich und mit dieser Lizenz; Vermerke bleiben stehen,
+die Namen „Outthinkx“ und „Klassenbildung & Stundenplan“ sind nicht freigegeben. Beiträge
+(z.B. Pull Requests) darf Outthinkx auch kommerziell lizenzieren. Vertragsvorlage für
+Schulgemeinden: [`docs/lizenzvertrag-vorlage.md`](docs/lizenzvertrag-vorlage.md) (vor
+Verwendung juristisch prüfen lassen). Frühere Stände standen unter der GPL-3.0 und bleiben
+unter jener Lizenz. Rechteinhaber ist Luca De Simoni (Outthinkx); sollen die Rechte später
+an eine Firma oder einen Verein gehen: Vorlage
 [`docs/rechteuebertragung-vorlage.md`](docs/rechteuebertragung-vorlage.md).
 
-- **Eigener Code:** jede Quelldatei trägt `SPDX-License-Identifier: LicenseRef-Proprietary`
+- **Eigener Code:** jede Quelldatei trägt `SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0`
   und den Copyright-Vermerk.
 - **Drittkomponenten:** ausschliesslich freizügige Lizenzen (Apache-2.0, MIT, BSD, PSF,
   MPL-2.0 für certifi), kein Copyleft – vollständige Liste, Pflichten und Dienste

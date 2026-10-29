@@ -1,42 +1,91 @@
 Klassenbildung & Stundenplan (class-planner)
-Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten. / All rights reserved.
+Copyright (c) 2026 Outthinkx by Luca De Simoni
 
-PROPRIETÄRE SOFTWARE – LIZENZBEDINGUNGEN
+OUTTHINKX NICHT-KOMMERZIELLE LIZENZ 1.0
+(SPDX: LicenseRef-Outthinkx-NC-1.0 – Kurzfassung in Englisch am Ende)
 
 1. Rechteinhaber. Sämtliche Urheber- und sonstigen Schutzrechte an dieser Software
    (Quellcode, Objektcode, Konfigurationen, Kantonsprofile, Vorlagen, Dokumentation,
    Gestaltung, Bildschirmtexte und Beispieldaten), mit Ausnahme der in
-   THIRD_PARTY_NOTICES.md genannten Drittkomponenten, liegen ausschliesslich beim
-   Rechteinhaber Outthinkx for Communities.
+   THIRD_PARTY_NOTICES.md genannten Drittkomponenten, liegen bei Luca De Simoni,
+   handelnd unter der Bezeichnung „Outthinkx“ („Rechteinhaber“, „Outthinkx by Luca
+   De Simoni“).
 
-2. Keine Nutzung ohne Lizenz. Ohne vorgängige schriftliche Lizenz des Rechteinhabers
-   ist es nicht gestattet, die Software ganz oder teilweise zu nutzen, zu
-   vervielfältigen, zu verändern, zu übersetzen, zurückzuentwickeln (soweit
-   gesetzlich nicht zwingend erlaubt), zu verbreiten, zu vermieten, zu verkaufen,
-   unterzulizenzieren, öffentlich zugänglich zu machen oder als Dienst für Dritte
-   zu betreiben.
+2. Gratis erlaubt: nicht-kommerzielle Nutzung. Ohne Gebühr und ohne Antrag darf die
+   Software genutzt, vervielfältigt und verändert werden, solange die Nutzung
+   ausschliesslich einem dieser Zwecke dient:
+   a) Privatpersonen für persönliche Zwecke, die nicht dem Erwerb dienen;
+   b) Lernen und Lehre über die Software oder ihre Methoden (z.B. in Studium,
+      Weiterbildung oder Unterricht), ohne damit die tatsächliche Klassenbildung,
+      Stundenplanung oder Raumplanung einer Schule vorzunehmen;
+   c) wissenschaftliche Forschung, die nicht im Auftrag oder zugunsten Dritter gegen
+      Entgelt erfolgt; Ergebnisse dürfen mit Quellenangabe veröffentlicht werden;
+   d) Prüfung vor einem Kauf: jede Organisation, auch eine Schule oder Gemeinde, darf
+      die Software während höchstens 90 Tagen testen, um über eine Lizenz zu
+      entscheiden – ohne die Ergebnisse für die tatsächliche Planung zu verwenden.
 
-3. Lizenzierte Nutzung. Nutzungsrechte entstehen ausschliesslich durch einen
-   separaten schriftlichen Lizenzvertrag (z.B. nach der Vorlage in
-   docs/lizenzvertrag-vorlage.md) und nur in dessen Umfang.
+3. Lizenzpflichtig: kommerzielle und produktive Nutzung. Jede andere Nutzung braucht
+   eine schriftliche Lizenz des Rechteinhabers, insbesondere:
+   a) jeder produktive Einsatz durch oder für eine Schule, Schulgemeinde, Gemeinde,
+      einen Schulverband, Kanton, eine Behörde oder andere Organisation – auch wenn
+      sie öffentlich oder nicht gewinnorientiert ist –, namentlich die tatsächliche
+      Klassenbildung, Stundenplanung, Raum- oder Schulraumplanung;
+   b) jede Nutzung durch oder für Unternehmen, Beratende oder Dienstleistende, auch
+      im Auftrag einer Schule oder Gemeinde;
+   c) der Betrieb der Software oder von Teilen davon als Dienst für Dritte
+      (z.B. Website, Browser-Version, Rechenserver, Hosting);
+   d) Verkauf, Vermietung, Unterlizenzierung, Bündelung mit anderen Angeboten oder
+      jede Weitergabe gegen Entgelt;
+   e) jede andere Nutzung, die direkt oder indirekt Einnahmen erzielt oder Kosten für
+      eine kommerzielle Lösung ersetzt.
+   Kommerzielle Lizenzen entstehen nur durch einen separaten schriftlichen Vertrag
+   (Vorlage: docs/lizenzvertrag-vorlage.md) und nur in dessen Umfang.
 
-4. Drittkomponenten. Die in THIRD_PARTY_NOTICES.md aufgeführten Komponenten
-   unterliegen ihren eigenen (freizügigen) Lizenzen. Diese Lizenzen bleiben
-   unberührt und gehen dieser Lizenz für die jeweilige Komponente vor.
+4. Bedingungen für die gratis erlaubte Nutzung.
+   a) Weitergabe – verändert oder unverändert – nur unentgeltlich, nur zu den
+      Zwecken nach Ziffer 2 und nur zusammen mit dieser Lizenz;
+   b) Urheber-, Lizenz- und Quellenvermerke (auch in Dateiköpfen und im Programm)
+      dürfen nicht entfernt oder verändert werden; Änderungen sind als solche zu
+      kennzeichnen;
+   c) die Namen „Outthinkx“ und „Klassenbildung & Stundenplan“ dürfen nicht für
+      eigene Angebote oder so verwendet werden, dass eine Billigung durch den
+      Rechteinhaber entsteht.
 
-5. Keine Gewähr. Soweit kein Lizenzvertrag etwas anderes bestimmt, wird die
-   Software ohne jede Gewährleistung bereitgestellt; die Haftung ist im
-   gesetzlich zulässigen Umfang ausgeschlossen. Die Software ist ein
-   Planungshilfsmittel; Entscheide über Klassenzuteilungen und Stundenpläne trifft
-   die zuständige Schulbehörde.
+5. Beiträge. Wer dem Rechteinhaber Änderungen oder Ergänzungen zukommen lässt (z.B.
+   als Pull Request), räumt ihm daran ein unentgeltliches, unbefristetes und
+   übertragbares Recht ein, sie in der Software zu verwenden und auch kommerziell zu
+   lizenzieren.
 
-6. Frühere Fassungen. Frühere Stände dieses Repositorys wurden unter der GNU General
-   Public License v3 veröffentlicht. Diese Lizenz gilt nur für jene Stände fort;
-   für den vorliegenden und alle künftigen Stände gilt ausschliesslich diese Lizenz.
+6. Drittkomponenten. Die in THIRD_PARTY_NOTICES.md aufgeführten Komponenten
+   unterliegen ihren eigenen (freizügigen) Lizenzen; diese gehen für die jeweilige
+   Komponente vor.
 
-7. Anwendbares Recht und Gerichtsstand. Es gilt schweizerisches Recht unter
-   Ausschluss des Kollisionsrechts. Gerichtsstand ist der Wohnsitz bzw. Sitz des
-   Rechteinhabers in der Schweiz.
+7. Keine Gewähr, Haftung. Bei der gratis erlaubten Nutzung wird die Software ohne
+   jede Gewährleistung bereitgestellt; die Haftung ist im gesetzlich zulässigen
+   Umfang ausgeschlossen. Die Software ist ein Planungshilfsmittel; Entscheide über
+   Klassenzuteilungen und Stundenpläne trifft die zuständige Schulbehörde.
 
-Anfragen für Lizenzen: Outthinkx for Communities, über
+8. Verstoss. Bei einem Verstoss erlöschen die Rechte nach Ziffer 2 automatisch. Wird
+   der Verstoss innert 30 Tagen nach einem Hinweis des Rechteinhabers behoben, leben
+   sie wieder auf (einmalig).
+
+9. Frühere Fassungen. Frühere Stände dieses Repositorys wurden unter der GNU General
+   Public License v3 veröffentlicht; diese Lizenz gilt nur für jene Stände fort.
+   Die späteren, als proprietär („alle Rechte vorbehalten“) veröffentlichten Stände
+   (bis Version 0.2.0) dürfen ebenfalls nach dieser Lizenz genutzt werden.
+
+10. Anwendbares Recht und Gerichtsstand. Es gilt schweizerisches Recht unter
+    Ausschluss des Kollisionsrechts. Gerichtsstand ist der Wohnsitz bzw. Sitz des
+    Rechteinhabers in der Schweiz.
+
+Kommerzielle Lizenzen und Anfragen: Outthinkx by Luca De Simoni, über
 https://github.com/lucadesimoni/class-planner
+
+----------------------------------------------------------------------------------
+Short English summary (the German text above is binding):
+Free for non-commercial use: individuals for personal use, learning and teaching,
+non-commercial research, and a 90-day evaluation by any organisation. Any productive
+use by or for a school, municipality, authority or other organisation (public or
+non-profit included), any use by or for companies or consultants, hosting it as a
+service, or selling it requires a written commercial licence from Outthinkx by Luca
+De Simoni. Keep all notices; share only free of charge under this licence.

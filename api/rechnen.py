@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+# SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+# Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 """Vercel-Funktion: rechnet für die Browser-Version (POST /api/rechnen).
 
 Nur eine Hülle um ``skf.fernrechnen.bearbeite`` – die Rechnung selbst ist ``skf.ablauf.rechne``.

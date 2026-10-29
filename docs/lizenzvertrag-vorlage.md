@@ -5,7 +5,7 @@
 > anpassen. Eckige Klammern `[…]` ausfüllen.
 
 **zwischen**
-Outthinkx for Communities, [Adresse] („Lizenzgeber“)
+Luca De Simoni, handelnd als Outthinkx („Outthinkx by Luca De Simoni“), [Adresse] („Lizenzgeber“)
 **und**
 [Gemeinde / Schule / Schulverband], [Adresse] („Lizenznehmerin“)
 

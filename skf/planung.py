@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+# SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+# Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 """Empfehlungen für Schulleitung und Behörden: Lehrpersonen, Verfügbarkeiten, Räume, Ausbau.
 
 Alle Auswertungen beruhen auf dem berechneten Ergebnis und sind bewusst einfach

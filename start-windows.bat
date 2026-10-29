@@ -1,6 +1,6 @@
 @echo off
-rem SPDX-License-Identifier: LicenseRef-Proprietary
-rem Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+rem SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+rem Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 rem ============================================================
 rem  Klassenbildung & Stundenplan – Start fuer Windows
 rem  Einfach doppelklicken. Beim ersten Mal wird alles Noetige

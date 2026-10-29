@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+# SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+# Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 """Robustheits-Sweep: Grenzfälle und Zufallsdaten. Ein Fall besteht, wenn kein Absturz
 (nur verständliche Fehlermeldungen) und bei Erfolg die unabhängige Prüfung 0 Fehler meldet."""
 import copy, random, sys, time, traceback

@@ -1,8 +1,9 @@
 # Drittkomponenten und Hinweise
 
-Diese Software (© 2026 Outthinkx for Communities, proprietär, siehe [LICENSE](LICENSE)) verwendet
-die folgenden Komponenten Dritter. Alle stehen unter **freizügigen Lizenzen**, die
-den Verkauf und die proprietäre Lizenzierung der eigenen Software erlauben; keine
+Diese Software (© 2026 Outthinkx by Luca De Simoni; nicht-kommerziell frei, produktiver und
+kommerzieller Einsatz lizenzpflichtig, siehe [LICENSE](LICENSE)) verwendet die folgenden
+Komponenten Dritter. Alle stehen unter **freizügigen Lizenzen**, die den Verkauf und die
+eigene Lizenzierung der Software erlauben; keine
 davon ist eine „Copyleft“-Lizenz (GPL/AGPL/LGPL), die den eigenen Code erfassen würde.
 Pflicht ist im Wesentlichen: Urheberrechtsvermerk und Lizenztext mitliefern.
 

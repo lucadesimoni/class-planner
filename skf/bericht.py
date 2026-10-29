@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+# SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+# Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 """Ausgabe als CSV-Dateien, als eigenständiger HTML-Bericht und als Szenarienvergleich."""
 from __future__ import annotations
 
@@ -164,7 +164,7 @@ ICON = {"Fehler": icon("x", "icon klein"), "Warnung": icon("warnung", "icon klei
 
 
 FUSS = (f"<p class='muted fuss'>Erstellt mit Klassenbildung &amp; Stundenplan {__version__} · "
-        "© 2026 Outthinkx for Communities · Planungshilfsmittel – Entscheide trifft die Schulbehörde.</p>")
+        "© 2026 Outthinkx by Luca De Simoni · Planungshilfsmittel – Entscheide trifft die Schulbehörde.</p>")
 
 
 def abschnitt(titel: str, inhalt: str, symbol: str, zusatz: str = "", offen: bool = False, anker: str = "",

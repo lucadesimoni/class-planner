@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+# SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+# Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 """Erzeugt skf/icons.py aus der Schrift Material Symbols Rounded (Apache-2.0).
 
 Die App (Streamlit) zeigt dieselbe Icon-Familie (`:material/…:`); der Bericht
@@ -44,8 +44,8 @@ def main(pfad: str) -> None:
                         ligaturen["".join(chr(rev[g]) for g in folge)] = lig.LigGlyph
     glyphen = font.getGlyphSet()
     upm = font["head"].unitsPerEm
-    zeilen = ["# SPDX-License-Identifier: LicenseRef-Proprietary AND Apache-2.0",
-              "# Copyright (c) 2026 Outthinkx for Communities (Erzeugung); Glyphen: Material Symbols, (c) Google LLC, Apache-2.0",
+    zeilen = ["# SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0 AND Apache-2.0",
+              "# Copyright (c) 2026 Outthinkx by Luca De Simoni (Erzeugung); Glyphen: Material Symbols, (c) Google LLC, Apache-2.0",
               '"""Icons: Material Symbols Rounded (Google, Apache-2.0), erzeugt von scripts/erzeuge_icons.py."""',
               "", "# viewBox 0 0 24 24, Füllfarbe currentColor", "PFADE = {"]
     for name in NAMEN:

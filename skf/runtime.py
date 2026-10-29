@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+# SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+# Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 """Wo das Programm läuft: normales Python (Desktop, CLI, Server) oder im Browser (stlite / Pyodide).
 
 Im Browser gibt es kein OR-Tools: gerechnet wird über ``skf.fernrechnen`` auf dem Rechenserver

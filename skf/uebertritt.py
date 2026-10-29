@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+# SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+# Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 """Schuljahreswechsel: jede Stufe hat eine nächste Stufe.
 
     KG1 → KG2 → 1 → 2 → … → 6 → S1A | S1B | S1C | extern (Kanti, Wegzug …)

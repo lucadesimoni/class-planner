@@ -1,15 +1,16 @@
 # Übertragung der Urheberrechte – Vorlage
 
-> **Vorlage, keine Rechtsberatung.** Nötig, damit Outthinkx for Communities die Rechte
-> an der Software tatsächlich hält: Urheber ist zunächst die natürliche Person, die
-> den Code geschaffen bzw. die Entwicklung gesteuert hat (Art. 6 URG). Die Rechte gehen
-> nur durch Vertrag auf Outthinkx for Communities über (Art. 16 URG). Vorher von einer Fachperson
-> prüfen lassen.
+> **Vorlage, keine Rechtsberatung.** Rechteinhaber ist heute Luca De Simoni, handelnd als
+> Outthinkx („Outthinkx by Luca De Simoni“) – solange das so bleibt, braucht es keine
+> Übertragung. Nötig wird sie, wenn die Rechte später an eine eigene Firma oder einen Verein
+> gehen sollen, oder für Beiträge weiterer Personen: Urheber ist zunächst die natürliche
+> Person, die den Code geschaffen bzw. die Entwicklung gesteuert hat (Art. 6 URG); die Rechte
+> gehen nur durch Vertrag über (Art. 16 URG). Vorher von einer Fachperson prüfen lassen.
 
 **zwischen**
 [Vorname Name], [Adresse] („Urheber“)
 **und**
-Outthinkx for Communities, [Rechtsform, z.B. Verein nach Art. 60 ff. ZGB / GmbH], [Sitz] („Erwerberin“)
+[Name der Firma / des Vereins], [Rechtsform, z.B. GmbH / Verein nach Art. 60 ff. ZGB], [Sitz] („Erwerberin“)
 
 1. **Gegenstand.** Die Software „Klassenbildung & Stundenplan“
    (class-planner) mit Quellcode, Dokumentation, Kantonsprofilen, Vorlagen,

@@ -1,5 +1,5 @@
-; SPDX-License-Identifier: LicenseRef-Proprietary
-; Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+; SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+; Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 ;
 ; Windows-Installer (Inno Setup 6, gratis): enthält Python und alle Bausteine,
 ; braucht keine Administratorrechte und kein Internet. Gebaut von baue.ps1.
@@ -15,9 +15,9 @@ AppVersion={#Version}
 AppVerName=Klassenbildung & Stundenplan {#Version}
 VersionInfoVersion={#Version}.0
 VersionInfoProductVersion={#Version}
-VersionInfoCompany=Outthinkx for Communities
-AppPublisher=Outthinkx for Communities
-AppCopyright=© 2026 Outthinkx for Communities
+VersionInfoCompany=Outthinkx by Luca De Simoni
+AppPublisher=Outthinkx by Luca De Simoni
+AppCopyright=© 2026 Outthinkx by Luca De Simoni
 DefaultDirName={localappdata}\Programs\Klassenbildung
 DefaultGroupName=Klassenbildung
 DisableProgramGroupPage=yes

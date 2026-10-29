@@ -1,5 +1,5 @@
-# SPDX-License-Identifier: LicenseRef-Proprietary
-# Copyright (c) 2026 Outthinkx for Communities. Alle Rechte vorbehalten.
+# SPDX-License-Identifier: LicenseRef-Outthinkx-NC-1.0
+# Copyright (c) 2026 Outthinkx by Luca De Simoni. Nicht-kommerziell frei, sonst Lizenz: LICENSE.
 #
 # Baut den Windows-Installer: Python (eigenständig, aus uv) + alle Pakete laut uv.lock
 # + skf, dann Inno Setup. Läuft in GitHub Actions (windows-latest) oder lokal mit
@@ -51,8 +51,8 @@ $info = Join-Path $build "VersionInfo.cs"
 using System.Reflection;
 [assembly: AssemblyTitle("Klassenbildung & Stundenplan")]
 [assembly: AssemblyProduct("Klassenbildung & Stundenplan")]
-[assembly: AssemblyCompany("Outthinkx for Communities")]
-[assembly: AssemblyCopyright("© 2026 Outthinkx for Communities")]
+[assembly: AssemblyCompany("Outthinkx by Luca De Simoni")]
+[assembly: AssemblyCopyright("© 2026 Outthinkx by Luca De Simoni")]
 [assembly: AssemblyVersion("$version.0")]
 [assembly: AssemblyFileVersion("$version.0")]
 [assembly: AssemblyInformationalVersion("$version")]
@@ -78,8 +78,8 @@ foreach ($teil in "python", "lizenzen", "Klassenbildung.exe", "LICENSE.txt", "TH
 }
 Copy-Item "$PSScriptRoot\msix\Assets" $stufe -Recurse
 $name = if ($env:MSIX_NAME) { $env:MSIX_NAME } else { "OutthinkxforCommunities.Klassenbildung" }
-$publisher = if ($env:MSIX_PUBLISHER) { $env:MSIX_PUBLISHER } else { "CN=Outthinkx for Communities" }
-$anzeige = if ($env:MSIX_PUBLISHER_NAME) { $env:MSIX_PUBLISHER_NAME } else { "Outthinkx for Communities" }
+$publisher = if ($env:MSIX_PUBLISHER) { $env:MSIX_PUBLISHER } else { "CN=Outthinkx by Luca De Simoni" }
+$anzeige = if ($env:MSIX_PUBLISHER_NAME) { $env:MSIX_PUBLISHER_NAME } else { "Outthinkx by Luca De Simoni" }
 $manifest = Get-Content "$PSScriptRoot\msix\AppxManifest.xml" -Raw -Encoding UTF8
 $manifest = $manifest.Replace("__NAME__", $name).Replace("__VERSION__", "$version.0")
 $manifest = $manifest.Replace("__PUBLISHER_NAME__", [Security.SecurityElement]::Escape($anzeige))
