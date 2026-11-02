@@ -7,6 +7,8 @@ Neue Version: `python scripts/version.py 0.2.0`.
 
 ## [Unveröffentlicht]
 
+## [0.3.0] – 2026-11-02
+
 ### Lizenz
 - **Neue Lizenz: Outthinkx Nicht-kommerzielle Lizenz 1.0** (`LicenseRef-Outthinkx-NC-1.0`), Rechteinhaber
   **Outthinkx by Luca De Simoni**. Gratis für Privatpersonen, Lernen und Lehre, nicht-kommerzielle Forschung und
@@ -147,6 +149,7 @@ Erste Version.
 - Proprietäre Lizenz, Rechteinhaber Outthinkx for Communities; Drittkomponenten mit
   freizügigen Lizenzen (THIRD_PARTY_NOTICES.md); Vertragsvorlagen.
 
-[Unveröffentlicht]: https://github.com/lucadesimoni/class-planner/compare/v0.2.0...HEAD
+[Unveröffentlicht]: https://github.com/lucadesimoni/class-planner/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/lucadesimoni/class-planner/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/lucadesimoni/class-planner/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/lucadesimoni/class-planner/releases/tag/v0.1.0
