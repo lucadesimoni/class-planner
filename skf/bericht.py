@@ -471,10 +471,7 @@ def _osm_karte(r: Ergebnis) -> str:
     skript = (KARTE_JS.replace("__DATEN__", daten).replace("__KACHELN__", json.dumps(url))
               .replace("__QUELLE__", json.dumps(quelle)))
     return f"""<style>{(leaflet / "leaflet.css").read_text(encoding="utf-8")}
-.kartensteuerung {{ background:#fff; color:#0b0b0b; padding:8px 10px; border-radius:6px; box-shadow:0 1px 4px rgba(0,0,0,.3);
-  display:flex; flex-direction:column; gap:5px; font:13px system-ui,sans-serif; max-width:230px }}
-.kartensteuerung select {{ font:inherit; max-width:150px; margin-left:4px }}
-.leaflet-tooltip {{ font:12px/1.35 system-ui,sans-serif }}</style>
+{(leaflet.parent / "karte-glas.css").read_text(encoding="utf-8")}</style>
 <div id="osm" class="osm" role="img" aria-label="OpenStreetMap-Karte der Wohnorte, Klassen und Schulhäuser"></div>
 <div id="kartenlegende" class="legende"></div>
 <p class="muted">Klasse wählen = Einzugsgebiet mit Umriss · Punkt anklicken = Familie hervorheben ·

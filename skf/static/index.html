@@ -6,21 +6,19 @@
      und nutzt das mitgelieferte Leaflet (leaflet/, BSD-2-Clause). -->
 <html lang="de"><head><meta charset="utf-8">
 <link rel="stylesheet" href="leaflet/leaflet.css">
+<link rel="stylesheet" href="karte-glas.css">
 <style>
-  html, body { margin: 0; font: 13px/1.4 "Source Sans", system-ui, sans-serif; color: #1f2a24 }
-  #karte { height: 420px; border-radius: 8px; cursor: crosshair }
+  html, body { margin: 0; font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; color: #14171f }
+  #karte { height: 420px; cursor: crosshair }
   .leiste { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; padding: 8px 0 }
-  button { font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid #c9d3cd; background: #fff; cursor: pointer }
-  button.haupt { background: #2f5d50; border-color: #2f5d50; color: #fff }
-  button:disabled { opacity: .45; cursor: default }
   .info { color: #5b6b62 }
 </style></head>
 <body>
 <div id="karte" role="application" aria-label="Karte: Punkte anklicken, um ein Gebiet zu zeichnen"></div>
 <div class="leiste">
-  <button id="fertig" class="haupt" disabled>Fläche abschliessen</button>
-  <button id="zurueck" disabled>Letzten Punkt entfernen</button>
-  <button id="neu">Neu zeichnen</button>
+  <button id="fertig" class="glas-knopf haupt" disabled>Fläche abschliessen</button>
+  <button id="zurueck" class="glas-knopf" disabled>Letzten Punkt entfernen</button>
+  <button id="neu" class="glas-knopf">Neu zeichnen</button>
   <span id="info" class="info">Punkte der Reihe nach auf die Karte klicken (mindestens 3).</span>
 </div>
 <script src="leaflet/leaflet.js"></script>
@@ -59,7 +57,7 @@
     (args.schulhaeuser || []).slice().sort((a, b) => b.lat - a.lat).forEach((s, i) => {
       const rechts = i % 2 === 0;
       L.circleMarker([s.lat, s.lon], {radius: 7, color: "#fff", weight: 2, fillColor: "#2f5d50", fillOpacity: 1})
-        .bindTooltip(s.name, {permanent: true, direction: rechts ? "right" : "left", offset: [rechts ? 8 : -8, 0]})
+        .bindTooltip(s.name, {permanent: true, direction: rechts ? "right" : "left", offset: [rechts ? 10 : -10, 0]})
         .addTo(karte);
       grenzen.push([s.lat, s.lon]);
     });

@@ -12,6 +12,8 @@ Neue Version: `python scripts/version.py 0.2.0`.
   sanften Farbverlauf (Kennzahlen, Rahmen, Seitenleiste, Kopfzeile, Meldungen, Eingaben, Menüs, Tabellen),
   Knöpfe als Kapseln mit leuchtendem Primärknopf, Reiter als gläserner Segment-Schalter, Systemschrift.
   Akzent bleibt Wandtafelgrün. Bildschirmfotos neu erzeugt.
+- **Karten im Glas-Design:** Ergebniskarte und Gebietskarte mit gläsernen Zoom-Knöpfen, Steuerung, Beschriftungen,
+  Popups und Quellenangabe, runde Ecken (eine gemeinsame Datei `skf/static/karte-glas.css`).
 
 ## [0.3.0] – 2026-11-02
 
