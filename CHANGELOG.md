@@ -7,6 +7,12 @@ Neue Version: `python scripts/version.py 0.2.0`.
 
 ## [Unveröffentlicht]
 
+### Geändert
+- **Glas-Design wie site-development:** durchscheinende, weichgezeichnete Flächen mit hellem Rand über einem
+  sanften Farbverlauf (Kennzahlen, Rahmen, Seitenleiste, Kopfzeile, Meldungen, Eingaben, Menüs, Tabellen),
+  Knöpfe als Kapseln mit leuchtendem Primärknopf, Reiter als gläserner Segment-Schalter, Systemschrift.
+  Akzent bleibt Wandtafelgrün. Bildschirmfotos neu erzeugt.
+
 ## [0.3.0] – 2026-11-02
 
 ### Lizenz

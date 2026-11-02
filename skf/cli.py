@@ -356,7 +356,8 @@ def _app(args) -> None:
         threading.Timer(3.0, webbrowser.open, args=(url,)).start()
     sys.argv = ["streamlit", "run", str(app), "--server.port", str(args.port), "--server.address", "localhost",
                 "--server.headless", "true", "--browser.gatherUsageStats", "false", "--client.toolbarMode", "minimal",
-                # Design-System wie genealogy-store: helle Fläche, weisse Karten, Akzent Wandtafelgrün
-                "--theme.base", "light", "--theme.primaryColor", "#2f5d50", "--theme.backgroundColor", "#f6f7fb",
+                # Design-System wie site-development (Glas, Systemschrift), Akzent Wandtafelgrün
+                "--theme.base", "light", "--theme.primaryColor", "#2f5d50", "--theme.font", "sans-serif",
+                "--theme.backgroundColor", "#f3f5f8",
                 "--theme.secondaryBackgroundColor", "#eef0f5", "--theme.textColor", "#14171f"]
     sys.exit(streamlit_cli.main())

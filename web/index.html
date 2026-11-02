@@ -62,7 +62,7 @@
         SKF_KOMPONENTEN_URL: new URL("komponenten/", window.location.href).href,
       },
       idbfsMountpoints: [daten],               // Arbeitsstand und Verlauf bleiben in diesem Browser
-      streamlitConfig: { "client.toolbarMode": "minimal", "theme.primaryColor": "#2f5d50" },
+      streamlitConfig: { "client.toolbarMode": "minimal", "theme.primaryColor": "#2f5d50", "theme.font": "sans-serif" },
     }, document.getElementById("root"));
     const weg = () => { const l = document.getElementById("laden"); if (l) l.remove(); };
     new MutationObserver((_, beob) => {
