@@ -7,6 +7,18 @@ Neue Version: `python scripts/version.py 0.2.0`.
 
 ## [Unveröffentlicht]
 
+### Hinzugefügt
+- **Klassentypen mit Zeitraum** (`ab`/`bis` Schuljahr, auch als Spalten „Ab/Bis Schuljahr“ in den Stammdaten und im
+  Excel-Austausch): z.B. Mischklassen 1./2. nur bis 2026/27, danach reine 1., 2., 3. Klassen. Klassenbildung, Prüfung
+  (Hinweis auf nicht verwendete Klassentypen), Prognose (pro Jahr die dann geltenden Klassentypen) und
+  Schuljahreswechsel folgen. Beispiel Malters: 1./2. Mischklassen enden mit 2026/27; Ergebnisse neu gerechnet.
+
+### Behoben
+- Kontinuität und Gspänli-Regel zählten Kinder einer bisherigen Klasse als „getrennt“, auch wenn sie keine gemeinsame
+  Klasse mehr haben können (KG-Gruppe → 1. Klasse und KG2, Mischklasse → reine Jahrgangsklassen); jetzt je Jahrgang.
+- Prognose: Klassenzimmer mit nur zwei Stufen wurden immer als eine Mischgruppe gerechnet; jetzt nur, wenn ein
+  Klassentyp das Mischen in diesem Jahr erlaubt.
+
 ### Geändert
 - **Glas-Design wie site-development:** durchscheinende, weichgezeichnete Flächen mit hellem Rand über einem
   sanften Farbverlauf (Kennzahlen, Rahmen, Seitenleiste, Kopfzeile, Meldungen, Eingaben, Menüs, Tabellen),

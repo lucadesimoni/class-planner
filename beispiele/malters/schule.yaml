@@ -86,7 +86,9 @@ klassenbildung:
     - {jahrgaenge: ["4"], min: 16, max: 22, ideal: 20}
     - {jahrgaenge: ["5"], min: 16, max: 22, ideal: 20}
     - {jahrgaenge: ["6"], min: 16, max: 22, ideal: 20}
-    - {jahrgaenge: ["1", "2"], min: 16, max: 22, ideal: 20, strafe: 150}   # Mehrjahrgangsklassen (AdL)
+    # Mehrjahrgangsklassen (AdL). Die 1./2. Mischklassen enden mit 2026/27 – ab 2027/28 reine 1., 2. und 3. Klassen
+    # ("ab"/"bis" = Schuljahr, in dem ein Klassentyp erlaubt ist; Prognose und Schuljahreswechsel folgen)
+    - {jahrgaenge: ["1", "2"], min: 16, max: 22, ideal: 20, strafe: 150, bis: 2026/27}
     - {jahrgaenge: ["3", "4"], min: 16, max: 22, ideal: 20, strafe: 150}
     - {jahrgaenge: ["5", "6"], min: 16, max: 22, ideal: 20, strafe: 150}
     # Oberstufe (kooperatives Modell): Stammklassen je Niveau; kleine Jahrgänge können B/C kombinieren

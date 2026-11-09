@@ -488,7 +488,7 @@ klassenbildung:
   max_schulweg_m: {KG1: 4000, default: 6000}
   vorlagen:
     - {jahrgaenge: ["1"], min: 16, max: 22, ideal: 20}
-    - {jahrgaenge: ["1", "2"], min: 16, max: 22, strafe: 150}   # Mischklasse
+    - {jahrgaenge: ["1", "2"], min: 16, max: 22, strafe: 150, bis: 2026/27}   # Mischklasse, nur bis 2026/27
 
 sonderpaedagogik:
   is_zaehlt_als: 2                         # IS-Kind zählt doppelt (schulinterne Festlegung)
@@ -501,6 +501,12 @@ lehrpersonen:
      pensum: [20, 28], nicht_verfuegbar: [Mi, Fr-NM, Mo-VM-1], bisherige_klasse: BM 1a}
   - {name: SHP, faecher: [IF]}             # Förderangebote: Fach = Name des Angebots
 ```
+
+**Klassentypen mit Zeitraum** (`ab`, `bis`: Schuljahr wie `2028/29`, beide optional): ein Klassentyp gilt nur in
+diesen Schuljahren – z.B. Mischklassen 1./2. *bis* 2026/27, danach reine 1., 2. und 3. Klassen. Die Klassenbildung
+nutzt die Klassentypen des geplanten Schuljahrs (`schuljahr`), die Prognose in jedem Jahr die dann geltenden, und der
+Schuljahreswechsel übernimmt die Angaben. Kinder einer bisherigen Mischklasse, die keine gemeinsame Klasse mehr haben
+können, zählen nicht als „getrennt“ (Kontinuität und Gspänli-Regel gelten je Jahrgang).
 
 **Verfügbarkeiten** (`nicht_verfuegbar`) gibt es für Lehrpersonen, Schulhäuser und Räume:
 `Mi` = ganzer Tag, `Fr-NM` = Halbtag, `Mo-VM-1` = einzelne Lektion.

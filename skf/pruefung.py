@@ -13,7 +13,7 @@ from __future__ import annotations
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 
-from .daten import Kind, Schule
+from .daten import Kind, Schule, bisherige_gruppen
 from .geo import luftlinie_m
 from .mobilitaet import (bus_halbtag, buslinien_der_klassen, halbtage_der_klasse, lektionsort, wegzeit,
                          zu_knapp)
@@ -61,7 +61,7 @@ def referenzen(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
                 fehler(f"{s.name}: 'nutzt' verweist auf unbekanntes Schulhaus '{ziel}'", s.name)
             elif not any(r.typ == typ for r in schule.schulhaus(ziel).raeume):
                 fehler(f"{s.name}: 'nutzt {typ}' – {ziel} hat keinen Raum vom Typ '{typ}'", s.name)
-    for v in schule.vorlagen:
+    for v in schule.alle_vorlagen or schule.vorlagen:
         for j in v.jahrgaenge:
             if j not in schule.jahrgaenge:
                 fehler(f"Klassentyp {'/'.join(v.jahrgaenge)}: unbekannter Jahrgang '{j}'")
@@ -72,7 +72,7 @@ def referenzen(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
             fehler(f"Klassentyp {'/'.join(v.jahrgaenge)}: min {v.min} > max {v.max}")
     for stufe in schule.stundentafel:
         if (stufe not in schule.jahrgaenge and stufe not in schule.stufen()
-                and not any(v.bezeichnung == stufe for v in schule.vorlagen)):
+                and not any(v.bezeichnung == stufe for v in schule.alle_vorlagen or schule.vorlagen)):
             fehler(f"Stundentafel '{stufe}' gehört zu keinem Jahrgang und keinem Klassentyp")
     lp_namen = [lp.name for lp in schule.lehrpersonen]
     for d in _doppelte(lp_namen):
@@ -152,7 +152,14 @@ def vorpruefung(schule: Schule, kinder: list[Kind]) -> list[Meldung]:
     for j in schule.jahrgaenge:
         vorlagen = [v for v in schule.vorlagen if j in v.jahrgaenge]
         if anzahl[j] and not vorlagen:
-            m.append(Meldung("Fehler", "Klassen", f"Kein Klassentyp (Vorlage) für Jahrgang {j}"))
+            m.append(Meldung("Fehler", "Klassen", f"Kein Klassentyp (Vorlage) für Jahrgang {j}"
+                             + (f" im Schuljahr {schule.schuljahr} (andere gelten nur ab/bis einem Schuljahr)"
+                                if any(j in v.jahrgaenge for v in schule.alle_vorlagen) else "")))
+    for v in schule.alle_vorlagen:
+        if v not in schule.vorlagen:
+            zeit = " ".join(t for t in (f"ab {v.ab}" if v.ab else "", f"bis {v.bis}" if v.bis else "") if t)
+            m.append(Meldung("Hinweis", "Klassen", f"Klassentyp {v.bezeichnung or '/'.join(v.jahrgaenge)} gilt {zeit} "
+                             f"– im Schuljahr {schule.schuljahr} nicht verwendet"))
     # Jahrgänge, die über Klassentypen verbunden sind, teilen sich die Räume
     gruppen: list[tuple[set[str], set[str]]] = []  # (Jahrgänge, Raumtypen)
     for v in schule.vorlagen:
@@ -583,8 +590,8 @@ def rechtspruefung(schule: Schule, kinder: list[Kind], e: Einteilung, bloecke: l
     return m
 
 
-def wuensche(kinder: list[Kind], e: Einteilung) -> dict:
-    """Auswertung der Wünsche der Erziehungsberechtigten und der Gspänli-Regel."""
+def wuensche(kinder: list[Kind], e: Einteilung, vorlagen: list) -> dict:
+    """Auswertung der Wünsche der Erziehungsberechtigten und der Gspänli-Regel (Gruppen wie in der Optimierung)."""
     nach_id = {k.id: k for k in kinder}
     paare_zus = sorted({tuple(sorted((k.id, a))) for k in kinder for a in k.zusammen_mit if a in nach_id})
     paare_nicht = sorted({tuple(sorted((k.id, a))) for k in kinder for a in k.nicht_mit if a in nach_id})
@@ -593,17 +600,17 @@ def wuensche(kinder: list[Kind], e: Einteilung) -> dict:
     mit_wunsch_sh = [k for k in kinder if k.wunsch_schulhaus]
     sh_ok = [k for k in mit_wunsch_sh if e.schulhaus_von[k.id] == k.wunsch_schulhaus]
     gruppen = defaultdict(lambda: defaultdict(list))  # bisherige Klasse -> neue Klasse -> Kinder
-    for k in kinder:
-        if k.bisherige_klasse:
-            gruppen[k.bisherige_klasse][e.klasse_von[k.id]].append(k.id)
+    for name, ks in bisherige_gruppen(kinder, vorlagen).items():
+        for k in ks:
+            gruppen[name][e.klasse_von[k.id]].append(k.id)
     allein = [(bisher, neu, ids[0]) for bisher, neue in gruppen.items() for neu, ids in neue.items()
               if len(ids) == 1 and sum(len(v) for v in neue.values()) > 1]
     return {"zusammen": (paare_zus, zus_ok), "nicht": (paare_nicht, nicht_ok),
             "schulhaus": (mit_wunsch_sh, sh_ok), "gruppen": gruppen, "allein": allein}
 
 
-def wunsch_meldungen(kinder: list[Kind], e: Einteilung) -> list[Meldung]:
-    w = wuensche(kinder, e)
+def wunsch_meldungen(kinder: list[Kind], e: Einteilung, vorlagen: list) -> list[Meldung]:
+    w = wuensche(kinder, e, vorlagen)
     m = []
     paare, ok = w["zusammen"]
     for a, b in sorted(set(paare) - set(ok)):

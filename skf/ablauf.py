@@ -38,7 +38,7 @@ class Ergebnis:
         return self.einteilung is not None and bool(self.lektionen)
 
     def _wunschquote(self) -> str:
-        return _wunschquote_text(wuensche(self.kinder, self.einteilung))
+        return _wunschquote_text(wuensche(self.kinder, self.einteilung, self.schule.vorlagen))
 
     def _kosten_qualitaet(self) -> dict[str, str]:
         from .kosten import chf, kosten, mengen, qualitaet
@@ -192,7 +192,7 @@ def rechne(schule: Schule, kinder: list[Kind], zeitlimit: float = 120, nur_klass
         r.meldungen += pruefe(schule, kinder, r.einteilung, *teil)
         r.meldungen += qualitaet(schule, kinder, r.einteilung, r.bloecke, r.lektionen)
         r.meldungen += rechtspruefung(schule, kinder, r.einteilung, r.bloecke)
-        r.meldungen += wunsch_meldungen(kinder, r.einteilung)
+        r.meldungen += wunsch_meldungen(kinder, r.einteilung, schule.vorlagen)
         r.planung = plane(schule, kinder, r)
     for i in r.infos:
         if not i.optimal and i.zielwert and (i.zielwert - i.schranke) / abs(i.zielwert) > 0.05:
@@ -252,7 +252,7 @@ def pruefe_neu(r: Ergebnis) -> None:
     r.meldungen += pruefe(schule, kinder, e, *teil)
     r.meldungen += qualitaet(schule, kinder, e, r.bloecke, r.lektionen)
     r.meldungen += rechtspruefung(schule, kinder, e, r.bloecke)
-    r.meldungen += wunsch_meldungen(kinder, e)
+    r.meldungen += wunsch_meldungen(kinder, e, schule.vorlagen)
     if r.manuell and r.lektionen:
         r.meldungen.append(Meldung("Hinweis", "Manuell", "Klassen wurden manuell angepasst: Förderlektionen (IF/DaZ) "
                                    "hängen von der Zusammensetzung ab – Stundenplan bei Bedarf neu berechnen."))

@@ -187,7 +187,8 @@ def _rechnen(args) -> None:
     ergebnisse = {}
     for name in gewuenscht:
         schule = lade_schule(args.schule, name, dict(args.gewicht))
-        schule.schuljahr = args.schuljahr or schule.schuljahr
+        if args.schuljahr:   # Klassentypen mit ab/bis: die des gewählten Schuljahrs
+            schule.schuljahr, schule.vorlagen = args.schuljahr, schule.vorlagen_im(args.schuljahr)
         print(f"== Szenario {name}: {len(kinder)} Lernende, {len(schule.schulhaeuser)} Schulhäuser, "
               f"{len(schule.lehrpersonen)} Lehrpersonen, {len(schule.slots)} Zeitfenster/Woche")
         r = rechne(schule, kinder, zeitlimit=args.zeit, nur_klassen=args.nur_klassen)

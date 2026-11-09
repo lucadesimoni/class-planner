@@ -94,7 +94,7 @@ def kriterien(r: Ergebnis) -> list[dict]:
               and any(sh.name == k.bisheriges_schulhaus for sh in s.schulhaeuser))
     neu("Klassenbildung", "Schulhauswechsel gegenüber Vorjahr", f"{gew} Lernende", gew, "schulhaus_gewechselt")
     from .pruefung import wuensche
-    wu = wuensche(r.kinder, e)
+    wu = wuensche(r.kinder, e, r.schule.vorlagen)
     n = len(wu["zusammen"][0]) - len(wu["zusammen"][1])
     neu("Klassenbildung", "Wunsch „zusammen mit“ nicht erfüllt", f"{n} von {len(wu['zusammen'][0])}", n,
         "wunsch_zusammen")

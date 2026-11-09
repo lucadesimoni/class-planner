@@ -482,7 +482,7 @@ Kartendaten © OpenStreetMap-Mitwirkende (nur Kartenkacheln werden geladen, kein
 
 
 def _wuensche_html(r: Ergebnis) -> str:
-    w = wuensche(r.kinder, r.einteilung)
+    w = wuensche(r.kinder, r.einteilung, r.schule.vorlagen)
     e = r.einteilung
 
     def quote(paar):

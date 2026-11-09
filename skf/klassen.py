@@ -19,7 +19,7 @@ from __future__ import annotations
 from collections import defaultdict
 from dataclasses import dataclass, field
 
-from .daten import Kind, Raum, Schule, Vorlage
+from .daten import Kind, Raum, Schule, Vorlage, bisherige_gruppen
 from .geo import luftlinie_m
 from .solver import Loesungsinfo, Regeln, cp_model, loese_mit_regeln
 
@@ -407,11 +407,7 @@ def _verteile_kinder(schule: Schule, ks: list[Kind], kl: list[Klasse],
         kosten.append(w["wunsch_zusammen"] * (1 - sum(zusammen)))
 
     # Kontinuität: Kinder einer bisherigen Klasse (z.B. KG-Gruppe) möglichst zusammen lassen
-    bisher = defaultdict(list)
-    for k in ks:
-        if k.bisherige_klasse:
-            bisher[k.bisherige_klasse].append(k)
-    for name, gruppe in bisher.items():
+    for name, gruppe in bisherige_gruppen(ks, schule.vorlagen).items():
         if len(gruppe) < 2:
             continue
         # Gspänli-Regel: niemand als einziges Kind seiner bisherigen Klasse in der neuen Klasse

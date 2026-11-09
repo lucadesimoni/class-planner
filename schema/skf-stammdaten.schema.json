@@ -128,7 +128,9 @@
         "jahrgaenge": {"$ref": "#/$defs/liste"}, "bezeichnung": {"type": "string"}, "raumtyp": {"type": "string"},
         "min": {"type": "integer", "minimum": 1}, "max": {"type": "integer", "minimum": 1},
         "ideal": {"type": "integer"}, "strafe": {"type": "integer"}, "min_pro_jahrgang": {"type": "integer"},
-        "schulhaeuser": {"$ref": "#/$defs/liste"}
+        "schulhaeuser": {"$ref": "#/$defs/liste"},
+        "ab": {"type": ["string", "integer"], "description": "erlaubt ab Schuljahr, z.B. 2028/29"},
+        "bis": {"type": ["string", "integer"], "description": "erlaubt bis und mit Schuljahr, z.B. 2027/28"}
       }
     },
     "fach": {

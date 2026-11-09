@@ -183,7 +183,7 @@ SPALTEN_TABELLEN = {
     "nutzt": "Nutzt (Raumtyp=Schulhaus)", "stufen": "Stufen (z.B. KG1-6, S1-S3)", "faecher": "Fächer", "jahrgaenge": "Jahrgänge", "schulhaeuser": "Schulhäuser",
     "pensum_min": "Pensum min.", "pensum_max": "Pensum max.", "bisherige_klasse": "Bisherige Klasse",
     "bezeichnung": "Bezeichnung", "raumtyp": "Raumtyp", "min": "Min.", "max": "Max.", "ideal": "Ideal",
-    "strafe": "Strafe", "min_pro_jahrgang": "Min. pro Jahrgang", "dauer": "Dauer (Lektionen)",
+    "strafe": "Strafe", "min_pro_jahrgang": "Min. pro Jahrgang", "ab": "Ab Schuljahr", "bis": "Bis Schuljahr", "dauer": "Dauer (Lektionen)",
     "max_pro_tag": "Max. pro Tag", "merkmal": "Merkmal", "basis": "Basis", "pro_kind": "Pro Kind",
     "frei_bis": "Frei bis", "parallel_zu": "Parallel zu", "quelle": "Quelle",
 }
@@ -412,7 +412,9 @@ def seite_daten() -> None:
         2: "*stufen*: welche Stufen hier zur Schule gehen, z.B. `KG1-6` (Kindergarten und Primar), `S1-S3` (Oberstufe) "
            "oder `5-S3`; leer = alle, für die es Räume gibt. Koordinaten (lat/lon) z.B. aus map.geo.admin.ch.",
         3: "Gleichartige Räume mit `anzahl` zusammenfassen. Nicht verfügbar z.B. `Fr-NM` (Vereinsnutzung).",
-        4: "Erlaubte Klassen: Jahrgänge (`1; 2` = Mehrjahrgangsklasse), Mindest-/Höchstgrösse, Raumtyp.",
+        4: "Erlaubte Klassen: Jahrgänge (`1; 2` = Mehrjahrgangsklasse), Mindest-/Höchstgrösse, Raumtyp. "
+           "*Ab/Bis Schuljahr* (z.B. `2027/28`): Klassentyp nur in diesen Jahren – z.B. Mischklassen 1./2. *bis* "
+           "2027/28 und reine 1., 2., 3. Klassen ab 2028/29 (Prognose und Schuljahreswechsel folgen).",
         6: "Ergänzt oder überschreibt die Förderangebote des Kantonsprofils (gleicher Name).",
     }
     for i, name in namen.items():

@@ -113,6 +113,41 @@ class Vorlage:
     min_pro_jahrgang: int = 0
     schulhaeuser: list[str] | None = None  # None = alle
     bezeichnung: str = ""                   # z.B. "KG" statt "KG1/KG2"
+    ab: str = ""                            # erlaubt ab Schuljahr (z.B. "2028/29"), leer = immer
+    bis: str = ""                           # erlaubt bis und mit Schuljahr, leer = immer
+
+    def gilt(self, schuljahr: str) -> bool:
+        """Ist der Klassentyp im Schuljahr erlaubt? (z.B. Mischklassen 1./2. nur bis 2027/28)"""
+        jahr = schuljahr_beginn(schuljahr)
+        return jahr is None or ((not self.ab or schuljahr_beginn(self.ab) <= jahr)
+                                and (not self.bis or jahr <= schuljahr_beginn(self.bis)))
+
+
+def bisherige_gruppen(kinder: list, vorlagen: list[Vorlage]) -> dict[str, list]:
+    """Kinder je bisheriger Klasse (Kontinuität, Gspänli-Regel). Wer nicht mehr in eine gemeinsame Klasse kann –
+    z.B. eine 1./2. Mischklasse, wenn es nur noch reine 2. und 3. Klassen gibt –, bildet eine eigene Teilgruppe
+    ("1/2a (3)"); die erzwungene Trennung zählt nicht als aufgeteilte Klasse."""
+    roh: dict[str, list] = {}
+    for k in kinder:
+        if k.bisherige_klasse:
+            roh.setdefault(k.bisherige_klasse, []).append(k)
+    gruppen: dict[str, list] = {}
+    for name, ks in roh.items():
+        teil: list[set[str]] = []   # Jahrgänge, die eine Klasse teilen können (zusammenhängend über Klassentypen)
+        for j in dict.fromkeys(k.jahrgang for k in ks):
+            verbunden = [t for t in teil if any(j in v.jahrgaenge and set(v.jahrgaenge) & t for v in vorlagen)]
+            neu = {j}.union(*verbunden)
+            teil = [t for t in teil if t not in verbunden] + [neu]
+        for t in teil:
+            gruppen[name if len(teil) == 1 else f"{name} ({'/'.join(sorted(t))})"] = \
+                [k for k in ks if k.jahrgang in t]
+    return gruppen
+
+
+def schuljahr_beginn(text: str) -> int | None:
+    """"2028/29" (oder "2028") → 2028; ohne Jahreszahl None."""
+    m = re.match(r"\s*(\d{4})(?:\s*/\s*\d{2,4})?\s*$", str(text or ""))
+    return int(m.group(1)) if m else None
 
 
 @dataclass
@@ -250,7 +285,7 @@ class Schule:
     name: str
     jahrgaenge: list[str]
     schulhaeuser: list[Schulhaus]
-    vorlagen: list[Vorlage]
+    vorlagen: list[Vorlage]                # im Schuljahr erlaubte Klassentypen
     max_schulweg_m: dict[str, int]
     umweg_faktor: float
     faecher: dict[str, Fach]
@@ -278,6 +313,11 @@ class Schule:
     hypothese: str = ""                          # Szenario: "Was wäre, wenn …" in Worten
     ziel: str = ""                               # Szenario: Kosten | Qualität | Planung
     gebiete: list = field(default_factory=list)  # geografische Hypothesen (skf.gebiete.Gebiet)
+    alle_vorlagen: list[Vorlage] = field(default_factory=list)  # inkl. der in anderen Schuljahren erlaubten
+
+    def vorlagen_im(self, schuljahr: str) -> list[Vorlage]:
+        """Klassentypen, die in einem (künftigen) Schuljahr erlaubt sind – für Prognose und Schuljahreswechsel."""
+        return [v for v in self.alle_vorlagen or self.vorlagen if v.gilt(schuljahr)]
 
     def tafel(self, jahrgang: str) -> dict[str, int] | None:
         """Stundentafel eines Jahrgangs; Oberstufe: eigene Tafel je Niveau oder gemeinsame ("S1")."""
@@ -566,7 +606,14 @@ def baue_schule(cfg: dict) -> Schule:
             ideal=min(hi, max(lo, int(v.get("ideal", (lo + hi) // 2)))),
             raumtyp=v.get("raumtyp", "Klassenzimmer"), strafe=int(v.get("strafe", 0)),
             min_pro_jahrgang=int(v.get("min_pro_jahrgang", 4 if len(jg) > 1 else 0)),
-            schulhaeuser=_liste(v.get("schulhaeuser")), bezeichnung=v.get("bezeichnung", "")))
+            schulhaeuser=_liste(v.get("schulhaeuser")), bezeichnung=v.get("bezeichnung", ""),
+            ab=_schuljahr_angabe(v.get("ab"), jg, "ab"), bis=_schuljahr_angabe(v.get("bis"), jg, "bis")))
+    schuljahr = str(cfg.get("schuljahr", "") or "")
+    if any(v.ab or v.bis for v in vorlagen) and schuljahr_beginn(schuljahr) is None:
+        raise ValueError("Klassentypen mit 'ab'/'bis' brauchen das Schuljahr der Planung (z.B. schuljahr: 2027/28)")
+    for v in vorlagen:
+        if v.ab and v.bis and schuljahr_beginn(v.ab) > schuljahr_beginn(v.bis):
+            raise ValueError(f"Klassentyp {'/'.join(v.jahrgaenge)}: ab {v.ab} liegt nach bis {v.bis}")
 
     faecher = {name: Fach(name, **(f or {})) for name, f in cfg["faecher"].items()}
     sp = cfg.get("sonderpaedagogik", {}) or {}
@@ -612,7 +659,7 @@ def baue_schule(cfg: dict) -> Schule:
     return Schule(
         name=cfg.get("name", "Schule"),
         jahrgaenge=[str(j) for j in cfg["jahrgaenge"]],
-        schulhaeuser=schulhaeuser, vorlagen=vorlagen,
+        schulhaeuser=schulhaeuser, vorlagen=[v for v in vorlagen if v.gilt(schuljahr)], alle_vorlagen=vorlagen,
         max_schulweg_m={str(k): int(v) for k, v in kb.get("max_schulweg_m", {}).items()},
         umweg_faktor=float(kb.get("umweg_faktor", 1.3)),
         faecher=faecher, stundentafel=stundentafel, lehrpersonen=lehrpersonen,
@@ -628,6 +675,15 @@ def baue_schule(cfg: dict) -> Schule:
         wegzeiten=_wegzeiten(cfg.get("wegzeiten")), uebertritte=dict(cfg.get("uebertritte") or {}),
         kosten=_kosten(cfg.get("kosten")), hypothese=str(cfg.get("_hypothese", "")),
         ziel=_ziel(cfg.get("_ziel")), gebiete=_gebiete(cfg.get("gebiete")))
+
+
+def _schuljahr_angabe(wert, jg: list[str], wo: str) -> str:
+    if wert in (None, ""):
+        return ""
+    text = str(wert).strip()
+    if schuljahr_beginn(text) is None:
+        raise ValueError(f"Klassentyp {'/'.join(jg)}: '{wo}' ist kein Schuljahr wie 2028/29: {text}")
+    return text
 
 
 def _gebiete(roh) -> list:

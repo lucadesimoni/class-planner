@@ -257,7 +257,7 @@ BLAETTER = {
     "Schulhaeuser": ["name", "kuerzel", "adresse", "lat", "lon", "stufen", "nicht_verfuegbar", "nutzt"],
     "Raeume": ["schulhaus", "name", "typ", "anzahl", "plaetze", "nicht_verfuegbar"],
     "Klassentypen": ["jahrgaenge", "bezeichnung", "raumtyp", "min", "max", "ideal", "strafe", "min_pro_jahrgang",
-                     "schulhaeuser"],
+                     "schulhaeuser", "ab", "bis"],
     "Faecher": ["name", "raumtyp", "dauer", "max_pro_tag"],
     "Lehrpersonen": ["name", "kuerzel", "faecher", "jahrgaenge", "schulhaeuser", "pensum_min", "pensum_max",
                      "nicht_verfuegbar", "bisherige_klasse"],

@@ -227,9 +227,9 @@ def _prognose(schule: Schule, kinder: list[Kind], r, p: Planung) -> None:
         gesamt = sum(anzahl[z] for z in ziele)
         return {z: (anzahl[z] / gesamt if gesamt else 1 / len(ziele)) for z in ziele}
 
-    def klassen_noetig(n: float, j: str) -> int:
-        v = [v for v in schule.vorlagen if j in v.jahrgaenge and len(v.jahrgaenge) == 1] or \
-            [v for v in schule.vorlagen if j in v.jahrgaenge]
+    def klassen_noetig(n: float, j: str, vorlagen) -> int:
+        v = [v for v in vorlagen if j in v.jahrgaenge and len(v.jahrgaenge) == 1] or \
+            [v for v in vorlagen if j in v.jahrgaenge]
         return math.ceil(n / max(x.max for x in v) - 1e-9) if v and n > 0.5 else 0
 
     namen = {sh.name for sh in schule.schulhaeuser}
@@ -265,21 +265,26 @@ def _prognose(schule: Schule, kinder: list[Kind], r, p: Planung) -> None:
                             dazu(stand, j, q["schulhaus"] if q["schulhaus"] in namen else None,
                                  total / len(stufen) * a)
         schuljahr = schule.schuljahr if n == 0 and schule.schuljahr else _schuljahr_plus(schule.schuljahr, n)
+        # Klassentypen dieses Jahres (z.B. Mischklassen 1./2. nur bis zu einem Schuljahr); ändern sie sich, gilt die
+        # Kalibrierung an den heutigen Klassen nicht mehr
+        vorlagen = schule.vorlagen_im(schuljahr)
+        wie_heute = {id(v) for v in vorlagen} == {id(v) for v in schule.vorlagen}
         for sh in schule.schulhaeuser:
-            raumtypen = {raum.typ for raum in sh.raeume} & {v.raumtyp for v in schule.vorlagen
+            raumtypen = {raum.typ for raum in sh.raeume} & {v.raumtyp for v in vorlagen
                                                            if not v.schulhaeuser or sh.name in v.schulhaeuser}
             for typ in sorted(raumtypen):
-                stufen = [j for j in jg if any(j in v.jahrgaenge and v.raumtyp == typ for v in schule.vorlagen)
+                stufen = [j for j in jg if any(j in v.jahrgaenge and v.raumtyp == typ for v in vorlagen)
                           and _fuehrt(schule, sh, j)]
                 if not stufen:
                     continue
                 lernende = sum(stand[j, sh.name] for j in stufen)
-                if len(stufen) <= 2:  # KG: Jahrgänge gemischt
-                    v = [v for v in schule.vorlagen if v.raumtyp == typ]
+                gemischt = [v for v in vorlagen if v.raumtyp == typ and set(stufen) <= set(v.jahrgaenge)]
+                if gemischt:  # alle Stufen dürfen eine Klasse teilen (z.B. KG1/KG2)
+                    v = gemischt
                     klassen = math.ceil(lernende / max(x.max for x in v) - 1e-9) if lernende > 0.5 else 0
                 else:
-                    klassen = sum(klassen_noetig(stand[j, sh.name], j) for j in stufen)
-                if ist:
+                    klassen = sum(klassen_noetig(stand[j, sh.name], j, vorlagen) for j in stufen)
+                if ist and wie_heute:
                     if n == 0:
                         korrektur[sh.name, typ] = ist[sh.name, typ] - klassen
                     klassen = max(0, klassen + korrektur.get((sh.name, typ), 0)) if lernende > 0.5 else 0
