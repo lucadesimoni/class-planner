@@ -141,6 +141,31 @@ def gesperrte_slots(schule: Schule, klasse: Klasse, fach: str, lp: Lehrperson | 
     return gesperrt
 
 
+def zielklassen(schule: Schule, klassen: list[Klasse], nach_id: dict[str, Kind],
+                kann: set[tuple[str, int]]) -> dict[str, int]:
+    """Neue Klasse → Index der Lehrperson, die sie weiterführt. Zuordnung, die möglichst viele Lehrpersonen mit
+    ihren bisherigen Kindern weiterführen lässt, dann möglichst viele Kinder (jede Lehrperson und jede Klasse höchstens
+    einmal, mind. 2 bisherige Kinder; ``kann``: (Klasse, Lehrperson) möglich). Nach einer geteilten Mischklasse
+    1./2. haben mehrere Lehrpersonen Kinder in denselben Klassen – gierig bliebe eine davon ohne Klasse."""
+    paare = {(c.name, ti): n for ti, lp in enumerate(schule.lehrpersonen) if lp.bisherige_klasse
+             for c in klassen if (c.name, ti) in kann
+             for n in [sum(nach_id[i].bisherige_klasse == lp.bisherige_klasse for i in c.kinder if i in nach_id)]
+             if n >= 2}
+    if not paare:
+        return {}
+    m = cp_model.CpModel()
+    x = {p: m.new_bool_var("") for p in sorted(paare)}
+    for gruppe in ({p for p in x if p[0] == kl} for kl in {p[0] for p in x}):
+        m.add_at_most_one(x[p] for p in gruppe)
+    for gruppe in ({p for p in x if p[1] == ti} for ti in {p[1] for p in x}):
+        m.add_at_most_one(x[p] for p in gruppe)
+    m.maximize(sum((1000 + paare[p]) * v for p, v in x.items()))
+    solver = cp_model.CpSolver()
+    solver.parameters.max_time_in_seconds, solver.parameters.num_workers = 5, 1
+    solver.solve(m)
+    return {kl: ti for (kl, ti), v in x.items() if solver.value(v)}
+
+
 def verteile_lehrauftraege(schule: Schule, klassen: list[Klasse], zeitlimit: float = 30,
                            kinder: list[Kind] | None = None,
                            verbote: list[list[tuple[str, str, str]]] | None = None) -> tuple[list[Block], Loesungsinfo]:
@@ -263,22 +288,20 @@ def verteile_lehrauftraege(schule: Schule, klassen: list[Klasse], zeitlimit: flo
             u.append(uv)
         kosten.append(w["lehrperson_pro_klasse"] * sum(u))
 
-    # Kontinuität: Lehrperson führt ihre bisherige Klasse weiter (Bonus nach Anteil der Kinder)
-    if nach_id:
-        klasse_von = {c.name: c for c in klassen}
-        total = defaultdict(int)
-        for b in bloecke:
-            if b.art == "unterricht":
-                total[b.klasse] += b.lektionen
-        for (bi, ti), av in a.items():
-            b, lp = bloecke[bi], schule.lehrpersonen[ti]
-            if b.art != "unterricht" or not lp.bisherige_klasse:
-                continue
-            ks = klasse_von[b.klasse].kinder
-            anteil = sum(nach_id[i].bisherige_klasse == lp.bisherige_klasse for i in ks) / max(1, len(ks))
-            bonus = round(w["lehrperson_kontinuitaet"] * anteil * b.lektionen / total[b.klasse])
-            if bonus:
-                kosten.append(-bonus * av)
+    total = defaultdict(int)
+    for b in bloecke:
+        if b.art == "unterricht":
+            total[b.klasse] += b.lektionen
+    # Kontinuität: Lehrperson führt ihre bisherige Klasse weiter – in der Klasse, in die die meisten ihrer bisherigen
+    # Kinder kommen (Zielklasse, je Klasse höchstens eine Lehrperson). Wird eine Mischklasse 1./2. in reine 2. und
+    # 3. Klassen geteilt, ist das die Klasse mit dem grösseren Teil. Ein klares Ziel (statt eines Bonus für jede Klasse
+    # mit ein paar ihrer Kinder) plus Startlösung findet der Solver auch in kurzer Zeit.
+    kann = {(bloecke[bi].klasse, ti) for bi, ti in a if bloecke[bi].art == "unterricht"}
+    for kl, ti in zielklassen(schule, klassen, nach_id, kann).items():
+        for bi, b in enumerate(bloecke):
+            if b.klasse == kl and b.art == "unterricht" and (bi, ti) in a:
+                kosten.append(-round(w["lehrperson_kontinuitaet"] * b.lektionen / total[kl]) * a[bi, ti])
+                m.add_hint(a[bi, ti], 1)
 
     lp_index = {lp.name: ti for ti, lp in enumerate(schule.lehrpersonen)}
     for verbot in verbote or []:

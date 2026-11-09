@@ -11,13 +11,21 @@ Neue Version: `python scripts/version.py 0.2.0`.
 - **Klassentypen mit Zeitraum** (`ab`/`bis` Schuljahr, auch als Spalten „Ab/Bis Schuljahr“ in den Stammdaten und im
   Excel-Austausch): z.B. Mischklassen 1./2. nur bis 2026/27, danach reine 1., 2., 3. Klassen. Klassenbildung, Prüfung
   (Hinweis auf nicht verwendete Klassentypen), Prognose (pro Jahr die dann geltenden Klassentypen) und
-  Schuljahreswechsel folgen. Beispiel Malters: 1./2. Mischklassen enden mit 2026/27; Ergebnisse neu gerechnet.
+  Schuljahreswechsel folgen.
+- **Übergang Mischklassen → Jahrgangsklassen:** Ergebnis (Reiter Wünsche, Bericht) zeigt je bisherige Mischklasse,
+  wohin ihre Kinder je Jahrgang kommen und welche Klasse die bisherige Lehrperson übernimmt.
+- **Beispiel Malters:** 2026/27 gab es acht Mischklassen 1./2. (vier je Primarschulhaus); ab 2027/28 nur noch reine
+  1., 2. und 3. Klassen (auch keine 3./4. mehr). Ergebnisse neu gerechnet.
+- Seitenleiste im Glas-Design wie site-development: Schritte ohne Radio-Kreise, aktueller Schritt als helle Kapsel.
 
 ### Behoben
 - Kontinuität und Gspänli-Regel zählten Kinder einer bisherigen Klasse als „getrennt“, auch wenn sie keine gemeinsame
   Klasse mehr haben können (KG-Gruppe → 1. Klasse und KG2, Mischklasse → reine Jahrgangsklassen); jetzt je Jahrgang.
 - Prognose: Klassenzimmer mit nur zwei Stufen wurden immer als eine Mischgruppe gerechnet; jetzt nur, wenn ein
   Klassentyp das Mischen in diesem Jahr erlaubt.
+- Lehrperson führt ihre Klasse weiter: der Bonus verteilte sich auf jede Klasse mit ein paar ihrer Kinder und kam
+  kaum zum Tragen (auch ohne Mischklassen). Jetzt bekommt jede Lehrperson eine Zielklasse – die Zuordnung, die
+  möglichst viele Lehrpersonen mit möglichst vielen ihrer bisherigen Kinder weiterführen lässt – samt Startlösung.
 
 ### Geändert
 - **Glas-Design wie site-development:** durchscheinende, weichgezeichnete Flächen mit hellem Rand über einem

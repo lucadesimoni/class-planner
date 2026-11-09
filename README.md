@@ -506,7 +506,9 @@ lehrpersonen:
 diesen Schuljahren – z.B. Mischklassen 1./2. *bis* 2026/27, danach reine 1., 2. und 3. Klassen. Die Klassenbildung
 nutzt die Klassentypen des geplanten Schuljahrs (`schuljahr`), die Prognose in jedem Jahr die dann geltenden, und der
 Schuljahreswechsel übernimmt die Angaben. Kinder einer bisherigen Mischklasse, die keine gemeinsame Klasse mehr haben
-können, zählen nicht als „getrennt“ (Kontinuität und Gspänli-Regel gelten je Jahrgang).
+können, zählen nicht als „getrennt“ (Kontinuität und Gspänli-Regel gelten je Jahrgang). Die bisherige Lehrperson
+übernimmt die Klasse mit den meisten ihrer Kinder (wenn sie dort unterrichten kann; bei mehreren Lehrpersonen die
+beste gemeinsame Zuordnung). Das Ergebnis zeigt den **Übergang** je bisherige Mischklasse (Reiter *Wünsche*, Bericht).
 
 **Verfügbarkeiten** (`nicht_verfuegbar`) gibt es für Lehrpersonen, Schulhäuser und Räume:
 `Mi` = ganzer Tag, `Fr-NM` = Halbtag, `Mo-VM-1` = einzelne Lektion.

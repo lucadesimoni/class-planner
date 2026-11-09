@@ -112,3 +112,34 @@ def test_cli_schuljahr_waehlt_klassentypen(tmp_path, monkeypatch):
     with pytest.raises(SystemExit):
         cli.main(["rechnen", str(pfad), str(VORLAGE / "kinder.csv"), "-o", str(tmp_path / "o"), "--schuljahr", "2028/29"])
     assert ["1", "2"] in gesehen["typen"]
+
+
+def test_uebergang_und_lehrperson_fuehrt_weiter():
+    """Mischklasse 1./2. → reine 2. und 3. Klassen: der Übergang wird erkannt (KG-Gruppen → 1./KG2 nicht), und jede
+    bisherige Lehrperson bekommt eine Klasse mit möglichst vielen ihrer Kinder – auch wenn zwei Lehrpersonen Kinder in
+    denselben Klassen haben (gierig bliebe eine ohne Klasse)."""
+    from skf.daten import Lehrperson
+    from skf.klassen import Einteilung, Klasse
+    from skf.lehrauftrag import zielklassen
+    from skf.pruefung import uebergang
+
+    s = lade_schule(VORLAGE / "schule.yaml")
+    s.jahrgaenge = ["KG1", "KG2", "1", "2", "3"]
+    s.vorlagen = [Vorlage(["KG1", "KG2"], 10, 22, 19, bezeichnung="KG")] + [Vorlage([j], 5, 22, 20) for j in "123"]
+    kinder = ([_kind(i, "2", "1/2a") for i in range(0, 4)] + [_kind(i, "3", "1/2a") for i in range(4, 7)]
+              + [_kind(i, "2", "1/2b") for i in range(7, 10)] + [_kind(i, "3", "1/2b") for i in range(10, 14)]
+              + [_kind(i, "1", "KGa") for i in range(14, 17)] + [_kind(i, "KG2", "KGa") for i in range(17, 19)])
+    raum = s.schulhaeuser[0].raeume[0]
+    klassen = [Klasse(n, s.schulhaeuser[0].name, raum, s.vorlagen[0], {}, [k.id for k in kinder if k.jahrgang == j])
+               for n, j in (("2a", "2"), ("3a", "3"), ("1a", "1"), ("KGa", "KG2"))]
+    e = Einteilung(klassen, {k.id: klassen[0].schulhaus for k in kinder},
+                   {k.id: c.name for c in klassen for k in kinder if k.id in c.kinder}, {}, [], [])
+    s.lehrpersonen = [Lehrperson("A", ["Deutsch"], 20, 28, bisherige_klasse="1/2a"),
+                      Lehrperson("B", ["Deutsch"], 20, 28, bisherige_klasse="1/2b")]
+    zeilen = uebergang(s, kinder, e)
+    assert [z["bisher"] for z in zeilen] == ["1/2a", "1/2b"]
+    assert [(t["jahrgaenge"], t["klassen"]) for t in zeilen[0]["teile"]] == [(["2"], {"2a": 4}), (["3"], {"3a": 3})]
+    kann = {(c.name, ti) for c in klassen for ti in (0, 1)}
+    nach_id = {k.id: k for k in kinder}
+    assert zielklassen(s, klassen, nach_id, kann) == {"2a": 0, "3a": 1}   # A: 4 in 2a, B: 4 in 3a
+    assert zielklassen(s, klassen, nach_id, kann - {("3a", 1)}) == {"2a": 1, "3a": 0}   # B kann nur 2a

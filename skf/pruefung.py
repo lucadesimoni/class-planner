@@ -609,6 +609,39 @@ def wuensche(kinder: list[Kind], e: Einteilung, vorlagen: list) -> dict:
             "schulhaus": (mit_wunsch_sh, sh_ok), "gruppen": gruppen, "allein": allein}
 
 
+def uebergang(schule: Schule, kinder: list[Kind], e: Einteilung, bloecke: list | None = None) -> list[dict]:
+    """Übergang aus Klassen, deren Klassentyp es nicht mehr gibt (z.B. Mischklasse 1./2. → reine 2. und 3. Klassen):
+    je bisherige Klasse die Teile nach Jahrgang mit ihren neuen Klassen und wohin die bisherige Lehrperson geht.
+    Der jährliche Wechsel (KG-Gruppe → 1. Klasse und KG2, 6. Klasse → Sek) gehört nicht dazu."""
+    from .uebertritt import naechste  # uebertritt importiert daten, pruefung nicht
+    vorher = {}
+    for j, ziele in naechste(schule).items():
+        for z in ziele:
+            vorher.setdefault(z, j)
+    roh: dict[str, list[Kind]] = defaultdict(list)
+    for k in kinder:
+        if k.bisherige_klasse and k.id in e.klasse_von:
+            roh[k.bisherige_klasse].append(k)
+    lektionen: dict[str, Counter] = defaultdict(Counter)   # Lehrperson → neue Klasse → Lektionen
+    for b in bloecke or []:
+        if b.art == "unterricht" and b.lehrperson:
+            lektionen[b.lehrperson][b.klasse] += b.lektionen
+    zeilen = []
+    for name in sorted(roh):
+        frueher = {vorher.get(k.jahrgang, k.jahrgang) for k in roh[name]}
+        teile = bisherige_gruppen(roh[name], schule.vorlagen)
+        if len(teile) < 2 or len(frueher) < 2 or any(frueher <= set(v.jahrgaenge) for v in schule.vorlagen):
+            continue
+        zeilen.append({
+            "bisher": name, "frueher": sorted(frueher, key=schule.jahrgaenge.index), "lernende": len(roh[name]),
+            "teile": [{"jahrgaenge": sorted({k.jahrgang for k in ks}), "lernende": len(ks),
+                       "klassen": dict(Counter(e.klasse_von[k.id] for k in ks).most_common())}
+                      for ks in sorted(teile.values(), key=lambda ks: schule.jahrgaenge.index(ks[0].jahrgang))],
+            "lehrpersonen": [{"name": lp.name, "klassen": [k for k, _ in lektionen[lp.name].most_common(2)]}
+                             for lp in schule.lehrpersonen if lp.bisherige_klasse == name]})
+    return zeilen
+
+
 def wunsch_meldungen(kinder: list[Kind], e: Einteilung, vorlagen: list) -> list[Meldung]:
     w = wuensche(kinder, e, vorlagen)
     m = []

@@ -69,6 +69,17 @@ def bisherige_klasse(schulhaus, jg):
 OBERSTUFE = {"S1": {"A": 34, "B": 32, "C": 15}, "S2": {"A": 33, "B": 22, "C": 24}, "S3": {"A": 32, "B": 33, "C": 15}}
 
 
+def mischklassen_vorjahr(kinder):
+    """2026/27 gab es Mischklassen 1./2. (vier je Primarschulhaus); ab 2027/28 nur noch reine 1., 2., 3. Klassen.
+    Die heutigen 2. und 3. Klässler kommen darum aus "BM 1/2a" … "BM 1/2d" (beide Jahrgänge in jeder Klasse)."""
+    for kuerzel in {v[0] for v in SCHULHAEUSER.values()}:
+        for jg in ("2", "3"):
+            ks = sorted((k for k in kinder if k["jahrgang"] == jg and k["bisherige_klasse"].startswith(kuerzel + " ")),
+                        key=lambda k: k["id"])
+            for i, k in enumerate(ks):
+                k["bisherige_klasse"] = f"{kuerzel} 1/2{'abcd'[i % 4]}"
+
+
 def oberstufe(primar):
     rng = random.Random(6104)
     out, nr = [], len(primar)
@@ -200,6 +211,7 @@ def main():
         if kandidaten:
             a["zusammen_mit"] = random.choice(kandidaten)["id"]
 
+    mischklassen_vorjahr(kinder)
     kinder += oberstufe(kinder)
     if len(sys.argv) > 1 and sys.argv[1] == "uebertritt":  # Beispieldaten für den Schuljahreswechsel
         from pathlib import Path

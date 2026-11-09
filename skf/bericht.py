@@ -14,7 +14,7 @@ from .datenablage import schreibe_ergebnis_json
 from .icons import PFADE
 from .version import __version__
 from .ablauf import Ergebnis
-from .pruefung import SCHWEREGRADE, Meldung, springstunden, wuensche
+from .pruefung import SCHWEREGRADE, Meldung, springstunden, uebergang, wuensche
 
 esc = html.escape
 
@@ -509,8 +509,34 @@ def _wuensche_html(r: Ergebnis) -> str:
                + "".join(zeilen) + "</table></div></details>") if zeilen else ""
     offen = [f"<li>{esc(a)} ({esc(e.klasse_von[a])}) und {esc(b)} ({esc(e.klasse_von[b])})</li>"
              for a, b in sorted(set(w["zusammen"][0]) - set(w["zusammen"][1]))]
-    return (kacheln + tabelle + (f"<details><summary>Nicht erfüllte Wünsche „zusammen mit“ ({len(offen)})</summary>"
+    return (_uebergang_html(r) + kacheln + tabelle + (f"<details><summary>Nicht erfüllte Wünsche „zusammen mit“ ({len(offen)})</summary>"
                                  f"<ul>{''.join(offen)}</ul></details>" if offen else ""))
+
+
+def _uebergang_html(r: Ergebnis) -> str:
+    """Übergang aus Klassen, die es nicht mehr gibt (z.B. Mischklassen 1./2. → reine 2. und 3. Klassen)."""
+    zeilen = uebergang(r.schule, r.kinder, r.einteilung, r.bloecke)
+    if not zeilen:
+        return ""
+
+    def teil(t):
+        neu = ", ".join(f"{esc(k)} ({n})" for k, n in t["klassen"].items())
+        allein = [k for k, n in t["klassen"].items() if n == 1 and t["lernende"] > 1]
+        return (f"<div><b>{esc('/'.join(t['jahrgaenge']))}. Klasse</b> · {t['lernende']} → {neu}"
+                + (f" <span class='badge sev-h'>{ICON['Hinweis']} allein in {esc(', '.join(allein))}</span>"
+                   if allein else "") + "</div>")
+    html = "".join(
+        f"<tr><td>{esc(z['bisher'])}</td><td class='num'>{z['lernende']}</td><td>{''.join(teil(t) for t in z['teile'])}"
+        f"</td><td>{'<br>'.join(esc(lp['name']) + ' → ' + esc(', '.join(lp['klassen']) or '–') for lp in z['lehrpersonen'])}"
+        f"</td></tr>" for z in zeilen)
+    neu = sorted({k for z in zeilen for t in z["teile"] for k in t["klassen"]})
+    return (f"<div class='panel rein'><h3>Übergang: {len(zeilen)} bisherige Klassen werden nach Jahrgang geteilt</h3>"
+            f"<p class='fg2'>Klassentypen dieser Klassen gibt es im Schuljahr {esc(r.schule.schuljahr)} nicht mehr "
+            f"(z.B. Mischklassen 1./2. → reine Jahrgangsklassen). {sum(z['lernende'] for z in zeilen)} Lernende aus "
+            f"{len(zeilen)} Klassen gehen in {len(neu)} Klassen; zusammen bleibt, wer im selben Jahrgang ist "
+            "(Gspänli-Regel je Jahrgang). Bisherige Lehrperson → Klasse mit den meisten ihrer Lektionen.</p>"
+            "<div class='scroll'><table><tr><th>bisher</th><th class='num'>Lernende</th><th>neu je Jahrgang (Anzahl)</th>"
+            f"<th>Lehrperson bisher → neu</th></tr>{html}</table></div></div>")
 
 
 def _empfehlungen_html(r: Ergebnis) -> str:

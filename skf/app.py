@@ -70,6 +70,21 @@ div[data-testid="stVerticalBlockBorderWrapper"][class*="border"] { border-radius
 [data-testid="stSidebar"] { background:rgba(255,255,255,.45) !important; border-width:0 1px 0 0 !important;
   box-shadow:inset -1px 0 0 rgba(255,255,255,.6) !important; }
 [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p { font-size:13px; }
+/* Schritte in der Seitenleiste wie die Navigation von site-development: ohne Radio-Kreis, aktueller Schritt als
+   helle Glas-Kapsel */
+[data-testid="stSidebar"] [role="radiogroup"] { gap:2px; width:100%; align-items:stretch; }
+[data-testid="stSidebar"] [data-testid="stElementContainer"]:has([data-testid="stRadio"]),
+[data-testid="stSidebar"] [data-testid="stRadio"], [data-testid="stSidebar"] [data-testid="stRadio"] > div { width:100% !important; }
+[data-testid="stSidebar"] [data-testid="stRadioOption"] { width:100%; margin:0; padding:6px 10px; border-radius:12px;
+  cursor:pointer; transition:background .15s; }
+[data-testid="stSidebar"] [data-testid="stRadioOption"] > div > div:first-child { display:none; }
+[data-testid="stSidebar"] [data-testid="stRadioOption"] p { font-size:14px; }
+[data-testid="stSidebar"] [data-testid="stRadioOption"]:hover { background:rgba(255,255,255,.45); }
+[data-testid="stSidebar"] [data-testid="stRadioOption"][data-selected="true"] { background:rgba(255,255,255,.8);
+  box-shadow:0 1px 3px rgba(22,40,60,.08), inset 0 1px 0 #fff; }
+[data-testid="stSidebar"] [data-testid="stRadioOption"][data-selected="true"] p { font-weight:600; color:var(--skf-accent); }
+[data-testid="stSidebar"] [data-testid="stRadioOption"]:has(input:focus-visible) {
+  box-shadow:0 0 0 2px rgba(47,93,80,.35), inset 0 1px 0 #fff; }
 h1, h2, h3 { letter-spacing:-.01em; color:var(--skf-ink); }
 h2 { font-size:21px !important; font-weight:700 !important; }
 h3 { font-size:16px !important; font-weight:600 !important; }
