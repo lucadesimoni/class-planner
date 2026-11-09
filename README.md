@@ -303,7 +303,7 @@ Fächer nach Lehrplan 21 (*NMG*, *BG*, *TTG*, *Bewegung und Sport*), *Stellvertr
 ## Beispiel Malters
 
 ```bash
-skf rechnen beispiele/malters/schule.yaml beispiele/malters/kinder.csv -o ausgabe -s alle
+skf rechnen beispiele/malters/schule.yaml beispiele/malters/kinder.csv -o ausgabe -s alle -t 240
 ```
 
 Das Beispiel bildet die Volksschule Malters (LU) nach: die Primarschulhäuser
